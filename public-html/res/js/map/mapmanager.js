@@ -19,7 +19,6 @@ class MapManager extends Updateable{
         this.map[i][j].init();
       }
     }
-    this.game.canvas.addEventListener("click",this.onClick);
   }
   update(){
     for(let i = 0; i < CONFIG.MAP_X_SIZE; i++){
