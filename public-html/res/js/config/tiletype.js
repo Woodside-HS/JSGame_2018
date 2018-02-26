@@ -4,4 +4,4 @@ const TILE_TYPES = {
   GRASS: 1,
   ROCK: 2,
   WATER: 3
-}
+};
