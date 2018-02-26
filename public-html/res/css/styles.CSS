@@ -1,0 +1,32 @@
+
+body{
+     background-color: #241C00;
+  }
+
+
+  #wrapperDiv{
+  margin:auto;
+  width:1000px;
+  height:900px;
+  border: black solid 2px;
+  margin-top: 20px;
+  background-color: black;
+}
+
+#menuDiv{
+  width:1000px;
+  height:100px;
+  float:left;
+  background-color: green;
+}
+
+#infoDiv{
+  width:100px;
+  height:800px;
+  float:left;
+  background-color: #C88425;
+}
+
+#canvas{
+    float:left;
+}
