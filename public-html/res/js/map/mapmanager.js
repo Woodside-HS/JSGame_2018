@@ -17,8 +17,15 @@ class MapManager extends Updateable {
     }
     for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) { // columns of rows
       for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
-        if(normalizePerlin(noise.simplex2(this.map[i][j].cloc.x/this.map.length,this.map[i][j].cloc.y/this.map[i].length))<0.5){
+        this.map[i][j].perlin = normalizePerlin(noise.perlin2(
+                this.map[i][j].cloc.x / this.map.length * MAP_CONFIG.NOISE_SCALE,
+                this.map[i][j].cloc.y / this.map[i].length * MAP_CONFIG.NOISE_SCALE
+                ));
+        if (this.map[i][j].perlin > 1 - MAP_CONFIG.ROCK_PROBABILITY) {
           this.map[i][j].tileType = TILE_TYPES.ROCK;
+        } else if (this.map[i][j].perlin > MAP_CONFIG.WATER_RANGE[0] &&
+                this.map[i][j].perlin < MAP_CONFIG.WATER_RANGE[1]) {
+          this.map[i][j].tileType = TILE_TYPES.WATER;
         }
         this.map[i][j].init();
       }
