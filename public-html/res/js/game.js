@@ -30,6 +30,12 @@ class Game extends Updateable {
       throw "No valid canvas found!";
     this.canvas.width = CONFIG.CANVAS_WIDTH;
     this.canvas.height = CONFIG.CANVAS_HEIGHT;
+    this.canvas.click = function(e) {
+      let mouseclocx = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
+      let mouseclocy = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
+      game.mapManager.towermanager.towers[mouseclocx][mouseclocy]= new Tower(game,new Vector2D(mouseclocx,mouseclocy));
+    }
+
     //  create the context
     this.context = this.canvas.getContext("2d");
     if (!this.context)
