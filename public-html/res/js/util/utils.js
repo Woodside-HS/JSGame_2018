@@ -36,5 +36,8 @@ function getRandomColor() {
 function normalizePerlin(value) {
   let SQ2 = Math.sqrt(2);
   let output = value + (SQ2 / 2.0);
+  if(output/SQ2<0){
+    console.log("b");
+  }
   return output / SQ2;
 }
