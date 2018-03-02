@@ -9,7 +9,7 @@ const CONFIG = {
   FRAME_RATE: 60, //fps
   MAP_X_SIZE: 100, //measured in tiles
   MAP_Y_SIZE: 100, //measred in tiles
-  TILE_SIZE: 8, //Measured in px
+  TILE_SIZE: 6, //Measured in px
   CANVAS_WIDTH: 0, //To be reset later in the file
-  CANVAS_HEIGHT: 0, //To be reset later in the file
+  CANVAS_HEIGHT: 0 //To be reset later in the file
 };
