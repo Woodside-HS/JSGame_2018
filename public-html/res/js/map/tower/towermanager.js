@@ -14,9 +14,21 @@ class TowerManager extends Updateable {
     }
   }
   update() {
-
+    for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
+      for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
+        if(this.towers[i][j]){
+          this.towers[i][j].update();
+        }
+      }
+    }
   }
   render() {
-
+    for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
+      for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
+        if(this.towers[i][j]){
+          this.towers[i][j].render();
+        }
+      }
+    }
   }
 }
