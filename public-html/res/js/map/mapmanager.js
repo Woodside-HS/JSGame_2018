@@ -27,6 +27,9 @@ class MapManager extends Updateable {
                 this.map[i][j].perlin < MAP_CONFIG.WATER_RANGE[1]) {
           this.map[i][j].tileType = TILE_TYPES.WATER;
         }
+        else {
+          this.map[i][j].tileType = TILE_TYPES.GRASS;
+        }
         this.map[i][j].init();
       }
     }
@@ -42,6 +45,15 @@ class MapManager extends Updateable {
     for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
       for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
         this.map[i][j].render();
+      }
+    }
+  }
+  getStartLocation(){
+    for(let i=0;i<this.map.length;i++){
+      for(let j=0;j<this.map[i].length;j++){
+        if(map[i][j].tileType == TILE_TYPES.GRASS){
+          return new Vector2D(i,j);
+        }
       }
     }
   }

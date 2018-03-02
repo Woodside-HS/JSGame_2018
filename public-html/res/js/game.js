@@ -4,14 +4,13 @@
 window.addEventListener('load', setup, false);
 
 var game;   // the global game object
-var frameRate = 60;
 
 function setup() {
   CONFIG.INIT();
   game = new Game();
   game.init();
   game.update();
-  window.setInterval(draw, 1000 / frameRate);
+  window.setInterval(draw, 1000 / CONFIG.FRAME_RATE);
 }
 
 function draw() {   // the animation loop
@@ -24,6 +23,7 @@ class Game extends Updateable {
   constructor() {   // from setup()
     super();
     this.mapManager = new MapManager(this);
+    this.userInterface = new UserInterface(this);
     //  create the canvas
     this.canvas = document.getElementById(CONFIG.CANVAS_NAME);
     if (!this.canvas)
@@ -38,12 +38,15 @@ class Game extends Updateable {
   }
   init() {
     this.mapManager.init();
+    this.userInterface.init();
   }
   update() {
     this.mapManager.update();
+    this.userInterface.update();
   }
   render() {
     this.mapManager.render();
+    this.userInterface.render();
   }
 
 }
