@@ -1,0 +1,3 @@
+const UI_CONFIG = {
+  MINIMAP_TILE_SIZE: 1
+};

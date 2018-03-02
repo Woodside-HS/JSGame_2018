@@ -14,11 +14,11 @@ class Tile extends Updateable{
   render(){
     this.game.context.fillStyle="#AABBAA";
     this.game.context.strokeStyle="#001122";
-    if(this.tileType==TILE_TYPES.ROCK){
-      this.game.context.fillStyle="#000000";
-    }
-    else if(this.tileType==TILE_TYPES.WATER){
-      this.game.context.fillStyle="#0000FF";
+    switch (this.tileType){
+      case TILE_TYPES.ROCK:
+        this.game.context.fillStyle = "#000000";
+      case TILE_TYPES.WATER:
+        this.game.context.fillStyle="#0000FF";
     }
     this.game.context.fillRect(this.loc.x, this.loc.y, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
   }
