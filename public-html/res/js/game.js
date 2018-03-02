@@ -32,11 +32,11 @@ class Game extends Updateable {
     this.canvas.height = CONFIG.CANVAS_HEIGHT;
 
     //for debugging purposes, places tower on click
-    this.canvas.onclick = function(e) {
-      let mouseclocx = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
-      let mouseclocy = Math.floor(e.offsetY/CONFIG.TILE_SIZE);
-      game.mapManager.towermanager.towers[mouseclocx][mouseclocy]= new Tower(game,new Vector2D(mouseclocx,mouseclocy));
-    }
+    // this.canvas.onclick = function(e) {
+    //   let mouseclocx = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
+    //   let mouseclocy = Math.floor(e.offsetY/CONFIG.TILE_SIZE);
+    //   game.mapManager.towermanager.towers[mouseclocx][mouseclocy]= new Tower(game,new Vector2D(mouseclocx,mouseclocy));
+    // }
 
     //  create the context
     this.context = this.canvas.getContext("2d");
