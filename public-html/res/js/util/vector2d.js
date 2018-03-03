@@ -22,7 +22,7 @@ class Vector2D{
   }
   multiply(x){
     this.x*=x;
-    this.y*=y;
+    this.y*=x;
     this.upPols();
   }
   subtract(vec){
