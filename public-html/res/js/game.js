@@ -35,7 +35,7 @@ class Game extends Updateable {
     // this.canvas.onclick = function(e) {
     //   let mouseclocx = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
     //   let mouseclocy = Math.floor(e.offsetY/CONFIG.TILE_SIZE);
-    //   game.mapManager.towermanager.towers[mouseclocx][mouseclocy]= new Tower(game,new Vector2D(mouseclocx,mouseclocy));
+    //   game.mapManager.towermanager.towers[mouseclocx][mouseclocy]= new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
     // }
 
     //  create the context
