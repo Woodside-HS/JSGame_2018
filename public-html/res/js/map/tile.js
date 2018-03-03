@@ -17,8 +17,10 @@ class Tile extends Updateable{
     switch (this.tileType){
       case TILE_TYPES.ROCK:
         this.game.context.fillStyle = "#000000";
+        break;
       case TILE_TYPES.WATER:
         this.game.context.fillStyle="#0000FF";
+        break; 
     }
     this.game.context.fillRect(this.loc.x, this.loc.y, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
   }

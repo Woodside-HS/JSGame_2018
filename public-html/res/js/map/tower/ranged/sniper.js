@@ -9,14 +9,15 @@ class Sniper extends Ranged{
     this.hp=this.maxhp;
     this.bulletspeed=SNIPER_BULLET_SPEED;
     this.bulletsize=SNIPER_BULLET_SIZE;
+    this.damage=SNIPER_DAMAGE
     this.projectiles=[];
-    this.target = {loc:new Vector2D(50,50)};
+    this.target = null;
   }
   update(){
     super.update();
   }
-  onHit(){
-    
+  onHit(target){
+    target.hp-=this.damage;
   }
   render(){
     super.render();
