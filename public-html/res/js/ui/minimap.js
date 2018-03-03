@@ -13,7 +13,15 @@ class Minimap extends Updateable {
     let xContentSize = CONFIG.MAP_X_SIZE * UI_CONFIG.MINIMAP_TILE_SIZE;
     let yContentSize = CONFIG.MAP_Y_SIZE * UI_CONFIG.MINIMAP_TILE_SIZE;
     let startCoordinate = new Vector2D(this.game.canvas.width - xContentSize, this.game.canvas.height - yContentSize);
-    this.game.context.fillStyle = "green";
-    this.game.context.fillRect(startCoordinate.x,startCoordinate.y,xContentSize,yContentSize);
+    for (let i = 0; i < this.game.mapManager.map.length; i++) {
+      for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
+        this.game.context.fillStyle = this.game.mapManager.map[i][j].tileType.MINIMAP_COLOR;
+        this.game.context.fillRect(
+                startCoordinate.x + UI_CONFIG.MINIMAP_TILE_SIZE * i,
+                startCoordinate.y + UI_CONFIG.MINIMAP_TILE_SIZE * j,
+                UI_CONFIG.MINIMAP_TILE_SIZE,
+                UI_CONFIG.MINIMAP_TILE_SIZE);
+      }
+    }
   }
 }
