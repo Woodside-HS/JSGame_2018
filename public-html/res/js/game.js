@@ -43,23 +43,24 @@ class Game extends Updateable {
       mouseclocy = Math.floor(e.offsetY/CONFIG.TILE_SIZE);
     }
 
-    //for debugging purposes, places objects on keypress
+    // //for debugging purposes, places objects on keypress
     // document.onkeypress = function(e) {
     //   let key = String.fromCharCode(e.keyCode);
-    //   console.log(key);
     //   switch(key){
     //     case 'q':
-    //     console.log(new Vector2D(mouselocx,mouselocy));
     //     game.minionManager.minions.push(new Minion(game,new Vector2D(mouselocx,mouselocy)));
     //     break;
-    //     case 'w':
+    //     case '1':
     //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
     //     break;
-    //     case'e':
+    //     case'2':
     //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
     //     break;
-    //     case'r':
+    //     case'3':
     //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Repeater(game,new Vector2D(mouseclocx,mouseclocy));
+    //     break;
+    //     case'4':
+    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Spitter(game,new Vector2D(mouseclocx,mouseclocy));
     //     break;
     //   }
     // }

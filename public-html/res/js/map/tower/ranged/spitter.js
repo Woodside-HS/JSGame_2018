@@ -9,7 +9,8 @@ class Spitter extends Ranged{
     this.hp=this.maxhp;
     this.bulletspeed=SPITTER_BULLET_SPEED;
     this.bulletsize=SPITTER_BULLET_SIZE;
-    this.damage=SPITTER_DAMAGE
+    this.damage=SPITTER_DAMAGE;
+    this.splashrangesqrd=Math.pow(SPITTER_SPLASH_RANGE,2);
     this.projectiles=[];
     this.target = null;
   }
@@ -17,7 +18,12 @@ class Spitter extends Ranged{
     super.update();
   }
   onHit(target){
-    target.status= STATUS.POISON;
+    for(let i=0;i<this.game.minionManager.minions.length;i++){
+      let minion=this.game.minionManager.minions[i];
+      console.log(this.splashrangesqrd);
+      if(distsqrd(target.loc,minion.loc)<this.splashrangesqrd)
+        minion.status = STATUS.POISON;
+    }
   }
   render(){
     super.render();

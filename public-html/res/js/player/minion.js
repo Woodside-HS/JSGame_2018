@@ -11,8 +11,28 @@ class Minion extends Updateable{
     this.speed=MINION_SPEED;
     this.damage=MINION_DAMAGE;
     this.radius=MINION_SIZE;
+    this.status=STATUS.NULL;
+    this.statusTimer=null;
   }
   update(){
+    switch(this.status){
+      case STATUS.POISON:
+        this.hp-=this.status.DPS/CONFIG.FRAME_RATE;
+        this.fillStyle="rgba(225,100,0,1)";
+        break;
+      case STATUS.NULL:
+        this.fillStyle="rgba(255,0,0,1)";
+        break;
+    }
+    if(this.statusTimer>0) this.statusTimer--;
+    if(this.statusTimer==0){
+      this.status=STATUS.NULL;
+    }
+
+  }
+  setStatus(status){
+    this.status=status;
+    this.statusTimer=status.duration;
   }
   render(){
     this.game.context.fillStyle=this.fillStyle;

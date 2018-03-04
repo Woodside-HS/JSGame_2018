@@ -33,6 +33,9 @@ function getRandomColor() {
   }
   return color;
 }
+function distsqrd(v1,v2){
+  return Math.pow(v1.x-v2.x,2)+Math.pow(v1.y-v2.y,2);
+}
 function normalizePerlin(value) {
   let SQ2 = Math.sqrt(2);
   let output = value + (SQ2 / 2.0);
