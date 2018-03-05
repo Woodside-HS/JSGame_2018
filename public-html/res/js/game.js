@@ -44,26 +44,26 @@ class Game extends Updateable {
     }
 
     // //for debugging purposes, places objects on keypress
-    // document.onkeypress = function(e) {
-    //   let key = String.fromCharCode(e.keyCode);
-    //   switch(key){
-    //     case 'q':
-    //     game.minionManager.minions.push(new Minion(game,new Vector2D(mouselocx,mouselocy)));
-    //     break;
-    //     case '1':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //     case'2':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //     case'3':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Repeater(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //     case'4':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Spitter(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //   }
-    // }
+    document.onkeypress = function(e) {
+      let key = String.fromCharCode(e.keyCode);
+      switch(key){
+        case 'q':
+        game.minionManager.minions.push(new Minion(game,new Vector2D(mouselocx,mouselocy)));
+        break;
+        case '1':
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
+        break;
+        case'2':
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
+        break;
+        case'3':
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Repeater(game,new Vector2D(mouseclocx,mouseclocy));
+        break;
+        case'4':
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Spitter(game,new Vector2D(mouseclocx,mouseclocy));
+        break;
+      }
+    }
 
     //  create the context
     this.context = this.canvas.getContext("2d");

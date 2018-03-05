@@ -12,6 +12,7 @@ class Ranged extends Tower{
     this.projectiles=[];
     this.target = null;
     this.targetdistsqrd = this.range+1;
+    this.bulletcolor= null;
   }
   update(){
     super.update();
@@ -89,6 +90,7 @@ class Ranged extends Tower{
     //render projectiles
     for(let i=0;i<this.projectiles.length;i++){
       let bullet = this.projectiles[i];
+      this.game.context.fillStyle = this.bulletcolor;
       this.game.context.beginPath();
       this.game.context.arc(bullet.loc.x,bullet.loc.y,this.bulletsize,0,2*Math.PI);
       this.game.context.fill();

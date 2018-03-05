@@ -13,6 +13,6 @@ class Tile extends Updateable {
   }
   render() {
     this.game.context.fillStyle = this.tileType.MINIMAP_COLOR;
-    this.loc.x, this.loc.y, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
+    this.game.context.fillRect(this.loc.x, this.loc.y, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
   }
 }
