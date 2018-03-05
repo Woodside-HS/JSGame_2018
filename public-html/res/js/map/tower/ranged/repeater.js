@@ -2,16 +2,16 @@ class Repeater extends Ranged{
   constructor(game, location) {
     super(game, location);
     this.type = TOWER_TYPES.REPEATER;
-    this.range = Math.pow(REPEATER_RANGE,2);//square of distance
-    this.cooldown = REPEATER_COOLDOWN;
+    this.range = Math.pow(TOWER_TYPES.REPEATER.RANGE,2);//square of distance
+    this.cooldown = TOWER_TYPES.REPEATER.COOLDOWN;
     this.cooldowntimer = 0;
-    this.maxhp = REPEATER_HP;
+    this.maxhp = TOWER_TYPES.REPEATER.HP;
     this.hp=this.maxhp;
-    this.bulletspeed=REPEATER_BULLET_SPEED;
-    this.bulletsize=REPEATER_BULLET_SIZE;
-    this.damage=REPEATER_DAMAGE;
+    this.bulletspeed=TOWER_TYPES.REPEATER.BULLET_SPEED;
+    this.bulletsize=TOWER_TYPES.REPEATER.BULLET_SIZE;
+    this.damage=TOWER_TYPES.REPEATER.DAMAGE;
     this.projectiles=[];
-    this.target = {loc:new Vector2D(50,50)};
+    this.bulletcolor=TOWER_TYPES.REPEATER.BULLET_COLOR;
   }
   update(){
     super.update();
