@@ -25,17 +25,19 @@ class Game extends Updateable {
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.userInterface = new UserInterface(this);
+    this.player = new Player(this,new Vector2D(50,50));
     //  create the canvas
     this.canvas = document.getElementById(CONFIG.CANVAS_NAME);
     if (!this.canvas)
       throw "No valid canvas found!";
     this.canvas.width = CONFIG.CANVAS_WIDTH;
     this.canvas.height = CONFIG.CANVAS_HEIGHT;
+
+    //tracks mouse position
     var mouselocx;
     var mouselocy;
     var mouseclocx;
     var mouseclocy;
-    //tracks mouse position
     this.canvas.onmousemove = function(e) {
       mouselocx = e.offsetX;
       mouselocy = e.offsetY;
@@ -63,6 +65,26 @@ class Game extends Updateable {
         game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Spitter(game,new Vector2D(mouseclocx,mouseclocy));
         break;
       }
+      switch(key){
+        case 'w':
+        if(game.player.v.y!=-1)
+          game.player.v.y=-1;
+        break;
+        case 'a':
+        if(game.player.v.x!=-1)
+          game.player.v.x=-1;
+        break;
+        case's':
+        if(game.player.v.y!=1)
+          game.player.v.y=1;
+        break;
+        case'd':
+        if(game.player.v.x!=1)
+          game.player.v.x=1;
+        break;
+        default:
+        game.player.v=new Vector2D(0,0);
+      }
     }
 
     //  create the context
@@ -75,17 +97,24 @@ class Game extends Updateable {
     this.mapManager.init();
     this.minionManager.init();
     this.userInterface.init();
-
+    this.player.init();
   }
   update() {
     this.mapManager.update();
     this.minionManager.update();
     this.userInterface.update();
-
+    this.player.update();
   }
   render() {
+    //mini screen translation
+    this.context.save();
+    this.context.translate(-this.player.loc.x+CONFIG.CANVAS_WIDTH/2,-this.player.loc.y+CONFIG.CANVAS_HEIGHT/2);
     this.mapManager.render();
     this.minionManager.render();
+    this.player.render();
+    this.context.restore();
+
+    //always static
     this.userInterface.render();
 
   }
