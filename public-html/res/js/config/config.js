@@ -7,12 +7,12 @@ const CONFIG = {
     CONFIG.SCALING_FACTOR_X = CONFIG.MAP_X_SIZE/CONFIG.VIEW_RANGE
     CONFIG.SCALING_FACTOR_Y = CONFIG.MAP_Y_SIZE/CONFIG.VIEW_RANGE
   },
-  VIEW_RANGE: 20, //measured in tiles
+  VIEW_RANGE: 40, //measured in tiles
   CANVAS_NAME: "gameCanvas",
   FRAME_RATE: 60, //fps
-  MAP_X_SIZE: 60, //measured in tiles
-  MAP_Y_SIZE: 60, //measred in tiles
+  MAP_X_SIZE: 100, //measured in tiles
+  MAP_Y_SIZE: 100, //measred in tiles
   TILE_SIZE: 10, //Measured in px
-  CANVAS_WIDTH: 500, //To be reset later in the file
-  CANVAS_HEIGHT: 500 //To be reset later in the file
+  CANVAS_WIDTH: 700, //To be reset later in the file
+  CANVAS_HEIGHT: 700 //To be reset later in the file
 };

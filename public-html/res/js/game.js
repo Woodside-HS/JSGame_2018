@@ -63,13 +63,13 @@ class Game extends Updateable {
         game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
         break;
         case'2':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),TOWER_TYPES.REPEATER);
         break;
         case'3':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Repeater(game,new Vector2D(mouseclocx,mouseclocy));
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),TOWER_TYPES.SNIPER);
         break;
         case'4':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Spitter(game,new Vector2D(mouseclocx,mouseclocy));
+        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),TOWER_TYPES.SPITTER);
         break;
       }
       switch(key){
@@ -134,9 +134,9 @@ class Game extends Updateable {
 
     //mini screen translation
     this.context.save();
+    this.context.translate(CONFIG.CANVAS_WIDTH/2,CONFIG.CANVAS_HEIGHT/2);
     this.context.scale(CONFIG.SCALING_FACTOR_X,CONFIG.SCALING_FACTOR_Y);
     this.context.translate(-this.player.loc.x,-this.player.loc.y);
-    this.context.translate(CONFIG.CANVAS_WIDTH/2/CONFIG.SCALING_FACTOR_X,CONFIG.CANVAS_HEIGHT/2/CONFIG.SCALING_FACTOR_Y);
     this.mapManager.render();
     this.minionManager.render();
     this.player.render();
