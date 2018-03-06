@@ -37,6 +37,11 @@ class Game extends Updateable {
     this.canvas.onmousemove = function(e) {
       game.mouseLocation.x = e.offsetX;
       game.mouseLocation.y = e.offsetY;
+      //convert to absolute
+      game.mouseLocation.add(new Vector2D(-CONFIG.CANVAS_WIDTH/2,-CONFIG.CANVAS_HEIGHT/2));
+      game.mouseLocation.x*=1/CONFIG.SCALING_FACTOR_X;
+      game.mouseLocation.y*=1/CONFIG.SCALING_FACTOR_Y;
+      game.mouseLocation.add(game.player.loc);
     };
 
     //  create the context
