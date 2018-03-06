@@ -8,7 +8,6 @@ class Tile extends Updateable {
     this.loc = new Vector2D(this.cloc.x * CONFIG.TILE_SIZE, this.cloc.y * CONFIG.TILE_SIZE);
     this.dir = -1;
     this.isGoal = false;
-    this.isOccupied = false;
     this.tileType = TILE_TYPES.NULL;
   }
   render() {
