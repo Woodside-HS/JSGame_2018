@@ -31,39 +31,13 @@ class Game extends Updateable {
       throw "No valid canvas found!";
     this.canvas.width = CONFIG.CANVAS_WIDTH;
     this.canvas.height = CONFIG.CANVAS_HEIGHT;
-    var mouselocx;
-    var mouselocy;
-    var mouseclocx;
-    var mouseclocy;
+    this.mouseLocation = new Vector2D(0,0);
     //tracks mouse position
     this.canvas.onmousemove = function(e) {
-      mouselocx = e.offsetX;
-      mouselocy = e.offsetY;
-      mouseclocx = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
-      mouseclocy = Math.floor(e.offsetY/CONFIG.TILE_SIZE);
-    }
+      game.mouseLocation.x = e.offsetX;
+      game.mouseLocation.y = e.offsetY;
+    };
 
-    // //for debugging purposes, places objects on keypress
-    document.onkeypress = function(e) {
-      let key = String.fromCharCode(e.keyCode);
-      switch(key){
-        case 'q':
-        game.minionManager.minions.push(new Minion(game,new Vector2D(mouselocx,mouselocy)));
-        break;
-        case '1':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
-        break;
-        case'2':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
-        break;
-        case'3':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Repeater(game,new Vector2D(mouseclocx,mouseclocy));
-        break;
-        case'4':
-        game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Spitter(game,new Vector2D(mouseclocx,mouseclocy));
-        break;
-      }
-    }
 
     //  create the context
     this.context = this.canvas.getContext("2d");

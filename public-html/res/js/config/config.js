@@ -5,6 +5,7 @@ const CONFIG = {
     CONFIG.CANVAS_WIDTH = CONFIG.MAP_X_SIZE * CONFIG.TILE_SIZE;
     CONFIG.CANVAS_HEIGHT = CONFIG.MAP_Y_SIZE * CONFIG.TILE_SIZE;
   },
+  DEBUG_MODE: true,
   CANVAS_NAME: "gameCanvas",
   FRAME_RATE: 60, //fps
   MAP_X_SIZE: 60, //measured in tiles
