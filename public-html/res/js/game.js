@@ -32,13 +32,10 @@ class Game extends Updateable {
       throw "No valid canvas found!";
     this.canvas.width = CONFIG.CANVAS_WIDTH;
     this.canvas.height = CONFIG.CANVAS_HEIGHT;
-
+    this.mouseLocation = new Vector2D(0,0);
     //tracks mouse position
-    var mouselocx;
-    var mouselocy;
-    var mouseclocx;
-    var mouseclocy;
     this.canvas.onmousemove = function(e) {
+<<<<<<< HEAD
       mouselocx = e.offsetX;
       mouselocy = e.offsetY;
       //translate to absolute
@@ -53,6 +50,11 @@ class Game extends Updateable {
     }
 
     // //for debugging purposes, places objects on keypress
+=======
+      game.mouseLocation.x = e.offsetX;
+      game.mouseLocation.y = e.offsetY;
+    };
+>>>>>>> fb7215357a99e5d8aa4aaaf0a3fe6ab7a9de8f1e
 
     //  create the context
     this.context = this.canvas.getContext("2d");
