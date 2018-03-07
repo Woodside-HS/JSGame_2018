@@ -5,10 +5,10 @@
  */
 
 class Player extends Updateable {
-  constructor(game, location) {
+  constructor(game) {
     super();
     this.game = game;
-    this.loc = new Vector2D(location.x, location.y);
+    this.loc = new Vector2D(0,0);
     this.cloc = positionToGrid(this.loc);
     this.v = new Vector2D(0, 0);
     this.fillStyle = 'rgba(255,0,0,1)'
