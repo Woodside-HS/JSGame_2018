@@ -1,5 +1,11 @@
 const STATUS = {
-  POISON:'poison'
+  NULL:{
+    DURATION:0
+  },
+  POISON:{
+    DURATION:CONFIG.FRAME_RATE*3, // fps * # of seconds
+    DPS:8
+  }
 }
 
 const MINION_HP = 20;

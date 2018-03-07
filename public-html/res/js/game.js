@@ -25,44 +25,19 @@ class Game extends Updateable {
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.userInterface = new UserInterface(this);
+    this.player = new Player(this,new Vector2D(200,200));
     //  create the canvas
     this.canvas = document.getElementById(CONFIG.CANVAS_NAME);
     if (!this.canvas)
       throw "No valid canvas found!";
     this.canvas.width = CONFIG.CANVAS_WIDTH;
     this.canvas.height = CONFIG.CANVAS_HEIGHT;
-    var mouselocx;
-    var mouselocy;
-    var mouseclocx;
-    var mouseclocy;
+    this.mouseLocation = new Vector2D(0,0);
     //tracks mouse position
     this.canvas.onmousemove = function(e) {
-      mouselocx = e.offsetX;
-      mouselocy = e.offsetY;
-      mouseclocx = Math.floor(e.offsetX/CONFIG.TILE_SIZE);
-      mouseclocy = Math.floor(e.offsetY/CONFIG.TILE_SIZE);
-    }
-
-    //for debugging purposes, places objects on keypress
-    // document.onkeypress = function(e) {
-    //   let key = String.fromCharCode(e.keyCode);
-    //   console.log(key);
-    //   switch(key){
-    //     case 'q':
-    //     console.log(new Vector2D(mouselocx,mouselocy));
-    //     game.minionManager.minions.push(new Minion(game,new Vector2D(mouselocx,mouselocy)));
-    //     break;
-    //     case 'w':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //     case'e':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Sniper(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //     case'r':
-    //     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Repeater(game,new Vector2D(mouseclocx,mouseclocy));
-    //     break;
-    //   }
-    // }
+      game.mouseLocation.x = e.offsetX;
+      game.mouseLocation.y = e.offsetY;
+    };
 
     //  create the context
     this.context = this.canvas.getContext("2d");
@@ -74,17 +49,30 @@ class Game extends Updateable {
     this.mapManager.init();
     this.minionManager.init();
     this.userInterface.init();
-
+    this.player.init();
   }
   update() {
     this.mapManager.update();
     this.minionManager.update();
     this.userInterface.update();
-
+    this.player.update();
   }
   render() {
+    //black background
+    this.context.fillStyle='rgba(0,0,0,1)';
+    this.context.fillRect(0,0,CONFIG.CANVAS_WIDTH,CONFIG.CANVAS_HEIGHT);
+
+    //mini screen translation
+    this.context.save();
+    this.context.translate(CONFIG.CANVAS_WIDTH/2,CONFIG.CANVAS_HEIGHT/2);
+    this.context.scale(CONFIG.SCALING_FACTOR_X,CONFIG.SCALING_FACTOR_Y);
+    this.context.translate(-this.player.loc.x,-this.player.loc.y);
     this.mapManager.render();
     this.minionManager.render();
+    this.player.render();
+    this.context.restore();
+
+    //always static
     this.userInterface.render();
 
   }
