@@ -25,7 +25,7 @@ class Game extends Updateable {
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.userInterface = new UserInterface(this);
-    this.player = new Player(this,new Vector2D(200,200));
+    this.player = new Player(this);
     //  create the canvas
     this.canvas = document.getElementById(CONFIG.CANVAS_NAME);
     if (!this.canvas)
