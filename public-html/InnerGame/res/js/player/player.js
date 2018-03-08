@@ -35,7 +35,7 @@ class Player extends Updateable {
     let hitboxCloc = positionToGrid(hitBoxPos);;
       if (hitboxCloc.x < 0 ||
           hitboxCloc.x >= CONFIG.MAP_X_SIZE ||
-          this.game.mapManager.map[hitboxCloc.x][this.cloc.y].tileType.IS_OCCUPIED){
+          this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied){
         this.loc.subtract(this.v);
         this.v.x=0;
         this.v.upPols();
@@ -43,7 +43,7 @@ class Player extends Updateable {
       }
       if (hitboxCloc.y < 0 ||
           hitboxCloc.y >= CONFIG.MAP_Y_SIZE ||
-          this.game.mapManager.map[this.cloc.x][hitboxCloc.y].tileType.IS_OCCUPIED){
+          this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied){
         this.loc.subtract(this.v);
         this.v.y=0;
         this.v.upPols();
