@@ -66,7 +66,7 @@ class Rocketship{
 
   accelerate(){
     //apply a force in the direction the ship is traveling
-    var f = new AngularVector2D(0.1, this.dir);
+    var f = new AngularVector2D(6/FPS, this.dir);
     this.applyForce(f);
   }
 

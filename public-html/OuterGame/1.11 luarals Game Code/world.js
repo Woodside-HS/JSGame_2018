@@ -14,6 +14,7 @@ class World{
 	this.camera = new Camera();
     //add event listeners that toggle acceleration/deceleration/turning on
     //  when key is down and off when key is up
+
     document.addEventListener("keydown", function(event){;
       switch (event.key) {
         case "s":
