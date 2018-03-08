@@ -8,15 +8,18 @@ const TILE_TYPES = {
   },
   GRASS: {
     MINIMAP_COLOR: "#abdb8a",
-    IS_OCCUPIED:false
+    IS_OCCUPIED:false,
+    IMAGE_SRC:'res/sprites/grass.png'
   },
   ROCK: {
     MINIMAP_COLOR: "black",
-    IS_OCCUPIED:true
+    IS_OCCUPIED:true,
+    IMAGE_SRC:'res/sprites/rock.png'
   },
   WATER: {
     MINIMAP_COLOR: "blue",
-    IS_OCCUPIED:true
+    IS_OCCUPIED:true,
+    IMAGE_SRC:'res/sprites/water.png'
   }
 };
 const TILE_CONFIG = {

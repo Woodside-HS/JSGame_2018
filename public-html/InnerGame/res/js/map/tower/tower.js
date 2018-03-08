@@ -12,6 +12,7 @@ class Tower extends Updateable{
     this.fontstyle = "rgba(0,0,255,1)";
     this.maxhp=TOWER_TYPES.NULL.HP;
     this.hp=this.maxhp;
+    game.mapManager.map[this.cloc.x][this.cloc.y].isOccupied=true;
   }
   update(){
   }
