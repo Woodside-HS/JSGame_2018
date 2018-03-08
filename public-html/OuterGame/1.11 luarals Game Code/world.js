@@ -8,7 +8,10 @@ class World{
     this.width = 2400;
     this.makePlanets(50);
     //create rocketship at center of canvas
-    this.ship  = new Rocketship(new vector2d(canvas.width/2, canvas.height/2));
+    this.ship  = new Rocketship(new Vector2D(canvas.width/2, canvas.height/2));
+	playerShip = this.ship;
+	// Create camera object which follows the Rocketship
+	this.camera = new Camera();
     //add event listeners that toggle acceleration/deceleration/turning on
     //  when key is down and off when key is up
     document.addEventListener("keydown", function(event){;
@@ -53,9 +56,9 @@ class World{
       while (true) {
         var x = Math.random() * this.width - this.width/2;
         var y = Math.random() * this.height - this.height/2;
-        var loc = new vector2d(x, y);
+        var loc = new Vector2D(x, y);
         for(var i = 0; i < this.planets.length; i++){
-          var dist = vector2d.distance(this.planets[i].loc, loc);
+          var dist = Vector2D.distance(this.planets[i].loc, loc);
           if(dist <= (this.planets[i].radius + radius)*1.5){break;}
         }
         if(i === this.planets.length){break;}
@@ -81,6 +84,7 @@ class World{
   update(){
     this.ship.update();
     this.checkHitPlanet();
+    this.camera.update();
   }
 
   render(){
