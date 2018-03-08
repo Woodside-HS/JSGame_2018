@@ -1,0 +1,4 @@
+
+* A shadow world, where sensors don't work. The canvas is extremely tiny and the camera is locked to the player's position. Less difficult enemies than usual, but low visibility makes it difficult.
+
+* 
