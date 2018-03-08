@@ -1,5 +1,5 @@
 class World{
-  
+
   constructor(level){
     this.level = level;
     this.planets = [];
@@ -65,8 +65,22 @@ class World{
     }
   }
 
+  checkHitPlanet(){
+    // console.log("check");
+    for(let i=0;i<this.planets.length;i++){
+      let p = this.planets[i];
+      let pLoc = new vector2d(p.loc.x,p.loc.y);
+      let sLoc = new vector2d(this.ship.loc.x,this.ship.loc.y);
+      if(Math.abs(pLoc.subtract(sLoc))<(p.radius+50)){
+        console.log("hit planet");
+        return true;
+      }
+    }
+  }
+
   update(){
     this.ship.update();
+    this.checkHitPlanet();
   }
 
   render(){
