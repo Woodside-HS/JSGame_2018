@@ -57,11 +57,12 @@ class Player extends Updateable {
       let vDir = this.v.duplicate();
       vDir.m = PLAYER_CONFIG.SIZE / 2;
       vDir.upComps();
-      vDir.add(this.loc);
+      let hitBoxPos = this.loc.duplicate();
+      hitBoxPos.add(vDir);
       this.game.context.fillStyle = this.fillStyle;
-      this.game.context.fillRect(vDir.x - PLAYER_CONFIG.SIZE / 6, vDir.y - PLAYER_CONFIG.SIZE / 6, PLAYER_CONFIG.SIZE / 3, PLAYER_CONFIG.SIZE / 3);
+      this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.SIZE / 4,hitBoxPos.y - PLAYER_CONFIG.SIZE / 4, PLAYER_CONFIG.SIZE/2, PLAYER_CONFIG.SIZE/2);
+      this.game.context.fillRect(hitBoxPos.x - PLAYER_CONFIG.SIZE / 4,this.loc.y - PLAYER_CONFIG.SIZE / 4, PLAYER_CONFIG.SIZE/2, PLAYER_CONFIG.SIZE/2);
     }
-
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.SIZE / 2, this.loc.y - PLAYER_CONFIG.SIZE / 2, PLAYER_CONFIG.SIZE, PLAYER_CONFIG.SIZE);
   }
