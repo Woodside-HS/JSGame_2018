@@ -76,3 +76,7 @@ JSVector.prototype.mult = function(m) {
 	this.x *= m;// keep direction
 	this.y *= m;
 };
+
+JSVector.prototype.clone = function() {
+	return new JSVector(this.x, this.y);
+}

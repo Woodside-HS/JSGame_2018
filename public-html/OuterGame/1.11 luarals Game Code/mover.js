@@ -12,7 +12,7 @@ class Mover{
 
 
   momentum(){
-    return vector2d.scalarMult(this.vel, this.mass);
+    return Vector2D.scalarMult(this.vel, this.mass);
   }
 
   kineticEnergy(){
