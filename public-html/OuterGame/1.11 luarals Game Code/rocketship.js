@@ -2,7 +2,7 @@ class Rocketship{
 
   constructor(location){
     this.loc = location;
-    this.vel = new vector2d(0,0);
+    this.vel = new vector2d(0.0001,0.0001); // issue 3
     this.acc = new vector2d(0,0);
     //dir keeps track of direction ship is pointing when velocity is 0 or too small
     //ship starts pointing right
@@ -27,12 +27,10 @@ class Rocketship{
     this.vel.add(this.acc);
     this.vel.limit(this.maxVel);
     //only recalculate direction if velocity is greater than 0
-    if(this.vel.magnitude() > 0.0000001){
+    if(this.vel.magnitude() > 0.00001){ // issue 3
       this.dir = this.vel.theta();
     }
-    if(this.vel.magnitude() < 0.05){
-      this.vel.scalarMult(0);
-    }
+    // removed a condition for issue 3
 
     this.loc.add(this.vel);
     this.acc.scalarMult(0);
@@ -48,7 +46,8 @@ class Rocketship{
     if(this.vel.magnitude() > 0){
       m = this.vel.magnitude()/30;
     } else{
-      m = 0.00003;
+      console.log(this.dir);
+      m = 0.001;
     }
     var f = new vector2d(undefined, undefined, m, this.dir + Math.PI/2);
     this.applyForce(f);
@@ -60,7 +59,8 @@ class Rocketship{
     if(this.vel.magnitude() > 0){
       m = this.vel.magnitude()/30;
     } else{
-      m = 0.00003;
+      console.log(this.dir);
+      m = 0.001;
     }
     var f = new vector2d(undefined, undefined, m, this.dir - Math.PI/2);
     this.applyForce(f);
