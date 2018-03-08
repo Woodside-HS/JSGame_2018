@@ -13,5 +13,6 @@ const CONFIG = {
   MAP_Y_SIZE: 100, //measred in tiles
   TILE_SIZE: 10, //Measured in px
   CANVAS_WIDTH: 700, //Measured in px
-  CANVAS_HEIGHT: 700 //Measured in px
+  CANVAS_HEIGHT: 700, //Measured in px
+  BACKGROUND_COLOR: "#000000" //Hex color
 };
