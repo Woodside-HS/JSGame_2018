@@ -48,7 +48,7 @@ class Rocketship{
     } else{
       m = 0.001;
     }
-    var f = new Vector2D(undefined, undefined, m, this.dir + Math.PI/2);
+    var f = new AngularVector2D(m, this.dir + Math.PI/2);
     this.applyForce(f);
   }
 
@@ -60,13 +60,13 @@ class Rocketship{
     } else{
       m = 0.001;
     }
-    var f = new Vector2D(undefined, undefined, m, this.dir - Math.PI/2);
+    var f = new AngularVector2D(m, this.dir - Math.PI/2);
     this.applyForce(f);
   }
 
   accelerate(){
     //apply a force in the direction the ship is traveling
-    var f = new Vector2D(undefined, undefined, 0.1, this.dir);
+    var f = new AngularVector2D(0.1, this.dir);
     this.applyForce(f);
   }
 
@@ -74,7 +74,7 @@ class Rocketship{
     //apply a force in the opposite direction of the ship
     //checks velocity to make ship stop, not travel backward
     if(this.vel.magnitude() > 0.0001){
-      var f = new Vector2D(undefined, undefined, this.vel.magnitude()/30, this.vel.theta() + Math.PI);
+      var f = new AngularVector2D(this.vel.magnitude()/30, this.vel.theta() + Math.PI);
       this.applyForce(f);
     }
   }
