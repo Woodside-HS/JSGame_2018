@@ -1,5 +1,5 @@
 class World{
-  
+
   constructor(level){
     this.level = level;
     this.planets = [];
@@ -69,9 +69,21 @@ class World{
     }
   }
 
+  checkHitPlanet(){ //issue 9
+    for(let i=0;i<this.planets.length;i++){
+      if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
+        ctx.fillStyle="white";
+        ctx.font = "20px Georgia";
+        ctx.fillText("X to land on planet",canvas.width/2-50,canvas.height/2-50);
+        // console.log("hit planet");
+      }
+    }
+  }
+
   update(){
     this.ship.update();
-	this.camera.update();
+    this.camera.update();
+    this.checkHitPlanet(); //issue 9
   }
 
   render(){
@@ -95,8 +107,8 @@ class World{
   }
 
   run(){
-    this.update();
     this.render();
+    this.update();
   }
 
 }
