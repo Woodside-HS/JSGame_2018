@@ -1,14 +1,19 @@
 const STATUS = {
-  NULL:{
-    DURATION:0
+  NULL: {
+    DURATION: 0,
+    COLOR: "#FF0000"
   },
-  POISON:{
-    DURATION:CONFIG.FRAME_RATE*3, // fps * # of seconds
-    DPS:8
+  POISON: {
+    DURATION: CONFIG.FRAME_RATE * 3, // fps * # of seconds
+    DPS: 8
   }
-}
-
-const MINION_HP = 20;
-const MINION_SPEED = 2;
-const MINION_DAMAGE = 1;
-const MINION_SIZE = 3;//radius, in px
+};
+const MINION_CONFIG = {
+  HP: 20,
+  SPEED: 2 / CONFIG.FRAME_RATE,
+  DAMAGE: 1,
+  SIZE: 3,
+  COLOR: "#FF0000",
+  HEALTHBAR_POSITIVE_COLOR: "#00FF00",
+  HEALTHBAR_NEGATIVE_COLOR: "#FF0000"
+};
