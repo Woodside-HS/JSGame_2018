@@ -46,7 +46,6 @@ class Rocketship{
     if(this.vel.magnitude() > 0){
       m = this.vel.magnitude()/30;
     } else{
-      console.log(this.dir);
       m = 0.001;
     }
     var f = new vector2d(undefined, undefined, m, this.dir + Math.PI/2);
@@ -59,7 +58,6 @@ class Rocketship{
     if(this.vel.magnitude() > 0){
       m = this.vel.magnitude()/30;
     } else{
-      console.log(this.dir);
       m = 0.001;
     }
     var f = new vector2d(undefined, undefined, m, this.dir - Math.PI/2);
