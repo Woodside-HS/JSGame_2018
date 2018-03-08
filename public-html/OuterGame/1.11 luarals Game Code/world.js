@@ -68,23 +68,21 @@ class World{
     }
   }
 
-  checkHitPlanet(){
-    // console.log("check");
+  checkHitPlanet(){ //issue 9
     for(let i=0;i<this.planets.length;i++){
-      let p = this.planets[i];
-      let pLoc = new vector2d(p.loc.x,p.loc.y);
-      let sLoc = new vector2d(this.ship.loc.x,this.ship.loc.y);
-      if(Math.abs(pLoc.subtract(sLoc))<(p.radius+50)){
-        console.log("hit planet");
-        return true;
+      if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
+        ctx.fillStyle="white";
+        ctx.font = "20px Georgia";
+        ctx.fillText("X to land on planet",canvas.width/2-50,canvas.height/2-50);
+        // console.log("hit planet");
       }
     }
   }
 
   update(){
     this.ship.update();
-    this.checkHitPlanet();
     this.camera.update();
+    this.checkHitPlanet(); //issue 9
   }
 
   render(){
@@ -108,8 +106,8 @@ class World{
   }
 
   run(){
-    this.update();
     this.render();
+    this.update();
   }
 
 }
