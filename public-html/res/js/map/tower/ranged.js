@@ -2,7 +2,7 @@ class Ranged extends Tower{
   constructor(game, location, type) {
     super(game, location);
     this.type = type;
-    this.rangesqrd = Math.pow(this.type.RANGE,2);//square of distance
+    this.range = this.type.RANGE
     this.cooldown = this.type.COOLDOWN;
     this.cooldowntimer = 0;
     this.maxhp = this.type.HP;
@@ -11,7 +11,7 @@ class Ranged extends Tower{
     this.bulletsize=this.type.BULLET_SIZE;
     this.projectiles=[];
     this.target = null;
-    this.targetdistsqrd = this.rangesqrd+1;
+    this.targetdist = this.range+1;
     this.bulletcolor= this.type.BULLET_COLOR;
   }
   update(){
@@ -23,17 +23,15 @@ class Ranged extends Tower{
     if(this.target){
       let diff=this.loc.duplicate();
       diff.subtract(this.target.loc);
-      let distsqrd = Math.pow(diff.x,2)+Math.pow(diff.y,2) //square of distance
-      if(distsqrd>this.rangesqrd || this.target.hp<=0){
+      if(diff.m>this.range || this.target.hp<=0){
         // find new target
         this.target = null;
         for(let i=0; i<this.game.minionManager.minions.length;i++){
           let minion=this.game.minionManager.minions[i];
           let diff=this.loc.duplicate();
           diff.subtract(minion.loc);
-          let distsqrd = Math.pow(diff.x,2)+Math.pow(diff.y,2) //square of distance
-          if(distsqrd<this.rangesqrd && (this.target==null||distsqrd<this.targetdistsqrd)){
-            this.targetdistsqrd=distsqrd;
+          if(diff.m<this.range && (this.target==null||diff.m<this.targetdist)){
+            this.targetdist=diff.m;
             this.target=minion;
           }
         }
@@ -44,9 +42,8 @@ class Ranged extends Tower{
         let minion=this.game.minionManager.minions[i];
         let diff=this.loc.duplicate();
         diff.subtract(minion.loc);
-        let distsqrd = Math.pow(diff.x,2)+Math.pow(diff.y,2) //square of distance
-        if(distsqrd<this.rangesqrd && (this.target==null||distsqrd<this.targetdistsqrd)){
-          this.targetdistsqrd=distsqrd;
+        if(diff.m<this.range && (this.target==null||diff.m<this.targetdist)){
+          this.targetdist=diff.m;
           this.target=minion;
         }
       }
@@ -55,16 +52,15 @@ class Ranged extends Tower{
     if (this.target && this.cooldowntimer==0){
       this.cooldowntimer=this.cooldown;
       let diff=this.target.loc.duplicate();
-      diff.subtract(this.loc);
-      let dist = Math.sqrt(Math.pow(diff.x,2)+Math.pow(diff.y,2));
+      diff.subtract(this.loc);;
       let dir=diff.duplicate();
-      dir.multiply(1/dist);
+      dir.multiply(1/diff.m);
       dir.multiply(this.bulletspeed);
       let projectile={
         target:this.target,
         loc:this.loc.duplicate(),
         v:dir,
-        life:Math.floor(dist/this.bulletspeed)+1
+        life:Math.floor(diff.m/this.bulletspeed)+1
       }
       projectile.loc.add(new Vector2D(CONFIG.TILE_SIZE/2,CONFIG.TILE_SIZE/2));
       this.projectiles.push(projectile);

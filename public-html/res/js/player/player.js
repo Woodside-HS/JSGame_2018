@@ -32,18 +32,23 @@ class Player extends Updateable {
     vDir.upComps();
     let hitBoxPos = this.loc.duplicate();
     hitBoxPos.add(vDir);
-    let hitboxCloc = positionToGrid(hitBoxPos);
-    if (
-            hitboxCloc.x < 0 || 
-            hitboxCloc.x >= CONFIG.MAP_X_SIZE || 
-            hitboxCloc.y < 0 || 
-            hitboxCloc.y >= CONFIG.MAP_X_SIZE ||
-            this.game.mapManager.map[hitboxCloc.x][hitboxCloc.y].tileType.IS_OCCUPIED) {
-      this.loc.subtract(this.v);
-      //   this.v.multiply(-.5);
-      this.v.multiply(0);
-      this.loc.add(this.v);
-    }
+    let hitboxCloc = positionToGrid(hitBoxPos);;
+      if (hitboxCloc.x < 0 ||
+          hitboxCloc.x >= CONFIG.MAP_X_SIZE ||
+          this.game.mapManager.map[hitboxCloc.x][this.cloc.y].tileType.IS_OCCUPIED){
+        this.loc.subtract(this.v);
+        this.v.x=0;
+        this.v.upPols();
+        this.loc.add(this.v);
+      }
+      if (hitboxCloc.y < 0 ||
+          hitboxCloc.y >= CONFIG.MAP_Y_SIZE ||
+          this.game.mapManager.map[this.cloc.x][hitboxCloc.y].tileType.IS_OCCUPIED){
+        this.loc.subtract(this.v);
+        this.v.y=0;
+        this.v.upPols();
+        this.loc.add(this.v);
+      }
     this.v.multiply(.9);
   }
   render() {

@@ -8,7 +8,7 @@ class Vector2D {
     this.th = Math.atan2(y, x);
   }
   /**Update the components of the vector using its polar definition
-   * 
+   *
    * @returns null
    */
   upComps() {
@@ -16,7 +16,7 @@ class Vector2D {
     this.y = this.m * Math.sin(this.th);
   }
   /**Update the polar definition of the vector using its components
-   * 
+   *
    * @returns null
    */
   upPols() {
@@ -37,6 +37,11 @@ class Vector2D {
     this.x -= vec.x;
     this.y -= vec.y;
     this.upPols();
+  }
+  project(vec) {
+    this.th = vec.th;
+    this.m = this.x*vec.x+this.y*vec.y;
+    this.upComps();
   }
   duplicate() {
     return new Vector2D(this.x, this.y);
