@@ -3,6 +3,15 @@ function Vector2D (x, y, r, theta){
   this.y = (y !== undefined) ? y : r * Math.sin(theta);
 }
 
+function AngularVector2D(r, theta) {
+	let vec = new Vector2D(undefined, undefined, r, theta);
+	this.x = vec.x;
+	this.y = vec.y;
+}
+
+AngularVector2D.prototype = Object.create(Vector2D.prototype);
+AngularVector2D.prototype.constructor = AngularVector2D;
+
 /////////////////////// INSTANCE FUNCTIONS /////////////////
 
 Vector2D.prototype.theta = function(){

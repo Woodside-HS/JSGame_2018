@@ -6,7 +6,9 @@ var ctx;
 var worlds = [];
 var currentLevel = -1;
 
-var playerShip;
+var playerShip = function() { // Mostly-useless function but sometimes important
+	return System().ship;
+}
 
 var FPS = 60; // Frames per second
 
@@ -15,8 +17,6 @@ var System = function() {
 }
 
 //var ship;
-
-var interval;
 
 function init(){
   canvas = document.getElementById('cnv');
@@ -27,7 +27,7 @@ function init(){
 
   makeWorld();
 
-  interval = setInterval(animate, 1000/FPS);
+  setTimeout(animate, 1000/FPS);
 }
 
 function makeWorld(){
@@ -43,5 +43,5 @@ function animate(){
   ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
   //run this level's world
   worlds[currentLevel].run();
-
+  setTimeout(animate, 1000/FPS);
 }
