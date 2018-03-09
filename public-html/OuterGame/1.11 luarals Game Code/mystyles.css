@@ -1,22 +1,14 @@
 
 body{
-   background-color: #f9eaf9;
+   background-color: #444444;
    margin:0;
  }
 
 
 
-#wrapper{
+#wrapper {
   border: 0px solid black;
-  height: 900px;
-  width: 900px;
   margin: auto;
-  padding: 0px;
-}
-
-
-
-
-#cnv{
-  margin: 0px;
+  text-align: center;
+  padding: 60px;
 }
