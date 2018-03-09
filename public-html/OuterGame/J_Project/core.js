@@ -8,8 +8,8 @@ window.onload = () => {
 	let cnv = document.getElementById("cnv");
 	cnv.style.backgroundColor = "black";
 	cnv.style.textAlign = "center";
-	cnv.width = window.innerWidth * 0.95;
-	cnv.height = window.innerHeight * 0.95;
+	cnv.width = window.innerWidth * 0.97;
+	cnv.height = window.innerHeight * 0.97;
 	//cnv.width = WORLD_WIDTH;
 	//cnv.height = WORLD_HEIGHT;
 	World.canvas = cnv;
