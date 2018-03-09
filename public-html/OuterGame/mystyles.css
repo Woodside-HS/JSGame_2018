@@ -1,0 +1,14 @@
+
+body{
+   background-color: #444444;
+   margin:0;
+ }
+
+
+
+#wrapper {
+  border: 0px solid black;
+  margin: auto;
+  text-align: center;
+  padding: 60px;
+}

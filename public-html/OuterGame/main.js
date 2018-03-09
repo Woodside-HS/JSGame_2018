@@ -19,15 +19,21 @@ var System = function() {
 //var ship;
 
 function init(){
-  canvas = document.getElementById('cnv');
-  canvas.width = 800;
-  canvas.height = 800;
-  canvas.style.backgroundColor = 'black';
-  ctx = canvas.getContext('2d');
+	canvas = document.getElementById('cnv');
 
-  makeWorld();
+	canvas.width = 1200;
+	canvas.height = 600;
 
-  setTimeout(animate, 1000/FPS);
+	/*canvas.width = window.innerWidth * 0.97;
+	canvas.height = window.innerHeight * 0.97;*/
+
+
+	canvas.style.backgroundColor = 'black';
+	ctx = canvas.getContext('2d');
+
+	makeWorld();
+
+	setTimeout(animate, 1000/FPS);
 }
 
 function makeWorld(){
