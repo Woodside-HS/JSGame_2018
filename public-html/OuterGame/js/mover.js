@@ -1,23 +1,25 @@
-class Mover{
+class Mover {
 
-  constructor(radius, loc, vel, acc, color, numOscillators){
+  constructor(loc, vel, acc, radius, color, numOscillators){
     this.radius = radius;
     this.color = color;
     //let volume = area and density = 1, so mass = area
-    this.mass = Math.PI * this.radius * this.radius;
     this.loc = loc;
-    this.vel = vel;
-    this.acc = acc;
+    this.vel = vel || new Vector2D(0,0);
+    this.acc = acc || new Vector2D(0,0);
   }
 
+	mass() {
+		return Math.PI * Math.pow(this.radius, 2);
+	}
 
   momentum(){
-    return Vector2D.scalarMult(this.vel, this.mass);
+    return Vector2D.scalarMult(this.vel, this.mass());
   }
 
   kineticEnergy(){
     var v = this.vel.magnitude();
-    return this.mass * v * v / 2;
+    return this.mass() * Math.pow(v, 2) / 2;
   }
 
 
@@ -28,14 +30,8 @@ class Mover{
   //updates ball position
   update () {
     this.checkEdges();
-    if(this !== attractor && this !== repeller){
-      this.applyForce(this.attractorForce());
-      this.applyForce(this.repellerForce());
-    }
 
     this.vel.add(this.acc);
-    this.vel.limit(8);
-    //console.log(this.vel.magnitude());
     this.loc.add(this.vel);
     this.acc.scalarMult(0);
   }
@@ -60,6 +56,30 @@ class Mover{
       this.vel.y *= -1;
     }
   }
+
+	checkCollide () {
+		let collisions = [];
+		for(let i in System().entities) {
+			let ent = System().entities[i];
+			if(ent == this) {
+				continue;
+			}
+			let dist = this.loc.distance(ent.loc);
+			if(dist < (this.radius + ent.radius)) {
+				collisions.push(ent);
+			}
+		}
+		return collisions;
+	}
+
+	collide (other) { // Default collision effect - the object bounces away when it's hit.
+
+		
+		
+		let multiplier = other.mass()/this.mass() * 2; // Stronger bounce if the other is heavier, and vice versa
+		this.loc = other.loc.clone().add(other.loc.vectorTo(this.loc).setMag(other.radius + this.radius));
+		this.vel.add(other.loc.vectorTo(this.loc).setMag((other.vel.magnitude() * multiplier) + 5 /* the static number means there HAS to be some movement */)).scalarDiv(2);
+	}
 
   //draws ball
   draw () {
