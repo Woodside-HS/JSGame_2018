@@ -6,11 +6,11 @@ window.addEventListener('load', setup, false);
 var game;   // the global game object
 
 function setup() {
-  CONFIG.INIT();
+  config.init();
   game = new Game();
   game.init();
   game.update();
-  window.setInterval(draw, 1000 / CONFIG.FRAME_RATE);
+  window.setInterval(draw, 1000 / config.frame_rate);
 }
 
 function draw() {   // the animation loop
@@ -27,11 +27,11 @@ class Game extends Updateable {
     this.userInterface = new UserInterface(this);
     this.player = new Player(this);
     //  create the canvas
-    this.canvas = document.getElementById(CONFIG.CANVAS_NAME);
+    this.canvas = document.getElementById(config.canvas_name);
     if (!this.canvas)
       throw "No valid canvas found!";
-    this.canvas.width = CONFIG.CANVAS_WIDTH;
-    this.canvas.height = CONFIG.CANVAS_HEIGHT;
+    this.canvas.width = config.canvas_width;
+    this.canvas.height = config.canvas_height;
     this.mouseLocation = new Vector2D(0, 0);
 
     //tracks mouse position
@@ -57,13 +57,13 @@ class Game extends Updateable {
   }
   render() {
     //black background over everything
-    this.context.fillStyle = CONFIG.BACKGROUND_COLOR;
-    this.context.fillRect(0, 0, CONFIG.CANVAS_WIDTH, CONFIG.CANVAS_HEIGHT);
+    this.context.fillStyle = config.background_color;
+    this.context.fillRect(0, 0, config.canvas_width, config.canvas_height);
 
     //mini screen translation
     this.context.save();
-    this.context.translate(CONFIG.CANVAS_WIDTH / 2, CONFIG.CANVAS_HEIGHT / 2);
-    this.context.scale(CONFIG.SCALING_FACTOR_X, CONFIG.SCALING_FACTOR_Y);
+    this.context.translate(config.canvas_width / 2, config.canvas_height / 2);
+    this.context.scale(config.scaling_factor_x, config.scaling_factor_y);
     this.context.translate(-this.player.loc.x, -this.player.loc.y);
     this.mapManager.render();
     this.minionManager.render();
@@ -78,9 +78,9 @@ class Game extends Updateable {
     game.mouseLocation.x = e.offsetX;
     game.mouseLocation.y = e.offsetY;
     //convert to absolute
-    game.mouseLocation.add(new Vector2D(-CONFIG.CANVAS_WIDTH / 2, -CONFIG.CANVAS_HEIGHT / 2));
-    game.mouseLocation.x *= 1 / CONFIG.SCALING_FACTOR_X;
-    game.mouseLocation.y *= 1 / CONFIG.SCALING_FACTOR_Y;
+    game.mouseLocation.add(new Vector2D(-config.canvas_width / 2, -config.canvas_height / 2));
+    game.mouseLocation.x *= 1 / config.scaling_factor_x;
+    game.mouseLocation.y *= 1 / config.scaling_factor_y;
     game.mouseLocation.add(game.player.loc);
   }
 }
