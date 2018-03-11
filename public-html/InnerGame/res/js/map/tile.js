@@ -16,7 +16,7 @@ class Tile extends Updateable {
     this.isOccupied=this.tileType.IS_OCCUPIED;
   }
   render() {
-    // this.game.context.fillStyle = this.tileType.MINIMAP_COLOR;
+    // this.game.context.fillStyle = this.tileType.minimap_color;
     // this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
     this.game.context.drawImage(this.image,this.loc.x, this.loc.y, config.tile_size, config.tile_size);
    }

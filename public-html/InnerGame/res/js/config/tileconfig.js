@@ -3,21 +3,21 @@
 //haha what's an enum
 const TILE_TYPES = {
   NULL: {
-    MINIMAP_COLOR:"pink",
+    minimap_color:"pink",
     IS_OCCUPIED:false
   },
   GRASS: {
-    MINIMAP_COLOR: "#abdb8a",
+    minimap_color: "#abdb8a",
     IS_OCCUPIED:false,
     IMAGE_SRC:'res/sprites/grass.png'
   },
   ROCK: {
-    MINIMAP_COLOR: "black",
+    minimap_color: "black",
     IS_OCCUPIED:true,
     IMAGE_SRC:'res/sprites/rock.png'
   },
   WATER: {
-    MINIMAP_COLOR: "blue",
+    minimap_color: "blue",
     IS_OCCUPIED:true,
     IMAGE_SRC:'res/sprites/water.png'
   }

@@ -22,13 +22,13 @@ class Player extends Updateable {
     this.cloc=positionToGrid(this.loc);
     this.v.add(this.a);
     //set max v
-    if (this.v.m > PLAYER_CONFIG.MAX_SPEED) {
-      this.v.m = PLAYER_CONFIG.MAX_SPEED;
+    if (this.v.m > player_config.max_speed) {
+      this.v.m = player_config.max_speed;
       this.v.upComps();
     }
     this.loc.add(this.v);
     let vDir = this.v.duplicate();
-    vDir.m = PLAYER_CONFIG.size / 2;
+    vDir.m = player_config.size / 2;
     vDir.upComps();
     let hitBoxPos = this.loc.duplicate();
     hitBoxPos.add(vDir);
@@ -55,16 +55,16 @@ class Player extends Updateable {
     //for debugging purposes
     if (config.debug_mode) {
       let vDir = this.v.duplicate();
-      vDir.m = PLAYER_CONFIG.size / 2;
+      vDir.m = player_config.size / 2;
       vDir.upComps();
       let hitBoxPos = this.loc.duplicate();
       hitBoxPos.add(vDir);
       this.game.context.fillStyle = this.fillStyle;
-      this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.size / 4,hitBoxPos.y - PLAYER_CONFIG.size / 4, PLAYER_CONFIG.size/2, PLAYER_CONFIG.size/2);
-      this.game.context.fillRect(hitBoxPos.x - PLAYER_CONFIG.size / 4,this.loc.y - PLAYER_CONFIG.size / 4, PLAYER_CONFIG.size/2, PLAYER_CONFIG.size/2);
+      this.game.context.fillRect(this.loc.x - player_config.size / 4,hitBoxPos.y - player_config.size / 4, player_config.size/2, player_config.size/2);
+      this.game.context.fillRect(hitBoxPos.x - player_config.size / 4,this.loc.y - player_config.size / 4, player_config.size/2, player_config.size/2);
     }
     this.game.context.fillStyle = this.fillStyle;
-    this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.size / 2, this.loc.y - PLAYER_CONFIG.size / 2, PLAYER_CONFIG.size, PLAYER_CONFIG.size);
+    this.game.context.fillRect(this.loc.x - player_config.size / 2, this.loc.y - player_config.size / 2, player_config.size, player_config.size);
   }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);

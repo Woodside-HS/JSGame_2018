@@ -22,7 +22,7 @@ class Minimap extends Updateable {
     for (let i = 0; i < this.game.mapManager.map.length; i++) {
       for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
         //draw the land
-        this.game.context.fillStyle = this.game.mapManager.map[i][j].tileType.MINIMAP_COLOR;
+        this.game.context.fillStyle = this.game.mapManager.map[i][j].tileType.minimap_color;
         this.game.context.fillRect(
                 startCoordinate.x + UI_CONFIG.MINIMAP_TILE_SIZE * i,
                 startCoordinate.y + UI_CONFIG.MINIMAP_TILE_SIZE * j,
@@ -32,7 +32,7 @@ class Minimap extends Updateable {
     }
     
     //draw the player
-    this.game.context.fillStyle = PLAYER_CONFIG.MINIMAP_COLOR;
+    this.game.context.fillStyle = player_config.minimap_color;
     this.game.context.fillRect(
             startCoordinate.x+UI_CONFIG.MINIMAP_TILE_SIZE*this.game.player.cloc.x,
             startCoordinate.y+UI_CONFIG.MINIMAP_TILE_SIZE*this.game.player.cloc.y,

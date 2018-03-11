@@ -1,5 +1,5 @@
-const PLAYER_CONFIG = {
+const player_config = {
   size:5,
-  MAX_SPEED:3,
-  MINIMAP_COLOR: "#FF0000"
+  max_speed:3,
+  minimap_color: "#FF0000"
 };
