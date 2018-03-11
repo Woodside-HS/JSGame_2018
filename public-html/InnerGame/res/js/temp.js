@@ -8,13 +8,13 @@ document.onkeydown = function(e){
     game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
     break;
     case'2':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),TOWER_TYPES.REPEATER);
+    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),tower_types.repeater);
     break;
     case'3':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),TOWER_TYPES.SNIPER);
+    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),tower_types.sniper);
     break;
     case'4':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),TOWER_TYPES.SPITTER);
+    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),tower_types.spitter);
     break;
   }
   switch(key){

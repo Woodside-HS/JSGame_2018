@@ -44,13 +44,13 @@ class TowerManager extends Updateable {
         game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
         break;
         case'2':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),TOWER_TYPES.REPEATER);
+        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),tower_types.repeater);
         break;
         case'3':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),TOWER_TYPES.SNIPER);
+        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),tower_types.sniper);
         break;
         case'4':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),TOWER_TYPES.SPITTER);
+        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),tower_types.spitter);
         break;
       }
     }

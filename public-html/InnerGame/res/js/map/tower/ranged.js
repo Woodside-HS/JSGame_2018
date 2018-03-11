@@ -2,17 +2,17 @@ class Ranged extends Tower{
   constructor(game, location, type) {
     super(game, location);
     this.type = type;
-    this.range = this.type.RANGE
-    this.cooldown = this.type.COOLDOWN;
+    this.range = this.type.range
+    this.cooldown = this.type.cooldown;
     this.cooldowntimer = 0;
     this.maxhp = this.type.hp;
     this.hp=this.maxhp;
-    this.bulletspeed=this.type.BULLET_SPEED;
-    this.bulletsize=this.type.BULLET_SIZE;
+    this.bulletspeed=this.type.bullet_speed;
+    this.bulletsize=this.type.bullet_size;
     this.projectiles=[];
     this.target = null;
     this.targetdist = this.range+1;
-    this.bulletcolor= this.type.BULLET_COLOR;
+    this.bulletcolor= this.type.bullet_color;
   }
   update(){
     super.update();
