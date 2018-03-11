@@ -4,13 +4,13 @@ const STATUS = {
     COLOR: "#FF0000"
   },
   POISON: {
-    DURATION: CONFIG.FRAME_RATE * 3, // fps * # of seconds
+    DURATION: config.frame_rate * 3, // fps * # of seconds
     DPS: 8
   }
 };
 const MINION_CONFIG = {
   HP: 20,
-  SPEED: 2 / CONFIG.FRAME_RATE,
+  SPEED: 2 / config.frame_rate,
   DAMAGE: 1,
   SIZE: 3,
   COLOR: "#FF0000",

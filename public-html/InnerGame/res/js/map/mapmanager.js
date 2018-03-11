@@ -11,15 +11,15 @@ class MapManager extends Updateable {
   init() {
     noise.seed(Math.random());
     //Create map array
-    for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
+    for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
-      for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
+      for (let j = 0; j < config.map_y_size; j++) {
         this.map[i].push(new Tile(this.game, new Vector2D(i, j)));
       }
     }
     //Initialize tiles
-    for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
-      for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
+    for (let i = 0; i < config.map_x_size; i++) {
+      for (let j = 0; j < config.map_y_size; j++) {
 
         //Set the seed
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
@@ -53,16 +53,16 @@ class MapManager extends Updateable {
     this.game.player.loc = startTile.loc.duplicate();
   }
   update() {
-    for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
-      for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
+    for (let i = 0; i < config.map_x_size; i++) {
+      for (let j = 0; j < config.map_y_size; j++) {
         this.map[i][j].update();
       }
     }
     this.towermanager.update();
   }
   render() {
-    for (let i = 0; i < CONFIG.MAP_X_SIZE; i++) {
-      for (let j = 0; j < CONFIG.MAP_Y_SIZE; j++) {
+    for (let i = 0; i < config.map_x_size; i++) {
+      for (let j = 0; j < config.map_y_size; j++) {
         this.map[i][j].render();
       }
     }

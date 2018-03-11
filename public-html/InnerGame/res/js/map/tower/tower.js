@@ -6,7 +6,7 @@ class Tower extends Updateable{
     super();
     this.game = game;
     this.cloc = location;
-    this.loc = new Vector2D(this.cloc.x*CONFIG.TILE_SIZE,this.cloc.y*CONFIG.TILE_SIZE);
+    this.loc = new Vector2D(this.cloc.x*config.tile_size,this.cloc.y*config.tile_size);
     this.type = TOWER_TYPES.NULL;
     this.fillStyle = "rgba(255,255,0,1)";
     this.fontstyle = "rgba(0,0,255,1)";
@@ -19,14 +19,14 @@ class Tower extends Updateable{
   render(){
     this.game.context.fillStyle=this.fillStyle;
     this.game.context.beginPath();
-    this.game.context.arc(this.loc.x+CONFIG.TILE_SIZE/2,this.loc.y+CONFIG.TILE_SIZE/2,CONFIG.TILE_SIZE/2,0,2*Math.PI);
+    this.game.context.arc(this.loc.x+config.tile_size/2,this.loc.y+config.tile_size/2,config.tile_size/2,0,2*Math.PI);
     this.game.context.fill();
     this.game.context.fillStyle=this.fontstyle;
-    this.game.context.fillText(this.type.NAME,this.loc.x, this.loc.y+CONFIG.TILE_SIZE/2);
+    this.game.context.fillText(this.type.NAME,this.loc.x, this.loc.y+config.tile_size/2);
     this.game.context.fillStyle='rgba(255,0,0,1)';
-    this.game.context.fillRect(this.loc.x, this.loc.y+4*CONFIG.TILE_SIZE/5, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE/5);
+    this.game.context.fillRect(this.loc.x, this.loc.y+4*config.tile_size/5, config.tile_size, config.tile_size/5);
     this.game.context.fillStyle='rgba(0,255,0,1)';
-    this.game.context.fillRect(this.loc.x, this.loc.y+4*CONFIG.TILE_SIZE/5, this.hp/this.maxhp*CONFIG.TILE_SIZE, CONFIG.TILE_SIZE/5);
+    this.game.context.fillRect(this.loc.x, this.loc.y+4*config.tile_size/5, this.hp/this.maxhp*config.tile_size, config.tile_size/5);
 
   }
 

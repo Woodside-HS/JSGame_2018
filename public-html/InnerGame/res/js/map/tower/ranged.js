@@ -62,7 +62,7 @@ class Ranged extends Tower{
         v:dir,
         life:Math.floor(diff.m/this.bulletspeed)+1
       }
-      projectile.loc.add(new Vector2D(CONFIG.TILE_SIZE/2,CONFIG.TILE_SIZE/2));
+      projectile.loc.add(new Vector2D(config.tile_size/2,config.tile_size/2));
       this.projectiles.push(projectile);
     }
 

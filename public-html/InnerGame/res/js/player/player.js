@@ -34,7 +34,7 @@ class Player extends Updateable {
     hitBoxPos.add(vDir);
     let hitboxCloc = positionToGrid(hitBoxPos);;
       if (hitboxCloc.x < 0 ||
-          hitboxCloc.x >= CONFIG.MAP_X_SIZE ||
+          hitboxCloc.x >= config.map_x_size ||
           this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied){
         this.loc.subtract(this.v);
         this.v.x=0;
@@ -42,7 +42,7 @@ class Player extends Updateable {
         this.loc.add(this.v);
       }
       if (hitboxCloc.y < 0 ||
-          hitboxCloc.y >= CONFIG.MAP_Y_SIZE ||
+          hitboxCloc.y >= config.map_y_size ||
           this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied){
         this.loc.subtract(this.v);
         this.v.y=0;
@@ -53,7 +53,7 @@ class Player extends Updateable {
   }
   render() {
     //for debugging purposes
-    if (CONFIG.DEBUG_MODE) {
+    if (config.debug_mode) {
       let vDir = this.v.duplicate();
       vDir.m = PLAYER_CONFIG.SIZE / 2;
       vDir.upComps();

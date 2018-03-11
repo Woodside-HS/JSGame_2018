@@ -12,13 +12,13 @@ const TOWER_TYPES = {
   SPITTER:{
     NAME:'spitter',
     HP:10,
-    RANGE:CONFIG.TILE_SIZE*5, //6 tiles
+    RANGE:config.tile_size*5, //6 tiles
     DAMAGE:1,
-    COOLDOWN:CONFIG.FRAME_RATE*.75, //.75 sec
+    COOLDOWN:config.frame_rate*.75, //.75 sec
     BULLET_SPEED:2,
     BULLET_SIZE:3,//radius, in px
     BULLET_COLOR:'orange',
-    SPLASH_RANGE:CONFIG.TILE_SIZE*1,
+    SPLASH_RANGE:config.tile_size*1,
     onHit: function(target){
       target.hp-=this.DAMAGE;
       for(let i=0;i<game.minionManager.minions.length;i++){
@@ -32,9 +32,9 @@ const TOWER_TYPES = {
   SNIPER:{
     NAME:'sniper',
     HP:10,
-    RANGE:CONFIG.TILE_SIZE*10, //6 tiles
+    RANGE:config.tile_size*10, //6 tiles
     DAMAGE:9,
-    COOLDOWN:CONFIG.FRAME_RATE*1, //1 sec
+    COOLDOWN:config.frame_rate*1, //1 sec
     BULLET_SPEED:7,
     BULLET_SIZE:2,//radius, in px
     BULLET_COLOR:'orange',
@@ -45,9 +45,9 @@ const TOWER_TYPES = {
   REPEATER:{
     NAME:'repeater',
     HP:10,
-    RANGE:CONFIG.TILE_SIZE*5, //6 tiles
+    RANGE:config.tile_size*5, //6 tiles
     DAMAGE:2,
-    COOLDOWN:CONFIG.FRAME_RATE*.25, //1 sec
+    COOLDOWN:config.frame_rate*.25, //1 sec
     BULLET_SPEED:4,
     BULLET_SIZE:1.5,//radius, in px
     BULLET_COLOR:'orange',

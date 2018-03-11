@@ -12,14 +12,14 @@ function pyth(x, y) {
 }
 function positionToGrid(vector) {
   return new Vector2D(
-          Math.floor(vector.x / CONFIG.TILE_SIZE),
-          Math.floor(vector.y / CONFIG.TILE_SIZE)
+          Math.floor(vector.x / config.tile_size),
+          Math.floor(vector.y / config.tile_size)
           );
 }
 function gridToPositon(vector) {
   return  new Vector2D(
-          vector.x * CONFIG.TILE_SIZE,
-          vector.y * CONFIG.TILE_SIZE
+          vector.x * config.tile_size,
+          vector.y * config.tile_size
           );
 }
 function randIn(min, max) {

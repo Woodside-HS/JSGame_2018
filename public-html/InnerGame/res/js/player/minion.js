@@ -17,7 +17,7 @@ class Minion extends Updateable {
   update() {
     switch (this.status) {
       case STATUS.POISON:
-        this.hp -= this.status.DPS / CONFIG.FRAME_RATE;
+        this.hp -= this.status.DPS / config.frame_rate;
         this.fillStyle = "rgba(225,100,0,1)";
         break;
       case STATUS.NULL:
@@ -38,7 +38,7 @@ class Minion extends Updateable {
   render() {
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.beginPath();
-    this.game.context.arc(this.loc.x, this.loc.y, CONFIG.TILE_SIZE / 2, 0, 2 * Math.PI);
+    this.game.context.arc(this.loc.x, this.loc.y, config.tile_size / 2, 0, 2 * Math.PI);
     this.game.context.fill();
     this.game.context.fillStyle = MINION_CONFIG.HEALTHBAR_NEGATIVE_COLOR;
     this.game.context.fillRect(this.loc.x - 1.5 * this.radius, this.loc.y + 2 / 3 * this.radius, 3 * this.radius, this.radius);

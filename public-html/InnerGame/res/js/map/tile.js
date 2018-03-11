@@ -5,7 +5,7 @@ class Tile extends Updateable {
     super();
     this.game = game;
     this.cloc = location;
-    this.loc = new Vector2D(this.cloc.x * CONFIG.TILE_SIZE, this.cloc.y * CONFIG.TILE_SIZE);
+    this.loc = new Vector2D(this.cloc.x * config.tile_size, this.cloc.y * config.tile_size);
     this.dir = -1;
     this.isGoal = false;
     this.tileType = TILE_TYPES.NULL;
@@ -17,7 +17,7 @@ class Tile extends Updateable {
   }
   render() {
     // this.game.context.fillStyle = this.tileType.MINIMAP_COLOR;
-    // this.game.context.fillRect(this.loc.x, this.loc.y, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
-    this.game.context.drawImage(this.image,this.loc.x, this.loc.y, CONFIG.TILE_SIZE, CONFIG.TILE_SIZE);
+    // this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+    this.game.context.drawImage(this.image,this.loc.x, this.loc.y, config.tile_size, config.tile_size);
    }
 }
