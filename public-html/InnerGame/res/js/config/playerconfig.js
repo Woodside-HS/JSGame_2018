@@ -1,5 +1,5 @@
 const PLAYER_CONFIG = {
-  SIZE:5,
+  size:5,
   MAX_SPEED:3,
   MINIMAP_COLOR: "#FF0000"
 };

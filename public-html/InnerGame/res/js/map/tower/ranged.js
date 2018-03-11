@@ -5,7 +5,7 @@ class Ranged extends Tower{
     this.range = this.type.RANGE
     this.cooldown = this.type.COOLDOWN;
     this.cooldowntimer = 0;
-    this.maxhp = this.type.HP;
+    this.maxhp = this.type.hp;
     this.hp=this.maxhp;
     this.bulletspeed=this.type.BULLET_SPEED;
     this.bulletsize=this.type.BULLET_SIZE;

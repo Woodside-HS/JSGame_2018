@@ -28,7 +28,7 @@ class Player extends Updateable {
     }
     this.loc.add(this.v);
     let vDir = this.v.duplicate();
-    vDir.m = PLAYER_CONFIG.SIZE / 2;
+    vDir.m = PLAYER_CONFIG.size / 2;
     vDir.upComps();
     let hitBoxPos = this.loc.duplicate();
     hitBoxPos.add(vDir);
@@ -55,16 +55,16 @@ class Player extends Updateable {
     //for debugging purposes
     if (config.debug_mode) {
       let vDir = this.v.duplicate();
-      vDir.m = PLAYER_CONFIG.SIZE / 2;
+      vDir.m = PLAYER_CONFIG.size / 2;
       vDir.upComps();
       let hitBoxPos = this.loc.duplicate();
       hitBoxPos.add(vDir);
       this.game.context.fillStyle = this.fillStyle;
-      this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.SIZE / 4,hitBoxPos.y - PLAYER_CONFIG.SIZE / 4, PLAYER_CONFIG.SIZE/2, PLAYER_CONFIG.SIZE/2);
-      this.game.context.fillRect(hitBoxPos.x - PLAYER_CONFIG.SIZE / 4,this.loc.y - PLAYER_CONFIG.SIZE / 4, PLAYER_CONFIG.SIZE/2, PLAYER_CONFIG.SIZE/2);
+      this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.size / 4,hitBoxPos.y - PLAYER_CONFIG.size / 4, PLAYER_CONFIG.size/2, PLAYER_CONFIG.size/2);
+      this.game.context.fillRect(hitBoxPos.x - PLAYER_CONFIG.size / 4,this.loc.y - PLAYER_CONFIG.size / 4, PLAYER_CONFIG.size/2, PLAYER_CONFIG.size/2);
     }
     this.game.context.fillStyle = this.fillStyle;
-    this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.SIZE / 2, this.loc.y - PLAYER_CONFIG.SIZE / 2, PLAYER_CONFIG.SIZE, PLAYER_CONFIG.SIZE);
+    this.game.context.fillRect(this.loc.x - PLAYER_CONFIG.size / 2, this.loc.y - PLAYER_CONFIG.size / 2, PLAYER_CONFIG.size, PLAYER_CONFIG.size);
   }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
