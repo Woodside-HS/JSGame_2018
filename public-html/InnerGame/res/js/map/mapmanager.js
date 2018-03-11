@@ -23,15 +23,15 @@ class MapManager extends Updateable {
 
         //Set the seed
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
-                this.map[i][j].cloc.x / this.map.length * MAP_CONFIG.NOISE_SCALE,
-                this.map[i][j].cloc.y / this.map[i].length * MAP_CONFIG.NOISE_SCALE
+                this.map[i][j].cloc.x / this.map.length * map_config.noise_scale,
+                this.map[i][j].cloc.y / this.map[i].length * map_config.noise_scale
                 ));
 
         //Set tile types
-        if (this.map[i][j].perlin > 1 - MAP_CONFIG.ROCK_PROBABILITY) {
+        if (this.map[i][j].perlin > 1 - map_config.rock_probability) {
           this.map[i][j].tileType = TILE_TYPES.ROCK;
-        } else if (this.map[i][j].perlin > MAP_CONFIG.WATER_RANGE[0] &&
-                this.map[i][j].perlin < MAP_CONFIG.WATER_RANGE[1]) {
+        } else if (this.map[i][j].perlin > map_config.water_range[0] &&
+                this.map[i][j].perlin < map_config.water_range[1]) {
           this.map[i][j].tileType = TILE_TYPES.WATER;
         } else {
           this.map[i][j].tileType = TILE_TYPES.GRASS;
