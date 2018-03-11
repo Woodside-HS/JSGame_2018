@@ -8,12 +8,12 @@ class Tile extends Updateable {
     this.loc = new Vector2D(this.cloc.x * config.tile_size, this.cloc.y * config.tile_size);
     this.dir = -1;
     this.isGoal = false;
-    this.tileType = TILE_TYPES.NULL;
+    this.tileType = tile_types.nulltype;
     this.image=new Image();
   }
   init(){
-    this.image.src=this.tileType.IMAGE_SRC;
-    this.isOccupied=this.tileType.IS_OCCUPIED;
+    this.image.src=this.tileType.image_src;
+    this.isOccupied=this.tileType.is_occupied;
   }
   render() {
     // this.game.context.fillStyle = this.tileType.minimap_color;

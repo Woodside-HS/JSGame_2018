@@ -1,27 +1,27 @@
 'use strict'
 
 //haha what's an enum
-const TILE_TYPES = {
-  NULL: {
+const tile_types = {
+  nulltype: {
     minimap_color:"pink",
-    IS_OCCUPIED:false
+    is_occupied:false
   },
-  GRASS: {
+  grass: {
     minimap_color: "#abdb8a",
-    IS_OCCUPIED:false,
-    IMAGE_SRC:'res/sprites/grass.png'
+    is_occupied:false,
+    image_src:'res/sprites/grass.png'
   },
-  ROCK: {
+  rock: {
     minimap_color: "black",
-    IS_OCCUPIED:true,
-    IMAGE_SRC:'res/sprites/rock.png'
+    is_occupied:true,
+    image_src:'res/sprites/rock.png'
   },
-  WATER: {
+  water: {
     minimap_color: "blue",
-    IS_OCCUPIED:true,
-    IMAGE_SRC:'res/sprites/water.png'
+    is_occupied:true,
+    image_src:'res/sprites/water.png'
   }
 };
-const TILE_CONFIG = {
-  DRAW_GRIDLINES: false//TBD: implement this
+const tile_config = {
+  draw_gridlines: false//TBD: implement this
 };

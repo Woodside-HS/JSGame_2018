@@ -29,16 +29,16 @@ class MapManager extends Updateable {
 
         //Set tile types
         if (this.map[i][j].perlin > 1 - map_config.rock_probability) {
-          this.map[i][j].tileType = TILE_TYPES.ROCK;
+          this.map[i][j].tileType = tile_types.rock;
         } else if (this.map[i][j].perlin > map_config.water_range[0] &&
                 this.map[i][j].perlin < map_config.water_range[1]) {
-          this.map[i][j].tileType = TILE_TYPES.WATER;
+          this.map[i][j].tileType = tile_types.water;
         } else {
-          this.map[i][j].tileType = TILE_TYPES.GRASS;
+          this.map[i][j].tileType = tile_types.grass;
         }
 
         //Create valid starts
-        if (!this.map[i][j].tileType.IS_OCCUPIED) {
+        if (!this.map[i][j].tileType.is_occupied) {
           this.validStartTiles.push(this.map[i][j]);
         }
 
@@ -71,7 +71,7 @@ class MapManager extends Updateable {
   getStartLocation() {
     for (let i = 0; i < this.map.length; i++) {
       for (let j = 0; j < this.map[i].length; j++) {
-        if (map[i][j].tileType == TILE_TYPES.GRASS) {
+        if (map[i][j].tileType == tile_types.grass) {
           return new Vector2D(i, j);
         }
       }
