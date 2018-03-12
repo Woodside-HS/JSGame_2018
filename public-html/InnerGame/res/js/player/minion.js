@@ -13,6 +13,7 @@ class Minion extends Updateable {
     this.radius = minion_config.size;
     this.status = status.nullstatus;
     this.statusTimer = null;
+    this.isSelected=false;
   }
   update() {
     switch (this.status) {
@@ -29,7 +30,9 @@ class Minion extends Updateable {
     if (this.statusTimer == 0) {
       this.status = status.nullstatus;
     }
-
+    if(this.isSelected){
+      this.fillStyle = "rgba(255,100,100,1)";
+    }
   }
   setStatus(status) {
     this.status = status;

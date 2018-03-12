@@ -66,12 +66,12 @@ class UserInterface extends Updateable {
     for(let i=0;i<minions.length;i++){
       let x1=game.userInterface.hlghtstartloc.x;
       let y1=game.userInterface.hlghtstartloc.y;
-      let w=game.mouseLocationAbsolute.x-game.userInterface.hlghtstartloc.x;
-      let h=game.mouseLocationAbsolute.y-game.userInterface.hlghtstartloc.y;
+      let x2=game.mouseLocationAbsolute.x;
+      let y2=game.mouseLocationAbsolute.y;
       let x = minions[i].loc.x;
       let y = minions[i].loc.y;
-      if(((x>x1 && x<x1+h)||(x<x1 && x>x1+h))
-        &&((x>x1 && x<x1+h)||(x<x1 && x>x1+h))){
+      if(((x>x1 && x<x2)||(x<x1 && x>x2))
+        &&((y>y1 && y<y2)||(y<y1 && y>y2))){
           minions[i].isSelected=true;
         } else minions[i].isSelected=false;
     }
