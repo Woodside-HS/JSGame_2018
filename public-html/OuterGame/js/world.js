@@ -14,7 +14,7 @@ class World{
 	this.entities.push(this.ship);
 
     this.makePlanets(50);
-	this.makeAsteroids(180);
+	//this.makeAsteroids(180);
 	// Create camera object which follows the Rocketship
 	this.camera = new Camera();
 
