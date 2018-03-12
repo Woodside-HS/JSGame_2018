@@ -23,5 +23,7 @@ const tile_types = {
   }
 };
 const tile_config = {
-  draw_gridlines: false//TBD: implement this
+  draw_gridlines: false,
+  gridline_stroke: 1,
+  gridline_color: "#000000"
 };
