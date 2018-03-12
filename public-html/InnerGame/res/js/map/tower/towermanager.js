@@ -38,20 +38,20 @@ class TowerManager extends Updateable {
       let mouseCLoc = positionToGrid(game.mouseLocationAbsolute);
       switch (key) {
         case 'Q':
-        game.minionManager.minions.push(new Minion(game, game.mouseLocationAbsolute.duplicate()));
-        break;
+          game.minionManager.minions.push(new Minion(game, game.mouseLocationAbsolute.duplicate()));
+          break;
         case '1':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
-        break;
+          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
+          break;
         case'2':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),tower_types.repeater);
-        break;
+          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.repeater);
+          break;
         case'3':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),tower_types.sniper);
-        break;
+          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.sniper);
+          break;
         case'4':
-        game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(),tower_types.spitter);
-        break;
+          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.spitter);
+          break;
       }
     }
   }

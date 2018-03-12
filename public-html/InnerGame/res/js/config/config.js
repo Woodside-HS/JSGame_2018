@@ -2,8 +2,8 @@
 
 const config = {
   init: function () {
-    config.scaling_factor_x = config.map_x_size/config.view_range;
-    config.scaling_factor_y = config.map_y_size/config.view_range;
+    config.scaling_factor_x = config.map_x_size / config.view_range;
+    config.scaling_factor_y = config.map_y_size / config.view_range;
   },
   debug_mode: true,
   view_range: 40, //measured in tiles

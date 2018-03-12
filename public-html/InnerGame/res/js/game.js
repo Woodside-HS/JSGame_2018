@@ -75,9 +75,9 @@ class Game extends Updateable {
 
   }
   mouseMove(e) {
-    game.mouseLocation= new Vector2D(e.offsetX,e.offsetY)
+    game.mouseLocation = new Vector2D(e.offsetX, e.offsetY)
     //convert to absolute
-    game.mouseLocationAbsolute=game.mouseLocation.duplicate();
+    game.mouseLocationAbsolute = game.mouseLocation.duplicate();
     game.mouseLocationAbsolute.add(new Vector2D(-config.canvas_width / 2, -config.canvas_height / 2));
     game.mouseLocationAbsolute.x *= 1 / config.scaling_factor_x;
     game.mouseLocationAbsolute.y *= 1 / config.scaling_factor_y;

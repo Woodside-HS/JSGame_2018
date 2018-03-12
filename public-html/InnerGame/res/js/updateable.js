@@ -1,28 +1,28 @@
 'use strict'
 
-class Updateable{
-  constructor(){
+class Updateable {
+  constructor() {
 
   }
   /**Called immediately after instantiation
    * 
    * @returns null
    */
-  init(){
+  init() {
 
   }
   /**Called every frame before render()
    * 
    * @returns null
    */
-  update(){
+  update() {
 
   }
   /**Used to draw, called every frame after update()
    * 
    * @returns null
    */
-  render(){
-    
+  render() {
+
   }
 }

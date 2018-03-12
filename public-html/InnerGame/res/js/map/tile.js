@@ -25,7 +25,7 @@ class Tile extends Updateable {
               this.loc.y + tile_config.gridline_stroke / 2,
               config.tile_size - tile_config.gridline_stroke / 2,
               config.tile_size - tile_config.gridline_stroke / 2
-              )
+              );
     } else {
       this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
     }
