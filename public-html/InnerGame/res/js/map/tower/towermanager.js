@@ -35,10 +35,10 @@ class TowerManager extends Updateable {
   docKeyDown(e) {
     if (config.debug_mode) {
       let key = String.fromCharCode(e.keyCode);
-      let mouseCLoc = positionToGrid(game.mouseLocation);
+      let mouseCLoc = positionToGrid(game.mouseLocationAbsolute);
       switch (key) {
         case 'Q':
-        game.minionManager.minions.push(new Minion(game, game.mouseLocation.duplicate()));
+        game.minionManager.minions.push(new Minion(game, game.mouseLocationAbsolute.duplicate()));
         break;
         case '1':
         game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());

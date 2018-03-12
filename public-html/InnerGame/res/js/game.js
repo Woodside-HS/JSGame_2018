@@ -32,7 +32,7 @@ class Game extends Updateable {
       throw "No valid canvas found!";
     this.canvas.width = config.canvas_width;
     this.canvas.height = config.canvas_height;
-    this.mouseLocation = new Vector2D(0, 0);
+    this.mouseLocationAbsolute = new Vector2D(0, 0);
 
     //tracks mouse position
     this.canvas.addEventListener("mousemove", this.mouseMove);
@@ -75,12 +75,12 @@ class Game extends Updateable {
 
   }
   mouseMove(e) {
-    game.mouseLocation.x = e.offsetX;
-    game.mouseLocation.y = e.offsetY;
+    game.mouseLocation= new Vector2D(e.offsetX,e.offsetY)
     //convert to absolute
-    game.mouseLocation.add(new Vector2D(-config.canvas_width / 2, -config.canvas_height / 2));
-    game.mouseLocation.x *= 1 / config.scaling_factor_x;
-    game.mouseLocation.y *= 1 / config.scaling_factor_y;
-    game.mouseLocation.add(game.player.loc);
+    game.mouseLocationAbsolute=game.mouseLocation.duplicate();
+    game.mouseLocationAbsolute.add(new Vector2D(-config.canvas_width / 2, -config.canvas_height / 2));
+    game.mouseLocationAbsolute.x *= 1 / config.scaling_factor_x;
+    game.mouseLocationAbsolute.y *= 1 / config.scaling_factor_y;
+    game.mouseLocationAbsolute.add(game.player.loc);
   }
 }
