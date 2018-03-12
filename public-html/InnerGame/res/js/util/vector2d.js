@@ -40,10 +40,13 @@ class Vector2D {
   }
   project(vec) {
     this.th = vec.th;
-    this.m = this.x*vec.x+this.y*vec.y;
+    this.m = this.x * vec.x + this.y * vec.y;
     this.upComps();
   }
   duplicate() {
     return new Vector2D(this.x, this.y);
+  }
+  toFastVector() {
+    return new FastVector(this.x, this.y);
   }
 }
