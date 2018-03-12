@@ -71,6 +71,22 @@ Vector2D.prototype.limit = function(max){
   }
 }
 
+Vector2D.prototype.clone = function() {
+	return Vector2D.copy(this);
+}
+
+Vector2D.prototype.distance = function(vec) {
+	return Vector2D.distance(this, vec);
+}
+
+Vector2D.prototype.distanceSq = function(vec) {
+	return Vector2D.distanceSq(this, vec);
+}
+
+Vector2D.prototype.vectorTo = function(vec) {
+	return Vector2D.vectorTo(this, vec);
+}
+
 
 ////////////////////////////// CLASS FUNCTIONS ////////////////////////
 
@@ -78,17 +94,9 @@ Vector2D.copy = function(vec1){
   return new Vector2D(vec1.x, vec1.y);
 }
 
-Vector2D.prototype.clone = function() {
-	return Vector2D.copy(this);
-}
-
 Vector2D.distance = function(vec1, vec2) {
   var temp = Vector2D.subtract(vec1, vec2);
   return temp.magnitude();
-}
-
-Vector2D.prototype.distance = function(vec) {
-	return Vector2D.distance(this, vec);
 }
 
 Vector2D.distanceSq = function(vec1, vec2){
@@ -96,16 +104,8 @@ Vector2D.distanceSq = function(vec1, vec2){
   return temp.x * temp.x + temp.y * temp.y;
 }
 
-Vector2D.prototype.distanceSq = function(vec) {
-	return Vector2D.distanceSq(this, vec);
-}
-
 Vector2D.vectorTo = function(vec1, vec2) { // From vec1 to vec2
 	return new Vector2D(vec2.x - vec1.x, vec2.y - vec1.y);
-}
-
-Vector2D.prototype.vectorTo = function(vec) {
-	return Vector2D.vectorTo(this, vec);
 }
 
 Vector2D.add = function(vec1, vec2){
