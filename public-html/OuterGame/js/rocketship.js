@@ -21,10 +21,29 @@ class Rocketship extends Mover {
 	update(){
 
 		//execute appropriate functions if keys are down
-		if(this.up) { this.accelerate(); }
-		if(this.down) { this.decelerate(); }
-		if(this.right) { this.turnRight(); }
-		if(this.left) { this.turnLeft(); }
+		if(System().playerControl == 0) { // Controlled by arrow keys
+			if(this.up) { this.accelerate(); }
+			if(this.down) { this.decelerate(); }
+			if(this.right) { this.turnRight(); }
+			if(this.left) { this.turnLeft(); }
+		} else {
+
+			let cursorPos = new Vector2D(System().cursorX, System().cursorY);
+			let distance = this.loc.distance(cursorPos);
+			let multiplier = Math.pow(distance*0.01, 3);
+
+			let vect = this.loc.vectorTo(cursorPos);
+			vect.normalize();
+			vect.scalarMult(multiplier);
+			this.applyForce(vect);
+
+			ctx.beginPath();
+			ctx.moveTo(System().cursorX, System().cursorY);
+			ctx.lineTo(this.loc.x, this.loc.y);
+			ctx.strokeStyle="white";
+			ctx.lineWidth=(multiplier/4);
+			ctx.stroke();
+		}
 
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
@@ -76,7 +95,8 @@ class Rocketship extends Mover {
 		//apply a force in the opposite direction of the ship
 		//checks velocity to make ship stop, not travel backward
 		if(this.vel.magnitude() > 0.0001){
-			var f = new AngularVector2D(this.vel.magnitude()/30, this.vel.theta() + Math.PI);
+			var f = new AngularVector2D(this.vel.magnitude()/30 + 1, this.vel.theta() + Math.PI);
+			f.limit(this.vel.magnitude()-0.0001);
 			this.applyForce(f);
 		}
 	}
