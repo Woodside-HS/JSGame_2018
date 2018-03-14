@@ -5,17 +5,21 @@ class UserInterface extends Updateable {
     this.minimap = new Minimap(this.game);
     this.buttons=[];
     this.mouseHeld=false;
+    this.minionMenu= new Menu(this.game, menu_config.test_menu);
+    this.menus=[];
+    this.menus.push(this.minionMenu);
   }
   init(){
     this.minimap.init();
     document.addEventListener("click", this.onclick);
     document.addEventListener("mousedown", this.mousedown);
     document.addEventListener("mouseup", this.mouseup);
-    // test button
+
     if(config.debug_mode){
+      // test button
       let button = new Button(this.game,new Vector2D(20,20),20,20,'res/sprites/water.png','res/sprites/rock.png')
       button.onclick= function(){
-        game.player.loc.add(new Vector2D((Math.random()-.5)*100,(Math.random()-.5)*100))
+        game.player.loc.add(new Vector2D((Math.random()-.5)*100,(Math.random()-.5)*100));
       }
       button.init();
       this.buttons.push(button);
@@ -23,12 +27,22 @@ class UserInterface extends Updateable {
   }
   update(){
     this.minimap.update();
+    for(var i=0;i<this.menus.length;i++){
+      if(this.menus[i].isOpen){
+        this.menus[i].update();
+      }
+    }
     for(var i=0;i<this.buttons.length;i++){
       this.buttons[i].update();
     }
   }
   render(){
     this.minimap.render();
+    for(var i=0;i<this.menus.length;i++){
+      if(this.menus[i].isOpen){
+        this.menus[i].render();
+      }
+    }
     for(let i=0;i<this.buttons.length;i++){
       this.buttons[i].render();
     }
@@ -43,10 +57,23 @@ class UserInterface extends Updateable {
 
   }
   onclick(){
+    let menus = game.userInterface.menus;
+    for(let i=0;i<menus.length;i++){
+      if(!menus[i].isMouseOver&&!menus[i].justOpened){
+        menus[i].isOpen=false;
+        continue;
+      }
+      menus[i].justOpened=false;
+      let buttons = menus[i].buttons;
+      for(let j=0;j<menus[i].buttons.length;j++){
+        if(menus[i].buttons[j].srcMode) menus[i].buttons[j].onclick();
+      }
+    }
     let buttons = game.userInterface.buttons;
     for(let i=0;i<buttons.length;i++){
       if(buttons[i].srcMode) buttons[i].onclick();
     }
+    game.userInterface.mouseHeld=false;
   }
   dragging(){
     game.context.fillStyle='rgba(255,255,255,.5)'
@@ -61,8 +88,8 @@ class UserInterface extends Updateable {
     game.userInterface.mouseHeld=true;
   }
   mouseup(){
-    game.userInterface.mouseHeld=false;
     let minions = game.minionManager.minions;
+    let didSelect = false;
     for(let i=0;i<minions.length;i++){
       let x1=game.userInterface.hlghtstartloc.x;
       let y1=game.userInterface.hlghtstartloc.y;
@@ -73,7 +100,12 @@ class UserInterface extends Updateable {
       if(((x>x1 && x<x2)||(x<x1 && x>x2))
         &&((y>y1 && y<y2)||(y<y1 && y>y2))){
           minions[i].isSelected=true;
+          didSelect=true;
         } else minions[i].isSelected=false;
+    }
+    if(didSelect){
+      game.userInterface.minionMenu.isOpen=true;
+      game.userInterface.minionMenu.justOpened=true;
     }
   }
 }
