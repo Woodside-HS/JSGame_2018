@@ -12,14 +12,14 @@ function pyth(x, y) {
 }
 function positionToGrid(vector) {
   return new Vector2D(
-          Math.floor(vector.x / CONFIG.TILE_SIZE),
-          Math.floor(vector.y / CONFIG.TILE_SIZE)
+          Math.floor(vector.x / config.tile_size),
+          Math.floor(vector.y / config.tile_size)
           );
 }
 function gridToPositon(vector) {
   return  new Vector2D(
-          vector.x * CONFIG.TILE_SIZE,
-          vector.y * CONFIG.TILE_SIZE
+          vector.x * config.tile_size,
+          vector.y * config.tile_size
           );
 }
 function randIn(min, max) {
@@ -33,8 +33,8 @@ function getRandomColor() {
   }
   return color;
 }
-function distsqrd(v1,v2){
-  return Math.pow(v1.x-v2.x,2)+Math.pow(v1.y-v2.y,2);
+function distsqrd(v1, v2) {
+  return Math.pow(v1.x - v2.x, 2) + Math.pow(v1.y - v2.y, 2);
 }
 function normalizePerlin(value) {
   let SQ2 = Math.sqrt(2);

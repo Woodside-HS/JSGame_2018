@@ -1,7 +1,7 @@
 'use strict'
 
-const MAP_CONFIG = {
-  NOISE_SCALE: 3,
-  ROCK_PROBABILITY: 0.2,
-  WATER_RANGE: [0, 0.4]
+const map_config = {
+  noise_scale: 3,
+  rock_probability: 0.2,
+  water_range: [0, 0.4]
 };

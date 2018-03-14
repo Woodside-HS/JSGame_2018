@@ -1,19 +1,19 @@
-const STATUS = {
-  NULL: {
-    DURATION: 0,
-    COLOR: "#FF0000"
+const status = {
+  nullstatus: {
+    duration: 0,
+    color: "#FF0000"
   },
-  POISON: {
-    DURATION: CONFIG.FRAME_RATE * 3, // fps * # of seconds
-    DPS: 8
+  poison: {
+    duration: config.frame_rate * 3, // fps * # of seconds
+    dps: 8
   }
 };
-const MINION_CONFIG = {
-  HP: 20,
-  SPEED: 2 / CONFIG.FRAME_RATE,
-  DAMAGE: 1,
-  SIZE: 3,
-  COLOR: "#FF0000",
-  HEALTHBAR_POSITIVE_COLOR: "#00FF00",
-  HEALTHBAR_NEGATIVE_COLOR: "#FF0000"
+const minion_config = {
+  hp: 20,
+  speed: 2 / config.frame_rate,
+  damage: 1,
+  size: 3,
+  color: "#FF0000",
+  healthbar_positive_color: "#00FF00",
+  healthbar_negative_color: "#FF0000"
 };

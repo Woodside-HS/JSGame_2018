@@ -1,5 +1,5 @@
-const UI_CONFIG = {
-  MINIMAP_TILE_SIZE: 1,
-  MINIMAP_BORDER_STROKE: 3,
-  MINIMAP_BORDER_COLOR: "#FFFFFF"
+const ui_config = {
+  minimap_tile_size: 1,
+  minimap_border_stroke: 3,
+  minimap_border_color: "#FFFFFF"
 };
