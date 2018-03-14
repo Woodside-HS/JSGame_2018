@@ -33,6 +33,7 @@ class TowerManager extends Updateable {
     }
   }
   docKeyDown(e) {
+    // use the keyboard for placing towers (Only in debug mode)
     if (config.debug_mode) {
       let key = String.fromCharCode(e.keyCode);
       let mouseCLoc = positionToGrid(game.mouseLocationAbsolute);

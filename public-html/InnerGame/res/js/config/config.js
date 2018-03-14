@@ -1,11 +1,11 @@
 'use strict'
-
+// int properties of the condig object
 const config = {
   init: function () {
     config.scaling_factor_x = config.map_x_size / config.view_range;
     config.scaling_factor_y = config.map_y_size / config.view_range;
   },
-  debug_mode: true,
+  debug_mode: true,// used when we debugging
   view_range: 40, //measured in tiles
   canvas_name: "gameCanvas",
   frame_rate: 60, //fps
