@@ -68,13 +68,4 @@ class MapManager extends Updateable {
     }
     this.towermanager.render();
   }
-  getStartLocation() {
-    for (let i = 0; i < this.map.length; i++) {
-      for (let j = 0; j < this.map[i].length; j++) {
-        if (map[i][j].tileType == tile_types.grass) {
-          return new Vector2D(i, j);
-        }
-      }
-    }
-  }
 }
