@@ -10,8 +10,9 @@ class MinionManager extends Updateable {
   update() {
     for (let i = 0; i < this.minions.length; i++) {
       this.minions[i].update();
+      //check if minions are dead
       if (this.minions[i].hp <= 0) {
-        this.minions.splice(i, 1);
+        this.minions.splice(i, 1);//kill minions
         i--;
       }
     }
