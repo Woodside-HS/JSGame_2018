@@ -19,23 +19,21 @@ class World{
 	playerShip = this.ship;
 	this.entities.push(this.ship);
 
-<<<<<<< HEAD
     this.makePlanets(50);
-	this.makeAsteroids(180);
-=======
+	this.makeAsteroids(20); //issue 12
+
 	this.cursorX = 0;
 	this.cursorY = 0;
 
 	document.addEventListener("mousemove", (e) => {
         var rect = canvas.getBoundingClientRect(); // abs. size of element
-    
+
         this.cursorX = e.clientX - rect.left;   // scale mouse coordinates after they have
         this.cursorY = e.clientY - rect.top;     // been adjusted to be relative to element
     });
 
     this.makePlanets(40);
 	//this.makeAsteroids(100);
->>>>>>> master
 	// Create camera object which follows the Rocketship
 	this.camera = new Camera();
 
@@ -103,47 +101,35 @@ class World{
     }
   }
 
-	makeAsteroids(num){
-    //fixed this for issue 12
-		for(let i = 0; i < num; i++) {
-			let radius = Math.random() * 15 + 4;
-			let loc = false;
-			let repetitions = 0;
-      let condition = true;
-			while(condition) {
-				repetitions++;
-				if(repetitions > 100000) {
-					throw new Error("Repetitions exceeded 100,000 in Asteroid creation.");
-				}
-				// let x = Math.random() * this.width - this.width / 2;
-				// let y = Math.random() * this.height - this.height / 2;
-        let x = Math.random() * this.width;
-				let y = Math.random() * this.height;
-				loc = new Vector2D(x, y);
-				for(var j = 0; j < this.entities.length; j++) { // Check each entity
-					let dist = Vector2D.distance(this.entities[j].loc, loc);
-          console.log(dist);
-          console.log(this.entities[j].radius + this.radius);
-					if(dist <= ((this.entities[j].radius + this.radius) * 1.5)) { // If the two are too close to each other...
-            console.log("too close");
-						// break; // Break out of the for loop, back to the while loop, making a new location.
-					}
-				}
-
-				// To escape from the while loop, get through the entire for loop.
-				if(j==this.entities.length) {
-					break;
-				}
-			}
-
-			let a = new Asteroid(loc, radius);
-			this.entities.push(a);
-		}
-  }
-
-  makeAsteroids2(num){
-    let r = Math.random()*20+5;
-    let x = Math.random()*10;
+  makeAsteroids(num){ //issue 12
+    let counter = num;
+    let a = true; //check if is far enough away from other entities to be drawn
+    while(counter>0){
+      a = true;
+      var r = (Math.random()*20)+5;
+      var x = (Math.random() * this.width*2) - this.width;
+      var y = (Math.random() * this.height) - this.height;
+      var ast = new Asteroid(new Vector2D(x,y),null,null,r); //WEIRD STUFF HAPPENING WITH MATH.RANDOM()
+      // goes through array of entities and checks that new asteroid isn't too close to any
+      for(let i=0;i<this.entities.length;i++){
+        let entLoc = this.entities[i].loc;
+        let astLoc = ast.loc;
+        let dist = new Vector2D(Math.abs(entLoc.x-astLoc.x),Math.abs(entLoc.y-astLoc.y));
+        // let dist = Vector2D.distance(this.entities[i].loc,ast.loc);
+        let radii = this.entities[i].radius+ast.radius;
+        // console.log(ast.radius);
+        // console.log("distance" + dist);
+        // console.log("radii" + radii);
+        if(dist<(radii*1.5)){ //if it's too close to something else
+          a = false; //will not be pushed to entities
+        }
+      }
+      if(a){ //if not too close to any other entities
+        this.entities.push(ast);
+        counter--;
+        console.log(ast);
+      }
+    }
   }
 
   checkHitPlanet(){ //issue 9
@@ -152,6 +138,16 @@ class World{
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
+      }
+    }
+  }
+
+  checkHitAsteroid(){ //issue 12, for debugging
+    for(let i=1;i<this.entities.length;i++){
+      if(Vector2D.distance(this.entities[i].loc,this.ship.loc)<(this.entities[i].radius+20)){
+        ctx.fillStyle="white";
+        ctx.font = "20px Georgia";
+        ctx.fillText(i,canvas.width/2-50,canvas.height/2-50);
       }
     }
   }
@@ -169,6 +165,7 @@ class World{
 	update(){
 		this.camera.update();
 		this.checkHitPlanet(); //issue 9
+    this.checkHitAsteroid(); //issue 12 debugging
 
 		if(this.debugMode) { // Display coordinates of ship and cursor
 			ctx.fillStyle="white";
@@ -209,9 +206,9 @@ class World{
     for(var i = 0; i < this.planets.length; i++){
       this.planets[i].render();
     }
-	for(let i in this.entities) {
-		this.entities[i].render();
-	}
+  	for(let i in this.entities) {
+  		this.entities[i].render();
+  	}
     ctx.restore();
 
   }

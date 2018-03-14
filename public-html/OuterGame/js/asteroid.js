@@ -1,8 +1,8 @@
 
 class Asteroid extends Mover {
-	constructor(loc, radius) {
-		super(loc);
-		this.radius = radius;
+	constructor(loc, vel,acc,radius) {
+		super(loc,vel,acc,radius);
+		// this.radius = radius;
 	}
 
 	render() {
