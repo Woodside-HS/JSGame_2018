@@ -1,6 +1,8 @@
 window.onload = init;
 //new branch
 //  This is for demo purposes
+
+//change 2
 var canvas;
 var ctx;
 var worlds = [];
