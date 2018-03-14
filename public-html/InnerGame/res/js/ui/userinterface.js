@@ -1,5 +1,5 @@
 class UserInterface extends Updateable {
-  constructor(game){
+  constructor(game) {
     super();
     this.game = game;
     this.minimap = new Minimap(this.game);
@@ -7,9 +7,9 @@ class UserInterface extends Updateable {
     this.mouseHeld=false;
     this.minionMenu= new Menu(this.game, menu_config.test_menu);
     this.menus=[];
-    this.menus.push(this.minionMenu);
+    this.menus.push(this.minionMenu)
   }
-  init(){
+  init() {
     this.minimap.init();
     document.addEventListener("click", this.onclick);
     document.addEventListener("mousedown", this.mousedown);
@@ -25,7 +25,7 @@ class UserInterface extends Updateable {
       this.buttons.push(button);
     }
   }
-  update(){
+  update() {
     this.minimap.update();
     for(var i=0;i<this.menus.length;i++){
       if(this.menus[i].isOpen){
@@ -36,7 +36,7 @@ class UserInterface extends Updateable {
       this.buttons[i].update();
     }
   }
-  render(){
+  render() {
     this.minimap.render();
     for(var i=0;i<this.menus.length;i++){
       if(this.menus[i].isOpen){
@@ -52,7 +52,8 @@ class UserInterface extends Updateable {
     this.game.context.translate(config.canvas_width / 2, config.canvas_height / 2);
     this.game.context.scale(config.scaling_factor_x, config.scaling_factor_y);
     this.game.context.translate(-this.game.player.loc.x, -this.game.player.loc.y);
-    if(this.mouseHeld) this.dragging();
+    if (this.mouseHeld)
+      this.dragging();
     this.game.context.restore();
 
   }
@@ -70,22 +71,23 @@ class UserInterface extends Updateable {
       }
     }
     let buttons = game.userInterface.buttons;
-    for(let i=0;i<buttons.length;i++){
-      if(buttons[i].srcMode) buttons[i].onclick();
+    for (let i = 0; i < buttons.length; i++) {
+      if (buttons[i].srcMode)
+        buttons[i].onclick();
     }
     game.userInterface.mouseHeld=false;
   }
-  dragging(){
-    game.context.fillStyle='rgba(255,255,255,.5)'
-    let x1=game.userInterface.hlghtstartloc.x;
-    let y1=game.userInterface.hlghtstartloc.y;
-    let w=game.mouseLocationAbsolute.x-game.userInterface.hlghtstartloc.x;
-    let h=game.mouseLocationAbsolute.y-game.userInterface.hlghtstartloc.y;
-    game.context.fillRect(x1,y1,w,h);
+  dragging() {
+    game.context.fillStyle = 'rgba(255,255,255,.5)'
+    let x1 = game.userInterface.hlghtstartloc.x;
+    let y1 = game.userInterface.hlghtstartloc.y;
+    let w = game.mouseLocationAbsolute.x - game.userInterface.hlghtstartloc.x;
+    let h = game.mouseLocationAbsolute.y - game.userInterface.hlghtstartloc.y;
+    game.context.fillRect(x1, y1, w, h);
   }
-  mousedown(){
-    game.userInterface.hlghtstartloc=game.mouseLocationAbsolute.duplicate();
-    game.userInterface.mouseHeld=true;
+  mousedown() {
+    game.userInterface.hlghtstartloc = game.mouseLocationAbsolute.duplicate();
+    game.userInterface.mouseHeld = true;
   }
   mouseup(){
     let minions = game.minionManager.minions;

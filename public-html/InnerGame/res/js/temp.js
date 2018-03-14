@@ -1,55 +1,55 @@
-document.onkeydown = function(e){
+document.onkeydown = function (e) {
   let key = String.fromCharCode(e.keyCode);
-  switch(key){
+  switch (key) {
     case 'Q':
-    game.minionManager.minions.push(new Minion(game,new Vector2D(mouselocx,mouselocy)));
-    break;
+      game.minionManager.minions.push(new Minion(game, new Vector2D(mouselocx, mouselocy)));
+      break;
     case '1':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game,new Vector2D(mouseclocx,mouseclocy));
-    break;
+      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game, new Vector2D(mouseclocx, mouseclocy));
+      break;
     case'2':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),tower_types.repeater);
-    break;
+      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.repeater);
+      break;
     case'3':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),tower_types.sniper);
-    break;
+      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.sniper);
+      break;
     case'4':
-    game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game,new Vector2D(mouseclocx,mouseclocy),tower_types.spitter);
-    break;
+      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.spitter);
+      break;
   }
-  switch(key){
+  switch (key) {
     case 'W':
-    if(game.player.a.y!=-1)
-      game.player.a.y=-1;
-    break;
+      if (game.player.a.y != -1)
+        game.player.a.y = -1;
+      break;
     case 'A':
-    if(game.player.a.x!=-1)
-      game.player.a.x=-1;
-    break;
+      if (game.player.a.x != -1)
+        game.player.a.x = -1;
+      break;
     case'S':
-    if(game.player.a.y!=1)
-      game.player.a.y=1;
-    break;
+      if (game.player.a.y != 1)
+        game.player.a.y = 1;
+      break;
     case'D':
-    if(game.player.a.x!=1)
-      game.player.a.x=1;
-    break;
+      if (game.player.a.x != 1)
+        game.player.a.x = 1;
+      break;
   }
 }
-document.onkeyup = function(e){
+document.onkeyup = function (e) {
   let key = String.fromCharCode(e.keyCode);
-  switch(key){
+  switch (key) {
     case 'W':
-    game.player.a.y=0;
-    break;
+      game.player.a.y = 0;
+      break;
     case 'A':
-    game.player.a.x=0;
-    break;
+      game.player.a.x = 0;
+      break;
     case'S':
-    game.player.a.y=0;
-    break;
+      game.player.a.y = 0;
+      break;
     case'D':
-    game.player.a.x=0;
-    break;
+      game.player.a.x = 0;
+      break;
   }
 }
