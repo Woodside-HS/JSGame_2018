@@ -1,6 +1,6 @@
 window.onload = init;
 //new branch
-
+//  This is for demo purposes
 var canvas;
 var ctx;
 var worlds = [];
