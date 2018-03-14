@@ -1,5 +1,10 @@
 'use strict'
-
+/*
+*  Hold thae array of all tiles
+   init the map
+*  Owns the tower manager (towers are on the map)
+*  Owns anything that is contained by a cell objects (cells are tiles)
+*/
 class MapManager extends Updateable {
   constructor(game) {
     super();
@@ -22,6 +27,10 @@ class MapManager extends Updateable {
       for (let j = 0; j < config.map_y_size; j++) {
 
         //Set the seed
+        /*
+        *  noise perlin2--> in util
+        *  all tile type chosen according to perlin noise
+        */
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
                 this.map[i][j].cloc.x / this.map.length * map_config.noise_scale,
                 this.map[i][j].cloc.y / this.map[i].length * map_config.noise_scale
@@ -38,6 +47,7 @@ class MapManager extends Updateable {
         }
 
         //Create valid starts
+        //  Only spawn player, minions
         if (!this.map[i][j].tileType.is_occupied) {
           this.validStartTiles.push(this.map[i][j]);
         }
@@ -46,7 +56,7 @@ class MapManager extends Updateable {
         this.map[i][j].init();
       }
     }
-
+    
     this.towermanager.init();
 
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];

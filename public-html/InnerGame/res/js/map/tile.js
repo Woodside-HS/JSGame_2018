@@ -4,10 +4,12 @@ class Tile extends Updateable {
   constructor(game, location) {
     super();
     this.game = game;
-    this.cloc = location; //cloc = Cellular LOCation
+    this.cloc = location; //cloc = Cellular LOCatIOn
     this.loc = new Vector2D( //pixel-relative position of top left corner to map origin
             this.cloc.x * config.tile_size,
             this.cloc.y * config.tile_size);
+            // nulltype is not a real tile (nulltype overridden before init)
+            // override done in map manager
     this.tileType = tile_types.nulltype;
     this.image = new Image();
   }
