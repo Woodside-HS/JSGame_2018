@@ -12,7 +12,7 @@ const menu_config = {
         width:20,
         height:20,
         onclick: function(){
-          game.player.loc.add(new Vector2D((Math.random()-.5)*100,(Math.random()-.5)*100))
+          game.userInterface.cursorMode=cursor_modes.moveTo;
         }
       },
       {

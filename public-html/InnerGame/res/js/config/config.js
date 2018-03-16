@@ -2,8 +2,11 @@
 // int properties of the condig object
 const config = {
   init: function () {
+    config.canvas_width=window.innerWidth-4;
+    config.canvas_height=window.innerHeight-4;
     config.scaling_factor_x = config.map_x_size / config.view_range;
     config.scaling_factor_y = config.map_y_size / config.view_range;
+    tile_types.init();
   },
   debug_mode: true,// used when we debugging
   view_range: 40, //measured in tiles
