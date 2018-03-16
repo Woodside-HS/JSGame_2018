@@ -11,10 +11,9 @@ class Tile extends Updateable {
             // nulltype is not a real tile (nulltype overridden before init)
             // override done in map manager
     this.tileType = tile_types.nulltype;
-    this.image = new Image();
   }
   init() {
-    this.image.src = this.tileType.image_src;
+    this.image = this.tileType.image;
     this.isOccupied = this.tileType.is_occupied;
   }
   render() {
