@@ -20,7 +20,7 @@ class World{
 	this.entities.push(this.ship);
 
     this.makePlanets(50);
-	this.makeAsteroids(20); //issue 12
+	this.makeAsteroids(50); //issue 12
 
 	this.cursorX = 0;
 	this.cursorY = 0;
@@ -109,17 +109,14 @@ class World{
       var r = (Math.random()*20)+5;
       var x = (Math.random() * this.width*2) - this.width;
       var y = (Math.random() * this.height) - this.height;
-      var ast = new Asteroid(new Vector2D(x,y),null,null,r); //WEIRD STUFF HAPPENING WITH MATH.RANDOM()
+      var ast = new Asteroid(new Vector2D(x,y),null,null,r);
       // goes through array of entities and checks that new asteroid isn't too close to any
       for(let i=0;i<this.entities.length;i++){
         let entLoc = this.entities[i].loc;
         let astLoc = ast.loc;
-        let dist = new Vector2D(Math.abs(entLoc.x-astLoc.x),Math.abs(entLoc.y-astLoc.y));
-        // let dist = Vector2D.distance(this.entities[i].loc,ast.loc);
+        // let dist = new Vector2D(Math.abs(entLoc.x-astLoc.x),Math.abs(entLoc.y-astLoc.y));
+        let dist = Vector2D.distance(this.entities[i].loc,ast.loc);
         let radii = this.entities[i].radius+ast.radius;
-        // console.log(ast.radius);
-        // console.log("distance" + dist);
-        // console.log("radii" + radii);
         if(dist<(radii*1.5)){ //if it's too close to something else
           a = false; //will not be pushed to entities
         }
@@ -127,7 +124,7 @@ class World{
       if(a){ //if not too close to any other entities
         this.entities.push(ast);
         counter--;
-        console.log(ast);
+        // console.log(ast);
       }
     }
   }

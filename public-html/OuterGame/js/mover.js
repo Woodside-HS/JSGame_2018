@@ -29,7 +29,7 @@ class Mover {
 
   //updates ball position
   update () {
-    this.checkEdges();
+    // this.checkEdges(); //take out because not being used for mover subclass objects, issue 12
 
     this.vel.add(this.acc);
     this.loc.add(this.vel);
@@ -74,8 +74,8 @@ class Mover {
 
 	collide (other) { // Default collision effect - the object bounces away when it's hit.
 
-		
-		
+
+
 		let multiplier = other.mass()/this.mass() * 2; // Stronger bounce if the other is heavier, and vice versa
 		this.loc = other.loc.clone().add(other.loc.vectorTo(this.loc).setMag(other.radius + this.radius));
 		this.vel.add(other.loc.vectorTo(this.loc).setMag((other.vel.magnitude() * multiplier) + 5 /* the static number means there HAS to be some movement */)).scalarDiv(2);
