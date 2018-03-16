@@ -144,7 +144,7 @@
     }
   }
 
-	screenCursorPos() { // Position of cursor relative to CENTER OF SCREEN
+	screenCursorPos() { // Position of cursor on WINDOW
 		return new Vector2D(this.cursorX, this.cursorY);
 	}
 
