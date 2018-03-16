@@ -22,4 +22,9 @@ class MinionManager extends Updateable {
       this.minions[i].render();
     }
   }
+  sendMinions(minions,gridloc){
+    for(let i=0;i<minions.length;i++){
+      minions[i].goTo(gridloc);
+    }
+  }
 }

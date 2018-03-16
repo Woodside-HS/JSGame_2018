@@ -16,12 +16,16 @@
 	playerShip = this.ship;
 	this.entities.push(this.ship);
 
+    this.makePlanets(50);
+	  this.makeAsteroids(180, true); //issue 12, will spawn in canvas
+
 	this.cursorX = -50;
 	this.cursorY = -50;
 
+
 	document.addEventListener("mousemove", (e) => {
         var rect = canvas.getBoundingClientRect(); // abs. size of element
-    
+
         this.cursorX = e.clientX - rect.left;   // scale mouse coordinates after they have
         this.cursorY = e.clientY - rect.top;     // been adjusted to be relative to element
     });
@@ -88,8 +92,8 @@
       //set location vector, prevent planet overlap by choosing new location for planet
       //until all planets are far enough apart
       while (true) {
-        var x = Math.random() * this.width - this.width/2;
-        var y = Math.random() * this.height - this.height/2;
+        var x = Math.random() * this.width*2 - this.width;
+        var y = Math.random() * this.height*2 - this.height;
         var loc = new Vector2D(x, y);
         for(var i = 0; i < this.planets.length; i++){
           var dist = Vector2D.distance(this.planets[i].loc, loc);
@@ -102,36 +106,39 @@
     }
   }
 
-	makeAsteroids(num){
-		
-		for(let i = 0; i < num; i++) {
-			let radius = Math.random() * 15 + 4;
-			let loc = false;
-			let repetitions = 0;
-			while(true) {
-				repetitions++;
-				if(repetitions > 100000) {
-					throw new Error("Repetitions exceeded 100,000 in Asteroid creation.");
-				}
-				let x = Math.random() * this.width - this.width / 2;
-				let y = Math.random() * this.height - this.height / 2;
-				loc = new Vector2D(x, y);
-				for(var j = 0; j < this.entities.length; j++) { // Check each entity
-					let dist = Vector2D.distance(this.entities[i].loc, loc);
-					if(dist <= (this.entities[i].radius + this.radius) * 1.5) { // If the two are too close to each other...
-						break; // Break out of the for loop, back to the while loop, making a new location.
-					}
-				}
-				
-				// To escape from the while loop, get through the entire for loop.
-				if(j==this.entities.length) {
-					break;
-				}
-			}
-
-			let a = new Asteroid(loc, radius);
-			this.entities.push(a);
-		}
+  makeAsteroids(num, bool){ //issue 12
+    let counter = num;
+    var a = true; //check if is far enough away from other entities to be drawn
+    while(counter>0){
+      a = true;
+      var r = (Math.random()*20)+5;
+      var x = (Math.random() * this.width*2) - this.width;
+      var y = (Math.random() * this.height*2) - this.height;
+      var vel = new Vector2D(Math.random()*6-3,Math.random()*6-3);
+      var ast = new Asteroid(new Vector2D(x,y),vel,null,r);
+      if(!bool){ //bool=if asteroids can show up in canvas
+        let b1 = (x+r)<(this.ship.loc.x+(canvas.width/2));
+        let b2 = (x-r)>(this.ship.loc.x-(canvas.width/2));
+        let b3 = (y+r)<(this.ship.loc.y+(canvas.height/2));
+        let b4 = (y-r)>(this.ship.loc.y-(canvas.height/2));
+        //all the b vars check if the loc+radius are in the canvas
+        if (b1||b2||b3||b4) { // if it's inside the canvas
+          a = false; //asteroid should not be pushed to entities array
+        }
+      }
+      // goes through array of entities and checks that new asteroid isn't too close to any
+      for(let i=0;i<this.entities.length;i++){
+        let dist = Vector2D.distance(this.entities[i].loc,ast.loc);
+        let radii = this.entities[i].radius+ast.radius;
+        if(dist<(radii*1.5)){ //if it's too close to something else
+          a = false; //will not be pushed to entities
+        }
+      }
+      if(a){ //if not too close to any other entities
+        this.entities.push(ast);
+        counter--;
+      }
+    }
   }
 
   checkHitPlanet(){ //issue 9
@@ -144,7 +151,22 @@
     }
   }
 
+<<<<<<< HEAD
 	screenCursorPos() { // Position of cursor on WINDOW
+=======
+  drawWorldEdge(){ //issue 45
+    ctx.beginPath();
+    ctx.moveTo(-this.width,-this.height);
+    ctx.lineTo(this.width,-this.height);
+    ctx.lineTo(this.width,this.height);
+    ctx.lineTo(-this.width,this.height);
+    ctx.lineTo(-this.width,-this.height);
+    ctx.strokeStyle = "red";
+    ctx.stroke();
+  }
+
+	screenCursorPos() { // Position of cursor relative to CENTER OF SCREEN
+>>>>>>> master
 		return new Vector2D(this.cursorX, this.cursorY);
 	}
 
@@ -167,7 +189,7 @@
 	}
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
-	
+
 		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
 		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
 
@@ -178,7 +200,7 @@
 		let cursorPos = this.worldCursorPos();
 		for(let i in this.planets) {
 			let other = this.planets[i];
-			
+
 			let distance = cursorPos.distance(other.loc);
 			if(distance <= other.radius) {
 				return other;
@@ -262,7 +284,7 @@
 			ctx.restore();
 
 			for(let i = 0; i < 3; i++) {
-				
+
 				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
 
 				ctx.save();
@@ -293,7 +315,7 @@
     ctx.save();
     //keep ship in center of canvas
     ctx.translate(canvas.width/2 - this.ship.loc.x, canvas.height/2 - this.ship.loc.y);
-
+    this.drawWorldEdge(); //issue 45
     //ctx.translate(this.ship.loc.x, this.ship.loc.y);
     //ctx.rotate(-this.ship.dir)
     //ctx.translate(this.ship.loc.x, this.ship.loc.y);
@@ -303,9 +325,9 @@
     for(var i = 0; i < this.planets.length; i++){
       this.planets[i].render();
     }
-	for(let i in this.entities) {
-		this.entities[i].render();
-	}
+  	for(let i in this.entities) {
+  		this.entities[i].render();
+  	}
     ctx.restore();
 
   }
