@@ -6,10 +6,16 @@ window.addEventListener('load', setup, false);
 var game;   // the global game object
 
 function setup() {
+  /*
+     initalize global config object
+     top-level objects that needs to be configured
+     when the program starts:: Located in the config folder
+  */
   config.init();
   game = new Game();
   game.init();
-  game.update();
+  game.update();// all logic done at game level
+  // call draw according to frame rate
   window.setInterval(draw, 1000 / config.frame_rate);
 }
 
