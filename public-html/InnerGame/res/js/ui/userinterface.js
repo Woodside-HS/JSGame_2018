@@ -27,18 +27,18 @@ class UserInterface extends Updateable {
   }
   update() {
     this.minimap.update();
-    for(var i=0;i<this.menus.length;i++){
+    for(let i=0;i<this.menus.length;i++){
       if(this.menus[i].isOpen){
         this.menus[i].update();
       }
     }
-    for(var i=0;i<this.buttons.length;i++){
+    for(let i=0;i<this.buttons.length;i++){
       this.buttons[i].update();
     }
   }
   render() {
     this.minimap.render();
-    for(var i=0;i<this.menus.length;i++){
+    for(let i=0;i<this.menus.length;i++){
       if(this.menus[i].isOpen){
         this.menus[i].render();
       }
