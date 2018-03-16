@@ -16,16 +16,12 @@
 	playerShip = this.ship;
 	this.entities.push(this.ship);
 
-<<<<<<< HEAD
     this.makePlanets(50);
 	  this.makeAsteroids(180, true); //issue 12, will spawn in canvas
 
-	this.cursorX = 0;
-	this.cursorY = 0;
-=======
 	this.cursorX = -50;
 	this.cursorY = -50;
->>>>>>> master
+
 
 	document.addEventListener("mousemove", (e) => {
         var rect = canvas.getBoundingClientRect(); // abs. size of element
@@ -34,8 +30,6 @@
         this.cursorY = e.clientY - rect.top;     // been adjusted to be relative to element
     });
 
-<<<<<<< HEAD
-=======
 	this.cursorTarget = false;
 	this.cursorTargetRotation = Math.random() * Math.PI * 2; // Degrees of rotation for selection circle visual
 	document.addEventListener("click", (e) => {
@@ -45,7 +39,6 @@
 
     this.makePlanets(40);
 	//this.makeAsteroids(100);
->>>>>>> master
 	// Create camera object which follows the Rocketship
 	this.camera = new Camera();
 
@@ -160,11 +153,11 @@
 
   drawWorldEdge(){ //issue 45
     ctx.beginPath();
-    ctx.moveTo(-(this.width-this.ship.loc.x),-(this.height-this.ship.loc.y));
-    ctx.lineTo((this.width-this.ship.loc.x),-(this.height-this.ship.loc.y));
-    ctx.lineTo((this.width-this.ship.loc.x),(this.height-this.ship.loc.y));
-    ctx.lineTo(-(this.width-this.ship.loc.x),(this.height-this.ship.loc.y));
-    ctx.lineTo(-(this.width-this.ship.loc.x),-(this.height-this.ship.loc.y));
+    ctx.moveTo(-this.width,-this.height);
+    ctx.lineTo(this.width,-this.height);
+    ctx.lineTo(this.width,this.height);
+    ctx.lineTo(-this.width,this.height);
+    ctx.lineTo(-this.width,-this.height);
     ctx.strokeStyle = "red";
     ctx.stroke();
   }
@@ -192,7 +185,7 @@
 	}
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
-	
+
 		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
 		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
 
@@ -203,7 +196,7 @@
 		let cursorPos = this.worldCursorPos();
 		for(let i in this.planets) {
 			let other = this.planets[i];
-			
+
 			let distance = cursorPos.distance(other.loc);
 			if(distance <= other.radius) {
 				return other;
@@ -287,7 +280,7 @@
 			ctx.restore();
 
 			for(let i = 0; i < 3; i++) {
-				
+
 				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
 
 				ctx.save();
@@ -318,7 +311,7 @@
     ctx.save();
     //keep ship in center of canvas
     ctx.translate(canvas.width/2 - this.ship.loc.x, canvas.height/2 - this.ship.loc.y);
-
+    this.drawWorldEdge(); //issue 45
     //ctx.translate(this.ship.loc.x, this.ship.loc.y);
     //ctx.rotate(-this.ship.dir)
     //ctx.translate(this.ship.loc.x, this.ship.loc.y);
@@ -338,7 +331,6 @@
   run(){
     this.render();
     this.update();
-    this.drawWorldEdge(); //issue 45
   }
 
 }
