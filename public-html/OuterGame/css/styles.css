@@ -2,7 +2,10 @@
 body{
    background-color: #444444;
    margin:0;
-   /*cursor: none;*/
+}
+
+canvas {
+	cursor: none;
 }
 
 #wrapper {

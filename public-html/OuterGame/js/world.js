@@ -1,4 +1,4 @@
-class World{
+﻿class World{
 
   constructor(level){
     this.level = level;
@@ -8,19 +8,16 @@ class World{
     this.height = 2400;
     this.width = 2400;
 
-	// Player control mode (either 0, WASD movement, or 1, so ship follows the cursor)
-	this.playerControl = 0;
-
 	// Debug mode determines whether certain measurements appear for testing purposes
 	this.debugMode = true;
 
 	//create rocketship at center of canvas
-    this.ship  = new Rocketship(new Vector2D(canvas.width/2, canvas.height/2));
+    this.ship  = new Rocketship(new Vector2D(0, 0));
 	playerShip = this.ship;
 	this.entities.push(this.ship);
 
-	this.cursorX = 0;
-	this.cursorY = 0;
+	this.cursorX = -50;
+	this.cursorY = -50;
 
 	document.addEventListener("mousemove", (e) => {
         var rect = canvas.getBoundingClientRect(); // abs. size of element
@@ -28,6 +25,13 @@ class World{
         this.cursorX = e.clientX - rect.left;   // scale mouse coordinates after they have
         this.cursorY = e.clientY - rect.top;     // been adjusted to be relative to element
     });
+
+	this.cursorTarget = false;
+	this.cursorTargetRotation = Math.random() * Math.PI * 2; // Degrees of rotation for selection circle visual
+	document.addEventListener("click", (e) => {
+		let target = this.getCursorTarget();
+		this.cursorTarget = target;
+	})
 
     this.makePlanets(40);
 	//this.makeAsteroids(100);
@@ -144,10 +148,52 @@ class World{
 		return new Vector2D(this.cursorX, this.cursorY);
 	}
 
-	worldCursorPos() { // Position of cursor relative to WORLD
-		let posX = canvas.width/2 - this.cursorX;
-		let posY = canvas.height/2 - this.cursorY;
+	shipCursorPos() { // Position of cursor relative to SHIP
+
+		let posX = canvas.width/2 - this.screenCursorPos().x;
+		let posY = canvas.height/2 - this.screenCursorPos().y;
+
 		return new Vector2D(posX, posY);
+	}
+
+	worldCursorPos() { // Position of cursor relative to WORLD
+
+		let relativePos = this.shipCursorPos();
+
+		let posX = this.ship.loc.x - relativePos.x;
+		let posY = this.ship.loc.y - relativePos.y;
+
+		return new Vector2D(posX, posY);
+	}
+
+	getScreenPosition(object) { // Find position (relative to center of screen) of any object
+	
+		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
+
+		return new Vector2D(posX, posY);
+	}
+
+	getCursorTarget() { // Returns entity & planet the cursor is hovering over (for selection purposes)
+		let cursorPos = this.worldCursorPos();
+		for(let i in this.planets) {
+			let other = this.planets[i];
+			
+			let distance = cursorPos.distance(other.loc);
+			if(distance <= other.radius) {
+				return other;
+			}
+
+		}
+		for(let i in this.entities) {
+			let other = this.entities[i];
+
+			let distance = cursorPos.distance(other.loc);
+			if(distance <= other.radius) {
+				return other;
+			}
+		}
+		return false;
 	}
 
 	update(){
@@ -160,12 +206,76 @@ class World{
 
 			ctx.fillText("Press [U] to toggle Debug Mode",20,25);
 
-			ctx.fillText("Cursor Coords: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")",20,canvas.height-15);
-			ctx.fillText("Ship Coords: (" + Math.round(this.ship.loc.x) + ", " + Math.round(this.ship.loc.y) + ")",20,canvas.height-40);
+			ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")",20,canvas.height-15);
+			ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")",20,canvas.height-40);
+			ctx.fillText("Ship Coordinates: (" + Math.round(this.ship.loc.x) + ", " + Math.round(this.ship.loc.y) + ")",20,canvas.height-65);
 
-			ctx.fillText("Ship Velocity: " + Math.round(this.ship.vel.magnitude()) + " (" + Math.round(this.ship.vel.x) + ", " + Math.round(this.ship.vel.y) + ")",20,canvas.height-95);
-			ctx.fillText("Number of Entities: " + this.entities.length,20,canvas.height-150);
-			ctx.fillText("Number of Planets: " + this.planets.length,20,canvas.height-175);
+			ctx.fillText("Ship Velocity: " + Math.round(this.ship.vel.magnitude()) + " (" + Math.round(this.ship.vel.x) + ", " + Math.round(this.ship.vel.y) + ")",20,canvas.height-120);
+			let facing = -this.ship.vel.theta() / Math.PI;
+			if(facing < 0) {
+				facing = 2 + facing;
+			}
+			ctx.fillText("Ship Facing: " + Math.round(facing * 180) + "° (" + (Math.round(facing * 100)/100) + "π Rad)",20,canvas.height-145);
+
+			ctx.fillText("Number of Entities: " + this.entities.length,20,canvas.height-200);
+			ctx.fillText("Number of Planets: " + this.planets.length,20,canvas.height-225);
+
+
+			ctx.fillStyle = "#00FFFF";
+			if(this.cursorTarget) {
+				ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 80);
+				ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 105);
+				ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 130);
+			} else {
+				ctx.fillText("-No Target-", 20, 80);
+			}
+		}
+
+		// Recolor cursor based on what it's hovering over
+
+		let cursorColor = '#00FFFF';
+
+		// Draw cursor
+		ctx.save();
+		let cursorPos = this.screenCursorPos();
+		ctx.translate(cursorPos.x, cursorPos.y);
+		ctx.beginPath();
+		ctx.fillStyle = cursorColor;
+		ctx.strokeStyle = cursorColor;
+	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.beginPath();
+		ctx.arc(0, 0, 6, 0, Math.PI * 2);
+		ctx.stroke();
+		ctx.restore();
+
+		if(this.cursorTarget) {
+
+			let position = this.getScreenPosition(this.cursorTarget);
+
+			ctx.save();
+			ctx.translate(position.x, position.y);
+			ctx.beginPath();
+			ctx.strokeStyle = '#00FFFF';
+			ctx.arc(0, 0, this.cursorTarget.radius * 1.2 + 1, 0, Math.PI * 2);
+			ctx.stroke();
+			ctx.restore();
+
+			for(let i = 0; i < 3; i++) {
+				
+				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
+
+				ctx.save();
+				ctx.translate(secondPos.x, secondPos.y);
+				ctx.beginPath();
+				ctx.fillStyle = '#00FFFF';
+				ctx.arc(0, 0, this.cursorTarget.radius / 12 + 2, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.restore();
+			}
+
+			this.cursorTargetRotation += (2 * Math.PI) / FPS / 4; // 4 seconds per rotation
+
 		}
 
 		for(let i in this.entities) {
