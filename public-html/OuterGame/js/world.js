@@ -20,7 +20,7 @@ class World{
 	this.entities.push(this.ship);
 
     this.makePlanets(50);
-	this.makeAsteroids(50); //issue 12
+	  this.makeAsteroids(180, true); //issue 12, will spawn in canvas
 
 	this.cursorX = 0;
 	this.cursorY = 0;
@@ -32,8 +32,6 @@ class World{
         this.cursorY = e.clientY - rect.top;     // been adjusted to be relative to element
     });
 
-    this.makePlanets(40);
-	//this.makeAsteroids(100);
 	// Create camera object which follows the Rocketship
 	this.camera = new Camera();
 
@@ -87,8 +85,8 @@ class World{
       //set location vector, prevent planet overlap by choosing new location for planet
       //until all planets are far enough apart
       while (true) {
-        var x = Math.random() * this.width - this.width/2;
-        var y = Math.random() * this.height - this.height/2;
+        var x = Math.random() * this.width*2 - this.width;
+        var y = Math.random() * this.height*2 - this.height;
         var loc = new Vector2D(x, y);
         for(var i = 0; i < this.planets.length; i++){
           var dist = Vector2D.distance(this.planets[i].loc, loc);
@@ -101,19 +99,28 @@ class World{
     }
   }
 
-  makeAsteroids(num){ //issue 12
+  makeAsteroids(num, bool){ //issue 12
     let counter = num;
-    let a = true; //check if is far enough away from other entities to be drawn
+    var a = true; //check if is far enough away from other entities to be drawn
     while(counter>0){
       a = true;
       var r = (Math.random()*20)+5;
       var x = (Math.random() * this.width*2) - this.width;
-      var y = (Math.random() * this.height) - this.height;
-      var ast = new Asteroid(new Vector2D(x,y),null,null,r);
+      var y = (Math.random() * this.height*2) - this.height;
+      var vel = new Vector2D(Math.random()*6-3,Math.random()*6-3);
+      var ast = new Asteroid(new Vector2D(x,y),vel,null,r);
+      if(!bool){ //bool=if asteroids can show up in canvas
+        let b1 = (x+r)<(this.ship.loc.x+(canvas.width/2));
+        let b2 = (x-r)>(this.ship.loc.x-(canvas.width/2));
+        let b3 = (y+r)<(this.ship.loc.y+(canvas.height/2));
+        let b4 = (y-r)>(this.ship.loc.y-(canvas.height/2));
+        //all the b vars check if the loc+radius are in the canvas
+        if (b1||b2||b3||b4) { // if it's inside the canvas
+          a = false; //asteroid should not be pushed to entities array
+        }
+      }
       // goes through array of entities and checks that new asteroid isn't too close to any
       for(let i=0;i<this.entities.length;i++){
-        let entLoc = this.entities[i].loc;
-        let astLoc = ast.loc;
         let dist = Vector2D.distance(this.entities[i].loc,ast.loc);
         let radii = this.entities[i].radius+ast.radius;
         if(dist<(radii*1.5)){ //if it's too close to something else
@@ -137,6 +144,17 @@ class World{
     }
   }
 
+  drawWorldEdge(){ //issue 45
+    ctx.beginPath();
+    ctx.moveTo(-(this.width-this.ship.loc.x),-(this.height-this.ship.loc.y));
+    ctx.lineTo((this.width-this.ship.loc.x),-(this.height-this.ship.loc.y));
+    ctx.lineTo((this.width-this.ship.loc.x),(this.height-this.ship.loc.y));
+    ctx.lineTo(-(this.width-this.ship.loc.x),(this.height-this.ship.loc.y));
+    ctx.lineTo(-(this.width-this.ship.loc.x),-(this.height-this.ship.loc.y));
+    ctx.strokeStyle = "red";
+    ctx.stroke();
+  }
+
 	screenCursorPos() { // Position of cursor relative to CENTER OF SCREEN
 		return new Vector2D(this.cursorX, this.cursorY);
 	}
@@ -150,7 +168,6 @@ class World{
 	update(){
 		this.camera.update();
 		this.checkHitPlanet(); //issue 9
-    this.checkHitAsteroid(); //issue 12 debugging
 
 		if(this.debugMode) { // Display coordinates of ship and cursor
 			ctx.fillStyle="white";
@@ -201,6 +218,7 @@ class World{
   run(){
     this.render();
     this.update();
+    this.drawWorldEdge(); //issue 45
   }
 
 }
