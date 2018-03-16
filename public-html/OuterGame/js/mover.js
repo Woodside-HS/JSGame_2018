@@ -29,7 +29,8 @@ class Mover {
 
   //updates ball position
   update () {
-    // this.checkEdges(); //take out because not being used for mover subclass objects, issue 12
+    // this.checkEdges();
+    //^^ take out because not being used for mover subclass objects, issue 12
 
     this.vel.add(this.acc);
     this.loc.add(this.vel);

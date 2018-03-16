@@ -114,7 +114,6 @@ class World{
       for(let i=0;i<this.entities.length;i++){
         let entLoc = this.entities[i].loc;
         let astLoc = ast.loc;
-        // let dist = new Vector2D(Math.abs(entLoc.x-astLoc.x),Math.abs(entLoc.y-astLoc.y));
         let dist = Vector2D.distance(this.entities[i].loc,ast.loc);
         let radii = this.entities[i].radius+ast.radius;
         if(dist<(radii*1.5)){ //if it's too close to something else
@@ -124,7 +123,6 @@ class World{
       if(a){ //if not too close to any other entities
         this.entities.push(ast);
         counter--;
-        // console.log(ast);
       }
     }
   }
@@ -135,16 +133,6 @@ class World{
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
-      }
-    }
-  }
-
-  checkHitAsteroid(){ //issue 12, for debugging
-    for(let i=1;i<this.entities.length;i++){
-      if(Vector2D.distance(this.entities[i].loc,this.ship.loc)<(this.entities[i].radius+20)){
-        ctx.fillStyle="white";
-        ctx.font = "20px Georgia";
-        ctx.fillText(i,canvas.width/2-50,canvas.height/2-50);
       }
     }
   }
