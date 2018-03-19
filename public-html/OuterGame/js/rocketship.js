@@ -19,17 +19,34 @@ class Rocketship extends Mover {
 
 		this.firing = false; // E key
 
-		this.fireRate = 6; // Shots per second
-		this.fireDelay = 0; // Frames since last shot was fired
+		this.burstInterval = 0.3; // Seconds between burst attacks
+		this.burstCount = 3; // Shots per burst
+		this.burstDelay = this.burstInterval*FPS; // Frames since last burst was fired
+		this.shotsFired = this.burstCount; // Number of shots fired in current burst
+
+		this.fireRate = 12; // Shots per second during burst
+		this.fireDelay = FPS/this.fireRate; // Frames since last shot was fired
 	}
 
 	update(){
 
-		if(this.firing) {
-			this.fireDelay++;
-			if(this.fireDelay >= FPS / this.fireRate) {
-				this.fireDelay -= FPS / this.fireRate;
-				this.fireBullet();
+		if(this.firing) { // If ship is actively in shooting mode...
+			if(this.shotsFired < this.burstCount) { // If it hasn't completed its burst yet...
+				this.fireDelay++;
+				if(this.fireDelay >= FPS / this.fireRate) {
+					this.fireDelay -= FPS / this.fireRate;
+					this.shotsFired++;
+					this.fireBullet(); // Fire a bullet!
+				}
+			}
+		} else {
+			this.shotsFired = this.burstCount; // Whenever the ship stops firing, it cancels the current burst. This just looks nicer, it's not a big change.
+		}
+		if(this.shotsFired == this.burstCount) {
+			this.burstDelay++;
+			if(this.burstDelay >= this.burstInterval*FPS) { // Once the burst interval is over, it's ready to start the next burst
+				this.shotsFired = 0;
+				this.burstDelay = 0;
 			}
 		}
 
@@ -96,7 +113,10 @@ class Rocketship extends Mover {
 	}
 
 	fireBullet() {
-		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(this.vel.clone().setMag(250)), new Vector2D(0,0), 3);
+		let angle = this.vel.theta();
+		angle += -Math.PI/12 + Math.random() * Math.PI/6;
+		let velocity = new AngularVector2D(250, angle);
+		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
 		System().addEntity(bullet);
 	}
 
