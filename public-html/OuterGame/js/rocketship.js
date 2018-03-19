@@ -16,9 +16,22 @@ class Rocketship extends Mover {
 		this.down = false; //s key
 		this.right = false; //d key
 		this.left = false; //a key
+
+		this.firing = false; // E key
+
+		this.fireRate = 6; // Shots per second
+		this.fireDelay = 0; // Frames since last shot was fired
 	}
 
 	update(){
+
+		if(this.firing) {
+			this.fireDelay++;
+			if(this.fireDelay >= FPS / this.fireRate) {
+				this.fireDelay -= FPS / this.fireRate;
+				this.fireBullet();
+			}
+		}
 
 		//execute appropriate functions if keys are down
 		if(this.up) { this.accelerate(); }
@@ -80,6 +93,11 @@ class Rocketship extends Mover {
 			f.limit(this.vel.magnitude()-0.0001);
 			this.applyForce(f);
 		}
+	}
+
+	fireBullet() {
+		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(this.vel.clone().setMag(250)), new Vector2D(0,0), 3);
+		System().addEntity(bullet);
 	}
 
 	render(){

@@ -48,7 +48,9 @@
 	document.addEventListener("keypress", (event) => {
 		switch (event.key) {
 			case "u":
-			this.debugMode = !this.debugMode;
+				this.debugMode = !this.debugMode;
+			case "e":
+				this.ship.firing = !this.ship.firing;
 		}
 	});
 
@@ -86,6 +88,10 @@
     });
   }
 
+  addEntity(entity) {
+  	  this.entities.push(entity);
+  }
+
   makePlanets(num){
     for(var i = 0; i < num; i++){
       var radius = Math.random() * 50 + 10;
@@ -114,7 +120,7 @@
       var r = (Math.random()*20)+5;
       var x = (Math.random() * this.width*2) - this.width;
       var y = (Math.random() * this.height*2) - this.height;
-      var vel = new Vector2D(Math.random()*6-3,Math.random()*6-3);
+      var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
       var ast = new Asteroid(new Vector2D(x,y),vel,null,r);
       if(!bool){ //bool=if asteroids can show up in canvas
         let b1 = (x+r)<(this.ship.loc.x+(canvas.width/2));
@@ -151,10 +157,7 @@
     }
   }
 
-<<<<<<< HEAD
-	screenCursorPos() { // Position of cursor on WINDOW
-=======
-  drawWorldEdge(){ //issue 45
+	drawWorldEdge(){ //issue 45
     ctx.beginPath();
     ctx.moveTo(-this.width,-this.height);
     ctx.lineTo(this.width,-this.height);
@@ -166,7 +169,6 @@
   }
 
 	screenCursorPos() { // Position of cursor relative to CENTER OF SCREEN
->>>>>>> master
 		return new Vector2D(this.cursorX, this.cursorY);
 	}
 
@@ -201,6 +203,10 @@
 		for(let i in this.planets) {
 			let other = this.planets[i];
 
+			if(!other.selectable) {
+				continue;
+			}
+
 			let distance = cursorPos.distance(other.loc);
 			if(distance <= other.radius) {
 				return other;
@@ -209,6 +215,10 @@
 		}
 		for(let i in this.entities) {
 			let other = this.entities[i];
+
+			if(!other.selectable) {
+				continue;
+			}
 
 			let distance = cursorPos.distance(other.loc);
 			if(distance <= other.radius) {

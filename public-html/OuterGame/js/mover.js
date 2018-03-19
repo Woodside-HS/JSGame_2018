@@ -7,6 +7,8 @@ class Mover {
     this.loc = loc;
     this.vel = vel || new Vector2D(0,0);
     this.acc = acc || new Vector2D(0,0);
+
+	this.selectable = true; // Whether the player can select it - disable for e.g. visual effects, bullets, etc.
   }
 
 	mass() {
@@ -27,13 +29,17 @@ class Mover {
     this.acc.add(f);
   }
 
+  destroy() {
+  	  System().entities.splice(System().entities.indexOf(this), 1);
+  }
+
   //updates ball position
   update () {
     // this.checkEdges();
     //^^ take out because not being used for mover subclass objects, issue 12
 
     this.vel.add(this.acc);
-    this.loc.add(this.vel);
+    this.loc.add(this.vel.clone().scalarDiv(FPS));
     this.acc.scalarMult(0);
   }
 
