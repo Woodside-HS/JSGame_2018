@@ -44,6 +44,7 @@ function makeWorld(){
   var w = new World(currentLevel);
   //add world to array
   worlds.push(w);
+  w.initialize();
 }
 
 function animate(){

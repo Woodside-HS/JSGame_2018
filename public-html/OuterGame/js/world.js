@@ -9,21 +9,6 @@
     this.height = 2400;
     this.width = 2400;
 
-	// Debug mode determines whether certain measurements appear for testing purposes
-	this.debugMode = true;
-
-	//create rocketship at center of canvas
-    this.ship  = new Rocketship(new Vector2D(0, 0));
-	playerShip = this.ship;
-	this.entities.push(this.ship);
-
-    this.makePlanets(50);
-	  this.makeAsteroids(180, true); //issue 12, will spawn in canvas
-
-	this.cursorX = -50;
-	this.cursorY = -50;
-
-
 	document.addEventListener("mousemove", (e) => {
         var rect = canvas.getBoundingClientRect(); // abs. size of element
 
@@ -37,11 +22,6 @@
 		let target = this.getCursorTarget();
 		this.cursorTarget = target;
 	})
-
-    this.makePlanets(40);
-	//this.makeAsteroids(100);
-	// Create camera object which follows the Rocketship
-	this.camera = new Camera();
 
     //add event listeners that toggle acceleration/deceleration/turning on
     //  when key is down and off when key is up
@@ -87,6 +67,25 @@
         break;
       }
     });
+  }
+
+  initialize() {
+	// Debug mode determines whether certain measurements appear for testing purposes
+	this.debugMode = true;
+
+	//create rocketship at center of canvas
+    this.ship  = new Rocketship(new Vector2D(0, 0));
+	playerShip = this.ship;
+	this.entities.push(this.ship);
+
+    this.makePlanets(50);
+	this.makeAsteroids(180, true); //issue 12, will spawn in canvas
+
+	this.cursorX = -50;
+	this.cursorY = -50;
+
+	// Create camera object which follows the Rocketship
+	this.camera = new Camera();
   }
 
   addEntity(entity) {

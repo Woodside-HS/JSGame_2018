@@ -26,6 +26,11 @@ class Rocketship extends Mover {
 
 		this.fireRate = 12; // Shots per second during burst
 		this.fireDelay = FPS/this.fireRate; // Frames since last shot was fired
+
+		// Shield setup
+
+		this.shield = new Shield(this);
+		System().addEntity(this.shield);
 	}
 
 	update(){
