@@ -13,6 +13,7 @@ class TowerManager extends Updateable {
         this.towers[i].push(null);
       }
     }
+    
   }
   update() {
     for (let i = 0; i < config.map_x_size; i++) {

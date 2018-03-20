@@ -14,7 +14,7 @@ class MapManager extends Updateable {
     this.towermanager = new TowerManager(this.game);
   }
   init() {
-    noise.seed(Math.random());
+    noise.seed(map_config.noise_seed);
     //Create map array
     for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
