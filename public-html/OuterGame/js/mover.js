@@ -84,7 +84,7 @@ class Mover {
 			}
 			let dist = this.loc.distance(ent.loc);
 			if(dist < (this.radius + ent.radius)) {
-				collisions.push(ent);
+				collisions.push({source: this, other: ent});
 			}
 		}
 		return collisions;

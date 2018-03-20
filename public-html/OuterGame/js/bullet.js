@@ -8,8 +8,8 @@ class Bullet extends Mover {
 		this.timedLife = 4; // Seconds of timed life
 
 		this.collisionEvents.push((other) => {
-			if(other == this.owner) {
-				return; // Don't collide with the rocketship
+			if(other == this.owner || other.owner == this.owner) {
+				return; // Don't collide with the rocketship or its bullets/missiles
 			}
 			if(!(other instanceof Mover)) {
 				return; // Don't collide with non-movers

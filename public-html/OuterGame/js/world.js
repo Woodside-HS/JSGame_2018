@@ -314,14 +314,18 @@
 
 		}
 
+		let collisions = [];
 		for(let i in this.entities) {
 			let entity = this.entities[i];
 			entity.update();
-			let collisions = entity.checkCollide();
-			for(let j in collisions) {
-				for(let k in entity.collisionEvents) {
-					entity.collisionEvents[k](collisions[j]);
-				}
+			let cols = entity.checkCollide();
+			for(let j in cols) {
+				collisions.push(cols[j]);
+			}
+		}
+		for(let i in collisions) {
+			for(let j in collisions[i].source.collisionEvents) {
+				collisions[i].source.collisionEvents[j](collisions[i].other);
 			}
 		}
 
