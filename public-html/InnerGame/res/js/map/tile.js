@@ -41,8 +41,3 @@ class Tile extends Updateable {
     }
   }
 }
-
-Tile.reveal = function(playerLocation, playerCLocation){
-  var pl = playerLocation;
-  var pcl = playerCLocation;
-}

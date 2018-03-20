@@ -19,6 +19,7 @@ class Player extends Updateable {
     document.addEventListener("keyup", this.docKeyUp);
   }
   update() {
+    game.mapManager.reveal();
     this.cloc = positionToGrid(this.loc);
     this.v.add(this.a);
     //set max velocity
@@ -98,7 +99,6 @@ class Player extends Updateable {
       case 'W':
         if (game.player.a.y != -1)
           game.player.a.y = -1;//go up
-          Tile.reveal(game.player.loc, game.player.cloc);
         break;
       case 'A':
         if (game.player.a.x != -1)
