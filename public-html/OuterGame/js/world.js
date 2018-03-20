@@ -30,8 +30,13 @@
 		switch (event.key) {
 			case "u":
 				this.debugMode = !this.debugMode;
+			break;
 			case "e":
 				this.ship.firing = !this.ship.firing;
+			break;
+			case "t":
+				this.ship.shield.stats.takeDamage(4);
+			break;
 		}
 	});
 
