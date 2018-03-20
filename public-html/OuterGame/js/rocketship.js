@@ -117,6 +117,7 @@ class Rocketship extends Mover {
 		angle += -Math.PI/12 + Math.random() * Math.PI/6;
 		let velocity = new AngularVector2D(250, angle);
 		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
+		bullet.owner = this;
 		System().addEntity(bullet);
 	}
 

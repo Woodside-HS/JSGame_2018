@@ -4,6 +4,7 @@
     this.level = level;
     this.planets = [];
 	this.entities = []; // Array of entities
+	this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
@@ -90,6 +91,9 @@
 
   addEntity(entity) {
   	  this.entities.push(entity);
+  }
+  addVisual(visual) {
+  	  this.visuals.push(visual);
   }
 
   makePlanets(num){
@@ -315,8 +319,15 @@
 			entity.update();
 			let collisions = entity.checkCollide();
 			for(let j in collisions) {
-				//entity.collide(collisions[j]);
+				for(let k in entity.collisionEvents) {
+					entity.collisionEvents[k](collisions[j]);
+				}
 			}
+		}
+
+		for(let i in this.visuals) {
+			let visual = this.visuals[i];
+			visual.update();
 		}
 	}
 
@@ -332,13 +343,24 @@
     //ctx.translate(canvas.width/2 - this.ship.loc.x, canvas.height/2 - this.ship.loc.y);
     //ctx.translate(canvas.width/2, canvas.height/2);
     //draw all planets & ship
+
+	let arr = [];
+
     for(var i = 0; i < this.planets.length; i++){
-      this.planets[i].render();
+      arr.push(this.planets[i]);
     }
   	for(let i in this.entities) {
-  		this.entities[i].render();
+  		arr.push(this.entities[i]);
+	}
+	for(let i in this.visuals) {
+		arr.push(this.visuals[i]);
+	}
+
+	for(let i in arr) {
+		arr[i].render();
   	}
-    ctx.restore();
+    
+	ctx.restore();
 
   }
 

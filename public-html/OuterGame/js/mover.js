@@ -8,6 +8,8 @@ class Mover {
     this.vel = vel || new Vector2D(0,0);
     this.acc = acc || new Vector2D(0,0);
 
+	this.collisionEvents = [];
+
 	this.selectable = true; // Whether the player can select it - disable for e.g. visual effects, bullets, etc.
   }
 
@@ -30,7 +32,16 @@ class Mover {
   }
 
   destroy() {
-  	  System().entities.splice(System().entities.indexOf(this), 1);
+	let idx = System().entities.indexOf(this);
+	if(idx == -1) {
+		idx = System().visuals.indexOf(this);
+		if(idx == -1) {
+			throw new Error("Can't destroy an object that doesn't exist in the world.");
+		}
+		System().visuals.splice(idx, 1);
+	} else {
+		System().entities.splice(idx, 1);
+	}
   }
 
   //updates ball position
@@ -77,15 +88,6 @@ class Mover {
 			}
 		}
 		return collisions;
-	}
-
-	collide (other) { // Default collision effect - the object bounces away when it's hit.
-
-
-
-		let multiplier = other.mass()/this.mass() * 2; // Stronger bounce if the other is heavier, and vice versa
-		this.loc = other.loc.clone().add(other.loc.vectorTo(this.loc).setMag(other.radius + this.radius));
-		this.vel.add(other.loc.vectorTo(this.loc).setMag((other.vel.magnitude() * multiplier) + 5 /* the static number means there HAS to be some movement */)).scalarDiv(2);
 	}
 
   //draws ball
