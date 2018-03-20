@@ -3,7 +3,11 @@
   constructor(level){
     this.level = level;
     this.planets = [];
-	this.entities = []; // Array of entities
+	  this.entities = []; // Array of entities
+    this.stations = []; //issue 54
+
+    this.atStation = false;
+
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
@@ -18,6 +22,7 @@
 
     this.makePlanets(50);
 	  this.makeAsteroids(180, true); //issue 12, will spawn in canvas
+    this.makeStations(1); //issue 54
 
 	this.cursorX = -50;
 	this.cursorY = -50;
@@ -141,12 +146,30 @@
     }
   }
 
+  makeStations(num){ //issue 54
+    for(let i=0;i<num;i++){
+      let x = (Math.random() * this.width*2) - this.width;
+      let y = (Math.random() * this.height*2) - this.height;
+      this.stations[i] = new SpaceStation(new Vector2D(x,y));
+    }
+  }
+
   checkHitPlanet(){ //issue 9
     for(let i=0;i<this.planets.length;i++){
       if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
+      }
+    }
+  }
+
+  checkHitStation(){ //issue 54
+    for(let i=0;i<this.planets.length;i++){
+      if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
+        ctx.fillStyle="white";
+        ctx.font = "20px Georgia";
+        ctx.fillText("[L] to land at station",canvas.width/2-50,canvas.height/2-50);
       }
     }
   }
@@ -217,6 +240,7 @@
 	update(){
 		this.camera.update();
 		this.checkHitPlanet(); //issue 9
+    this.checkHitStation(); //issue 54
 
 		if(this.debugMode) { // Display coordinates of ship and cursor
 			ctx.fillStyle="white";
@@ -331,6 +355,9 @@
   run(){
     this.render();
     this.update();
+    if(this.atStation){ //if the player lands at a station, issue 54
+      console.log("land at station");
+    }
   }
 
 }
