@@ -11,13 +11,17 @@ class Tile extends Updateable {
             // nulltype is not a real tile (nulltype overridden before init)
             // override done in map manager
     this.tileType = tile_types.nulltype;
+    this.fog = true;
   }
   init() {
     this.image = this.tileType.image;
     this.isOccupied = this.tileType.is_occupied;
   }
   render() {
-    if (tile_config.draw_gridlines) {
+    if(this.fog){
+      this.game.context.fillStyle = "black";
+      this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+    } else if (tile_config.draw_gridlines) {
 
       //background becomes gridline
       this.game.context.fillStyle = tile_config.gridline_color;

@@ -12,14 +12,30 @@ class Player extends Updateable {
     this.cloc = positionToGrid(this.loc); //cloc = Cellular LOCation
     this.v = new Vector2D(0, 0);//velocity, pixels/frame
     player_config.color = 'rgba(255,0,0,1)';
-    this.a = new Vector2D(0, 0);
+    this.a = new Vector2D(0, 0); //acceleration
   }
   init() {
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
   }
+  reveal(){
+    var cloc = positionToGrid(this.loc);
+    var distSq = 1*1;
+    console.log(cloc);
+    for (let i = 0; i < config.map_x_size; i++) {
+      for (let j = 0; j < config.map_y_size; j++) {
+        var tile = this.game.mapManager.map[i][j];
+        var tileLoc = positionToGrid(tile.loc);
+        var actualDistSq = ((cloc.x - tileLoc.x)^2 + (cloc.y - tileLoc.y)^2);
+        if(actualDistSq <= distSq){
+          tile.fog = false;
+        }
+      }
+    }
+  }
   update() {
     this.cloc = positionToGrid(this.loc);
+    var cloc = this.cloc;
     this.v.add(this.a);
     //set max velocity
     if (this.v.m > player_config.max_speed) {
@@ -27,6 +43,10 @@ class Player extends Updateable {
       this.v.upComps();
     }
     this.loc.add(this.v);//because v=ds/dt
+    var newCloc = positionToGrid(this.loc);
+    if(newCloc.x != cloc.x || newCloc.y != cloc.y){
+      this.reveal();
+    }
 
     //collision detection
     let vDir = this.v.duplicate(); //normalized version of velocity
@@ -45,6 +65,10 @@ class Player extends Updateable {
       this.v.x = 0;//stop going that way
       this.v.upPols();
       this.loc.add(this.v);
+      var newCloc = positionToGrid(this.loc);
+      if(newCloc.x != cloc.x || newCloc.y != cloc.y){
+        this.reveal();
+      }
     }
     //check for a collision in the y direction
     if (
@@ -56,6 +80,10 @@ class Player extends Updateable {
       this.v.y = 0;//stop going that way
       this.v.upPols();
       this.loc.add(this.v);
+      var newCloc = positionToGrid(this.loc);
+      if(newCloc.x != cloc.x || newCloc.y != cloc.y){
+        this.reveal();
+      }
     }
     this.v.multiply(player_config.movement_loss);//gradual loss
   }
