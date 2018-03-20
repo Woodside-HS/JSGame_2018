@@ -106,6 +106,10 @@ class UserInterface extends Updateable {
     }
   }
   mouseup(){
+    if(config.debug_mode) console.log(game.mapManager.map[positionToGrid(game.mouseLocationAbsolute).x][positionToGrid(game.mouseLocationAbsolute).y])
+
+
+
     if(!game.userInterface.minionMenu.isMouseOver){
     for(let i=0;i<game.userInterface.selectedMinions.length;i++)
       game.userInterface.selectedMinions[i].isSelected=false;
