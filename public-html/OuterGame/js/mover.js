@@ -36,7 +36,7 @@ class Mover {
 	if(idx == -1) {
 		idx = System().visuals.indexOf(this);
 		if(idx == -1) {
-			throw new Error("Can't destroy an object that doesn't exist in the world.");
+			return; // If it's not in the world, no point in destroying it
 		}
 		System().visuals.splice(idx, 1);
 	} else {
