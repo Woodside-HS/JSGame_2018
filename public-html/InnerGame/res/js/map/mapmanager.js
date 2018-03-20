@@ -32,8 +32,8 @@ class MapManager extends Updateable {
         *  all tile type chosen according to perlin noise
         */
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
-                this.map[i][j].cloc.x / this.map.length * map_config.noise_scale,
-                this.map[i][j].cloc.y / this.map[i].length * map_config.noise_scale
+                i / this.map.length * map_config.noise_scale,
+                j / this.map[i].length * map_config.noise_scale
                 ));
 
         //Set tile types
@@ -56,7 +56,6 @@ class MapManager extends Updateable {
         this.map[i][j].init();
       }
     }
-    
     this.towermanager.init();
 
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];

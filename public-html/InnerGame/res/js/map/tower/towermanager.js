@@ -3,17 +3,34 @@
 class TowerManager extends Updateable {
   constructor(game) {
     super();
+    this.game = game;
     this.towers = [];
+    this.randoms = [];
   }
   init() {
     document.addEventListener("keydown", this.docKeyDown);
+    noise.seed(tower_config.noise_seed);
+    let localPerlin;
     for (let i = 0; i < config.map_x_size; i++) { // columns of rows
       this.towers.push([]);
+      this.randoms.push([]);
       for (let j = 0; j < config.map_y_size; j++) {
-        this.towers[i].push(null);
+        this.randoms[i].push(Math.random());
+        localPerlin = normalizePerlin(noise.perlin2(
+                i / config.map_x_size * tower_config.noise_scale,
+                j / config.map_y_size * tower_config.noise_scale,
+                ));
+        if (localPerlin > tower_config.tower_range[0] &&
+                localPerlin < tower_config.tower_range[1] &&
+                this.randoms[i][j] < tower_config.tower_rate &&
+                !this.game.mapManager.map[i][j].isOccupied
+                ) {
+          this.towers[i].push(new Tower(this.game, new Vector2D(i, j)));
+        } else {
+          this.towers[i].push(null);
+        }
       }
     }
-    
   }
   update() {
     for (let i = 0; i < config.map_x_size; i++) {
