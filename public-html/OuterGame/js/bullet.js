@@ -18,9 +18,6 @@ class Bullet extends Mover {
 				return;
 			}
 
-			if(!(other instanceof Mover)) {
-				return; // Don't collide with non-movers
-			}
 			let collisionVisual = new BulletImpactVisual(this.loc.clone(), this.color);
 			System().addVisual(collisionVisual);
 

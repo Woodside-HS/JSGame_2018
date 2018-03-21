@@ -63,17 +63,20 @@ class DroneShip extends Mover {
 		let drifting = true;
 
 		this.firing = false;
-		let distance = this.loc.distance(System().ship.loc);
+
+		let targetPos = System().ship.loc.vectorTo(this.loc).setMag(100);
+		let distance = this.loc.distance(targetPos);
 		if(distance < 800) {
 			drifting = false;
-			let vector = this.loc.vectorTo(System().ship.loc).setMag(50/FPS);
-			vector.add(this.vel.clone().setMag(vector.magnitude()));
+			let vector = this.loc.vectorTo(targetPos).setMag(50/FPS);
+			let addition = this.vel.clone().setMag(vector.magnitude());
+			vector.add(addition);
 			this.vel.add(vector);
-			if(Math.abs(vector.theta() - this.vel.theta()) <= Math.PI / 4) { // Angled less than 45 degrees away
+			if(Math.abs(this.loc.vectorTo(targetPos).theta() - this.vel.theta()) <= Math.PI / 8) { // Angled less than 45 degrees away
 				this.firing = true;
-			} else {
+			} else if(Math.abs(this.loc.vectorTo(targetPos).theta() - this.vel.theta()) <= Math.PI / 2) {
 				// Deaccelerate to help them turn
-				this.vel.scalarDiv(1 + 0.5/FPS);
+				this.vel.scalarMult(1 - 3/FPS);
 			}
 		}
 
@@ -106,7 +109,7 @@ class DroneShip extends Mover {
 
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
-		ctx.rotate(this.dir)
+		ctx.rotate(this.vel.theta());
 		ctx.beginPath();
 		ctx.moveTo(8, 0);
 		ctx.lineTo(-12, -12);
