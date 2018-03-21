@@ -86,6 +86,8 @@
     this.makePlanets(50);
 	this.makeAsteroids(180, true); //issue 12, will spawn in canvas
 
+	this.makeEnemies(15); // Spawns in drone ships
+
 	this.cursorX = -50;
 	this.cursorY = -50;
 
@@ -153,6 +155,15 @@
         counter--;
       }
     }
+  }
+
+  makeEnemies(num) {
+	for(let i = 0; i < num; i++) {
+		let x = Math.random() * this.width * 2 - this.width;
+		let y = Math.random() * this.height * 2 - this.height;
+		let drone = new DroneShip(new Vector2D(x, y));
+		this.addEntity(drone);
+	}
   }
 
   checkHitPlanet(){ //issue 9
@@ -266,6 +277,7 @@
 				ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 80);
 				ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 105);
 				ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 130);
+				ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 155);
 			} else {
 				ctx.fillText("-No Target-", 20, 80);
 			}
@@ -316,6 +328,51 @@
 
 			this.cursorTargetRotation += (2 * Math.PI) / FPS / 4; // 4 seconds per rotation
 
+		}
+
+		// Draw a visual for the ship's health in the bottom right corner
+
+		let pos = new Vector2D(canvas.width * 0.95, canvas.height * 0.9);
+		let segments = 36;
+		this.healthWheelPos += segments/FPS;
+		for(let i = 0; i < segments; i++) {
+			
+			let color = '#008800';
+			if(this.ship.stats.health() / this.ship.stats.maxHp <= i / segments) {
+				color = '#AA0000';
+			}
+			ctx.beginPath();
+			ctx.arc(pos.x, pos.y, 30, (Math.PI / segments) * (2*i-0.5), (Math.PI / segments) * (2*i+0.5));
+			let width = 20;
+			if(i%2==0) {
+				width = 30;
+			}
+			ctx.lineWidth = width;
+			ctx.strokeStyle = color;
+			ctx.stroke();
+			ctx.lineWidth = 2;
+
+			if(this.ship.shield) {
+				
+				let color = '#0066FF';
+				if(this.ship.shield.offline && (this.ship.shield.offlineTimer / (this.ship.shield.rechargeDuration * FPS)) > (i / segments)) {
+					color = '#444444';
+				}
+				if(this.ship.shield.stats.health() / this.ship.shield.stats.maxHp <= i / segments) {
+					color = '#AA0000';
+				}
+
+				ctx.beginPath();
+				ctx.arc(pos.x, pos.y, 44, (Math.PI / segments) * (2*i-0.5), (Math.PI / segments) * (2*i+0.5));
+				let width = 10;
+				if(i%2==0) {
+					width = 15;
+				}
+				ctx.lineWidth = width;
+				ctx.strokeStyle = color;
+				ctx.stroke();
+				ctx.lineWidth = 2;
+			}
 		}
 
 		let collisions = [];

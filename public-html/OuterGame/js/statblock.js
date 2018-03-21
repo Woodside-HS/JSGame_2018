@@ -2,6 +2,7 @@
 class StatBlock { // A block containing health, armor, resistance, etc.
 	constructor(hp, extras) {
 		this.maxHp = hp;
+		this.killable = true;
 		this.damageTaken = 0;
 		for(let i in extras) {
 			this[i] = extras[i];
@@ -13,14 +14,14 @@ class StatBlock { // A block containing health, armor, resistance, etc.
 	}
 
 	assign(entity) { // Assigns the StatBlock to an entity
-		this.owner = entity;
+		this.entity = entity;
 		entity.stats = this;
 	}
 
 	takeDamage(dmg) {
 		this.damageTaken += dmg;
-		if(this.health() <= 0) {
-			//this.kill();
+		if(this.health() <= 0 && this.killable) {
+			this.entity.kill();
 		}
 	}
 

@@ -5,31 +5,19 @@ class Shield extends Mover { // Basic defensive barrier around a spaceship
 		this.owner = owner;
 		this.radius = owner.radius * 1.25 + 3;
 
+		this.selectable = false; // Can't select shields
+
 		this.rotation = Math.random() * Math.PI * 2;
 
 		this.visibleDuration = 0.25; // Time in seconds the shield is visible after hitting something
 		this.visibleTimer = 0;
 
-		this.offline = true;
+		this.offline = false;
 		this.rechargeDuration = 2.5; // Seconds it takes to recharge the shields
 		this.offlineTimer = this.rechargeDuration * FPS;
 
-		let stats = new StatBlock(20);
+		let stats = new StatBlock(20, {killable: false});
 		stats.assign(this);
-
-		this.collisionEvents.push((other) => {
-			if(this.offline) {
-				return; // Shield has no effect while it's offline
-			}
-			if(!(other instanceof Bullet)) {
-				return;
-			}
-			if(other == this.owner || other.owner == this.owner) {
-				return;
-			}
-			other.destroy();
-			this.visibleTimer = this.visibleDuration * FPS;
-		})
 	}
 
 	update() {

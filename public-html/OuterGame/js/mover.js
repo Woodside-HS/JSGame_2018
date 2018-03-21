@@ -9,6 +9,16 @@ class Mover {
     this.acc = acc || new Vector2D(0,0);
 
 	this.collisionEvents = [];
+	this.deathEvents = [];
+
+	this.deathEvents.push(() => {
+		if(this.shield) {
+			this.shield.kill();
+		}
+		if(System().cursorTarget == this) {
+			System().cursorTarget = false;
+		}
+	})
 
 	this.selectable = true; // Whether the player can select it - disable for e.g. visual effects, bullets, etc.
   }
@@ -30,6 +40,13 @@ class Mover {
   applyForce(f){
     this.acc.add(f);
   }
+
+	kill() {
+		for(let i in this.deathEvents) {
+			this.deathEvents[i]();
+		}
+		this.destroy();
+	}
 
   destroy() {
 	let idx = System().entities.indexOf(this);

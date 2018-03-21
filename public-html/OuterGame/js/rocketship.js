@@ -4,6 +4,14 @@ class Rocketship extends Mover {
 		super(location);
 		this.loc = location;
 		this.radius = 15;
+
+		this.name = "Explorer";
+
+		this.faction = 0; // FRIENDLY faction. Disables friendly fire.
+
+		let stats = new StatBlock(100);
+		stats.assign(this);
+
 		this.vel = new Vector2D(0.0001,0.0001); // issue 3
 		this.acc = new Vector2D(0,0);
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
@@ -123,6 +131,7 @@ class Rocketship extends Mover {
 		let velocity = new AngularVector2D(250, angle);
 		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
 		bullet.owner = this;
+		bullet.color = "yellow";
 		System().addEntity(bullet);
 	}
 
