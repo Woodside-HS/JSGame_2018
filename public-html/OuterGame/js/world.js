@@ -148,8 +148,10 @@
 
   makeStations(num){ //issue 54
     for(let i=0;i<num;i++){
-      let x = (Math.random() * this.width*2) - this.width;
-      let y = (Math.random() * this.height*2) - this.height;
+      // let x = (Math.random() * this.width*2) - this.width;
+      // let y = (Math.random() * this.height*2) - this.height;
+      let x = 0;
+      let y = 0;
       this.stations[i] = new SpaceStation(new Vector2D(x,y));
     }
   }
@@ -165,8 +167,8 @@
   }
 
   checkHitStation(){ //issue 54
-    for(let i=0;i<this.planets.length;i++){
-      if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
+    for(let i=0;i<this.stations.length;i++){
+      if(Vector2D.distance(this.stations[i].loc,this.ship.loc)<(this.stations[i].radius+20)){
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[L] to land at station",canvas.width/2-50,canvas.height/2-50);
@@ -344,6 +346,9 @@
     //draw all planets & ship
     for(var i = 0; i < this.planets.length; i++){
       this.planets[i].render();
+    }
+    for(let i in this.stations){ //issue 54
+      this.stations[i].render();
     }
   	for(let i in this.entities) {
   		this.entities[i].render();

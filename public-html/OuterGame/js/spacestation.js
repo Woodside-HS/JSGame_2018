@@ -7,8 +7,8 @@ class SpaceStation{
   render(){
     ctx.beginPath();
     ctx.moveTo(this.loc.x,this.loc.y);
-    ctx.lineTo(this.loc.x+15,this.loc.y+10);
-    ctx.lineTo(this.loc.x-15,this.loc.y+10);
+    ctx.lineTo(this.loc.x+20,this.loc.y+30);
+    ctx.lineTo(this.loc.x-20,this.loc.y+30);
     ctx.lineTo(this.loc.x,this.loc.y);
     ctx.fillStyle = "blue";
     ctx.fill();
