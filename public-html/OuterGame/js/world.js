@@ -18,9 +18,12 @@
 
 	this.cursorTarget = false;
 	this.cursorTargetRotation = Math.random() * Math.PI * 2; // Degrees of rotation for selection circle visual
+	this.targetWheelRotation = 0;
+	
 	document.addEventListener("click", (e) => {
 		let target = this.getCursorTarget();
 		this.cursorTarget = target;
+		this.ship.targetScanTimer = 0;
 	})
 
     //add event listeners that toggle acceleration/deceleration/turning on
@@ -35,7 +38,7 @@
 				this.ship.firing = !this.ship.firing;
 			break;
 			case "t":
-				this.ship.shield.stats.takeDamage(4);
+				this.ship.attemptTorpedoLaunch();
 			break;
 		}
 	});
@@ -255,7 +258,7 @@
 			ctx.fillStyle="white";
 			ctx.font = "20px Georgia";
 
-			ctx.fillText("Press [U] to toggle Debug Mode",20,25);
+			ctx.fillText("Press [U] to toggle Debug Mode",20,175);
 
 			ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")",20,canvas.height-15);
 			ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")",20,canvas.height-40);
@@ -274,12 +277,12 @@
 
 			ctx.fillStyle = "#00FFFF";
 			if(this.cursorTarget) {
-				ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 80);
-				ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 105);
-				ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 130);
-				ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 155);
+				ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 230);
+				ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 255);
+				ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 280);
+				ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 305);
 			} else {
-				ctx.fillText("-No Target-", 20, 80);
+				ctx.fillText("-No Target-", 20, 230);
 			}
 		}
 
@@ -313,6 +316,14 @@
 			ctx.stroke();
 			ctx.restore();
 
+			if(!this.cursorTarget.targetScanned) {
+				this.ship.targetScanTimer++;
+				if(this.ship.targetScanTimer >= this.ship.targetScanDuration * FPS) {
+					this.cursorTarget.targetScanned = true;
+					this.ship.targetScanTimer = 0;
+				}
+			}
+
 			for(let i = 0; i < 3; i++) {
 
 				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
@@ -332,9 +343,9 @@
 
 		// Draw a visual for the ship's health in the bottom right corner
 
-		let pos = new Vector2D(canvas.width * 0.95, canvas.height * 0.9);
+		let pos = new Vector2D(canvas.width * 0.075, canvas.height * 0.125);
+
 		let segments = 36;
-		this.healthWheelPos += segments/FPS;
 		for(let i = 0; i < segments; i++) {
 			
 			let color = '#008800';
@@ -346,6 +357,9 @@
 			let width = 20;
 			if(i%2==0) {
 				width = 30;
+			}
+			if(!this.ship.shield) {
+				width *= 1.5;
 			}
 			ctx.lineWidth = width;
 			ctx.strokeStyle = color;
@@ -359,7 +373,7 @@
 					color = '#444444';
 				}
 				if(this.ship.shield.stats.health() / this.ship.shield.stats.maxHp <= i / segments) {
-					color = '#AA0000';
+					color = '#660000';
 				}
 
 				ctx.beginPath();
@@ -372,6 +386,97 @@
 				ctx.strokeStyle = color;
 				ctx.stroke();
 				ctx.lineWidth = 2;
+			}
+		}
+
+		let i = 0;
+		if(this.ship.shield && this.ship.shield.offline) {
+			i++;
+			ctx.textAlign = "center";
+			ctx.fillStyle = "#AA0000";
+			ctx.fillText("Shields Offline!",pos.x,pos.y + 75); 
+			ctx.textAlign = "start";
+		}
+		if(this.ship.stats.health() <= (this.ship.stats.maxHp * 0.25)) {
+			ctx.textAlign = "center";
+			ctx.fillStyle = "#AA0000";
+			ctx.fillText("Damage Critical!",pos.x,pos.y + 75 + 25*i); 
+			ctx.textAlign = "start";
+		}
+
+		if(this.cursorTarget && this.cursorTarget.stats && this.cursorTarget != this.ship) {
+			
+			pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
+			let segments = 36;
+			if(this.targetWheelRotation < segments) {
+				this.targetWheelRotation = segments;
+			}
+			this.targetWheelRotation += segments/FPS;
+			for(let i = 0; i < segments; i++) {
+			
+				let color = '#888800';
+				if(this.cursorTarget.stats.health() / this.cursorTarget.stats.maxHp <= i / segments) {
+					color = '#AA0000';
+				}
+
+				if(!this.cursorTarget.targetScanned) {
+					if(Math.abs(this.targetWheelRotation - i) % (segments/2) <= (segments/8)) {
+						color = "#00FFFF";
+					} else {
+						color = "#444444";
+					}
+				}
+
+				ctx.beginPath();
+				ctx.arc(pos.x, pos.y, 30, (Math.PI / segments) * (2*i-0.5), (Math.PI / segments) * (2*i+0.5));
+				let width = 20;
+				if(i%2==0) {
+					width = 30;
+				}
+				if(!this.cursorTarget.shield) {
+					width *= 1.5;
+				}
+				ctx.lineWidth = width;
+				ctx.strokeStyle = color;
+				ctx.stroke();
+				ctx.lineWidth = 2;
+
+				if(this.cursorTarget.shield) {
+				
+					let color = '#0066FF';
+					if(this.cursorTarget.shield.offline && (this.cursorTarget.shield.offlineTimer / (this.cursorTarget.shield.rechargeDuration * FPS)) > (i / segments)) {
+						color = '#444444';
+					}
+					if(this.cursorTarget.shield.stats.health() / this.cursorTarget.shield.stats.maxHp <= i / segments) {
+						color = '#660000';
+					}
+
+					if(!this.cursorTarget.targetScanned) {
+						if(Math.abs(this.targetWheelRotation - i) % (segments/2) <= (segments/8)) {
+							color = "#00FFFF";
+						} else {
+							color = "#444444";
+						}
+					}
+
+					ctx.beginPath();
+					ctx.arc(pos.x, pos.y, 44, (Math.PI / segments) * (2*i-0.5), (Math.PI / segments) * (2*i+0.5));
+					let width = 10;
+					if(i%2==0) {
+						width = 15;
+					}
+					ctx.lineWidth = width;
+					ctx.strokeStyle = color;
+					ctx.stroke();
+					ctx.lineWidth = 2;
+				}
+			}
+
+			if(!this.cursorTarget.targetScanned) {
+				ctx.textAlign = "center";
+				ctx.fillStyle = "#00FFFF";
+				ctx.fillText("Scanning...",pos.x,pos.y + 75); 
+				ctx.textAlign = "start";
 			}
 		}
 

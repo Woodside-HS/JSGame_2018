@@ -60,30 +60,20 @@ class DroneShip extends Mover {
 			}
 		}
 
-		let drifting = true;
-
 		this.firing = false;
 
-		let targetPos = System().ship.loc.vectorTo(this.loc).setMag(100);
-		let distance = this.loc.distance(targetPos);
+		let distance = this.loc.distance(System().ship.loc);
 		if(distance < 800) {
-			drifting = false;
-			let vector = this.loc.vectorTo(targetPos).setMag(50/FPS);
+			let vector = this.loc.vectorTo(System().ship.loc).setMag(50/FPS);
 			let addition = this.vel.clone().setMag(vector.magnitude());
 			vector.add(addition);
 			this.vel.add(vector);
-			if(Math.abs(this.loc.vectorTo(targetPos).theta() - this.vel.theta()) <= Math.PI / 8) { // Angled less than 45 degrees away
+			if(Math.abs(this.loc.vectorTo(System().ship.loc).theta() - this.vel.theta()) <= Math.PI / 8) { // Angled less than 45 degrees away
 				this.firing = true;
-			} else if(Math.abs(this.loc.vectorTo(targetPos).theta() - this.vel.theta()) <= Math.PI / 2) {
+			} else if(Math.abs(this.loc.vectorTo(System().ship.loc).theta() - this.vel.theta()) <= Math.PI / 2) {
 				// Deaccelerate to help them turn
 				this.vel.scalarMult(1 - 3/FPS);
 			}
-		}
-
-		if(drifting) {
-			let angle = this.vel.theta() + Math.random() * (Math.PI / 2) - (Math.PI / 4);
-			this.vel.add(new AngularVector2D(20/FPS, angle));
-			this.vel.limit(this.maxVel / 2);
 		}
 
 		this.vel.limit(this.maxVel);

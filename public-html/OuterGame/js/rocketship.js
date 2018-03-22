@@ -25,6 +25,11 @@ class Rocketship extends Mover {
 		this.right = false; //d key
 		this.left = false; //a key
 
+		// Setup scanner
+
+		this.targetScanDuration = 1;
+		this.targetScanTimer = 0;
+
 		this.firing = false; // E key
 
 		this.burstInterval = 0.3; // Seconds between burst attacks
@@ -34,6 +39,11 @@ class Rocketship extends Mover {
 
 		this.fireRate = 12; // Shots per second during burst
 		this.fireDelay = FPS/this.fireRate; // Frames since last shot was fired
+
+		// Torpedo settings
+
+		this.torpedoCooldown = 1.5; // Seconds between torpedo launches
+		this.torpedoTimer = 0;
 
 		// Shield setup
 
@@ -61,6 +71,11 @@ class Rocketship extends Mover {
 				this.shotsFired = 0;
 				this.burstDelay = 0;
 			}
+		}
+		
+		this.torpedoTimer--;
+		if(this.torpedoPrimed) {
+			this.attemptTorpedoLaunch();
 		}
 
 		//execute appropriate functions if keys are down
@@ -131,6 +146,29 @@ class Rocketship extends Mover {
 		let velocity = new AngularVector2D(250, angle);
 		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
 		bullet.owner = this;
+		bullet.color = "yellow";
+		System().addEntity(bullet);
+	}
+
+	attemptTorpedoLaunch() {
+		if(this.torpedoTimer <= 0) {
+			this.fireTorpedo();
+			this.torpedoPrimed = false;
+			this.torpedoTimer = this.torpedoCooldown * FPS;
+		} else {
+			this.torpedoPrimed = true; // Prepare to fire a torpedo as soon as it's off cooldown
+		}
+	}
+
+	fireTorpedo() {
+		let angle = this.vel.theta();
+		angle += -Math.PI/12 + Math.random() * Math.PI/6;
+		let velocity = new AngularVector2D(120, angle);
+		let bullet = new Torpedo(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 6);
+		bullet.owner = this;
+		if(System().cursorTarget) {
+			bullet.target = System().cursorTarget;
+		}
 		bullet.color = "yellow";
 		System().addEntity(bullet);
 	}
