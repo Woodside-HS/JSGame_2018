@@ -70,8 +70,7 @@ class TowerManager extends Updateable {
     let incrementalFrequency = 0;
     for (let i = 0; i < tower_types.asArray.length; i++) {
       if (random > incrementalFrequency && random < tower_types.asArray[i].frequency) {
-        this.towers[cloc.x].push(new Tower(this.game,cloc));
-        this.towers[cloc.x].type = tower_types.asArray[i];
+        this.towers[cloc.x].push(new Ranged(this.game, cloc, tower_types.asArray[i]));
       }
       incrementalFrequency += tower_types.asArray[i].frequency;
     }
