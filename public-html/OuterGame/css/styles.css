@@ -2,12 +2,15 @@
 body{
    background-color: #444444;
    margin:0;
-   /*cursor: none;*/
+}
+
+canvas {
+	cursor: none;
 }
 
 #wrapper {
   border: 0px solid black;
   margin: auto;
   text-align: center;
-  padding: 60px;
+  padding: 20px;
 }

@@ -2,8 +2,12 @@ body{
   background-color:purple;
   padding:0;
   margin:0;
+  overflow:hidden;
 }
 canvas{
   margin-left:auto;
   margin-right:auto;
+  padding:0;
+  display:block;
+  margin-top:50px;
 }

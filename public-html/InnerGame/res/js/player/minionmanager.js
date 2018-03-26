@@ -10,8 +10,9 @@ class MinionManager extends Updateable {
   update() {
     for (let i = 0; i < this.minions.length; i++) {
       this.minions[i].update();
+      //check if minions are dead
       if (this.minions[i].hp <= 0) {
-        this.minions.splice(i, 1);
+        this.minions.splice(i, 1);//kill minions
         i--;
       }
     }
@@ -19,6 +20,11 @@ class MinionManager extends Updateable {
   render() {
     for (let i = 0; i < this.minions.length; i++) {
       this.minions[i].render();
+    }
+  }
+  sendMinions(minions,gridloc){
+    for(let i=0;i<minions.length;i++){
+      minions[i].goTo(gridloc);
     }
   }
 }
