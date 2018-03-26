@@ -57,9 +57,9 @@ class Minion extends Updateable {
     this.game.context.arc(this.loc.x, this.loc.y, config.tile_size / 2, 0, 2 * Math.PI);
     this.game.context.fill();
     this.game.context.fillStyle = minion_config.healthbar_negative_color;
-    this.game.context.fillRect(this.loc.x - 1.5 * this.radius, this.loc.y + 2 / 3 * this.radius, 3 * this.radius, this.radius);
+    this.game.context.fillRect(this.loc.x - 2 * this.radius, this.loc.y + 2 / 3 * this.radius, 4 * this.radius, 2*this.radius);
     this.game.context.fillStyle = minion_config.healthbar_positive_color
-    this.game.context.fillRect(this.loc.x - 1.5 * this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 3 * this.radius, this.radius);
+    this.game.context.fillRect(this.loc.x - 2 * this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 4 * this.radius, 2*this.radius);
 
   }
 }
