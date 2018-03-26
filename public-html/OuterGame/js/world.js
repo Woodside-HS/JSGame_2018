@@ -168,10 +168,10 @@
 		let y = Math.random() * this.height * 2 - this.height;
 		let drone = new DroneShip(new Vector2D(x, y));
 		if(i % 6 == 0) {
-			drone = new TorpedoCruiser(new Vector2D(x, y));
+			//drone = new TorpedoCruiser(new Vector2D(x, y));
 		}
 		if(i % 14 == 0) {
-			drone = new ShieldPlatform(new Vector2D(x, y));
+			//drone = new ShieldPlatform(new Vector2D(x, y));
 		}
 		this.addEntity(drone);
 		drone.initialize();
