@@ -3,22 +3,30 @@ class SpaceStation{
   constructor(loc){
     this.loc = loc;
     this.shopItems = [];
+    this.canLandOn = false;
 
     this.loadShopItems();
   }
 
-  render(){
+  renderInSpace(){
     ctx.beginPath();
-    ctx.moveTo(this.loc.x,this.loc.y);
-    ctx.lineTo(this.loc.x+20,this.loc.y+30);
-    ctx.lineTo(this.loc.x-20,this.loc.y+30);
-    ctx.lineTo(this.loc.x,this.loc.y);
+    ctx.moveTo(this.loc.x,this.loc.y-15);
+    ctx.lineTo(this.loc.x+20,this.loc.y+15);
+    ctx.lineTo(this.loc.x-20,this.loc.y+15);
+    ctx.lineTo(this.loc.x,this.loc.y-15);
     ctx.fillStyle = "blue";
     ctx.fill();
+  }
 
+  renderStore(){
     for(let i in this.buttons){
+      let x = 200;
+      let y = 20;
       this.shopItems[i].render(x,y); //
     }
+    ctx.beginPath();
+    ctx.fillStyle = "green";
+    ctx.fillRect(50,50,50,50);
   }
 
   loadShopItems(){
