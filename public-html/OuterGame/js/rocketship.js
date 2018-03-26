@@ -39,6 +39,7 @@ class Rocketship extends Mover {
 
 		this.fireRate = 12; // Shots per second during burst
 		this.fireDelay = FPS/this.fireRate; // Frames since last shot was fired
+		this.fireSpread = 45; // Inaccuracy of firing, in degrees
 
 		// Torpedo settings
 
@@ -47,8 +48,8 @@ class Rocketship extends Mover {
 
 		// Shield setup
 
-		this.shield = new Shield(this);
-		System().addEntity(this.shield);
+		let shield = new Shield(this);
+		this.addShield(shield);
 	}
 
 	update(){
@@ -142,7 +143,7 @@ class Rocketship extends Mover {
 
 	fireBullet() {
 		let angle = this.vel.theta();
-		angle += -Math.PI/12 + Math.random() * Math.PI/6;
+		angle += -this.fireSpread/360*Math.PI + Math.random() * this.fireSpread/180*Math.PI;
 		let velocity = new AngularVector2D(250, angle);
 		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
 		bullet.owner = this;

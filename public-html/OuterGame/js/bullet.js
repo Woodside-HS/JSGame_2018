@@ -84,7 +84,8 @@ class Torpedo extends Bullet {
 		let stats = new StatBlock(4);
 		stats.assign(this);
 
-		this.maxVel = 150;
+		this.accelRate = 160;
+		this.maxVel = 400;
 
 		this.timedLife = 10; // Seconds of timed life
 		this.damage = 8; // Damage dealt upon collision
@@ -117,11 +118,29 @@ class Torpedo extends Bullet {
 	update() {
 		super.update();
 
-		let vector = this.vel.clone();
-		if(this.target && this.target.targetScanned) {
-			vector = this.loc.vectorTo(this.target.loc);
+		if(this.target && !this.target.isAlive()) {
+			this.target = false; // Stop pursuing a target once it's been destroyed
 		}
-		vector.setMag(200/FPS);
+
+		let vector = this.vel.clone();
+		if(this.target && (this.target.targetScanned || this.owner != System().ship)) {
+			vector = this.loc.vectorTo(this.target.loc);
+
+			ctx.beginPath();
+			let pos = System().getScreenPosition(this);
+			let tPos = System().getScreenPosition(this.target);
+			let distance = pos.distance(tPos);
+			pos.add(pos.vectorTo(tPos).setMag(this.radius));
+			tPos.add(tPos.vectorTo(pos).setMag(this.target.radius));
+			ctx.moveTo(pos.x, pos.y);
+			ctx.lineTo(tPos.x, tPos.y);
+			ctx.strokeStyle = this.color;
+			ctx.lineWidth = 1;
+			ctx.stroke();
+			ctx.lineWidth = 2;
+
+		}
+		vector.setMag(this.accelRate/FPS);
 		this.vel.add(vector);
 
 		this.vel.limit(this.maxVel);

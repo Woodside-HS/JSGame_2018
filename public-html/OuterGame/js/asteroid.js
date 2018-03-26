@@ -8,7 +8,7 @@ class Asteroid extends Mover {
 
 		this.deathEvents.push(() => {
 			let collisionVisual = new BulletImpactVisual(this.loc.clone(), 'gray');
-			collisionVisual.maxRadius = this.radius * 2;
+			collisionVisual.maxRadius = 8;
 			System().addVisual(collisionVisual);
 		});
 	}
