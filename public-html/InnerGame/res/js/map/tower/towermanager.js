@@ -8,6 +8,7 @@ class TowerManager extends Updateable {
     this.randoms = [];
   }
   init() {
+    this.initializeTowerConfig();
     document.addEventListener("keydown", this.docKeyDown);
     noise.seed(tower_config.noise_seed);
     let localPerlin;
@@ -25,7 +26,7 @@ class TowerManager extends Updateable {
                 this.randoms[i][j] < tower_config.tower_rate &&
                 !this.game.mapManager.map[i][j].isOccupied
                 ) {
-          this.towers[i].push(new Tower(this.game, new Vector2D(i, j)));
+          this.loadTower(new FastVector(i, j));
         } else {
           this.towers[i].push(null);
         }
@@ -48,6 +49,31 @@ class TowerManager extends Updateable {
           this.towers[i][j].render();
         }
       }
+    }
+  }
+  initializeTowerConfig() {
+    tower_types.asArray = [];
+    tower_types.asArray.push(tower_types.nulltype);
+    tower_types.asArray.push(tower_types.spitter);
+    tower_types.asArray.push(tower_types.sniper);
+    tower_types.asArray.push(tower_types.repeater);
+    let totalFrequency = 0;
+    for (let i = 0; i < tower_types.asArray.length; i++) {
+      totalFrequency += tower_types.asArray[i].frequency;
+    }
+    for (let i = 0; i < tower_types.asArray.length; i++) {
+      tower_types.asArray[i].frequency /= totalFrequency;
+    }
+  }
+  loadTower(cloc) {
+    let random = Math.random();
+    let incrementalFrequency = 0;
+    for (let i = 0; i < tower_types.asArray.length; i++) {
+      if (random > incrementalFrequency && random < tower_types.asArray[i].frequency) {
+        this.towers[cloc.x].push(new Tower(this.game,cloc));
+        this.towers[cloc.x].type = tower_types.asArray[i];
+      }
+      incrementalFrequency += tower_types.asArray[i].frequency;
     }
   }
   docKeyDown(e) {
