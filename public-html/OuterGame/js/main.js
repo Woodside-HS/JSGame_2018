@@ -5,7 +5,9 @@ window.onload = init;
 //change 2
 var canvas;
 var ctx;
+var shownImage;
 var worlds = [];
+var imageArray = [];
 var currentLevel = -1;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
@@ -32,7 +34,11 @@ function init(){
 
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
-
+	shownImage = new Image();
+  shownImage.src = 'planetSprites/planets.png';
+	for (var i = 0; i < 8; i++){
+        imageArray.push(plantetsUTF8.frames["p" + i + "0000"].frame);
+  }
 	makeWorld();
 
 	setTimeout(animate, 1000/FPS);
