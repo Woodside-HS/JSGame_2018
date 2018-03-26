@@ -15,13 +15,8 @@ const config = {
   map_x_size: 100, //measured in tiles
   map_y_size: 100, //measred in tiles
   tile_size: 10, //Measured in px
-<<<<<<< HEAD
   mask_radius: 3, //measured in tiles
-  canvas_width: 700, //Measured in px
-  canvas_height: 700, //Measured in px
-=======
   canvas_width: 1280, //Measured in px
   canvas_height: 720, //Measured in px
->>>>>>> master
   background_color: "#000000" //Hex color
 };
