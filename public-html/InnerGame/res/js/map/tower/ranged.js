@@ -2,7 +2,7 @@ class Ranged extends Tower {
   constructor(game, location, type) {
     super(game, location);
     this.type = type;
-    this.range = this.type.range
+    this.range = this.type.range;
     this.cooldown = this.type.cooldown;
     this.cooldowntimer = 0;
     this.maxhp = this.type.hp;

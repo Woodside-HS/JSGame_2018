@@ -55,4 +55,11 @@ const tower_types = {
       target.hp -= this.damage;
     }
   }
-}
+};
+const tower_config = {
+  noise_seed: Math.random(),
+  noise_scale: 3,
+  tower_range: [0.5,0.55],
+  tower_rate: 0.15,
+  minimap_color: "yellow"
+};

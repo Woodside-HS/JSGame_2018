@@ -14,8 +14,11 @@ class Minion extends Updateable {
     this.status = status.nullstatus;
     this.statusTimer = null;
     this.isSelected = false;
+    this.v = new Vector2D(0,0);
+    this.a = new Vector2D(0,0);
   }
   update() {
+    //status logic
     switch (this.status) {
       case status.poison:
         this.hp -= this.status.dps / config.frame_rate;
@@ -33,10 +36,20 @@ class Minion extends Updateable {
     if (this.isSelected) {
       this.fillStyle = "rgba(255,100,100,1)";
     }
+
+
+    //movement logic
+    this.a=new Vector2D(0,0);
+
+    this.v.add(this.a);
+    this.loc.add(this.v);
   }
   setStatus(status) {
     this.status = status;
     this.statusTimer = status.duration;
+  }
+  goTo(gridloc){
+    //use A* algorithm to find path
   }
   render() {
     this.game.context.fillStyle = this.fillStyle;
