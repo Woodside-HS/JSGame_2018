@@ -130,22 +130,5 @@ class MapManager extends Updateable {
         }
       }
     }
-
-
-
-
-    //DIAGONALS
-    // if(this.game.player.cloc.x + 1 < config.map_x_size && this.game.player.cloc.y + 1 < config.map_y_size){
-    //   this.map[this.game.player.cloc.x + 1][this.game.player.cloc.y + 1].seen = true;
-    // }
-    // if(this.game.player.cloc.x - 1 > 0 && this.game.player.cloc.y - 1 > 0){
-    //   this.map[this.game.player.cloc.x - 1][this.game.player.cloc.y - 1].seen = true;
-    // }
-    // if(this.game.player.cloc.x - 1 > 0 && this.game.player.cloc.y + 1 < config.map_y_size){
-    //   this.map[this.game.player.cloc.x - 1][this.game.player.cloc.y + 1].seen = true;
-    // }
-    // if(this.game.player.cloc.x + 1 < config.map_x_size && this.game.player.cloc.y - 1 > 0){
-    //   this.map[this.game.player.cloc.x + 1][this.game.player.cloc.y - 1].seen = true;
-    // }
   }
 }
