@@ -18,7 +18,7 @@ const tile_types = {
     image: new Image()
   },
   rock: {
-    minimap_color: "black",
+    minimap_color: "#696e75",
     is_occupied: true,
     image_src: 'res/sprites/rock.png',
     image: new Image()
