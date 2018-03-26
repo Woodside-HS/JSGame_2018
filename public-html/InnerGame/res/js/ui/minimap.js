@@ -25,11 +25,18 @@ class Minimap extends Updateable {
       for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
         //draw the land
         this.game.context.fillStyle = this.game.mapManager.map[i][j].tileType.minimap_color;
+        // or draw towers
+        if(this.game.mapManager.towermanager.towers[i][j]){
+          this.game.context.fillStyle = tower_config.minimap_color;
+        }
+        //fill the tile
         this.game.context.fillRect(
                 startCoordinate.x + ui_config.minimap_tile_size * i,
                 startCoordinate.y + ui_config.minimap_tile_size * j,
                 ui_config.minimap_tile_size,
                 ui_config.minimap_tile_size);
+                
+        
       }
     }
 
