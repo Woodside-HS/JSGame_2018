@@ -13,7 +13,7 @@ const tower_types = {
   spitter: {
     name: 'spitter',
     hp: 10,
-    frequency: 100,
+    frequency: 15,
     range: config.tile_size * 5, //6 tiles
     damage: 1,
     cooldown: config.frame_rate * .75, //.75 sec
@@ -47,7 +47,7 @@ const tower_types = {
   },
   repeater: {
     name: 'repeater',
-    hp: 10,
+    hp: 100,
     frequency: 75,
     range: config.tile_size * 5, //6 tiles
     damage: 2,
