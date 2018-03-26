@@ -64,7 +64,7 @@ class MapManager extends Updateable {
         if (tile.tileType==tile_types.rock){
           for (let i = -1; i < 2; i++) {
             for (let j = -1; j < 2; j++) {
-              if(i!=0&&j!=0) continue;
+              //if(i!=0&&j!=0) continue;
               let x=a+i;
               let y=b+j;
               if(x<0||x>=config.map_x_size||y<0||y>=config.map_y_size) continue;
