@@ -54,7 +54,6 @@ class Ranged extends Tower {
       this.cooldowntimer = this.cooldown;
       let diff = this.target.loc.duplicate();
       diff.subtract(this.loc);
-      ;
       let dir = diff.duplicate();
       dir.multiply(1 / diff.m);
       dir.multiply(this.bulletspeed);
@@ -64,7 +63,6 @@ class Ranged extends Tower {
         v: dir,
         life: Math.floor(diff.m / this.bulletspeed) + 1
       }
-      projectile.loc.add(new Vector2D(config.tile_size / 2, config.tile_size / 2));
       this.projectiles.push(projectile);
     }
 
