@@ -29,14 +29,16 @@ class Minimap extends Updateable {
         if(this.game.mapManager.towermanager.towers[i][j]){
           this.game.context.fillStyle = tower_config.minimap_color;
         }
+        if(!this.game.mapManager.map[i][j].seen){
+          this.game.context.fillStyle = "#000000";
+        }
         //fill the tile
         this.game.context.fillRect(
                 startCoordinate.x + ui_config.minimap_tile_size * i,
                 startCoordinate.y + ui_config.minimap_tile_size * j,
                 ui_config.minimap_tile_size,
                 ui_config.minimap_tile_size);
-                
-        
+
       }
     }
 
