@@ -14,7 +14,7 @@ class MapManager extends Updateable {
     this.towermanager = new TowerManager(this.game);
   }
   init() {
-    noise.seed(Math.random());
+    noise.seed(map_config.noise_seed);
     //Create map array
     for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
@@ -32,8 +32,8 @@ class MapManager extends Updateable {
         *  all tile type chosen according to perlin noise
         */
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
-                this.map[i][j].cloc.x / this.map.length * map_config.noise_scale,
-                this.map[i][j].cloc.y / this.map[i].length * map_config.noise_scale
+                i / this.map.length * map_config.noise_scale,
+                j / this.map[i].length * map_config.noise_scale
                 ));
 
         //Set tile types
@@ -54,6 +54,27 @@ class MapManager extends Updateable {
 
         //Initialize
         this.map[i][j].init();
+      }
+    }
+
+    //set normal vectors
+    for (let a = 0; a < config.map_x_size; a++) {
+      for (let b = 0; b < config.map_y_size; b++) {
+        let tile=this.map[a][b]
+        if (tile.tileType==tile_types.rock){
+          for (let i = -1; i < 2; i++) {
+            for (let j = -1; j < 2; j++) {
+              if(i!=0&&j!=0) continue;
+              let x=a+i;
+              let y=b+j;
+              if(x<0||x>=config.map_x_size||y<0||y>=config.map_y_size) continue;
+              let currentTile = this.map[x][y];
+              if (currentTile.tileType==tile_types.rock){
+                tile.normalVector.add(new Vector2D(-i,-j));
+              }
+            }
+          }
+        }
       }
     }
 

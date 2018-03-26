@@ -12,6 +12,7 @@ class Tile extends Updateable {
             // override done in map manager
     this.tileType = tile_types.nulltype;
     this.seen = false;
+    this.normalVector = new Vector2D(0,0);
   }
   init() {
     this.image = this.tileType.image;
