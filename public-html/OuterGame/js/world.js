@@ -8,7 +8,8 @@
 
   this.stations = []; //issue 54
 
-  this.atStation = false;
+  // this.atStation = false;
+  this.atStation = true;
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
@@ -25,8 +26,13 @@
 	this.targetWheelRotation = 0; // This is just used for the "Scanning..." visual effect
 
 	document.addEventListener("click", (e) => {
-		let target = this.getCursorTarget(); // Finds the right target
-		this.target(target);
+    if(this.atStation){ //if player is at a station, will use listener to click on buttons
+      let cursorLoc = new Vector2D(e.offsetX,e.offsetY);
+      this.stations[0].checkClickButton(cursorLoc);
+    } else{
+      let target = this.getCursorTarget(); // Finds the right target
+  		this.target(target);
+    }
 	})
 
     //add event listeners that toggle acceleration/deceleration/turning on
@@ -331,6 +337,25 @@
 		this.cursorTarget = target; // Sets the target
 	}
 
+  drawCursor(){
+    // Recolor cursor based on what it's hovering over
+
+    let cursorColor = '#00FFFF'; // Defaults to light blue
+
+    ctx.save();
+		let cursorPos = this.screenCursorPos();
+		ctx.translate(cursorPos.x, cursorPos.y);
+		ctx.beginPath();
+		ctx.fillStyle = cursorColor;
+		ctx.strokeStyle = cursorColor;
+	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.beginPath();
+		ctx.arc(0, 0, 6, 0, Math.PI * 2);
+		ctx.stroke();
+		ctx.restore();
+  }
+
 	update(){
 		this.camera.update(); // No effect until the camera is implemented
 		this.checkHitPlanet(); //issue 9
@@ -372,23 +397,10 @@
 			}
 		}
 
-		// Recolor cursor based on what it's hovering over
 
-		let cursorColor = '#00FFFF'; // Defaults to light blue
 
 		// Draw cursor
-		ctx.save();
-		let cursorPos = this.screenCursorPos();
-		ctx.translate(cursorPos.x, cursorPos.y);
-		ctx.beginPath();
-		ctx.fillStyle = cursorColor;
-		ctx.strokeStyle = cursorColor;
-	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.beginPath();
-		ctx.arc(0, 0, 6, 0, Math.PI * 2);
-		ctx.stroke();
-		ctx.restore();
+		this.drawCursor();
 
 		if(this.cursorTarget) {
 
@@ -622,6 +634,7 @@
   run(){
     if(this.atStation){ //if the player lands at a station, issue 54
       this.stations[0].renderStore();
+      this.drawCursor();
     } else{
       this.render();
       this.update();
