@@ -8,8 +8,9 @@
 
   this.stations = []; //issue 54
 
-  // this.atStation = false;
-  this.atStation = true;
+  this.atStation = false;
+  // this.atStation = true; //used this to just work on space station
+
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
