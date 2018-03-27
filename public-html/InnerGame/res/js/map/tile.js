@@ -20,7 +20,7 @@ class Tile extends Updateable {
   }
   render() {
     if(!this.seen){
-      this.game.context.fillStyle = "#636363";
+      this.game.context.fillStyle = "#000000";
       this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
     } else if (tile_config.draw_gridlines) {
 
