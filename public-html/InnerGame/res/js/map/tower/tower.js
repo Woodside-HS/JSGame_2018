@@ -18,6 +18,7 @@ class Tower extends Updateable {
   }
   render() {
     this.game.context.fillStyle = this.fillStyle;
+    if(!this.game.mapManager.map[this.cloc.x][this.cloc.y].fog){
     this.game.context.beginPath();
     this.game.context.arc(this.loc.x + config.tile_size / 2, this.loc.y + config.tile_size / 2, config.tile_size / 2, 0, 2 * Math.PI);
     this.game.context.fill();
@@ -27,7 +28,7 @@ class Tower extends Updateable {
     this.game.context.fillRect(this.loc.x, this.loc.y + 4 * config.tile_size / 5, config.tile_size, config.tile_size / 5);
     this.game.context.fillStyle = 'rgba(0,255,0,1)';
     this.game.context.fillRect(this.loc.x, this.loc.y + 4 * config.tile_size / 5, this.hp / this.maxhp * config.tile_size, config.tile_size / 5);
-
+}
   }
 
 }

@@ -20,13 +20,12 @@ class Player extends Updateable {
   }
   reveal(){
     var cloc = positionToGrid(this.loc);
-    var distSq = 1*1;
-    console.log(cloc);
+    var distSq = 4*4;
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
         var tile = this.game.mapManager.map[i][j];
         var tileLoc = positionToGrid(tile.loc);
-        var actualDistSq = ((cloc.x - tileLoc.x)^2 + (cloc.y - tileLoc.y)^2);
+        var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
         if(actualDistSq <= distSq){
           tile.fog = false;
         }

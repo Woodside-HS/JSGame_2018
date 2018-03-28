@@ -18,7 +18,7 @@ const tile_types = {
     image: new Image()
   },
   rock: {
-    minimap_color: "black",
+    minimap_color: "#8b919b",
     is_occupied: true,
     image_src: 'res/sprites/rock.png',
     image: new Image()
@@ -28,10 +28,14 @@ const tile_types = {
     is_occupied: true,
     image_src: 'res/sprites/water.png',
     image: new Image()
+  },
+  foggy:{
+    minimap_color: "grey",
+    is_occupied: false,
   }
 };
 const tile_config = {
   draw_gridlines: false,
   gridline_stroke: 1,
-  gridline_color: "#000000"
+  gridline_color: "black"
 };

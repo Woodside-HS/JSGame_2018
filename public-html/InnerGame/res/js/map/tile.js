@@ -11,11 +11,8 @@ class Tile extends Updateable {
             // nulltype is not a real tile (nulltype overridden before init)
             // override done in map manager
     this.tileType = tile_types.nulltype;
-<<<<<<< HEAD
     this.fog = true;
-=======
     this.normalVector = new Vector2D(0,0);
->>>>>>> master
   }
   init() {
     this.image = this.tileType.image;
@@ -23,7 +20,7 @@ class Tile extends Updateable {
   }
   render() {
     if(this.fog){
-      this.game.context.fillStyle = "black";
+      this.game.context.fillStyle = tile_types.foggy.minimap_color;
       this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
     } else if (tile_config.draw_gridlines) {
 
