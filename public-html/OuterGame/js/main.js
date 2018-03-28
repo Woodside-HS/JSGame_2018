@@ -35,9 +35,9 @@ function init(){
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
 	shownImage = new Image();
-  shownImage.src = 'planetSprites/planets.png';
-	for (var i = 0; i < 8; i++){
-        imageArray.push(plantetsUTF8.frames["p" + i + "0000"].frame);
+  shownImage.src = 'rcs/planetSprites/planets.png';
+	for (var i = 1; i < 9; i++){
+    imageArray.push(planetsUTF8.frames["p" + i + "0000"].frame);
   }
 	makeWorld();
 
