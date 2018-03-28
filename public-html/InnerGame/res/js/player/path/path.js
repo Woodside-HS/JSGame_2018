@@ -32,16 +32,29 @@ class Path {
         this.setTile(open, point, directions.east);
         this.setTile(open, point, directions.west);
         open.splice(i, 1);
-        closed.push(open);
+        closed.push(point);
       }
+    }
+    this.map = [];
+    for (let i = 0; i < config.map_x_size; i++) {
+      this.map.push([]);
+      for (let j = 0; j < config.map_y_size; j++) {
+        this.map[i].push(null);
+      }
+    }
+    for (let i = 0; i < closed.length; i++) {
+
     }
   }
   setTile(open, point, direction) {
     let tile = new PathTile(point.x + direction.x, point.y + direction.y);
-    if (!this.game.mapManager.map[tile.x][tile.y].isOccupied &&
-            tile.direction != directions.null) {
-      open.push(tile);
-      tile.direction = direction;
+    try {
+      if (!this.game.mapManager.map[tile.x][tile.y].isOccupied &&
+              tile.direction != directions.null) {
+        open.push(tile);
+        tile.direction = direction;
+      }
+    } catch (e) {
     }
   }
 }
