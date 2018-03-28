@@ -5,6 +5,7 @@ class Minion extends Updateable {
     super();
     this.game = game;
     this.loc = location;
+    this.cloc = positionToGrid(this.loc);
     this.fillStyle = minion_config.color;
     this.maxhp = minion_config.hp;
     this.hp = this.maxhp;
@@ -16,8 +17,11 @@ class Minion extends Updateable {
     this.isSelected = false;
     this.v = new Vector2D(0,0);
     this.a = new Vector2D(0,0);
+    this.path;
   }
   update() {
+    this.cloc=positionToGrid(this.loc);
+
     //status logic
     switch (this.status) {
       case status.poison:
@@ -49,7 +53,10 @@ class Minion extends Updateable {
     this.statusTimer = status.duration;
   }
   goTo(gridloc){
-    //use A* algorithm to find path
+    //use algorithm to find path
+    console.log('!!')
+    this.path=new Path(this.cloc,gridloc);
+    this.path.dijkstra();
   }
   render() {
     this.game.context.fillStyle = this.fillStyle;
