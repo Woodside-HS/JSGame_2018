@@ -18,7 +18,7 @@ const tile_types = {
     image: new Image()
   },
   rock: {
-    minimap_color: "#8b919b",
+    minimap_color: "brown",
     is_occupied: true,
     image_src: 'res/sprites/rock.png',
     image: new Image()
@@ -26,6 +26,7 @@ const tile_types = {
   water: {
     minimap_color: "blue",
     is_occupied: true,
+    is_water: true,
     image_src: 'res/sprites/water.png',
     image: new Image()
   },

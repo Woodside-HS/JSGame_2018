@@ -17,6 +17,7 @@ class Player extends Updateable {
   init() {
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
+    this.reveal();
   }
   reveal(){
     var cloc = positionToGrid(this.loc);
@@ -55,10 +56,15 @@ class Player extends Updateable {
     hitBoxPos.add(vDir);
     let hitboxCloc = positionToGrid(hitBoxPos);
     //check for a collision in the x direction
+    if (this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater) {
+      this.v.m = 2;
+      this.v.upComps();
+    }
     if (
             hitboxCloc.x < 0 ||
             hitboxCloc.x >= config.map_x_size ||
-            this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied
+            (this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied &&
+              !this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater)
             ) {
       this.loc.subtract(this.v);//hold it!
       this.v.x = 0;//stop going that way
@@ -69,11 +75,16 @@ class Player extends Updateable {
         this.reveal();
       }
     }
+    if (this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isWater) {
+      this.v.m = 2;
+      this.v.upComps();
+    }
     //check for a collision in the y direction
     if (
             hitboxCloc.y < 0 ||
             hitboxCloc.y >= config.map_y_size ||
-            this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied
+            (this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied &&
+              !this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isWater)
             ) {
       this.loc.subtract(this.v);//hol up
       this.v.y = 0;//stop going that way

@@ -17,11 +17,19 @@ class Tile extends Updateable {
   init() {
     this.image = this.tileType.image;
     this.isOccupied = this.tileType.is_occupied;
+    this.isWater = this.tileType.is_water;
   }
   render() {
     if(this.fog){
       this.game.context.fillStyle = tile_types.foggy.minimap_color;
-      this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+
+      //Additions so there is no ugly gridlines
+      this.game.context.fillRect(
+        this.loc.x-1,
+        this.loc.y-1,
+        config.tile_size+2,
+        config.tile_size+2
+      );
     } else if (tile_config.draw_gridlines) {
 
       //background becomes gridline
