@@ -20,6 +20,7 @@ class Player extends Updateable {
   }
   update() {
     game.mapManager.reveal();
+
     this.cloc = positionToGrid(this.loc);
     this.v.add(this.a);
     //set max velocity
