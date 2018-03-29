@@ -54,7 +54,6 @@ class Minion extends Updateable {
   }
   goTo(gridloc){
     //use algorithm to find path
-    console.log('!!')
     this.path=new Path(this.cloc,gridloc);
     this.path.dijkstra();
   }
