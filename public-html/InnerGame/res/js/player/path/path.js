@@ -41,8 +41,6 @@ class Path {
         closed.push(point);
 
       }
-      console.log(open.length);
-      console.log('!');
     }
     this.map = [];
     for (let i = 0; i < config.map_x_size; i++) {
