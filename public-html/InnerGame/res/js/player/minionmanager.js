@@ -23,8 +23,10 @@ class MinionManager extends Updateable {
     }
   }
   sendMinions(minions,gridloc){
+    let path = new Path(minions[0].cloc, gridloc);
+    path.dijkstra();
     for(let i=0;i<minions.length;i++){
-      minions[i].goTo(gridloc);
+      minions[i].path = path;
     }
   }
 }

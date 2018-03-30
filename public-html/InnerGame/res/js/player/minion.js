@@ -52,11 +52,6 @@ class Minion extends Updateable {
     this.status = status;
     this.statusTimer = status.duration;
   }
-  goTo(gridloc){
-    //use algorithm to find path
-    this.path=new Path(this.cloc,gridloc);
-    this.path.dijkstra();
-  }
   render() {
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.beginPath();
