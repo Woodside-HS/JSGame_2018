@@ -88,7 +88,7 @@
 
   makePlanets(num){
     for(var i = 0; i < num; i++){
-      var radius = Math.random() * 50 + 10;
+      var radius = Math.random() * 50 + 50;
       //set location vector, prevent planet overlap by choosing new location for planet
       //until all planets are far enough apart
       while (true) {
@@ -111,7 +111,7 @@
     var a = true; //check if is far enough away from other entities to be drawn
     while(counter>0){
       a = true;
-      var r = (Math.random()*20)+5;
+      var r = (Math.random()*20)+6;
       var x = (Math.random() * this.width*2) - this.width;
       var y = (Math.random() * this.height*2) - this.height;
       var vel = new Vector2D(Math.random()*6-3,Math.random()*6-3);

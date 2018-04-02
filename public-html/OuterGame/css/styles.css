@@ -20,8 +20,8 @@ canvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 99%;
-    height: 69%;
+    width: 99.5%;
+    height: 67%;
     z-index: 1000;
 }
 #loader {
