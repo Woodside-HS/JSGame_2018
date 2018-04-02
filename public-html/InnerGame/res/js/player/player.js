@@ -17,10 +17,9 @@ class Player extends Updateable {
   init() {
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
+    //this.game.mapManager.reveal();
   }
   update() {
-    game.mapManager.reveal();
-
     this.cloc = positionToGrid(this.loc);
     this.v.add(this.a);
     //set max velocity
