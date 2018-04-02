@@ -25,7 +25,6 @@ const tower_types = {
       target.hp -= this.damage;
       for (let i = 0; i < game.minionManager.minions.length; i++) {
         let minion = game.minionManager.minions[i];
-        console.log(Math.pow(this.splash_range, 2));
         if (distsqrd(target.loc, minion.loc) < Math.pow(this.splash_range, 2))
           minion.status = status.poison;
       }

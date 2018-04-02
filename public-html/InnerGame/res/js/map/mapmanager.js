@@ -53,7 +53,7 @@ class MapManager extends Updateable {
         }
 
         //Initialize
-        this.map[i][j].init();
+
       }
     }
 
@@ -72,9 +72,14 @@ class MapManager extends Updateable {
               if (currentTile.tileType==tile_types.rock){
                 tile.normalVector.add(new Vector2D(-i,-j));
               }
+              if (currentTile.tileType==tile_types.rock && (i==0||j==0)){
+                tile.quadNormal.add(new Vector2D(-i,-j));
+              }
             }
           }
         }
+        //intitialize
+        this.map[a][b].init();
       }
     }
 
