@@ -21,6 +21,7 @@ class Player extends Updateable {
   }
   update() {
     this.cloc = positionToGrid(this.loc);
+    this.game.mapManager.reveal();
     this.v.add(this.a);
     //set max velocity
     if (this.v.m > player_config.max_speed) {
