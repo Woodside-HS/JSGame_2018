@@ -12,10 +12,20 @@ class Tile extends Updateable {
             // override done in map manager
     this.tileType = tile_types.nulltype;
     this.normalVector = new Vector2D(0,0);
+    this.quadNormal = new Vector2D(0,0);
   }
   init() {
     this.image = this.tileType.image;
     this.isOccupied = this.tileType.is_occupied;
+    if(this.tileType==tile_types.rock){
+      let src = this.getImage();
+      console.log(src+','+rockSprites['frames'][src]['frame']['x']);
+      this.sx=rockSprites['frames'][src]['frame']['x'];
+      this.sy=rockSprites['frames'][src]['frame']['y'];
+      this.sw=rockSprites['frames'][src]['frame']['w'];
+      this.sh=rockSprites['frames'][src]['frame']['h'];
+
+    }
   }
   render() {
     if (tile_config.draw_gridlines) {
@@ -25,16 +35,83 @@ class Tile extends Updateable {
       this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
 
       //draw the sprite
-      this.game.context.drawImage(
-              this.image,
-              this.loc.x + tile_config.gridline_stroke / 2,
-              this.loc.y + tile_config.gridline_stroke / 2,
-              config.tile_size - tile_config.gridline_stroke / 2,
-              config.tile_size - tile_config.gridline_stroke / 2
-              );
+      if(this.tileType==tile_types.rock){
+        this.game.context.drawImage(
+          this.image,
+          this.sx,
+          this.sy,
+          this.sw,
+          this.sh,
+          this.loc.x + tile_config.gridline_stroke / 2,
+          this.loc.y + tile_config.gridline_stroke / 2,
+          config.tile_size - tile_config.gridline_stroke / 2,
+          config.tile_size - tile_config.gridline_stroke / 2
+        );
+      } else {
+        this.game.context.drawImage(
+          this.image,
+          this.loc.x + tile_config.gridline_stroke / 2,
+          this.loc.y + tile_config.gridline_stroke / 2,
+          config.tile_size - tile_config.gridline_stroke / 2,
+          config.tile_size - tile_config.gridline_stroke / 2
+        );
+      }
     } else {
       //draw sprite
+      if(this.tileType==tile_types.rock){
+        //console.log(this.sx+","+this.sy);
+        this.game.context.drawImage(
+          this.image, this.sx, this.sy, this.sw, this.sh,
+          this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+      } else {
       this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+      }
     }
+    if(this.tileType==tile_types.rock){
+      this.game.context.fillText(this.getImage(), this.loc.x, this.loc.y+config.tile_size);
+    }
+  }
+  getImage(){
+    let index="";
+    let x1=this.quadNormal.x;
+    let y1=this.quadNormal.y;
+    let y=this.normalVector.y;
+    let x=this.normalVector.x;
+
+    //check slope
+    if(y==0&&x==0){
+      index+='solid0'
+      //finished
+    }
+    else if(x==0){
+      index+='h';
+      if(y>0) index+='u';
+      if(y<0) index+='l';
+    }
+    else if(y==0){
+      index+='v';
+      if(x>0) index+='l';
+      if(x<0) index+='r';
+    }
+    else if(y/x>0){
+      index+='dr';
+      if(x>0) index+='u';
+      if(x<0) index+='l';
+      if(this.normalVector.m>1.42) index+='Small';
+      if(this.normalVector.m<1.42) index+='Large';
+    }
+    else if(y/x<0){
+      index+='dl'
+      if(x>0) index+='l';
+      if(x<0) index+='u';
+      if(this.normalVector.m>1.42) index+='Small';
+      if(this.normalVector.m<1.42) index+='Large';
+    }
+
+
+    if(y!=0||x!=0){
+      index+= Math.floor(Math.random()*5);
+    }
+    return index;
   }
 }
