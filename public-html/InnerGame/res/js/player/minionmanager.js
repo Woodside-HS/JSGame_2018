@@ -28,7 +28,6 @@ class MinionManager extends Updateable {
     path.dijkstra();
     for(let i=0;i<minions.length;i++){
       minions[i].path=path;
-      minions[i].goTo(gridloc);
     }
   }
 }

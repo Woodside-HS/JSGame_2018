@@ -44,11 +44,11 @@ class Path {
     }
   }
   setTile(open, point, direction) {
-    let tile = new PathTile(point.x + direction.x, point.y + direction.y);
+    let tile = new PathTile(point.x - direction.x, point.y - direction.y);
 
     try {
       if (!game.mapManager.map[tile.x][tile.y].isOccupied &&
-           (!this.map[tile.x] || !this.map[tile.x][tile.y])) {
+           !(this.map[tile.x][tile.y].x || this.map[tile.x][tile.y].y)) {
         open.push(tile);
         tile.direction = direction;
         this.map[tile.x][tile.y]=tile;
