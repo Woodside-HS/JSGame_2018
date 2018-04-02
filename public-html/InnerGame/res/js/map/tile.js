@@ -19,7 +19,6 @@ class Tile extends Updateable {
     this.isOccupied = this.tileType.is_occupied;
     if(this.tileType==tile_types.rock){
       let src = this.getImage();
-      console.log(src+','+rockSprites['frames'][src]['frame']['x']);
       this.sx=rockSprites['frames'][src]['frame']['x'];
       this.sy=rockSprites['frames'][src]['frame']['y'];
       this.sw=rockSprites['frames'][src]['frame']['w'];
@@ -83,12 +82,12 @@ class Tile extends Updateable {
       index+='solid0'
       //finished
     }
-    else if(x==0){
+    else if(x==0||(Math.abs(x)==1&&Math.abs(y)==2)){
       index+='h';
       if(y>0) index+='u';
       if(y<0) index+='l';
     }
-    else if(y==0){
+    else if(y==0||(Math.abs(x)==2&&Math.abs(y)==1)){
       index+='v';
       if(x>0) index+='l';
       if(x<0) index+='r';
