@@ -8,7 +8,7 @@ class Path {
     for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
       for (let j = 0; j < config.map_y_size; j++) {
-        this.map[i].push(null);
+        this.map[i].push(directions.null);
       }
     }
   }
@@ -41,16 +41,6 @@ class Path {
         closed.push(point);
 
       }
-    }
-    this.map = [];
-    for (let i = 0; i < config.map_x_size; i++) {
-      this.map.push([]);
-      for (let j = 0; j < config.map_y_size; j++) {
-        this.map[i].push(null);
-      }
-    }
-    for (let i = 0; i < closed.length; i++) {
-
     }
   }
   setTile(open, point, direction) {
