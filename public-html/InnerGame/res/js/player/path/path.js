@@ -64,7 +64,7 @@ class Path {
         this.map[tile.x][tile.y]=tile;
 
       }
-    } catch (e) {
+    } catch (e) {//Out of bounds exceptions
     }
   }
 }
