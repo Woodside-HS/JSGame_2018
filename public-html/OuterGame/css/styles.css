@@ -14,3 +14,41 @@ canvas {
   text-align: center;
   padding: 20px;
 }
+
+#spacestation{
+  display: none;
+  width: 900px;
+  height: 600px;
+  background-color: white;
+  border: 5px black solid;
+  /* position:relative; */
+  position:absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 10;
+  border-radius: 30px;
+}
+
+#stationWrapper{
+  position: relative;
+  background-color: blue;
+  width: 100%;
+  height: 100%;
+}
+
+#items{
+
+}
+
+#info{
+  
+}
+
+.button{
+  width:80px;
+  height:50px;
+  border-radius: 15px;
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}

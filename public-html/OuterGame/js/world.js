@@ -8,9 +8,6 @@
 
   this.stations = []; //issue 54
 
-  this.atStation = false;
-  // this.atStation = true; //used this to just work on space station
-
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
@@ -57,7 +54,9 @@
         for(let i=0;i<this.stations.length;i++){
           if(this.stations[i].canLandOn){
             //^^if player is close enough to a station to land on it
-            this.atStation = true;
+            gameState = "station";
+            var div = document.getElementById("spacestation");
+            div.style.display = "block";
             //^^will render station instead of space in run function
           }
         }
@@ -633,13 +632,14 @@
   }
 
   run(){
-    if(this.atStation){ //if the player lands at a station, issue 54
-      this.stations[0].renderStore();
-      this.drawCursor();
-    } else{
-      this.render();
-      this.update();
-    }
+    this.update();
+    this.render();
   }
+
+  // stationRun(){
+  //   this.stations[0].renderStore();
+  //   this.drawCursor();
+  //
+  // }
 
 }
