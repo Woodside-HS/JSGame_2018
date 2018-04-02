@@ -1,11 +1,12 @@
-window.onload = init;
+window.onload = loadImages;
 //new branch
 //  This is for demo purposes
 
 //change 2
 var canvas;
 var ctx;
-var shownImage;
+var planet;
+var asteroid;
 var worlds = [];
 var imageArray = [];
 var currentLevel = -1;
@@ -22,6 +23,23 @@ var System = function() {
 
 //var ship;
 
+function loadImages(){
+	new Promise(function(resolve, reject){
+		var img = new Image();
+		img.addEventListener('load', function(){
+			resolve(img);
+		});
+		img.addEventListener('error', function(){
+			reject();
+		});
+		img.src = 'js/planetSprites/Asteroid1.png';
+	}).then(function(img){
+		asteroid = img;
+		init();
+	});
+
+}
+
 function init(){
 	canvas = document.getElementById('cnv');
 
@@ -34,8 +52,8 @@ function init(){
 
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
-	shownImage = new Image();
-  shownImage.src = 'rcs/planetSprites/planets.png';
+	planet = new Image();
+  planet.src = 'rcs/planetSprites/planets.png';
 	for (var i = 1; i < 9; i++){
     imageArray.push(planetsUTF8.frames["p" + i + "0000"].frame);
   }

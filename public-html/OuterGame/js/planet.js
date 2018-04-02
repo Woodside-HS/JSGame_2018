@@ -12,6 +12,6 @@ class Planet{
     var dy = this.loc.y-this.radius;
     var dw = this.radius*2;
     var dh = this.radius*2;
-    ctx.drawImage(shownImage, pre.x, pre.y, pre.w, pre.h, dx, dy, dw, dh);
+    ctx.drawImage(planet, pre.x, pre.y, pre.w, pre.h, dx, dy, dw, dh);
   }
 }
