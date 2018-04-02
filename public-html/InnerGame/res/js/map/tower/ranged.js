@@ -19,7 +19,6 @@ class Ranged extends Tower {
     //decrement cooldown
     if (this.cooldowntimer > 0)
       this.cooldowntimer--;
-
     //check target distance
     if (this.target) {
       let diff = this.loc.duplicate();
@@ -50,7 +49,7 @@ class Ranged extends Tower {
       }
     }
 
-    if (this.target && this.cooldowntimer == 0) {
+    if (this.target && this.cooldowntimer <= 0) {
       this.cooldowntimer = this.cooldown;
       let diff = this.target.loc.duplicate();
       diff.subtract(this.loc);

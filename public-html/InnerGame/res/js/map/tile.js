@@ -58,16 +58,12 @@ class Tile extends Updateable {
     } else {
       //draw sprite
       if(this.tileType==tile_types.rock){
-        //console.log(this.sx+","+this.sy);
         this.game.context.drawImage(
           this.image, this.sx, this.sy, this.sw, this.sh,
           this.loc.x, this.loc.y, config.tile_size, config.tile_size);
       } else {
       this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
       }
-    }
-    if(this.tileType==tile_types.rock){
-      this.game.context.fillText(this.getImage(), this.loc.x, this.loc.y+config.tile_size);
     }
   }
   getImage(){
