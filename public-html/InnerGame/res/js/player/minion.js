@@ -45,6 +45,10 @@ class Minion extends Updateable {
     //movement logic
     this.a=new Vector2D(0,0);
 
+    if(this.path){
+      this.a.add(this.path.map[this.cloc.x][this.cloc.y].direction);
+    }
+
     this.v.add(this.a);
     this.loc.add(this.v);
   }
@@ -54,8 +58,8 @@ class Minion extends Updateable {
   }
   goTo(gridloc){
     //use algorithm to find path
-    this.path=new Path(this.cloc,gridloc);
-    this.path.dijkstra();
+    // this.path=new Path(this.cloc,gridloc);
+    // this.path.dijkstra();
   }
   render() {
     this.game.context.fillStyle = this.fillStyle;
