@@ -46,7 +46,7 @@ class Minion extends Updateable {
     this.a=new Vector2D(0,0);
     //follow the path
     if(this.path){
-      this.v.add(this.path.map[this.cloc.x][this.cloc.y].toVector2D());
+      this.v.add(this.path.map[this.cloc.x][this.cloc.y].direction.toVector2D());
     }
     this.v.add(this.a);
     this.loc.add(this.v);
