@@ -13,12 +13,12 @@ const tower_types = {
   spitter: {
     name: 'spitter',
     hp: 10,
-    frequency: 15,
+    frequency: 30,
     range: config.tile_size * 5, //6 tiles
     damage: 1,
     cooldown: config.frame_rate * .75, //.75 sec
     bullet_speed: 2,
-    bullet_size: 3, //radius, in px
+    bullet_size: 6, //radius, in px
     bullet_color: 'orange',
     splash_range: config.tile_size * 1,
     onHit: function (target) {
@@ -38,7 +38,7 @@ const tower_types = {
     damage: 9,
     cooldown: config.frame_rate * 1, //1 sec
     bullet_speed: 7,
-    bullet_size: 2, //radius, in px
+    bullet_size: 4, //radius, in px
     bullet_color: 'orange',
     onHit: function (target) {
       target.hp -= this.damage;
@@ -52,7 +52,7 @@ const tower_types = {
     damage: 2,
     cooldown: config.frame_rate * .25, //1 sec
     bullet_speed: 4,
-    bullet_size: 1.5, //radius, in px
+    bullet_size: 3, //radius, in px
     bullet_color: 'orange',
     onHit: function (target) {
       target.hp -= this.damage;

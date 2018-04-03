@@ -10,10 +10,12 @@ const status = {
 };
 const minion_config = {
   hp: 20,
-  speed: 2 / config.frame_rate,
+  speed: 800 / config.frame_rate,
+  turn_speed: 100 / config.frame_rate,
   damage: 1,
   size: 3,
   color: "#FF0000",
   healthbar_positive_color: "#00FF00",
-  healthbar_negative_color: "#FF0000"
+  healthbar_negative_color: "#FF0000",
+  limit: 150
 };

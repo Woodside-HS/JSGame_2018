@@ -15,6 +15,10 @@ class MinionManager extends Updateable {
         this.minions.splice(i, 1);//kill minions
         i--;
       }
+      if(i>minion_config.limit){//check for overpopulation
+        this.minions.splice(i, 1);//kill overpopulators
+        i--;
+      }
     }
   }
   render() {
@@ -23,8 +27,10 @@ class MinionManager extends Updateable {
     }
   }
   sendMinions(minions,gridloc){
+    let path=new Path(new FastVector(0,0),gridloc);
+    path.dijkstra();
     for(let i=0;i<minions.length;i++){
-      minions[i].goTo(gridloc);
+      minions[i].path=path;
     }
   }
 }

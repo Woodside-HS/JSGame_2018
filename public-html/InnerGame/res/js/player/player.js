@@ -11,7 +11,7 @@ class Player extends Updateable {
     this.loc = new Vector2D(0, 0);//pixel-relative position to map origin
     this.cloc = positionToGrid(this.loc); //cloc = Cellular LOCation
     this.v = new Vector2D(0, 0);//velocity, pixels/frame
-    player_config.color = 'rgba(255,0,0,1)';
+    player_config.color = player_config.color;
     this.a = new Vector2D(0, 0);
   }
   init() {

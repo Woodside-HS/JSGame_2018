@@ -67,7 +67,12 @@ class UserInterface extends Updateable {
     if(game.userInterface.cursorMode==cursor_modes.moveTo
       &&game.userInterface.selectedMinions.length>0){
       game.minionManager.sendMinions(game.userInterface.selectedMinions,positionToGrid(game.mouseLocationAbsolute));
+      for(let i=0;i<game.userInterface.selectedMinions.length;i++)
+        game.userInterface.selectedMinions[i].isSelected=false;
+      game.userInterface.selectedMinions=[];
     }
+    game.userInterface.cursorMode=null;
+
 
 
     let menus = game.userInterface.menus;
@@ -108,13 +113,13 @@ class UserInterface extends Updateable {
   mouseup(){
     if(config.debug_mode) console.log(game.mapManager.map[positionToGrid(game.mouseLocationAbsolute).x][positionToGrid(game.mouseLocationAbsolute).y])
 
-
-
-    if(!game.userInterface.minionMenu.isMouseOver){
+    if(!game.userInterface.minionMenu.isMouseOver&&game.userInterface.cursorMode==cursor_modes.highlighting){
     for(let i=0;i<game.userInterface.selectedMinions.length;i++)
       game.userInterface.selectedMinions[i].isSelected=false;
     game.userInterface.selectedMinions=[];
     }
+
+
 
     if(game.userInterface.cursorMode==cursor_modes.highlighting){
       let minions = game.minionManager.minions;
@@ -138,6 +143,6 @@ class UserInterface extends Updateable {
         game.userInterface.minionMenu.justOpened=true;
       }
     }
-    game.userInterface.cursorMode=null;
+
   }
 }
