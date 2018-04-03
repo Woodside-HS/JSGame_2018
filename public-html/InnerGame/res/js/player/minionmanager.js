@@ -24,7 +24,6 @@ class MinionManager extends Updateable {
   }
   sendMinions(minions,gridloc){
     let path=new Path(new FastVector(0,0),gridloc);
-    console.log(path.map);
     path.dijkstra();
     for(let i=0;i<minions.length;i++){
       minions[i].path=path;
