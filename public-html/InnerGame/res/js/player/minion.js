@@ -15,12 +15,12 @@ class Minion extends Updateable {
     this.status = status.nullstatus;
     this.statusTimer = null;
     this.isSelected = false;
-    this.v = new Vector2D(0,0);
-    this.a = new Vector2D(0,0);
+    this.v = new Vector2D(0, 0);
+    this.a = new Vector2D(0, 0);
     this.path;
   }
   update() {
-    this.cloc=positionToGrid(this.loc);
+    this.cloc = positionToGrid(this.loc);
 
     //status logic
     switch (this.status) {
@@ -43,7 +43,7 @@ class Minion extends Updateable {
 
 
     //movement logic
-    this.a=new Vector2D(0,0);
+    this.a = new Vector2D(0, 0);
     //follow the path
     if(this.path){
       let accel = this.path.map[this.cloc.x][this.cloc.y].direction.toVector2D();
@@ -59,7 +59,6 @@ class Minion extends Updateable {
     }
 
     this.loc.add(this.v);
-
     //collision detection
     let vDir = this.v.duplicate(); //normalized version of velocity
     vDir.m = minion_config.size*5;
@@ -89,9 +88,6 @@ class Minion extends Updateable {
       this.v.upPols();
       this.loc.add(this.v);
     }
-
-
-
   }
   setStatus(status) {
     this.status = status;
@@ -103,9 +99,9 @@ class Minion extends Updateable {
     this.game.context.arc(this.loc.x, this.loc.y, config.tile_size / 2, 0, 2 * Math.PI);
     this.game.context.fill();
     this.game.context.fillStyle = minion_config.healthbar_negative_color;
-    this.game.context.fillRect(this.loc.x - 2 * this.radius, this.loc.y + 2 / 3 * this.radius, 4 * this.radius, 2*this.radius);
+    this.game.context.fillRect(this.loc.x - 2 * this.radius, this.loc.y + 2 / 3 * this.radius, 4 * this.radius, 2 * this.radius);
     this.game.context.fillStyle = minion_config.healthbar_positive_color
-    this.game.context.fillRect(this.loc.x - 2 * this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 4 * this.radius, 2*this.radius);
+    this.game.context.fillRect(this.loc.x - 2 * this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 4 * this.radius, 2 * this.radius);
 
   }
 }

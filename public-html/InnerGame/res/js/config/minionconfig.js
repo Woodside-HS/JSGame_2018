@@ -16,5 +16,6 @@ const minion_config = {
   size: 3,
   color: "#FF0000",
   healthbar_positive_color: "#00FF00",
-  healthbar_negative_color: "#FF0000"
+  healthbar_negative_color: "#FF0000",
+  limit: 150
 };
