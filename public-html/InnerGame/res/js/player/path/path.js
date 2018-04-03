@@ -12,13 +12,6 @@ class Path {
       }
     }
   }
-  /**Set the clocs array to a list of tiles via the A* algorithm,
-   *
-   * @returns void
-   */
-  aStar() {
-
-  }
   /**Set the clocs array to a list of tiles via Dijkstra's method.
    *
    * @returns void
@@ -29,6 +22,8 @@ class Path {
     while (open.length > 0) {
       for (let i=open.length-1; i>=0; i--) {
         let point = open[i];
+        
+        //Cardinal after half-cardinal to prefer cardinal directions
         this.setTile(open, point, directions.northeast);
         this.setTile(open, point, directions.northwest);
         this.setTile(open, point, directions.southeast);
@@ -37,6 +32,7 @@ class Path {
         this.setTile(open, point, directions.south);
         this.setTile(open, point, directions.east);
         this.setTile(open, point, directions.west);
+        
         open.splice(i, 1);
         closed.push(point);
 
@@ -44,6 +40,8 @@ class Path {
     }
   }
   setTile(open, point, direction) {
+    
+    //inverted direction because goal-oriented
     let tile = new PathTile(point.x - direction.x, point.y - direction.y);
 
     try {
