@@ -8,7 +8,7 @@ class Path {
     for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
       for (let j = 0; j < config.map_y_size; j++) {
-        this.map[i].push(directions.null);
+        this.map[i].push(new PathTile(directions.null));
       }
     }
   }
@@ -46,7 +46,7 @@ class Path {
 
     try {
       if (!game.mapManager.map[tile.x][tile.y].isOccupied &&
-           !(this.map[tile.x][tile.y].x || this.map[tile.x][tile.y].y)) {
+           this.map[tile.x][tile.y].direction === directions.null) {
         open.push(tile);
         tile.direction = direction;
         this.map[tile.x][tile.y]=tile;
