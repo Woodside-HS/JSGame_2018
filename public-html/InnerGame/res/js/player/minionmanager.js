@@ -15,6 +15,10 @@ class MinionManager extends Updateable {
         this.minions.splice(i, 1);//kill minions
         i--;
       }
+      if(i>minion_config.limit){//check for overpopulation
+        this.minions.splice(i, 1);//kill overpopulators
+        i--;
+      }
     }
   }
   render() {
