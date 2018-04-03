@@ -5,7 +5,7 @@ class UserInterface extends Updateable {
     this.minimap = new Minimap(this.game);
     this.buttons=[];
     this.mouseHeld=false;
-    this.minionMenu= new Menu(this.game, menu_config.test_menu);
+    this.minionMenu= new Menu(this.game, menu_config.minion_menu);
     this.menus=[];
     this.menus.push(this.minionMenu);
     this.cursorMode=null;
@@ -63,12 +63,22 @@ class UserInterface extends Updateable {
     this.game.context.restore();
 
   }
+  setFollowers(){
+    for(let i=0; i<this.selectedMinions.length;i++){
+      let minion = this.selectedMinions[i];
+      minion.followMode=true;
+      minion.isSelected=false;
+    }
+    this.selectedMinions = [];
+  }
   onclick(){
     if(game.userInterface.cursorMode==cursor_modes.moveTo
       &&game.userInterface.selectedMinions.length>0){
       game.minionManager.sendMinions(game.userInterface.selectedMinions,positionToGrid(game.mouseLocationAbsolute));
-      for(let i=0;i<game.userInterface.selectedMinions.length;i++)
+      for(let i=0;i<game.userInterface.selectedMinions.length;i++){
+        game.userInterface.selectedMinions[i].followMode=false;
         game.userInterface.selectedMinions[i].isSelected=false;
+      }
       game.userInterface.selectedMinions=[];
     }
     game.userInterface.cursorMode=null;

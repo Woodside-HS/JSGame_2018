@@ -18,6 +18,7 @@ class Minion extends Updateable {
     this.v = new Vector2D(0, 0);
     this.a = new Vector2D(0, 0);
     this.path;
+    this.followMode=true; //whether or not to follow the player
   }
   update() {
     this.cloc = positionToGrid(this.loc);

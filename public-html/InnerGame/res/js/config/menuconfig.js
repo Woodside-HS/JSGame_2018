@@ -1,5 +1,5 @@
 const menu_config = {
-  test_menu:{
+  minion_menu:{
     src:'res/sprites/water.png',
     loc: new Vector2D(0,100),
     width:100,
@@ -22,7 +22,7 @@ const menu_config = {
         width:20,
         height:20,
         onclick: function(){
-          game.player.loc.add(new Vector2D((Math.random()-.5)*100,(Math.random()-.5)*100))
+          game.userInterface.setFollowers();
         }
       }
     ]
