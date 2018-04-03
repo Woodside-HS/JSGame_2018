@@ -25,15 +25,15 @@ class Minion extends Updateable {
     //status logic
     switch (this.status) {
       case status.poison:
-        this.hp -= this.status.dps / config.frame_rate;
-        this.fillStyle = "rgba(225,100,0,1)";
-        break;
+      this.hp -= this.status.dps / config.frame_rate;
+      this.fillStyle = "rgba(225,100,0,1)";
+      break;
       case status.nullstatus:
-        this.fillStyle = "rgba(255,0,0,1)";
-        break;
+      this.fillStyle = "rgba(255,0,0,1)";
+      break;
     }
     if (this.statusTimer > 0)
-      this.statusTimer--;
+    this.statusTimer--;
     if (this.statusTimer == 0) {
       this.status = status.nullstatus;
     }
@@ -46,11 +46,52 @@ class Minion extends Updateable {
     this.a=new Vector2D(0,0);
     //follow the path
     if(this.path){
-      this.v.add(this.path.map[this.cloc.x][this.cloc.y].direction.toVector2D());
+      let accel = this.path.map[this.cloc.x][this.cloc.y].direction.toVector2D();
+      accel.m = minion_config.turn_speed;
+      accel.upComps();
+      this.a.add(accel);
     }
+
     this.v.add(this.a);
+    if(this.v.m>minion_config.speed){
+      this.v.m=minion_config.speed
+      this.v.upComps();
+    }
+
     this.loc.add(this.v);
-    
+
+    //collision detection
+    let vDir = this.v.duplicate(); //normalized version of velocity
+    vDir.m = minion_config.size*5;
+    vDir.upComps();
+    let hitBoxPos = this.loc.duplicate();
+    hitBoxPos.add(vDir);
+    let hitboxCloc = positionToGrid(hitBoxPos);
+    //check for a collision in the x direction
+    if (
+      hitboxCloc.x < 0 ||
+      hitboxCloc.x >= config.map_x_size ||
+      this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied
+    ) {
+      this.loc.subtract(this.v);//hold it!
+      this.v.x = 0;//stop going that way
+      this.v.upPols();
+      this.loc.add(this.v);
+    }
+    //check for a collision in the y direction
+    if (
+      hitboxCloc.y < 0 ||
+      hitboxCloc.y >= config.map_y_size ||
+      this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied
+    ) {
+      this.loc.subtract(this.v);//hol up
+      this.v.y = 0;//stop going that way
+      this.v.upPols();
+      this.loc.add(this.v);
+    }
+
+
+
   }
   setStatus(status) {
     this.status = status;
