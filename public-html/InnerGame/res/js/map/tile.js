@@ -13,7 +13,7 @@ class Tile extends Updateable {
     this.tileType = tile_types.nulltype;
     this.normalVector = new Vector2D(0,0);
     this.quadNormal = new Vector2D(0,0);
-    this.sourceloc.x = new FastVector(0,0);
+    this.sourceloc = new FastVector(0,0);
   }
   init() {
     this.image = this.tileType.image;
