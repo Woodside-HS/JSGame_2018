@@ -109,11 +109,13 @@ class MapManager extends Updateable {
       var distSq = config.mask_radius * config.mask_radius;
       for (let i = cloc.x - 5; i < cloc.x + 5; i++) {
         for (let j = cloc.y - 5; j < cloc.y + 5; j++) {
-          var tile = this.game.mapManager.map[i][j];
-          var tileLoc = positionToGrid(tile.loc);
-          var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
-          if(actualDistSq <= distSq){
-            tile.seen = true;
+          if(!(i < 0) && !(i > config.map_x_size) && !(j < 0) && !(j > config.map_y_size)){
+            var tile = this.game.mapManager.map[i][j];
+            var tileLoc = positionToGrid(tile.loc);
+            var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+            if(actualDistSq <= distSq){
+              tile.seen = true;
+            }
           }
         }
       }
