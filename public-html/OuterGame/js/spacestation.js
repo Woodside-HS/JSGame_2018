@@ -21,22 +21,21 @@ class SpaceStation{
     //images for backgrounds
     var mainBack = document.createElement("img");
     mainBack.src = "shopIMGS/background.png";
+    // mainBack.className = "img";
     mainBack.style.width = "100%";
     mainBack.style.height = "100%";
     this.div.appendChild(mainBack);
     var shopBack = document.createElement("img");
     shopBack.src = "shopIMGS/shopBackground.png";
-    shopBack.style.width = "100%";
-    shopBack.style.height = "100%";
+    shopBack.className = "img";
     this.div.children[1].appendChild(shopBack);
     var infoBack = document.createElement("img");
     infoBack.src = "shopIMGS/infoBackground.png";
-    infoBack.style.width = "100%";
-    infoBack.style.height = "100%";
+    infoBack.className = "img";
     this.div.children[2].appendChild(infoBack);
 
     //exit back to normal outer world game button
-    var button = document.createElement("button");
+    var button = document.createElement("div");
     this.div.appendChild(button);
     button.spacestation = this;
     button.className = "button";
@@ -57,7 +56,7 @@ class SpaceStation{
       gameState = "outer";
     });
 
-    this.update();
+    this.loadItemTiles();
   }
 
   renderInSpace(){
@@ -93,18 +92,18 @@ class SpaceStation{
     this.shopItems[4] = new ShopItem("Coffee",img4,"4.75",true);
   }
 
-  update(){
+  loadItemTiles(){
     //draw button tiles for each shop item and show info on right
     for(let i in this.shopItems){
       let x = 120*(i%3) +30;
       let y = 150*Math.floor(i/3) +50;
-      let button = document.createElement("button");
+      let button = document.createElement("div");
       button.station = this;
       button.className = "tile";
       button.style.top = ""+y+"px";
       button.style.left = ""+x+"px";
       let img = document.createElement("img");
-      img.className = "tileImg";
+      img.className = "img";
       img.src = this.shopItems[i].image.src;
       button.appendChild(img);
       this.div.children[1].appendChild(button);
@@ -112,6 +111,8 @@ class SpaceStation{
       button.addEventListener("click",function(event){
         console.log(this.station.shopItems[i].name);
       });
+
+      
     }
   }
 }
