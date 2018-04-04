@@ -105,22 +105,35 @@ class MapManager extends Updateable {
     this.towermanager.render();
   }
   reveal() {
-    this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
-    for(var x = 0; x <= config.mask_radius; x++){
-      for(var y = 0; y <= config.mask_radius; y++){
-        if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
-          this.map[this.game.player.cloc.x + x][this.game.player.cloc.y + y].seen = true;
-        }
-        if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y - config.mask_radius > 0){
-          this.map[this.game.player.cloc.x + x][this.game.player.cloc.y - y].seen = true;
-        }
-        if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
-          this.map[this.game.player.cloc.x - x][this.game.player.cloc.y + y].seen = true;
-        }
-        if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y - config.mask_radius > 0){
-          this.map[this.game.player.cloc.x - x][this.game.player.cloc.y - y].seen = true;
+      var cloc = positionToGrid(this.game.player.loc);
+      var distSq = config.mask_radius * config.mask_radius;
+      for (let i = cloc.x - 5; i < cloc.x + 5; i++) {
+        for (let j = cloc.y - 5; j < cloc.y + 5; j++) {
+          var tile = this.game.mapManager.map[i][j];
+          var tileLoc = positionToGrid(tile.loc);
+          var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+          if(actualDistSq <= distSq){
+            tile.seen = true;
+          }
         }
       }
-    }
+
+    // this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
+    // for(var x = 0; x <= config.mask_radius; x++){
+    //   for(var y = 0; y <= config.mask_radius; y++){
+    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y + y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y - config.mask_radius > 0){
+    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y - y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y + y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y - config.mask_radius > 0){
+    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y - y].seen = true;
+    //     }
+    //   }
+    // }
   }
 }
