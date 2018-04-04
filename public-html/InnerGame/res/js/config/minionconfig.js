@@ -9,13 +9,16 @@ const status = {
   }
 };
 const minion_config = {
-  hp: 20,
-  speed: 800 / config.frame_rate,
+  hp: 40,
+  speed: 400 / config.frame_rate,
   turn_speed: 100 / config.frame_rate,
-  damage: 1,
-  size: 3,
+  damage: 5,
+  size: 5,
   color: "#FF0000",
   healthbar_positive_color: "#00FF00",
   healthbar_negative_color: "#FF0000",
-  limit: 150
+  limit: 150, //maximimum minion count
+  viewrange: 3, //in tiles
+  cooldown: .5*config.frame_rate,
+  laser_color:'rgba(150,150,255,1)'
 };

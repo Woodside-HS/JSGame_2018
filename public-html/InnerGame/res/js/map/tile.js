@@ -27,44 +27,14 @@ class Tile extends Updateable {
     }
   }
   render() {
-    if (tile_config.draw_gridlines) {
-
-      //background becomes gridline
-      this.game.context.fillStyle = tile_config.gridline_color;
-      this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
-
-      //draw the sprite
-      if(this.tileType==tile_types.rock){
-        this.game.context.drawImage(
-          this.image,
-          this.sx,
-          this.sy,
-          this.sw,
-          this.sh,
-          this.loc.x + tile_config.gridline_stroke / 2,
-          this.loc.y + tile_config.gridline_stroke / 2,
-          config.tile_size - tile_config.gridline_stroke / 2,
-          config.tile_size - tile_config.gridline_stroke / 2
-        );
-      } else {
-        this.game.context.drawImage(
-          this.image,
-          this.loc.x + tile_config.gridline_stroke / 2,
-          this.loc.y + tile_config.gridline_stroke / 2,
-          config.tile_size - tile_config.gridline_stroke / 2,
-          config.tile_size - tile_config.gridline_stroke / 2
-        );
-      }
-    } else {
       //draw sprite
       if(this.tileType==tile_types.rock){
         this.game.context.drawImage(
           this.image, this.sx, this.sy, this.sw, this.sh,
-          this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2);
       } else {
       this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
       }
-    }
   }
   getImage(){
     let index="";
