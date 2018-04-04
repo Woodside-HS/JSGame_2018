@@ -16,6 +16,22 @@ class Minimap extends Updateable {
     this.imgData = this.game.context.createImageData(
             this.contentSize.x,
             this.contentSize.y);
+    for (let i = 0, pixelIndex = 0, currentColor = null; i < config.map_x_size; i++) {
+      for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
+        pixelIndex = 4 * (config.map_x_size*i + j);
+        //draw the land
+        currentColor = this.game.mapManager.map[i][j].tileType.minimap_color;
+        // or draw towers
+        if (this.game.mapManager.towerManager.towers[i][j]) {
+          currentColor = tower_config.minimap_color;
+        }
+        //update image
+        this.imgData.data[pixelIndex + 0] = currentColor.red();
+        this.imgData.data[pixelIndex + 1] = currentColor.green();
+        this.imgData.data[pixelIndex + 2] = currentColor.blue();
+        this.imgData.data[pixelIndex + 3] = 255;
+      }
+    }
   }
   update() {
 
@@ -27,24 +43,12 @@ class Minimap extends Updateable {
             this.startCoordinate.y - ui_config.minimap_border_stroke,
             this.contentSize.x + ui_config.minimap_border_stroke,
             this.contentSize.y + ui_config.minimap_border_stroke);
-    for (let i = 0; i < this.game.mapManager.map.length; i++) {
-      for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
-        //draw the land
-        this.game.context.fillStyle = this.game.mapManager.map[i][j].tileType.minimap_color;
-        // or draw towers
-        if(this.game.mapManager.towerManager.towers[i][j]){
-          this.game.context.fillStyle = tower_config.minimap_color;
-        }
-        //fill the tile
-        this.game.context.fillRect(
-                this.startCoordinate.x + ui_config.minimap_tile_size * i,
-                this.startCoordinate.y + ui_config.minimap_tile_size * j,
-                ui_config.minimap_tile_size,
-                ui_config.minimap_tile_size);
 
-
-      }
-    }
+    //draw the map
+    this.game.context.putImageData(
+            this.imgData,
+            this.startCoordinate.x,
+            this.startCoordinate.y);
 
     //draw the player
     this.game.context.fillStyle = player_config.minimap_color;
