@@ -137,6 +137,7 @@ class Minion extends Updateable {
 
     if(this.attackFrame && this.target){
       this.game.context.strokeStyle=minion_config.laser_color;
+      this.game.context.lineWidth=minion_config.laser_width;
       this.game.context.beginPath();
       this.game.context.moveTo(this.loc.x,this.loc.y)
       this.game.context.lineTo(this.target.loc.x,this.target.loc.y)
