@@ -22,47 +22,12 @@ class SpaceStation{
     //create an attribute of the space station class to add html in this file
     this.div.innerHTML = SpaceStation.html;
 
-
-
-    //images for backgrounds
-    // var mainBack = document.createElement("img");
-    // mainBack.src = "shopIMGS/background.png";
-    // // mainBack.className = "img";
-    // mainBack.style.width = "100%";
-    // mainBack.style.height = "100%";
-    // this.div.appendChild(mainBack);
-    // var shopBack = document.createElement("img");
-    // shopBack.src = "shopIMGS/shopBackground.png";
-    // shopBack.className = "img";
-    // this.div.children[1].appendChild(shopBack);
-    // var infoBack = document.createElement("img");
-    // infoBack.src = "shopIMGS/infoBackground.png";
-    // infoBack.className = "img";
-    // this.div.children[2].appendChild(infoBack);
-
-    //exit back to normal outer world game button
-    // var button = document.createElement("div");
-    // this.div.appendChild(button);
-    // button.spacestation = this;
-    // button.className = "button";
-    // var node = document.createTextNode("Exit");
-    // button.appendChild(node);
-    // VVVVVVV not working
-    // var buttonImg = document.createElement("img");
-    // buttonImg.src = "shopIMGS/button.png";
-    // buttonImg.style.width = "100%";
-    // buttonImg.style.height = "100%";
-    // buttonImg.style.zIndex = "5";
-    // button.appendChild(buttonImg);
-
     //event listener for clicking on button
-    button.addEventListener("click",function(event){
-      this.spacestation.div.style.display = "none";
-      // this.spacestation.div.parentElement.style.display = "none";
+    document.getElementById("exitButton").addEventListener("click",function(event){
+      this.parentElement.style.display = "none";
       gameState = "outer";
     });
 
-    this.loadItemTiles();
   }
 
   renderInSpace(){
@@ -96,9 +61,7 @@ class SpaceStation{
     var img4 = document.createElement("img");
     img4.src = "shopIMGS/4coffee.png";
     this.shopItems[4] = new ShopItem("Coffee",img4,"4.75",true);
-  }
 
-  loadItemTiles(){
     //draw button tiles for each shop item and show info on right
     for(let i in this.shopItems){
       let x = 120*(i%3) +30;
@@ -117,8 +80,6 @@ class SpaceStation{
       button.addEventListener("click",function(event){
         console.log(this.station.shopItems[i].name);
       });
-
-
     }
   }
 }
@@ -126,8 +87,11 @@ class SpaceStation{
 SpaceStation.html = '\
   <h1 style="position:absolute; top:10px; left:30px;">Space Station</h1>\
   <img src="shopIMGS/background.png" style="width:100%; height:100%;">\
+  <img id="exitButton" src="shopIMGS/exit.png">\
   <div id="items">\
     <img class="img" src="shopIMGS/shopBackground.png">\
+    <div class="tile">\
+    </div>\
   </div>\
   <div id="info">\
     <img class="img" src="shopIMGS/infoBackground.png">\

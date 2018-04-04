@@ -59,9 +59,9 @@ canvas {
   border-radius: 15%;
 }
 
-.button{
-  width:80px;
-  height:50px;
+#exitButton{
+  width:180px;
+  height:45px;
   border: 2px black solid;
   border-radius: 15px;
   position: absolute;
