@@ -7,6 +7,7 @@ var canvas;
 var ctx;
 var planet;
 var Images = {};
+var SpritesheetArray = [];
 var worlds = [];
 var imageArray = [];
 var currentLevel = -1;
@@ -27,6 +28,7 @@ function loadImages(){
 	//start of loading promises into Images
 	Promise.all(
 		[new Promise(function(resolve, reject){
+			console.log(Date.now());
 			var img = new Image();
 			img.addEventListener('load', function(){
 				resolve(img);
@@ -263,12 +265,27 @@ function loadImages(){
 			img.src = 'js/planetSprites/PlanetTestRender0010.png';
 		}).then(function(img){
 			Images['Planet10'] = img;
-		})]).then(function(){
+			console.log(Date.now());
+		})
+	]).then(function(){
+		new Promise(function(resolve, reject){
+			console.log(Date.now());
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/planetSprites/Spritesheet.png';
+		}).then(function(img){
+			Images['Spritesheet'] = img;
+			console.log(Date.now());
 			init();
 		});
-//end of promises
+		//end of promises
+	})
 }
-
 function init(){
 	canvas = document.getElementById('cnv');
 
