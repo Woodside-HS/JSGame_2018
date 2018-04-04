@@ -16,6 +16,8 @@ class UserInterface extends Updateable {
     document.addEventListener("click", this.onclick);
     document.addEventListener("mousedown", this.mousedown);
     document.addEventListener("mouseup", this.mouseup);
+    document.addEventListener("keydown", this.docKeyDown);
+    document.addEventListener("keyup", this.docKeyUp);
 
     if(config.debug_mode){
       // test button
@@ -153,6 +155,17 @@ class UserInterface extends Updateable {
         game.userInterface.minionMenu.justOpened=true;
       }
     }
+  }
+  docKeyDown(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case ' ':
+      if(game.minionManager.minions.length<minion_config.limit)
+      game.minionManager.spawnMinion();
+      break;
+    }
+  }
 
+  docKeyUp(e) {
   }
 }
