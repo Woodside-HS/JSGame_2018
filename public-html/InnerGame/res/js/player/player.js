@@ -14,6 +14,8 @@ class Player extends Updateable {
     player_config.color = player_config.color;
     this.a = new Vector2D(0, 0);
     this.lastTile=this.cloc //to check when tile changes
+    this.followCooldown=minion_config.follow_timer;
+    this.followTimer=minion_config.follow_timer;
   }
   init() {
     document.addEventListener("keydown", this.docKeyDown);
@@ -65,7 +67,13 @@ class Player extends Updateable {
       let minion = this.game.minionManager.minions[i];
       if(minion.followMode) followers.push(minion);
     }
-    this.game.minionManager.sendMinions(followers,this.cloc)
+
+    if(this.followTimer>0) this.followTimer--;
+
+    if(this.followTimer<=0){
+      this.followTimer=this.followCooldown;
+      this.game.minionManager.sendMinions(followers,this.cloc)
+    }
     this.lastTile=this.cloc.duplicate();
 
 

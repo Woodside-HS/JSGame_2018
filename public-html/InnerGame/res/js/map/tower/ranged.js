@@ -21,18 +21,22 @@ class Ranged extends Tower {
       this.cooldowntimer--;
     //check target distance
     if (this.target) {
-      let diff = this.loc.duplicate();
+      let diff = this.loc.toFastVector();
       diff.subtract(this.target.loc);
-      if (diff.m > this.range || this.target.hp <= 0) {
-        // find new target
-        this.target = null;
-        for (let i = 0; i < this.game.minionManager.minions.length; i++) {
-          let minion = this.game.minionManager.minions[i];
-          let diff = this.loc.duplicate();
-          diff.subtract(minion.loc);
-          if (diff.m < this.range && (this.target == null || diff.m < this.targetdist)) {
-            this.targetdist = diff.m;
-            this.target = minion;
+      if(diff.x<this.range||diff.y<this.range){
+        diff = this.loc.duplicate();
+        diff.subtract(this.target.loc);
+        if (diff.m > this.range || this.target.hp <= 0) {
+          // find new target
+          this.target = null;
+          for (let i = 0; i < this.game.minionManager.minions.length; i++) {
+            let minion = this.game.minionManager.minions[i];
+            let diff = this.loc.duplicate();
+            diff.subtract(minion.loc);
+            if (diff.m < this.range && (this.target == null || diff.m < this.targetdist)) {
+              this.targetdist = diff.m;
+              this.target = minion;
+            }
           }
         }
       }

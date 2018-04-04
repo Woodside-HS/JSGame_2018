@@ -19,6 +19,7 @@ class Tower extends Updateable {
   update() {
   }
   render() {
+    if(this.hp<=0) return;
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.beginPath();
     this.game.context.arc(

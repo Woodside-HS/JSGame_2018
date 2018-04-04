@@ -2,8 +2,8 @@ const tower_types = {
   nulltype: {
     name: 0,
     hp: 10,
-    frequency: 0
-  },
+    frequency: 50
+ },
   //spawner
   boss: 'boss',
   nest: 'nest',
@@ -13,7 +13,7 @@ const tower_types = {
   spitter: {
     name: 'spitter',
     hp: 10,
-    frequency: 30,
+    frequency: 10,
     range: config.tile_size * 5, //6 tiles
     damage: 1,
     cooldown: config.frame_rate * .75, //.75 sec
@@ -33,7 +33,7 @@ const tower_types = {
   sniper: {
     name: 'sniper',
     hp: 10,
-    frequency: 50,
+    frequency: 20,
     range: config.tile_size * 10, //6 tiles
     damage: 9,
     cooldown: config.frame_rate * 1, //1 sec
@@ -47,7 +47,7 @@ const tower_types = {
   repeater: {
     name: 'repeater',
     hp: 100,
-    frequency: 75,
+    frequency: 20,
     range: config.tile_size * 5, //6 tiles
     damage: 2,
     cooldown: config.frame_rate * .25, //1 sec
