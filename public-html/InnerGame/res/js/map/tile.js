@@ -60,7 +60,7 @@ class Tile extends Updateable {
       if(this.tileType==tile_types.rock){
         this.game.context.drawImage(
           this.image, this.sx, this.sy, this.sw, this.sh,
-          this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2);
       } else {
       this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
       }

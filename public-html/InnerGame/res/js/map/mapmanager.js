@@ -11,7 +11,7 @@ class MapManager extends Updateable {
     this.map = [];
     this.game = game;
     this.validStartTiles = [];
-    this.towermanager = new TowerManager(this.game);
+    this.towerManager = new TowerManager(this.game);
   }
   init() {
     noise.seed(map_config.noise_seed);
@@ -84,7 +84,7 @@ class MapManager extends Updateable {
     }
 
 
-    this.towermanager.init();
+    this.towerManager.init();
 
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
     this.game.player.loc = startTile.loc.duplicate();
@@ -95,7 +95,7 @@ class MapManager extends Updateable {
         this.map[i][j].update();
       }
     }
-    this.towermanager.update();
+    this.towerManager.update();
   }
   render() {
     for (let i = 0; i < config.map_x_size; i++) {
@@ -103,6 +103,6 @@ class MapManager extends Updateable {
         this.map[i][j].render();
       }
     }
-    this.towermanager.render();
+    this.towerManager.render();
   }
 }
