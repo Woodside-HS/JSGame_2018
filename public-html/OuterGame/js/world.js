@@ -57,7 +57,6 @@
             gameState = "station";
             var div = document.getElementById("spacestation");
             div.style.display = "block";
-            div.children[0].style.display = "block";
             //^^will render station instead of space in run function
           }
         }

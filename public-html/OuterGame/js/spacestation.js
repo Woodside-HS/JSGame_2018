@@ -15,32 +15,38 @@ class SpaceStation{
       },
     };
 
-    //get html div for wrapper of whole space station
-    this.div = document.getElementById("stationWrapper");
+    //create html div for whole space station
+    this.div = document.createElement("div");
+    this.div.id = "spacestation";
+    document.getElementById("wrapper").appendChild(this.div);
+    //create an attribute of the space station class to add html in this file
+    this.div.innerHTML = SpaceStation.html;
+
+
 
     //images for backgrounds
-    var mainBack = document.createElement("img");
-    mainBack.src = "shopIMGS/background.png";
-    // mainBack.className = "img";
-    mainBack.style.width = "100%";
-    mainBack.style.height = "100%";
-    this.div.appendChild(mainBack);
-    var shopBack = document.createElement("img");
-    shopBack.src = "shopIMGS/shopBackground.png";
-    shopBack.className = "img";
-    this.div.children[1].appendChild(shopBack);
-    var infoBack = document.createElement("img");
-    infoBack.src = "shopIMGS/infoBackground.png";
-    infoBack.className = "img";
-    this.div.children[2].appendChild(infoBack);
+    // var mainBack = document.createElement("img");
+    // mainBack.src = "shopIMGS/background.png";
+    // // mainBack.className = "img";
+    // mainBack.style.width = "100%";
+    // mainBack.style.height = "100%";
+    // this.div.appendChild(mainBack);
+    // var shopBack = document.createElement("img");
+    // shopBack.src = "shopIMGS/shopBackground.png";
+    // shopBack.className = "img";
+    // this.div.children[1].appendChild(shopBack);
+    // var infoBack = document.createElement("img");
+    // infoBack.src = "shopIMGS/infoBackground.png";
+    // infoBack.className = "img";
+    // this.div.children[2].appendChild(infoBack);
 
     //exit back to normal outer world game button
-    var button = document.createElement("div");
-    this.div.appendChild(button);
-    button.spacestation = this;
-    button.className = "button";
-    var node = document.createTextNode("Exit");
-    button.appendChild(node);
+    // var button = document.createElement("div");
+    // this.div.appendChild(button);
+    // button.spacestation = this;
+    // button.className = "button";
+    // var node = document.createTextNode("Exit");
+    // button.appendChild(node);
     // VVVVVVV not working
     // var buttonImg = document.createElement("img");
     // buttonImg.src = "shopIMGS/button.png";
@@ -52,7 +58,7 @@ class SpaceStation{
     //event listener for clicking on button
     button.addEventListener("click",function(event){
       this.spacestation.div.style.display = "none";
-      this.spacestation.div.parentElement.style.display = "none";
+      // this.spacestation.div.parentElement.style.display = "none";
       gameState = "outer";
     });
 
@@ -112,10 +118,21 @@ class SpaceStation{
         console.log(this.station.shopItems[i].name);
       });
 
-      
+
     }
   }
 }
+
+SpaceStation.html = '\
+  <h1 style="position:absolute; top:10px; left:30px;">Space Station</h1>\
+  <img src="shopIMGS/background.png" style="width:100%; height:100%;">\
+  <div id="items">\
+    <img class="img" src="shopIMGS/shopBackground.png">\
+  </div>\
+  <div id="info">\
+    <img class="img" src="shopIMGS/infoBackground.png">\
+  </div>\
+';
 
 class ShopItem{
   //each item needs its own section

@@ -13,6 +13,9 @@ canvas {
   margin: auto;
   text-align: center;
   padding: 20px;
+  width: 1024px;
+  height: 676px;
+  position: relative;
 }
 
 #spacestation{
