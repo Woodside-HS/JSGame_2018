@@ -8,23 +8,23 @@ const tile_types = {
     tile_types.water.image.src=tile_types.water.image_src;
   },
   nulltype: {
-    minimap_color: "pink",
+    minimap_color: new Color("pink"),//Color object
     is_occupied: false
   },
   grass: {
-    minimap_color: "#abdb8a",
+    minimap_color: new Color("#abdb8a"),//Color object
     is_occupied: false,
     image_src: 'res/sprites/grass.png',
     image: new Image()
   },
   rock: {
-    minimap_color: "#696e75",
+    minimap_color: new Color("#696e75"),//Color object
     is_occupied: true,
     image_src: 'res/sprites/rocks2c.png',
     image: new Image()
   },
   water: {
-    minimap_color: "blue",
+    minimap_color: new Color("blue"),//Color object
     is_occupied: true,
     image_src: 'res/sprites/water.png',
     image: new Image()
