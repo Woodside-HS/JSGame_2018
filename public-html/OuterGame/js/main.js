@@ -28,7 +28,7 @@ function loadImages(){
 	//start of loading promises into Images
 	Promise.all(
 		[new Promise(function(resolve, reject){
-			console.log(Date.now());
+			time1 = Date.now();
 			var img = new Image();
 			img.addEventListener('load', function(){
 				resolve(img);
@@ -265,11 +265,12 @@ function loadImages(){
 			img.src = 'js/planetSprites/PlanetTestRender0010.png';
 		}).then(function(img){
 			Images['Planet10'] = img;
-			console.log(Date.now());
+			time2 = Date.now();
+			console.log(time2-time1);
 		})
 	]).then(function(){
 		new Promise(function(resolve, reject){
-			console.log(Date.now());
+			time3 = Date.now();
 			var img = new Image();
 			img.addEventListener('load', function(){
 				resolve(img);
@@ -280,7 +281,8 @@ function loadImages(){
 			img.src = 'js/planetSprites/Spritesheet.png';
 		}).then(function(img){
 			Images['Spritesheet'] = img;
-			console.log(Date.now());
+			time4 = Date.now();
+			console.log(time4-time3);
 			init();
 		});
 		//end of promises
