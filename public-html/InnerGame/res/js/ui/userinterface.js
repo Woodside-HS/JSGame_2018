@@ -12,7 +12,6 @@ class UserInterface extends Updateable {
     this.selectedMinions=[];
   }
   init() {
-    this.minimap.init();
     document.addEventListener("click", this.onclick);
     document.addEventListener("mousedown", this.mousedown);
     document.addEventListener("mouseup", this.mouseup);
@@ -28,6 +27,7 @@ class UserInterface extends Updateable {
       button.init();
       this.buttons.push(button);
     }
+    this.minimap.init();
   }
   update() {
     this.minimap.update();

@@ -52,8 +52,8 @@ class Game extends Updateable {
   init() {
     this.mapManager.init();
     this.minionManager.init();
-    this.userInterface.init();
     this.player.init();
+    this.userInterface.init();
   }
   update() {
     this.mapManager.update();
