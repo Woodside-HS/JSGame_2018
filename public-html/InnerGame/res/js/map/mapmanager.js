@@ -83,7 +83,6 @@ class MapManager extends Updateable {
       }
     }
 
-
     this.towermanager.init();
 
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
@@ -104,5 +103,24 @@ class MapManager extends Updateable {
       }
     }
     this.towermanager.render();
+  }
+  reveal() {
+    this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
+    for(var x = 0; x <= config.mask_radius; x++){
+      for(var y = 0; y <= config.mask_radius; y++){
+        if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+          this.map[this.game.player.cloc.x + x][this.game.player.cloc.y + y].seen = true;
+        }
+        if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y - config.mask_radius > 0){
+          this.map[this.game.player.cloc.x + x][this.game.player.cloc.y - y].seen = true;
+        }
+        if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+          this.map[this.game.player.cloc.x - x][this.game.player.cloc.y + y].seen = true;
+        }
+        if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y - config.mask_radius > 0){
+          this.map[this.game.player.cloc.x - x][this.game.player.cloc.y - y].seen = true;
+        }
+      }
+    }
   }
 }

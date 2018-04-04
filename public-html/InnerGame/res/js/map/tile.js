@@ -11,6 +11,7 @@ class Tile extends Updateable {
             // nulltype is not a real tile (nulltype overridden before init)
             // override done in map manager
     this.tileType = tile_types.nulltype;
+    this.seen = false;
     this.normalVector = new Vector2D(0,0);
     this.quadNormal = new Vector2D(0,0);
   }
@@ -27,7 +28,10 @@ class Tile extends Updateable {
     }
   }
   render() {
-    if (tile_config.draw_gridlines) {
+    if(!this.seen){
+      this.game.context.fillStyle = "#000000";
+      this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+    } else if (tile_config.draw_gridlines) {
 
       //background becomes gridline
       this.game.context.fillStyle = tile_config.gridline_color;
