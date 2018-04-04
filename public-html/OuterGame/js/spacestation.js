@@ -3,41 +3,61 @@ class SpaceStation{
   constructor(loc){
     this.loc = loc;
 
-    this.shopItems = [];
+    this.shopItems = []; //this stores all the items being solid, info used for buttons and info
+    this.loadShopItems(); //need to fix the function first since changed to html
+
     this.canLandOn = false;
 
-    this.infoDiv = {
+    this.infoDiv = { //prob dont need??? <<<<<<<<<<
       item: null,
-
       render : function(){
-        ctx.drawImage(this.item.image,800,300,100,100);
         // console.log(this.item);
       },
     };
 
-    //images for backgrounds
-    this.mainBack = document.createElement("img");
-    this.mainBack.src = "shopIMGS/background.png";
-    this.shopBack = document.createElement("img");
-    this.shopBack.src = "shopIMGS/shopBackground.png";
-    this.infoBack = document.createElement("img");
-    this.infoBack.src = "shopIMGS/infoBackground.png";
-
-    // this.loadShopItems();
-
+    //get html div for wrapper of whole space station
     this.div = document.getElementById("stationWrapper");
+
+    //images for backgrounds
+    var mainBack = document.createElement("img");
+    mainBack.src = "shopIMGS/background.png";
+    mainBack.style.width = "100%";
+    mainBack.style.height = "100%";
+    this.div.appendChild(mainBack);
+    var shopBack = document.createElement("img");
+    shopBack.src = "shopIMGS/shopBackground.png";
+    shopBack.style.width = "100%";
+    shopBack.style.height = "100%";
+    this.div.children[1].appendChild(shopBack);
+    var infoBack = document.createElement("img");
+    infoBack.src = "shopIMGS/infoBackground.png";
+    infoBack.style.width = "100%";
+    infoBack.style.height = "100%";
+    this.div.children[2].appendChild(infoBack);
+
+    //exit back to normal outer world game button
     var button = document.createElement("button");
     this.div.appendChild(button);
     button.spacestation = this;
-    button.class = "button";
-
+    button.className = "button";
     var node = document.createTextNode("Exit");
     button.appendChild(node);
+    // VVVVVVV not working
+    // var buttonImg = document.createElement("img");
+    // buttonImg.src = "shopIMGS/button.png";
+    // buttonImg.style.width = "100%";
+    // buttonImg.style.height = "100%";
+    // buttonImg.style.zIndex = "5";
+    // button.appendChild(buttonImg);
 
+    //event listener for clicking on button
     button.addEventListener("click",function(event){
       this.spacestation.div.style.display = "none";
+      this.spacestation.div.parentElement.style.display = "none";
       gameState = "outer";
     });
+
+    this.update();
   }
 
   renderInSpace(){
@@ -50,106 +70,61 @@ class SpaceStation{
     ctx.fill();
   }
 
-  renderStore(){
-    //draw background pngs
-    ctx.drawImage(this.mainBack,0,0,1024,676); //main
-    ctx.drawImage(this.shopBack,0,200,500,500); //shop
-    ctx.drawImage(this.infoBack,600,200,500,500); //info
-
-    //render each shop item
-    for(let i in this.shopItems){
-      this.shopItems[i].render();
-    }
-
-    //render infodiv
-    // this.infoDiv.render();
-  }
-
   loadShopItems(){
     //0
     var img0 = document.createElement("img");
     img0.src = "shopIMGS/0cookie.png";
-    this.shopItems[0] = new ShopItem("Cookie",img0,"1.55",1,this);
+    this.shopItems[0] = new ShopItem("Cookie",img0,"1.55",true);
     //1
     var img1 = document.createElement("img");
     img1.src = "shopIMGS/1brownie.png";
-    this.shopItems[1] = new ShopItem("Brownie",img1,"2.35",1,this);
+    this.shopItems[1] = new ShopItem("Brownie",img1,"2.35",true);
     //2
     var img2 = document.createElement("img");
     img2.src = "shopIMGS/2cupcake.png";
-    this.shopItems[2] = new ShopItem("Cupcake",img2,"3.10",2,this);
+    this.shopItems[2] = new ShopItem("Cupcake",img2,"3.10",true);
     //3
     var img3 = document.createElement("img");
     img3.src = "shopIMGS/3pie.png";
-    this.shopItems[3] = new ShopItem("Pie",img3,"2.10",2,this);
+    this.shopItems[3] = new ShopItem("Pie",img3,"2.10",true);
     //4
     var img4 = document.createElement("img");
     img4.src = "shopIMGS/4coffee.png";
-    this.shopItems[4] = new ShopItem("Coffee",img4,"4.75",1,this);
-
-    for(let i in this.shopItems){ //give each item a location
-      let x = 120*(i%4)+40;
-      let y = 150*Math.floor(i/4)+150;
-      this.shopItems[i].location(x,y);
-    }
+    this.shopItems[4] = new ShopItem("Coffee",img4,"4.75",true);
   }
 
-  // checkClickButton(loc){
-  //   //when the mouse clicks the canvas, this func will check to see if it has clicked on a button
-  //   for(let i in this.shopItems){
-  //     var button = this.shopItems[i].infoButton;
-  //     var bX = button.loc.x;
-  //     var bY = button.loc.y;
-  //     var bS = button.size;
-  //     if(bX<loc.x && loc.x<(bX+bS.x) && bY<loc.y && loc.y<(bY+bS.y)){
-  //       //^^ if the location of the mouse is within the buttons area on the canvas
-  //       button.click();
-  //     }
-  //   }
-  // }
+  update(){
+    //draw button tiles for each shop item and show info on right
+    for(let i in this.shopItems){
+      let x = 120*(i%3) +30;
+      let y = 150*Math.floor(i/3) +50;
+      let button = document.createElement("button");
+      button.station = this;
+      button.className = "tile";
+      button.style.top = ""+y+"px";
+      button.style.left = ""+x+"px";
+      let img = document.createElement("img");
+      img.className = "tileImg";
+      img.src = this.shopItems[i].image.src;
+      button.appendChild(img);
+      this.div.children[1].appendChild(button);
+
+      button.addEventListener("click",function(event){
+        console.log(this.station.shopItems[i].name);
+      });
+    }
+  }
 }
 
 class ShopItem{
   //each item needs its own section
   //each section should have:button to buy/sell, image, name, price
 
-  constructor(name,image,price,type,station){
+  constructor(name,image,price,type){
     this.name = name; //string
     this.image = image; //image
     this.price = price; //number
-    this.type = type; //number, 0=tile/info, 1=buy, 2=sell
-    this.station = station;
-
-    this.shopItemSize = new Vector2D(100,130); //set constant for size of tiles
-
-    this.loc;
-
-    this.infoButton = new Button(this.shopItemSize,0,this.name,this);
-    //^^ making the tile a button-->click and get info on that item
-
-    let bSize = new Vector2D(60,40);
-    this.moneyButton = new Button(bSize,this.type,this.name,this);
+    this.type = type; //boolean, true-buy, false-sell
   }
 
-  render(){ //x and y are where on canvas the item's section should be drawn
-    //shopitems are rendered in spacestation render function
-    ctx.beginPath();
-    ctx.fillStyle = "lightgreen";
-    ctx.fillRect(this.loc.x,this.loc.y,this.shopItemSize.x,this.shopItemSize.y); //background box, hardcoded in constructor
-    ctx.fillStyle="black";
-    ctx.font = "20px Courier";
-    // let xLoc = (8-this.name.length)*5+this.loc.x;
-    let xLoc = 10+this.loc.x;
-    ctx.fillText(this.name,xLoc,this.loc.y+25); //name of item being bought/sold
-    ctx.drawImage(this.image,this.loc.x+10,this.loc.y+35,80,80); //image
-    // ctx.font = "20px Courier";
-    // ctx.fillText(this.price,this.loc.x+40,this.loc.y+260); //price
-    // this.moneyButton.render(); //button
-  }
-
-  location(x,y){
-    this.loc = new Vector2D(x,y);
-    this.moneyButton.location(x+100,y+235);
-    this.infoButton.location(x,y);
-  }
 }

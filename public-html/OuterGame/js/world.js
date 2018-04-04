@@ -57,6 +57,7 @@
             gameState = "station";
             var div = document.getElementById("spacestation");
             div.style.display = "block";
+            div.children[0].style.display = "block";
             //^^will render station instead of space in run function
           }
         }
@@ -635,11 +636,5 @@
     this.update();
     this.render();
   }
-
-  // stationRun(){
-  //   this.stations[0].renderStore();
-  //   this.drawCursor();
-  //
-  // }
 
 }
