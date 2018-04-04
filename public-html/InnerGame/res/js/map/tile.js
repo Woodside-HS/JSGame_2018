@@ -13,14 +13,15 @@ class Tile extends Updateable {
     this.tileType = tile_types.nulltype;
     this.normalVector = new Vector2D(0,0);
     this.quadNormal = new Vector2D(0,0);
+    this.sourceloc = new FastVector(0,0);
   }
   init() {
     this.image = this.tileType.image;
     this.isOccupied = this.tileType.is_occupied;
     if(this.tileType==tile_types.rock){
       let src = this.getImage();
-      this.sx=rockSprites['frames'][src]['frame']['x'];
-      this.sy=rockSprites['frames'][src]['frame']['y'];
+      this.sourceloc.x=rockSprites['frames'][src]['frame']['x'];
+      this.sourceloc.y=rockSprites['frames'][src]['frame']['y'];
       this.sw=rockSprites['frames'][src]['frame']['w'];
       this.sh=rockSprites['frames'][src]['frame']['h'];
 
@@ -37,8 +38,8 @@ class Tile extends Updateable {
       if(this.tileType==tile_types.rock){
         this.game.context.drawImage(
           this.image,
-          this.sx,
-          this.sy,
+          this.sourceloc.x,
+          this.sourceloc.y,
           this.sw,
           this.sh,
           this.loc.x + tile_config.gridline_stroke / 2,
@@ -59,8 +60,8 @@ class Tile extends Updateable {
       //draw sprite
       if(this.tileType==tile_types.rock){
         this.game.context.drawImage(
-          this.image, this.sx, this.sy, this.sw, this.sh,
-          this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2);
+          this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
+          this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+@);
       } else {
       this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
       }
