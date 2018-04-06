@@ -168,13 +168,18 @@ class UserInterface extends Updateable {
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
-      case ' ':
-        if (game.minionManager.minions.length < minion_config.limit)
-          game.minionManager.spawnMinion();
-        break;
+      case '': //shift key
+      game.minionManager.followMouse=true;
+      break;
     }
   }
 
   docKeyUp(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case '': //shift key
+      game.minionManager.followMouse=false;
+      break;
+    }
   }
 }

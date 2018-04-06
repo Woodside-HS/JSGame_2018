@@ -4,10 +4,39 @@ class MinionManager extends Updateable {
   constructor(game) {
     super();
     this.minions = [];
+    this.respawnTimer=minion_config.respawn_cooldown;
+    this.respawnCooldown=minion_config.respawn_cooldown;
+    this.followMouse=false;
+    this.followPlayer=true;
+    this.followTimer=minion_config.follow_timer;
   }
   init() {
+    document.addEventListener("keydown", this.docKeyDown);
+    document.addEventListener("keyup", this.docKeyUp);
   }
   update() {
+    //respawn minions
+    if(config.debug_mode){
+      if(this.respawnTimer>0) this.respawnTimer--;
+      if(this.respawnTimer<=0&&this.minions.length<minion_config.min_count){
+        this.spawnMinion();
+        this.respawnTimer=this.respawnCooldown;
+      }
+    }
+
+    //send minions
+    if(this.followTimer>0) this.followTimer--;
+    if(!this.followMouse&&this.followPlayer&&this.followTimer<=0){
+      this.sendMinions(this.minions,game.player.cloc)
+      this.followTimer=minion_config.follow_timer;
+    }
+    if(this.followMouse&&!this.followPlayer){
+      this.sendMinions(this.minions,positionToGrid(game.mouseLocationAbsolute))
+      this.followTimer=0;
+    }
+
+
+
     for (let i = 0; i < this.minions.length; i++) {
       this.minions[i].update();
       //check if minions are dead
@@ -39,5 +68,24 @@ class MinionManager extends Updateable {
     minion.v.th=Math.random()*2*Math.PI
     minion.v.upComps();
     this.minions.push(minion);
+  }
+  docKeyDown(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case '': //shift key
+      game.minionManager.followMouse=true;
+      game.minionManager.followPlayer=false;
+      break;
+    }
+  }
+
+  docKeyUp(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case '': //shift key
+      game.minionManager.followMouse=false;
+      game.minionManager.followPlayer=true;
+      break;
+    }
   }
 }

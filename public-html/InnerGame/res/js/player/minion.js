@@ -53,13 +53,11 @@ class Minion extends Updateable {
     for(let i=this.cloc.x-minion_config.viewrange; i<=this.cloc.x+minion_config.viewrange; i++){
       for(let j=this.cloc.y-minion_config.viewrange; j<=this.cloc.y+minion_config.viewrange; j++){
         let towers = game.mapManager.towerManager.towers
-        try {
+        if(i>=0&&j>=0&&i<towers.length&&j<towers[i].length){
           if(towers[i][j]&&(Math.abs(i-this.cloc.x)+Math.abs(j-this.cloc.y)<targetDistance)){
             this.target=towers[i][j];
           }
         }
-        catch(e){
-        } //bounds exceptions
       }
     }
 
@@ -98,6 +96,21 @@ class Minion extends Updateable {
     let hitBoxPos = this.loc.duplicate();
     hitBoxPos.add(vDir);
     let hitboxCloc = positionToGrid(hitBoxPos);
+
+    //check for corner collision
+    if (
+      (hitboxCloc.y >= 0 &&
+        hitboxCloc.y < config.map_y_size &&
+        hitboxCloc.x >= 0 &&
+        hitboxCloc.x < config.map_x_size &&
+        this.game.mapManager.map[hitboxCloc.x][hitboxCloc.y].isOccupied
+      )
+    ) {
+      this.loc.subtract(this.v);//hol up
+      this.v.multiply(-.1);//stop going that way
+      this.v.upPols();
+      this.loc.add(this.v);
+    }
     //check for a collision in the x direction
     if (
       hitboxCloc.x < 0 ||
