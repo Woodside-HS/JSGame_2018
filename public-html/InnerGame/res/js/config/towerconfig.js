@@ -2,8 +2,8 @@ const tower_types = {
   nulltype: {
     name: 0,
     hp: 10,
-    frequency: 0
-  },
+    frequency: 50
+ },
   //spawner
   boss: 'boss',
   nest: 'nest',
@@ -13,11 +13,11 @@ const tower_types = {
   spitter: {
     name: 'spitter',
     hp: 10,
-    frequency: 30,
+    frequency: 10,
     range: config.tile_size * 5, //6 tiles
     damage: 1,
     cooldown: config.frame_rate * .75, //.75 sec
-    bullet_speed: 2,
+    bullet_speed: 10,
     bullet_size: 6, //radius, in px
     bullet_color: 'orange',
     splash_range: config.tile_size * 1,
@@ -33,11 +33,11 @@ const tower_types = {
   sniper: {
     name: 'sniper',
     hp: 10,
-    frequency: 50,
+    frequency: 20,
     range: config.tile_size * 10, //6 tiles
     damage: 9,
     cooldown: config.frame_rate * 1, //1 sec
-    bullet_speed: 7,
+    bullet_speed: 35,
     bullet_size: 4, //radius, in px
     bullet_color: 'orange',
     onHit: function (target) {
@@ -47,11 +47,11 @@ const tower_types = {
   repeater: {
     name: 'repeater',
     hp: 100,
-    frequency: 75,
+    frequency: 20,
     range: config.tile_size * 5, //6 tiles
     damage: 2,
     cooldown: config.frame_rate * .25, //1 sec
-    bullet_speed: 4,
+    bullet_speed: 20,
     bullet_size: 3, //radius, in px
     bullet_color: 'orange',
     onHit: function (target) {
@@ -64,5 +64,5 @@ const tower_config = {
   noise_scale: 3,
   tower_range: [0.5, 0.55],
   tower_rate: 0.15,
-  minimap_color: "yellow"
+  minimap_color: new Color("yellow")
 };

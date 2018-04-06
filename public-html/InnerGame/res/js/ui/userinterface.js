@@ -5,17 +5,18 @@ class UserInterface extends Updateable {
     this.minimap = new Minimap(this.game);
     this.buttons=[];
     this.mouseHeld=false;
-    this.minionMenu= new Menu(this.game, menu_config.test_menu);
+    this.minionMenu= new Menu(this.game, menu_config.minion_menu);
     this.menus=[];
     this.menus.push(this.minionMenu);
     this.cursorMode=null;
     this.selectedMinions=[];
   }
   init() {
-    this.minimap.init();
     document.addEventListener("click", this.onclick);
     document.addEventListener("mousedown", this.mousedown);
     document.addEventListener("mouseup", this.mouseup);
+    document.addEventListener("keydown", this.docKeyDown);
+    document.addEventListener("keyup", this.docKeyUp);
 
     if(config.debug_mode){
       // test button
@@ -26,6 +27,7 @@ class UserInterface extends Updateable {
       button.init();
       this.buttons.push(button);
     }
+    this.minimap.init();
   }
   update() {
     this.minimap.update();
@@ -63,12 +65,22 @@ class UserInterface extends Updateable {
     this.game.context.restore();
 
   }
+  setFollowers(){
+    for(let i=0; i<this.selectedMinions.length;i++){
+      let minion = this.selectedMinions[i];
+      minion.followMode=true;
+      minion.isSelected=false;
+    }
+    this.selectedMinions = [];
+  }
   onclick(){
     if(game.userInterface.cursorMode==cursor_modes.moveTo
       &&game.userInterface.selectedMinions.length>0){
       game.minionManager.sendMinions(game.userInterface.selectedMinions,positionToGrid(game.mouseLocationAbsolute));
-      for(let i=0;i<game.userInterface.selectedMinions.length;i++)
+      for(let i=0;i<game.userInterface.selectedMinions.length;i++){
+        game.userInterface.selectedMinions[i].followMode=false;
         game.userInterface.selectedMinions[i].isSelected=false;
+      }
       game.userInterface.selectedMinions=[];
     }
     game.userInterface.cursorMode=null;
@@ -143,6 +155,17 @@ class UserInterface extends Updateable {
         game.userInterface.minionMenu.justOpened=true;
       }
     }
+  }
+  docKeyDown(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case ' ':
+      if(game.minionManager.minions.length<minion_config.limit)
+      game.minionManager.spawnMinion();
+      break;
+    }
+  }
 
+  docKeyUp(e) {
   }
 }

@@ -5,16 +5,16 @@ document.onkeydown = function (e) {
       game.minionManager.minions.push(new Minion(game, new Vector2D(mouselocx, mouselocy)));
       break;
     case '1':
-      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Tower(game, new Vector2D(mouseclocx, mouseclocy));
+      game.mapManager.towerManager.towers[mouseclocx][mouseclocy] = new Tower(game, new Vector2D(mouseclocx, mouseclocy));
       break;
     case'2':
-      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.repeater);
+      game.mapManager.towerManager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.repeater);
       break;
     case'3':
-      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.sniper);
+      game.mapManager.towerManager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.sniper);
       break;
     case'4':
-      game.mapManager.towermanager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.spitter);
+      game.mapManager.towerManager.towers[mouseclocx][mouseclocy] = new Ranged(game, new Vector2D(mouseclocx, mouseclocy), tower_types.spitter);
       break;
   }
   switch (key) {
