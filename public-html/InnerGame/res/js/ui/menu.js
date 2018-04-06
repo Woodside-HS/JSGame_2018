@@ -4,7 +4,7 @@ class Menu extends Updateable{
   constructor(game, type) {
     super();
     this.game = game;
-    this.menuType=type
+    this.menuType=type;
     this.loc = type.loc;
     this.width= type.width;
     this.height = type.height;
