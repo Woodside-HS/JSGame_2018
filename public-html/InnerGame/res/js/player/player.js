@@ -29,7 +29,16 @@ class Player extends Updateable {
       this.v.m = player_config.max_speed;
       this.v.upComps();
     }
+
     this.loc.add(this.v);//because v=ds/dt
+    if(this.dashV){
+    this.loc.add(this.dashV) //uncapped dash speed
+    this.dashTimer--;
+    }
+    if(this.dashTimer<=0){
+      this.dashV=undefined;
+    }
+
 
     //collision detection
     let vDir = this.v.duplicate(); //normalized version of velocity
@@ -112,6 +121,13 @@ class Player extends Updateable {
             player_config.size
             );
   }
+  dashTo(loc){
+    let diff = loc.duplicate();
+    diff.subtract(this.loc);
+    diff.multiply(player_config.dash_speed);
+    this.dashV=diff.duplicate();
+    this.dashTimer=player_config.dash_time;
+  }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
@@ -131,6 +147,16 @@ class Player extends Updateable {
         if (game.player.a.x != 1)
           game.player.a.x = 1;//go right
         break;
+      case' ':
+        let loc=game.mouseLocationAbsolute;
+        let cloc=positionToGrid(loc);
+        if(loc.x>0&&loc.y>0
+        && loc.x<config.tile_size*config.map_x_size
+        && loc.y<config.tile_size*config.map_y_size
+        && !game.mapManager.map[cloc.x][cloc.y].isOccupied
+      ) game.player.dashTo(game.mouseLocationAbsolute)
+        console.log(game.mouseLocationAbsolute);
+      break;
     }
   }
   docKeyUp(e) {
