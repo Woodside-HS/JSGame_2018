@@ -18,7 +18,7 @@ class Minimap extends Updateable {
             this.contentSize.y);
     for (let i = 0, pixelIndex = 0, currentColor = null; i < config.map_x_size; i++) {
       for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
-        pixelIndex = 4 * (i + config.map_x_size*j);
+        pixelIndex = 4 * (i + config.map_x_size * j);
         //draw the land
         currentColor = this.game.mapManager.map[i][j].tileType.minimap_color;
         // or draw towers
