@@ -11,11 +11,11 @@ class Player extends Updateable {
     this.loc = new Vector2D(0, 0);//pixel-relative position to map origin
     this.cloc = positionToGrid(this.loc); //cloc = Cellular LOCation
     this.v = new Vector2D(0, 0);//velocity, pixels/frame
-    player_config.color = player_config.color;
     this.a = new Vector2D(0, 0);
-    this.lastTile=this.cloc //to check when tile changes
-    this.followCooldown=minion_config.follow_timer;
-    this.followTimer=minion_config.follow_timer;
+    this.lastTile = this.cloc //to check when tile changes
+    this.followCooldown = minion_config.follow_timer;
+    this.followTimer = minion_config.follow_timer;
+    this.hp = player_config.max_hp;
   }
   init() {
     document.addEventListener("keydown", this.docKeyDown);
@@ -62,19 +62,21 @@ class Player extends Updateable {
     }
 
     //check for tile change to get minions to follow
-    let followers = []
-    for(let i=0; i<this.game.minionManager.minions.length; i++){ //find followers
+    let followers = [];
+    for (let i = 0; i < this.game.minionManager.minions.length; i++) { //find followers
       let minion = this.game.minionManager.minions[i];
-      if(minion.followMode) followers.push(minion);
+      if (minion.followMode)
+        followers.push(minion);
     }
 
-    if(this.followTimer>0) this.followTimer--;
+    if (this.followTimer > 0)
+      this.followTimer--;
 
-    if(this.followTimer<=0){
-      this.followTimer=this.followCooldown;
-      this.game.minionManager.sendMinions(followers,this.cloc)
+    if (this.followTimer <= 0) {
+      this.followTimer = this.followCooldown;
+      this.game.minionManager.sendMinions(followers, this.cloc)
     }
-    this.lastTile=this.cloc.duplicate();
+    this.lastTile = this.cloc.duplicate();
 
 
     this.v.multiply(player_config.movement_loss);//gradual loss
