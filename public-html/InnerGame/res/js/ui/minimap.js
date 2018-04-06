@@ -24,7 +24,14 @@ class Minimap extends Updateable {
         // or draw towers
         if (this.game.mapManager.towerManager.towers[i][j]) {
           currentColor = tower_config.minimap_color;
+
         }
+
+        // //update image
+        // this.imgData.data[pixelIndex + 0] = currentColor.red();
+        // this.imgData.data[pixelIndex + 1] = currentColor.green();
+        // this.imgData.data[pixelIndex + 2] = currentColor.blue();
+        // this.imgData.data[pixelIndex + 3] = 255;
 
         if(!this.game.mapManager.map[i][j].seen){
           this.imgData.data[pixelIndex + 0] = currentColor.red();
@@ -49,6 +56,7 @@ class Minimap extends Updateable {
   update() {
 
   }
+
   render() {
     this.game.context.fillStyle = ui_config.minimap_border_color;
     this.game.context.fillRect(

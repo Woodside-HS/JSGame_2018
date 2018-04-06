@@ -11,8 +11,11 @@ class Player extends Updateable {
     this.loc = new Vector2D(0, 0);//pixel-relative position to map origin
     this.cloc = positionToGrid(this.loc); //cloc = Cellular LOCation
     this.v = new Vector2D(0, 0);//velocity, pixels/frame
-    player_config.color = player_config.color;
     this.a = new Vector2D(0, 0);
+    this.lastTile = this.cloc //to check when tile changes
+    this.followCooldown = minion_config.follow_timer;
+    this.followTimer = minion_config.follow_timer;
+    this.hp = player_config.max_hp;
   }
   init() {
     document.addEventListener("keydown", this.docKeyDown);
@@ -59,6 +62,8 @@ class Player extends Updateable {
       this.v.upPols();
       this.loc.add(this.v);
     }
+
+
     this.v.multiply(player_config.movement_loss);//gradual loss
   }
   render() {
