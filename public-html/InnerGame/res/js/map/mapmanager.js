@@ -109,7 +109,7 @@ class MapManager extends Updateable {
       var distSq = config.mask_radius * config.mask_radius;
       for (let i = cloc.x - 5; i < cloc.x + 5; i++) {
         for (let j = cloc.y - 5; j < cloc.y + 5; j++) {
-          if(!(i < 0) && !(i > config.map_x_size) && !(j < 0) && !(j > config.map_y_size)){
+          if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
             var tile = this.game.mapManager.map[i][j];
             var tileLoc = positionToGrid(tile.loc);
             var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
@@ -119,7 +119,7 @@ class MapManager extends Updateable {
           }
         }
       }
-
+    //IF I CAN'T FIX ABOVE EDGE CASES, USE BELOW
     // this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
     // for(var x = 0; x <= config.mask_radius; x++){
     //   for(var y = 0; y <= config.mask_radius; y++){
