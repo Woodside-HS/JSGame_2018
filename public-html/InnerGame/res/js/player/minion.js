@@ -4,7 +4,7 @@ class Minion extends Updateable {
   constructor(game, location) {
     super();
     this.game = game;
-    this.loc = location;
+    this.loc = location.duplicate();
     this.cloc = positionToGrid(this.loc);
     this.fillStyle = minion_config.color;
     this.maxhp = minion_config.hp;
@@ -130,13 +130,14 @@ class Minion extends Updateable {
     this.game.context.beginPath();
     this.game.context.arc(this.loc.x, this.loc.y, this.radius, 0, 2 * Math.PI);
     this.game.context.fill();
-    this.game.context.fillStyle = minion_config.healthbar_negative_color;
-    this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, 2 * this.radius, this.radius);
-    this.game.context.fillStyle = minion_config.healthbar_positive_color
-    this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 2 * this.radius, this.radius);
+    // this.game.context.fillStyle = minion_config.healthbar_negative_color;
+    // this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, 2 * this.radius, this.radius);
+    // this.game.context.fillStyle = minion_config.healthbar_positive_color
+    // this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 2 * this.radius, this.radius);
 
     if(this.attackFrame && this.target){
       this.game.context.strokeStyle=minion_config.laser_color;
+      this.game.context.lineWidth=minion_config.laser_width;
       this.game.context.beginPath();
       this.game.context.moveTo(this.loc.x,this.loc.y)
       this.game.context.lineTo(this.target.loc.x,this.target.loc.y)
