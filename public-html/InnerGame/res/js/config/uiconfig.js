@@ -40,7 +40,7 @@ const ui_config = {
     ]
   },
   player_healthbar:{
-    positive_color: "green",
+    positive_color: "#31d628",
     negative_color: "red",
     max_value: player_config.max_hp,
     object: null,//Will be reset in UserInterface.init()
@@ -50,6 +50,8 @@ const ui_config = {
       new FastVector(20,30),
       new FastVector(200, 30),
       new FastVector(210, 20)
-    ]
+    ],
+    border_stroke: 2,
+    border_color: "#ffffff"
   }
  };
