@@ -28,6 +28,6 @@ class FastVector {
     return new FastVector(this.x, this.y);
   }
   toVector2D() {
-    return new Vector2D(this.x, this.y)
+    return new Vector2D(this.x, this.y);
   }
 }

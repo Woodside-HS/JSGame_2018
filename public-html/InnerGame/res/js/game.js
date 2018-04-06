@@ -30,8 +30,8 @@ class Game extends Updateable {
     super();
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
-    this.userInterface = new UserInterface(this);
     this.player = new Player(this);
+    this.userInterface = new UserInterface(this);
     //  create the canvas
     this.canvas = document.getElementById(config.canvas_name);
     if (!this.canvas)
@@ -52,8 +52,8 @@ class Game extends Updateable {
   init() {
     this.mapManager.init();
     this.minionManager.init();
-    this.userInterface.init();
     this.player.init();
+    this.userInterface.init();
   }
   update() {
     this.mapManager.update();
