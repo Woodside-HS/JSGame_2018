@@ -22,7 +22,7 @@ class Minimap extends Updateable {
         //draw the land
         currentColor = this.game.mapManager.map[i][j].tileType.minimap_color;
         // or draw towers
-        if (this.game.mapManager.towermanager.towers[i][j]) {
+        if (this.game.mapManager.towerManager.towers[i][j]) {
           currentColor = tower_config.minimap_color;
         }
 
