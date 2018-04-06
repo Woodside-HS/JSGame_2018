@@ -7,10 +7,10 @@ var game;   // the global game object
 
 function setup() {
   /*
-     initalize global config object
-     top-level objects that needs to be configured
-     when the program starts:: Located in the config folder
-  */
+   initalize global config object
+   top-level objects that needs to be configured
+   when the program starts:: Located in the config folder
+   */
   config.init();
   game = new Game();
   game.init();

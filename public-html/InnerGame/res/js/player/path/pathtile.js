@@ -4,9 +4,9 @@
  * 
  * 
  */
-class PathTile extends FastVector{
-  constructor(x,y){
-    super(x,y);
+class PathTile extends FastVector {
+  constructor(x, y) {
+    super(x, y);
     this.direction = directions.null;
   }
 }
