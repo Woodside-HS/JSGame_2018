@@ -31,6 +31,4 @@ const tile_types = {
   }
 };
 const tile_config = {
-  gridline_stroke: 1,
-  gridline_color: "#000000"
 };
