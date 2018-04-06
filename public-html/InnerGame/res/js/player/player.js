@@ -62,19 +62,19 @@ class Player extends Updateable {
     }
 
     //check for tile change to get minions to follow
-    let followers = []
-    for(let i=0; i<this.game.minionManager.minions.length; i++){ //find followers
-      let minion = this.game.minionManager.minions[i];
-      if(minion.followMode) followers.push(minion);
-    }
-
-    if(this.followTimer>0) this.followTimer--;
-
-    if(this.followTimer<=0){
-      this.followTimer=this.followCooldown;
-      this.game.minionManager.sendMinions(followers,this.cloc)
-    }
-    this.lastTile=this.cloc.duplicate();
+    // let followers = []
+    // for(let i=0; i<this.game.minionManager.minions.length; i++){ //find followers
+    //   let minion = this.game.minionManager.minions[i];
+    //   if(minion.followMode) followers.push(minion);
+    // }
+    //
+    // if(this.followTimer>0) this.followTimer--;
+    //
+    // if(this.followTimer<=0){
+    //   this.followTimer=this.followCooldown;
+    //   this.game.minionManager.sendMinions(followers,this.cloc)
+    // }
+    // this.lastTile=this.cloc.duplicate();
 
 
     this.v.multiply(player_config.movement_loss);//gradual loss
