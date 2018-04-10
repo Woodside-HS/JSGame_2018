@@ -17,7 +17,7 @@ class Tower extends Updateable {
   update() {
   }
   render() {
-    if (this.game.mapManager.map[this.cloc.x][this.cloc.y].seen && this.hp <= 0)
+    if (this.hp <= 0)
       return;
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.beginPath();

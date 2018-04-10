@@ -49,8 +49,13 @@ class TowerManager extends Updateable {
   render() {
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
-        if (this.towers[i][j]) {
-          this.towers[i][j].render();
+        if (!this.game.mapManager.map[i][j].seen) {
+          this.game.context.fillStyle = "#000000";
+        } else {
+          this.game.context.fillStyle = ui_config.minimap_border_color;
+          if (this.towers[i][j]) {
+            this.towers[i][j].render();
+          }
         }
       }
     }
