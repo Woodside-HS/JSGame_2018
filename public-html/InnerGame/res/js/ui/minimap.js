@@ -16,6 +16,8 @@ class Minimap extends Updateable {
     this.imgData = this.game.context.createImageData(
             this.contentSize.x,
             this.contentSize.y);
+  }
+  update() {
     for (let i = 0, pixelIndex = 0, currentColor = null; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
         pixelIndex = 4 * (i + config.map_x_size * j);
@@ -25,25 +27,18 @@ class Minimap extends Updateable {
         if (this.game.mapManager.towerManager.towers[i][j]) {
           currentColor = tower_config.minimap_color;
         }
+        if (!this.game.mapManager.map[i][j].seen) {
+          currentColor = new Color("black");
+        }
         //update image
         this.imgData.data[pixelIndex + 0] = currentColor.red();
         this.imgData.data[pixelIndex + 1] = currentColor.green();
         this.imgData.data[pixelIndex + 2] = currentColor.blue();
         this.imgData.data[pixelIndex + 3] = 255;
-        if (!this.game.mapManager.map[i][j].seen) {
-          this.game.context.fillStyle = "#000000";
-        } else {
-          this.game.context.fillStyle = ui_config.minimap_border_color;
-        }
       }
     }
   }
   render() {
-    // if (!this.game.mapManager.map[i][j].seen) {
-    //   this.game.context.fillStyle = "#000000";
-    // } else {
-    //   this.game.context.fillStyle = ui_config.minimap_border_color;
-    // }
     this.game.context.fillRect(
             this.startCoordinate.x - ui_config.minimap_border_stroke,
             this.startCoordinate.y - ui_config.minimap_border_stroke,
