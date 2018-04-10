@@ -38,6 +38,10 @@ class TowerManager extends Updateable {
       for (let j = 0; j < config.map_y_size; j++) {
         if (this.towers[i][j]) {
           this.towers[i][j].update();
+          if (this.towers[i][j].hp <= 0) {
+            this.towers[i][j] = null;
+            this.game.mapManager.map[i][j].isOccupied = false;
+          }
         }
       }
     }
@@ -69,7 +73,7 @@ class TowerManager extends Updateable {
     let random = Math.random();
     let incrementalFrequency = 0;
     for (let i = 0; i < tower_types.asArray.length; i++) {
-      if (random > incrementalFrequency && random < tower_types.asArray[i].frequency+incrementalFrequency) {
+      if (random > incrementalFrequency && random < tower_types.asArray[i].frequency + incrementalFrequency) {
         this.towers[cloc.x].push(new Ranged(this.game, cloc, tower_types.asArray[i]));
       }
       incrementalFrequency += tower_types.asArray[i].frequency;

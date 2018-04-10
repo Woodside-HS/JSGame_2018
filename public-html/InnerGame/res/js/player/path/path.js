@@ -20,7 +20,7 @@ class Path {
     let open = [this.target];
     let closed = [];
     while (open.length > 0) {
-      for (let i=open.length-1; i>=0; i--) {
+      for (let i = open.length - 1; i >= 0; i--) {
         let point = open[i];
         //Cardinal after half-cardinal to prefer cardinal directions
         this.setTile(open, point, directions.northeast);
@@ -38,16 +38,16 @@ class Path {
     }
   }
   setTile(open, point, direction) {
-    
+
     //inverted direction because goal-oriented
     let tile = new PathTile(point.x - direction.x, point.y - direction.y);
 
     try {
       if (!game.mapManager.map[tile.x][tile.y].isOccupied &&
-           this.map[tile.x][tile.y].direction === directions.null) {
+              this.map[tile.x][tile.y].direction === directions.null) {
         open.push(tile);
         tile.direction = direction;
-        this.map[tile.x][tile.y]=tile;
+        this.map[tile.x][tile.y] = tile;
 
       }
     } catch (e) {//Out of bounds exceptions
