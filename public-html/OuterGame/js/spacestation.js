@@ -5,23 +5,7 @@ class SpaceStation{
 
     this.canLandOn = false;
 
-    this.infoDiv = { //for changing the item shown in info div
-      info : document.getElementById("info"),
-      render : function(item){ //item=shop item div
-        this.removeChildren();
-        var img = item.children[0];
-        img.class = "infoImg";
-        var node = document.createTextNode(""+item.id);
-        node.class = "infoName";
-        info.appendChild(node);
-        info.appendChild(img);
-      },
-      removeChildren : function(){
-        for(let i=2;i<info.children.length;i++){
-          info.removeChild(info.children[i]);
-        }
-      },
-    };
+
 
     //create html div for whole space station
     this.div = document.createElement("div");
@@ -36,7 +20,18 @@ class SpaceStation{
       gameState = "outer";
     });
 
-    this.loadShopItems();
+    //add click listener to each button
+    var items = this.div.children[2]; //div is space station, getting items div
+    for(let i=0;i<items.children.length;i++){
+      for(let j=0; j<items.children[i].children.length;j++){
+        items.children[i].children[j].spacestation = this;
+        //^^^use this property in eventlistener for access to infodiv object literal
+        items.children[i].children[j].addEventListener("click",function(event){
+          SpaceStation.infoDiv.render(this);
+          //^^^^render info of this item in the info div
+        });
+      }
+    }
 
   }
 
@@ -50,50 +45,108 @@ class SpaceStation{
     ctx.fill();
   }
 
-  loadShopItems(){
-    //draw button tiles for each shop item and add click listener to each button
-    var items = this.div.children[3]; //div is space station, getting items div
-    for(let i=2;i<items.children.length;i++){
-      let x = 120*((i-2)%3) +30;
-      let y = 150*Math.floor((i-2)/3) +100;
-      let button = items.children[i]; //div for a shop item
-      button.spacestation = this;
-      button.style.top = "" + y + "px";
-      button.style.left = "" + x + "px";
+}
 
-      button.addEventListener("click",function(event){
-        this.spacestation.infoDiv.render(this);
-        //render info of this item in the info div
-      });
+SpaceStation.html = '\
+  <h1 style="font-size:40px;">Space Station</h1>\
+  <img id="exitButton" src="shopIMGS/exit.png">\
+  <div id="items">\
+    <h2>Items</h2>\
+    <div id="catAdiv" class="catDiv">\
+      <div id="Cookie" class="tile">\
+        <img class="imgTile" src="shopIMGS/cookie.png">\
+        <span style="display:none;" id="2.35"></span>\
+      </div>\
+      <div id="Brownie" class="tile">\
+        <img class="imgTile" src="shopIMGS/brownie.png">\
+        <span style="display:none;" id="2.55"></span>\
+      </div>\
+      <div id="Cupcake" class="tile">\
+        <img class="imgTile" src="shopIMGS/cupcake.png">\
+        <span style="display:none;" id="1.45"></span>\
+      </div>\
+    </div>\
+    <div id="catBdiv" class="catDiv">\
+      <div id="Cake" class="tile">\
+        <img class="imgTile" src="shopIMGS/cake.png">\
+        <span style="display:none;" id="4.30"></span>\
+      </div>\
+      <div id="Pie" class="tile">\
+        <img class="imgTile" src="shopIMGS/pie.png">\
+        <span style="display:none;" id="3.60"></span>\
+      </div>\
+    </div>\
+    <div id="catCdiv" class="catDiv">\
+    <div id="Tea" class="tile">\
+      <img class="imgTile" src="shopIMGS/tea.png">\
+      <span style="display:none;" id="2.40"></span>\
+    </div>\
+      <div id="Coffee" class="tile">\
+        <img class="imgTile" src="shopIMGS/coffee.png">\
+        <span style="display:none;" id="3.50"></span>\
+      </div>\
+    </div>\
+  </div>\
+  <div id="radioButtons">\
+    <input class="radio" type="radio" name="category" id="allCat" checked="checked" onchange="SpaceStation.changeCategory()">All\
+    <input class="radio" type="radio" name="category" id="catA" onchange="SpaceStation.changeCategory()">A\
+    <input class="radio" type="radio" name="category" id="catB" onchange="SpaceStation.changeCategory()">B\
+    <input class="radio" type="radio" name="category" id="catC" onchange="SpaceStation.changeCategory()">C\
+  </div>\
+  <div id="info">\
+    <h2>Info</h2>\
+  </div>\
+';
+
+SpaceStation.changeCategory = function(){
+  var array = [document.getElementById("catA"),document.getElementById("catB"),document.getElementById("catC"),document.getElementById("allCat")]
+  for(let i in array){
+    if(array[i].checked){
+      if(i==3){
+        for(let i=0;i<array.length-1;i++){
+          document.getElementById(""+array[i].id+"div").style.display = "block";
+        }
+      } else{
+        document.getElementById(""+array[i].id+"div").style.display = "block";
+      }
+    } else{
+      if(i!=3){
+        document.getElementById(""+array[i].id+"div").style.display = "none";
+      }
     }
   }
 }
 
-SpaceStation.html = '\
-  <h1 style="position:absolute; top:10px; left:30px;">Space Station</h1>\
-  <img src="shopIMGS/background.png" style="width:100%; height:100%;">\
-  <img id="exitButton" src="shopIMGS/exit.png">\
-  <div id="items">\
-    <h2 style="position:absolute; left:100px;">Items</h2>\
-    <img class="back" src="shopIMGS/shopBackground.png">\
-    <div id="Cookie" class="tile">\
-      <img class="img" src="shopIMGS/0cookie.png">\
-    </div>\
-    <div id="Brownie" class="tile">\
-      <img class="img" src="shopIMGS/1brownie.png">\
-    </div>\
-    <div id="Cupcake" class="tile">\
-      <img class="img" src="shopIMGS/2cupcake.png">\
-    </div>\
-    <div id="Coffee" class="tile">\
-      <img class="img" src="shopIMGS/4coffee.png">\
-    </div>\
-    <div id="Pie" class="tile">\
-      <img class="img" src="shopIMGS/3pie.png">\
-    </div>\
-  </div>\
-  <div id="info">\
-    <h2 style="position:absolute; left:100px;">Info</h2>\
-    <img class="back" src="shopIMGS/infoBackground.png">\
-  </div>\
-';
+SpaceStation.infoDiv = { //for changing the item shown in info div
+  info : document.getElementById("info"),
+  render : function(item){ //item=shop item div
+    this.removeChildren();
+    var img = document.createElement("img");
+    img.src = item.children[0].src;
+    img.id = "infoImg";
+    info.appendChild(img);
+    var div = document.createElement("div");
+    var node = document.createTextNode(""+item.id);
+    div.appendChild(node);
+    div.id = "infoName";
+    info.appendChild(div);
+    var button = document.createElement("button");
+    button.innerHTML = "Buy";
+    button.id = "infoButton";
+    button.item = item;
+    button.onclick = function(){
+      console.log(this.item.id + " buy");
+    };
+    info.appendChild(button);
+    var price = document.createTextNode("   "+ item.children[1].id);
+    price.id = "infoPrice";
+    div.appendChild(price);
+  },
+  removeChildren : function(){
+    if(info.children.length>2){
+      document.getElementById("infoImg").remove();
+      document.getElementById("infoName").remove();
+      document.getElementById("infoButton").remove();
+    }
+  },
+};
