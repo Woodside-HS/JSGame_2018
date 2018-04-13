@@ -38,6 +38,10 @@ class TowerManager extends Updateable {
       for (let j = 0; j < config.map_y_size; j++) {
         if (this.towers[i][j]) {
           this.towers[i][j].update();
+          if (this.towers[i][j].hp <= 0) {
+            this.towers[i][j] = null;
+            this.game.mapManager.map[i][j].isOccupied = false;
+          }
         }
       }
     }
@@ -69,7 +73,7 @@ class TowerManager extends Updateable {
     let random = Math.random();
     let incrementalFrequency = 0;
     for (let i = 0; i < tower_types.asArray.length; i++) {
-      if (random > incrementalFrequency && random < tower_types.asArray[i].frequency+incrementalFrequency) {
+      if (random > incrementalFrequency && random < tower_types.asArray[i].frequency + incrementalFrequency) {
         this.towers[cloc.x].push(new Ranged(this.game, cloc, tower_types.asArray[i]));
       }
       incrementalFrequency += tower_types.asArray[i].frequency;
@@ -85,16 +89,16 @@ class TowerManager extends Updateable {
           game.minionManager.minions.push(new Minion(game, game.mouseLocationAbsolute.duplicate()));
           break;
         case '1':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
           break;
         case'2':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.repeater);
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.repeater);
           break;
         case'3':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.sniper);
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.sniper);
           break;
         case'4':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.spitter);
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.spitter);
           break;
       }
     }
