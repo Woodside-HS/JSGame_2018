@@ -12,7 +12,7 @@ const config = {
   },
   scaling_factor_x:1,
   scaling_factor_y:1,
-  debug_mode: true,// used when we debugging
+  debug_mode: false,// used when we debugging
   view_range: 40, //measured in tiles
   canvas_name: "gameCanvas",
   frame_rate: 30, //fps
