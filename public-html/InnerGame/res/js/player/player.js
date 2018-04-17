@@ -31,7 +31,14 @@ class Player extends Updateable {
       this.v.m = player_config.max_speed;
       this.v.upComps();
     }
+    if(this.dashV) this.v.add(this.dashV);
+
     this.loc.add(this.v);//because v=ds/dt
+    if(this.dashTimer<=0){
+      this.v=this.storedV;
+      this.dashV=undefined;
+    }
+
 
     //collision detection
     let vDir = this.v.duplicate(); //normalized version of velocity
@@ -64,7 +71,8 @@ class Player extends Updateable {
     }
 
 
-    this.v.multiply(player_config.movement_loss);//gradual loss
+    if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
+    if(this.dashTimer>0) this.dashTimer--;
   }
   render() {
     //for debugging purposes
@@ -99,6 +107,14 @@ class Player extends Updateable {
             player_config.size
             );
   }
+  dashTo(loc){
+    let diff = loc.duplicate();
+    diff.subtract(this.loc);
+    diff.multiply(player_config.dash_speed);
+    this.dashV=diff.duplicate();
+    this.dashTimer=player_config.dash_time;
+    this.storedV=this.v;
+  }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
@@ -118,6 +134,11 @@ class Player extends Updateable {
         if (game.player.a.x != 1)
           game.player.a.x = 1;//go right
         break;
+      case' ':
+        let loc=game.mouseLocationAbsolute;
+        let cloc=positionToGrid(loc);
+        game.player.dashTo(game.mouseLocationAbsolute)
+      break;
     }
   }
   docKeyUp(e) {

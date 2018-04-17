@@ -99,7 +99,7 @@ class Minion extends Updateable {
     let hitboxCloc = positionToGrid(hitBoxPos);
 
     //check for corner collision
-    if (
+    if (false&& //turned off for now
             (hitboxCloc.y >= 0 &&
                     hitboxCloc.y < config.map_y_size &&
                     hitboxCloc.x >= 0 &&
