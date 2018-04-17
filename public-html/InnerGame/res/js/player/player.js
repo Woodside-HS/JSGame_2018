@@ -20,7 +20,6 @@ class Player extends Updateable {
   init() {
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
-    //this.game.mapManager.reveal();
   }
   update() {
     this.cloc = positionToGrid(this.loc);

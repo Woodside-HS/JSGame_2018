@@ -148,7 +148,7 @@ class Minion extends Updateable {
     // this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, 2 * this.radius, this.radius);
     // this.game.context.fillStyle = minion_config.healthbar_positive_color
     // this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 2 * this.radius, this.radius);
-    //MAYBE CHECK IF SEEN HERE, IF ISSUE???????
+
     if (this.attackFrame && this.target) {
       this.game.context.strokeStyle = minion_config.laser_color;
       this.game.context.lineWidth = minion_config.laser_width;

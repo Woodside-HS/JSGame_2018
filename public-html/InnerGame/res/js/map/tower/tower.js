@@ -24,8 +24,8 @@ class Tower extends Updateable {
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.beginPath();
     this.game.context.arc(
-            this.loc.x + config.tile_size / 2,
-            this.loc.y + config.tile_size / 2,
+            this.loc.x,
+            this.loc.y,
             config.tile_size / 2,
             0,
             2 * Math.PI);
