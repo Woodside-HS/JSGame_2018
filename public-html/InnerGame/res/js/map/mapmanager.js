@@ -1,10 +1,10 @@
 'use strict'
 /*
-*  Hold thae array of all tiles
-   init the map
-*  Owns the tower manager (towers are on the map)
-*  Owns anything that is contained by a cell objects (cells are tiles)
-*/
+ *  Hold thae array of all tiles
+ init the map
+ *  Owns the tower manager (towers are on the map)
+ *  Owns anything that is contained by a cell objects (cells are tiles)
+ */
 class MapManager extends Updateable {
   constructor(game) {
     super();
@@ -28,9 +28,9 @@ class MapManager extends Updateable {
 
         //Set the seed
         /*
-        *  noise perlin2--> in util
-        *  all tile type chosen according to perlin noise
-        */
+         *  noise perlin2--> in util
+         *  all tile type chosen according to perlin noise
+         */
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
                 i / this.map.length * map_config.noise_scale,
                 j / this.map[i].length * map_config.noise_scale
@@ -60,25 +60,21 @@ class MapManager extends Updateable {
     //set normal vectors
     for (let a = 0; a < config.map_x_size; a++) {
       for (let b = 0; b < config.map_y_size; b++) {
-        let tile=this.map[a][b]
-        if (tile.tileType==tile_types.rock){
+        let tile = this.map[a][b]
+        if (tile.tileType == tile_types.rock) {
           for (let i = -1; i < 2; i++) {
             for (let j = -1; j < 2; j++) {
               //if(i!=0&&j!=0) continue;
-              let x=a+i;
-              let y=b+j;
-              let currentTile;
-              if(x<0||x>=config.map_x_size||y<0||y>=config.map_y_size){
-                currentTile={tileType:tile_types.rock} //pretend its a rock
+              let x = a + i;
+              let y = b + j;
+              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size)
+                continue;
+              let currentTile = this.map[x][y];
+              if (currentTile.tileType == tile_types.rock) {
+                tile.normalVector.add(new Vector2D(-i, -j));
               }
-              else{
-                currentTile = this.map[x][y];
-              }
-              if (currentTile.tileType==tile_types.rock){
-                tile.normalVector.add(new Vector2D(-i,-j));
-              }
-              if (currentTile.tileType==tile_types.rock && (i==0||j==0)){
-                tile.quadNormal.add(new Vector2D(-i,-j));
+              if (currentTile.tileType == tile_types.rock && (i == 0 || j == 0)) {
+                tile.quadNormal.add(new Vector2D(-i, -j));
               }
             }
           }
