@@ -5,7 +5,6 @@ class UserInterface extends Updateable {
     this.minimap = new Minimap(this.game);
     this.buttons = [];
     this.mouseHeld = false;
-    this.minionMenu = new Menu(this.game, ui_elements.minion_menu);
     this.menus = [];
     this.cursorMode = null;
     this.selectedMinions = [];
@@ -20,16 +19,6 @@ class UserInterface extends Updateable {
     let playerHealthbar = new Bar(this.game, ui_elements.player_healthbar);
     playerHealthbar.data.object = this.game.player;
     this.bars.push(playerHealthbar);
-    this.menus.push(this.minionMenu);
-    if (config.debug_mode) {
-      // test button
-      let button = new Button(this.game, new Vector2D(20, 20), 20, 20, 'res/sprites/water.png', 'res/sprites/rock.png')
-      button.onclick = function () {
-        game.player.loc.add(new Vector2D((Math.random() - .5) * 100, (Math.random() - .5) * 100));
-      }
-      button.init();
-      this.buttons.push(button);
-    }
     this.minimap.init();
   }
   update() {
@@ -75,24 +64,7 @@ class UserInterface extends Updateable {
     this.game.context.restore();
 
   }
-  setFollowers() {
-    for (let i = 0; i < this.selectedMinions.length; i++) {
-      let minion = this.selectedMinions[i];
-      minion.followMode = true;
-      minion.isSelected = false;
-    }
-    this.selectedMinions = [];
-  }
   onclick() {
-    if (game.userInterface.cursorMode == cursor_modes.moveTo
-            && game.userInterface.selectedMinions.length > 0) {
-      game.minionManager.sendMinions(game.userInterface.selectedMinions, positionToGrid(game.mouseLocationAbsolute));
-      for (let i = 0; i < game.userInterface.selectedMinions.length; i++) {
-        game.userInterface.selectedMinions[i].followMode = false;
-        game.userInterface.selectedMinions[i].isSelected = false;
-      }
-      game.userInterface.selectedMinions = [];
-    }
     game.userInterface.cursorMode = null;
 
 
@@ -119,7 +91,7 @@ class UserInterface extends Updateable {
     game.userInterface.mouseHeld = false;
   }
   dragging() {
-    game.context.fillStyle = 'rgba(255,255,255,.5)'
+    game.context.fillStyle = ui_config.dragging_color;
     let x1 = game.userInterface.hlghtstartloc.x;
     let y1 = game.userInterface.hlghtstartloc.y;
     let w = game.mouseLocationAbsolute.x - game.userInterface.hlghtstartloc.x;
@@ -134,43 +106,13 @@ class UserInterface extends Updateable {
     }
   }
   mouseup() {
-    if (!game.userInterface.minionMenu.isMouseOver && game.userInterface.cursorMode == cursor_modes.highlighting) {
-      for (let i = 0; i < game.userInterface.selectedMinions.length; i++)
-        game.userInterface.selectedMinions[i].isSelected = false;
-      game.userInterface.selectedMinions = [];
-    }
-
-
-
-    if (game.userInterface.cursorMode == cursor_modes.highlighting) {
-      let minions = game.minionManager.minions;
-      let didSelect = false;
-      for (let i = 0; i < minions.length; i++) {
-        let x1 = game.userInterface.hlghtstartloc.x;
-        let y1 = game.userInterface.hlghtstartloc.y;
-        let x2 = game.mouseLocationAbsolute.x;
-        let y2 = game.mouseLocationAbsolute.y;
-        let x = minions[i].loc.x;
-        let y = minions[i].loc.y;
-        if (((x > x1 && x < x2) || (x < x1 && x > x2))
-                && ((y > y1 && y < y2) || (y < y1 && y > y2))) {
-          minions[i].isSelected = true;
-          game.userInterface.selectedMinions.push(minions[i]);
-          didSelect = true;
-        }
-      }
-      if (didSelect) {
-        game.userInterface.minionMenu.isOpen = true;
-        game.userInterface.minionMenu.justOpened = true;
-      }
-    }
   }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case '': //shift key
-      game.minionManager.followMouse=true;
-      break;
+        game.minionManager.followMouse = true;
+        break;
     }
   }
 
@@ -178,8 +120,8 @@ class UserInterface extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case '': //shift key
-      game.minionManager.followMouse=false;
-      break;
+        game.minionManager.followMouse = false;
+        break;
     }
   }
 }

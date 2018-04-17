@@ -19,11 +19,11 @@ const minion_config = {
   healthbar_negative_color: "#FF0000",
   limit: 150, //maximimum minion count
   viewrange: 3, //in tiles
-  cooldown: .2*config.frame_rate,
-  laser_color:'rgba(150,200,255,.3)',
-  laser_width:4,
-  follow_timer: .5*config.frame_rate,
+  cooldown: .2 * config.frame_rate,
+  laser_color: 'rgba(150,200,255,.3)',
+  laser_width: 4,
+  follow_timer: .5 * config.frame_rate,
   initial_speed: 300 / config.frame_rate,
   min_count: 30, //amount that will respawn in debug mode
-  respawn_cooldown: .2*config.frame_rate
+  respawn_cooldown: .2 * config.frame_rate
 };

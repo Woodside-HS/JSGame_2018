@@ -3,7 +3,7 @@ const tower_types = {
     name: 0,
     hp: 10,
     frequency: 50
- },
+  },
   //spawner
   boss: 'boss',
   nest: 'nest',

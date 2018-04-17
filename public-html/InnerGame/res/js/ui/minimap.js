@@ -16,14 +16,19 @@ class Minimap extends Updateable {
     this.imgData = this.game.context.createImageData(
             this.contentSize.x,
             this.contentSize.y);
+  }
+  update() {
     for (let i = 0, pixelIndex = 0, currentColor = null; i < config.map_x_size; i++) {
-      for (let j = 0; j < this.game.mapManager.map[i].length; j++) {
-        pixelIndex = 4 * (i + config.map_x_size*j);
+      for (let j = 0; j < config.map_y_size; j++) {
+        pixelIndex = 4 * (i + config.map_x_size * j);
         //draw the land
         currentColor = this.game.mapManager.map[i][j].tileType.minimap_color;
         // or draw towers
         if (this.game.mapManager.towerManager.towers[i][j]) {
           currentColor = tower_config.minimap_color;
+        }
+        if (!this.game.mapManager.map[i][j].seen) {
+          currentColor = new Color("black");
         }
         //update image
         this.imgData.data[pixelIndex + 0] = currentColor.red();

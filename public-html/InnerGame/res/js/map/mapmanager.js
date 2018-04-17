@@ -1,10 +1,10 @@
 'use strict'
 /*
-*  Hold thae array of all tiles
-   init the map
-*  Owns the tower manager (towers are on the map)
-*  Owns anything that is contained by a cell objects (cells are tiles)
-*/
+ *  Hold thae array of all tiles
+ init the map
+ *  Owns the tower manager (towers are on the map)
+ *  Owns anything that is contained by a cell objects (cells are tiles)
+ */
 class MapManager extends Updateable {
   constructor(game) {
     super();
@@ -28,9 +28,9 @@ class MapManager extends Updateable {
 
         //Set the seed
         /*
-        *  noise perlin2--> in util
-        *  all tile type chosen according to perlin noise
-        */
+         *  noise perlin2--> in util
+         *  all tile type chosen according to perlin noise
+         */
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
                 i / this.map.length * map_config.noise_scale,
                 j / this.map[i].length * map_config.noise_scale
@@ -60,20 +60,21 @@ class MapManager extends Updateable {
     //set normal vectors
     for (let a = 0; a < config.map_x_size; a++) {
       for (let b = 0; b < config.map_y_size; b++) {
-        let tile=this.map[a][b]
-        if (tile.tileType==tile_types.rock){
+        let tile = this.map[a][b]
+        if (tile.tileType == tile_types.rock) {
           for (let i = -1; i < 2; i++) {
             for (let j = -1; j < 2; j++) {
               //if(i!=0&&j!=0) continue;
-              let x=a+i;
-              let y=b+j;
-              if(x<0||x>=config.map_x_size||y<0||y>=config.map_y_size) continue;
+              let x = a + i;
+              let y = b + j;
+              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size)
+                continue;
               let currentTile = this.map[x][y];
-              if (currentTile.tileType==tile_types.rock){
-                tile.normalVector.add(new Vector2D(-i,-j));
+              if (currentTile.tileType == tile_types.rock) {
+                tile.normalVector.add(new Vector2D(-i, -j));
               }
-              if (currentTile.tileType==tile_types.rock && (i==0||j==0)){
-                tile.quadNormal.add(new Vector2D(-i,-j));
+              if (currentTile.tileType == tile_types.rock && (i == 0 || j == 0)) {
+                tile.quadNormal.add(new Vector2D(-i, -j));
               }
             }
           }
@@ -104,5 +105,39 @@ class MapManager extends Updateable {
       }
     }
     this.towerManager.render();
+  }
+  reveal() {
+      var cloc = positionToGrid(this.game.player.loc);
+      var distSq = config.mask_radius * config.mask_radius;
+      for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
+        for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
+          if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
+            var tile = this.game.mapManager.map[i][j];
+            var tileLoc = positionToGrid(tile.loc);
+            var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+            if(actualDistSq <= distSq){
+              tile.seen = true;
+            }
+          }
+        }
+      }
+    //IF I CAN'T FIX ABOVE EDGE CASES, USE BELOW
+    // this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
+    // for(var x = 0; x <= config.mask_radius; x++){
+    //   for(var y = 0; y <= config.mask_radius; y++){
+    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y + y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y - config.mask_radius > 0){
+    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y - y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y + y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y - config.mask_radius > 0){
+    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y - y].seen = true;
+    //     }
+    //   }
+    // }
   }
 }
