@@ -2,7 +2,7 @@ class Ranged extends Tower {
   constructor(game, location, type) {
     super(game, location);
     this.type = type;
-    this.range = this.type.range
+    this.range = this.type.range;
     this.cooldown = this.type.cooldown;
     this.cooldowntimer = 0;
     this.maxhp = this.type.hp;
@@ -19,21 +19,24 @@ class Ranged extends Tower {
     //decrement cooldown
     if (this.cooldowntimer > 0)
       this.cooldowntimer--;
-
     //check target distance
     if (this.target) {
-      let diff = this.loc.duplicate();
+      let diff = this.loc.toFastVector();
       diff.subtract(this.target.loc);
-      if (diff.m > this.range || this.target.hp <= 0) {
-        // find new target
-        this.target = null;
-        for (let i = 0; i < this.game.minionManager.minions.length; i++) {
-          let minion = this.game.minionManager.minions[i];
-          let diff = this.loc.duplicate();
-          diff.subtract(minion.loc);
-          if (diff.m < this.range && (this.target == null || diff.m < this.targetdist)) {
-            this.targetdist = diff.m;
-            this.target = minion;
+      if (diff.x < this.range || diff.y < this.range) {
+        diff = this.loc.duplicate();
+        diff.subtract(this.target.loc);
+        if (diff.m > this.range || this.target.hp <= 0) {
+          // find new target
+          this.target = null;
+          for (let i = 0; i < this.game.minionManager.minions.length; i++) {
+            let minion = this.game.minionManager.minions[i];
+            let diff = this.loc.duplicate();
+            diff.subtract(minion.loc);
+            if (diff.m < this.range && (this.target == null || diff.m < this.targetdist)) {
+              this.targetdist = diff.m;
+              this.target = minion;
+            }
           }
         }
       }
@@ -50,11 +53,10 @@ class Ranged extends Tower {
       }
     }
 
-    if (this.target && this.cooldowntimer == 0) {
+    if (this.target && this.cooldowntimer <= 0) {
       this.cooldowntimer = this.cooldown;
       let diff = this.target.loc.duplicate();
       diff.subtract(this.loc);
-      ;
       let dir = diff.duplicate();
       dir.multiply(1 / diff.m);
       dir.multiply(this.bulletspeed);
@@ -64,7 +66,6 @@ class Ranged extends Tower {
         v: dir,
         life: Math.floor(diff.m / this.bulletspeed) + 1
       }
-      projectile.loc.add(new Vector2D(config.tile_size / 2, config.tile_size / 2));
       this.projectiles.push(projectile);
     }
 

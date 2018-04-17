@@ -291,8 +291,8 @@ function loadImages(){
 function init(){
 	canvas = document.getElementById('cnv');
 
-	canvas.width = 1200;
-	canvas.height = 600;
+	canvas.width = 1024;
+	canvas.height = 676;
 
 	/*canvas.width = window.innerWidth * 0.97;
 	canvas.height = window.innerHeight * 0.97;*/
@@ -319,6 +319,7 @@ function makeWorld(){
   var w = new World(currentLevel);
   //add world to array
   worlds.push(w);
+  w.initialize();
 }
 
 function animate(){

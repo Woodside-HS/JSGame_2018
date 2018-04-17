@@ -8,6 +8,7 @@ class TowerManager extends Updateable {
     this.randoms = [];
   }
   init() {
+    this.initializeTowerConfig();
     document.addEventListener("keydown", this.docKeyDown);
     noise.seed(tower_config.noise_seed);
     let localPerlin;
@@ -25,7 +26,7 @@ class TowerManager extends Updateable {
                 this.randoms[i][j] < tower_config.tower_rate &&
                 !this.game.mapManager.map[i][j].isOccupied
                 ) {
-          this.towers[i].push(new Tower(this.game, new Vector2D(i, j)));
+          this.loadTower(new FastVector(i, j));
         } else {
           this.towers[i].push(null);
         }
@@ -37,6 +38,10 @@ class TowerManager extends Updateable {
       for (let j = 0; j < config.map_y_size; j++) {
         if (this.towers[i][j]) {
           this.towers[i][j].update();
+          if (this.towers[i][j].hp <= 0) {
+            this.towers[i][j] = null;
+            this.game.mapManager.map[i][j].isOccupied = false;
+          }
         }
       }
     }
@@ -50,6 +55,30 @@ class TowerManager extends Updateable {
       }
     }
   }
+  initializeTowerConfig() {
+    tower_types.asArray = [];
+    tower_types.asArray.push(tower_types.nulltype);
+    tower_types.asArray.push(tower_types.spitter);
+    tower_types.asArray.push(tower_types.sniper);
+    tower_types.asArray.push(tower_types.repeater);
+    let totalFrequency = 0;
+    for (let i = 0; i < tower_types.asArray.length; i++) {
+      totalFrequency += tower_types.asArray[i].frequency;
+    }
+    for (let i = 0; i < tower_types.asArray.length; i++) {
+      tower_types.asArray[i].frequency /= totalFrequency;
+    }
+  }
+  loadTower(cloc) {
+    let random = Math.random();
+    let incrementalFrequency = 0;
+    for (let i = 0; i < tower_types.asArray.length; i++) {
+      if (random > incrementalFrequency && random < tower_types.asArray[i].frequency + incrementalFrequency) {
+        this.towers[cloc.x].push(new Ranged(this.game, cloc, tower_types.asArray[i]));
+      }
+      incrementalFrequency += tower_types.asArray[i].frequency;
+    }
+  }
   docKeyDown(e) {
     // use the keyboard for placing towers (Only in debug mode)
     if (config.debug_mode) {
@@ -60,16 +89,16 @@ class TowerManager extends Updateable {
           game.minionManager.minions.push(new Minion(game, game.mouseLocationAbsolute.duplicate()));
           break;
         case '1':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
           break;
         case'2':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.repeater);
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.repeater);
           break;
         case'3':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.sniper);
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.sniper);
           break;
         case'4':
-          game.mapManager.towermanager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.spitter);
+          game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.spitter);
           break;
       }
     }
