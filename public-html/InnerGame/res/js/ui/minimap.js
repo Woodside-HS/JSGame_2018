@@ -39,6 +39,7 @@ class Minimap extends Updateable {
     }
   }
   render() {
+    this.game.context.fillStyle = ui_config.minimap_border_color;
     this.game.context.fillRect(
             this.startCoordinate.x - ui_config.minimap_border_stroke,
             this.startCoordinate.y - ui_config.minimap_border_stroke,

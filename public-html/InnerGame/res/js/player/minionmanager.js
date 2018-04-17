@@ -70,4 +70,30 @@ class MinionManager extends Updateable {
       minions[i].path = path;
     }
   }
+  spawnMinion() {
+    let minion = new Minion(game, game.player.loc)
+    minion.v.m = minion_config.initial_speed;
+    minion.v.th = Math.random() * 2 * Math.PI
+    minion.v.upComps();
+    this.minions.push(minion);
+  }
+  docKeyDown(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case '': //shift key
+        game.minionManager.followMouse = true;
+        game.minionManager.followPlayer = false;
+        break;
+    }
+  }
+
+  docKeyUp(e) {
+    let key = String.fromCharCode(e.keyCode);
+    switch (key) {
+      case '': //shift key
+        game.minionManager.followMouse = false;
+        game.minionManager.followPlayer = true;
+        break;
+    }
+  }
 }
