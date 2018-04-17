@@ -23,7 +23,7 @@ class Ranged extends Tower {
     if (this.target) {
       let diff = this.loc.toFastVector();
       diff.subtract(this.target.loc);
-      if(diff.x<this.range||diff.y<this.range){
+      if (diff.x < this.range || diff.y < this.range) {
         diff = this.loc.duplicate();
         diff.subtract(this.target.loc);
         if (diff.m > this.range || this.target.hp <= 0) {
