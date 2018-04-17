@@ -16,8 +16,8 @@ const config = {
   view_range: 40, //measured in tiles
   canvas_name: "gameCanvas",
   frame_rate: 30, //fps
-  map_x_size: 100, //measured in tiles
-  map_y_size: 100, //measred in tiles
+  map_x_size: 80, //measured in tiles
+  map_y_size: 80, //measred in tiles
   tile_size: 25, //Measured in px
   canvas_width: 1024, //Measured in px
   canvas_height: 576, //Measured in px
