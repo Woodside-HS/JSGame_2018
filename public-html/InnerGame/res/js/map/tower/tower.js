@@ -6,7 +6,9 @@ class Tower extends Updateable {
     super();
     this.game = game;
     this.cloc = location;
-    this.loc = new Vector2D(this.cloc.x * config.tile_size, this.cloc.y * config.tile_size);
+    this.loc = new Vector2D(
+            (this.cloc.x + .5) * config.tile_size,
+            (this.cloc.y + .5) * config.tile_size);
     this.type = tower_types.nulltype;
     this.fillStyle = "rgba(255,255,0,1)";
     this.fontstyle = "rgba(0,0,255,1)";
@@ -22,8 +24,8 @@ class Tower extends Updateable {
     this.game.context.fillStyle = this.fillStyle;
     this.game.context.beginPath();
     this.game.context.arc(
-            this.loc.x,
-            this.loc.y,
+            this.loc.x + config.tile_size / 2,
+            this.loc.y + config.tile_size / 2,
             config.tile_size / 2,
             0,
             2 * Math.PI);
