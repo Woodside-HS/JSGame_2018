@@ -1,10 +1,17 @@
 'use strict'
 
 class Path {
-  constructor(start, target) {
-    this.start = new PathTile(start.x, start.y); //CLoc vector
-    this.target = new PathTile(target.x, target.y); //CLoc vector
+  constructor() {
+    this.target = null;
     this.map = [];
+    for (let i = 0; i < config.map_x_size; i++) {
+      this.map.push([]);
+      for (let j = 0; j < config.map_y_size; j++) {
+        this.map[i].push(new PathTile(directions.null));
+      }
+    }
+  }
+  wipe() {
     for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
       for (let j = 0; j < config.map_y_size; j++) {
@@ -17,6 +24,7 @@ class Path {
    * @returns void
    */
   dijkstra() {
+    this.wipe();
     let open = [this.target];
     let closed = [];
     while (open.length > 0) {
