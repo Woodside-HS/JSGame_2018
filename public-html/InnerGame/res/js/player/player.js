@@ -16,6 +16,7 @@ class Player extends Updateable {
     this.lastTile=this.cloc //to check when tile changes
     this.followCooldown=minion_config.follow_timer;
     this.followTimer=minion_config.follow_timer;
+    this.storedV = new Vector2D(0,0);
   }
   init() {
     document.addEventListener("keydown", this.docKeyDown);
@@ -29,13 +30,11 @@ class Player extends Updateable {
       this.v.m = player_config.max_speed;
       this.v.upComps();
     }
+    if(this.dashV) this.v.add(this.dashV);
 
     this.loc.add(this.v);//because v=ds/dt
-    if(this.dashV){
-    this.loc.add(this.dashV) //uncapped dash speed
-    this.dashTimer--;
-    }
     if(this.dashTimer<=0){
+      this.v=this.storedV;
       this.dashV=undefined;
     }
 
@@ -86,7 +85,8 @@ class Player extends Updateable {
     // this.lastTile=this.cloc.duplicate();
 
 
-    this.v.multiply(player_config.movement_loss);//gradual loss
+    if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
+    if(this.dashTimer>0) this.dashTimer--;
   }
   render() {
     //for debugging purposes
@@ -127,6 +127,7 @@ class Player extends Updateable {
     diff.multiply(player_config.dash_speed);
     this.dashV=diff.duplicate();
     this.dashTimer=player_config.dash_time;
+    this.storedV=this.v;
   }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
@@ -150,11 +151,12 @@ class Player extends Updateable {
       case' ':
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
-        if(loc.x>0&&loc.y>0
-        && loc.x<config.tile_size*config.map_x_size
-        && loc.y<config.tile_size*config.map_y_size
-        && !game.mapManager.map[cloc.x][cloc.y].isOccupied
-      ) game.player.dashTo(game.mouseLocationAbsolute)
+      //   if(loc.x>0&&loc.y>0
+      //   && loc.x<config.tile_size*config.map_x_size
+      //   && loc.y<config.tile_size*config.map_y_size
+      //   && !game.mapManager.map[cloc.x][cloc.y].isOccupied
+      // )
+        game.player.dashTo(game.mouseLocationAbsolute)
         console.log(game.mouseLocationAbsolute);
       break;
     }
