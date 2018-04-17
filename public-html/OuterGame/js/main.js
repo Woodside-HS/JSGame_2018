@@ -266,7 +266,7 @@ function loadImages(){
 		}).then(function(img){
 			Images['Planet10'] = img;
 			time2 = Date.now();
-			console.log(time2-time1);
+			console.log("Seperate Image Load Time: " , time2-time1);
 		})
 	]).then(function(){
 		new Promise(function(resolve, reject){
@@ -282,7 +282,7 @@ function loadImages(){
 		}).then(function(img){
 			Images['Spritesheet'] = img;
 			time4 = Date.now();
-			console.log(time4-time3);
+			console.log("Spritesheet Load Time: " , time4-time3);
 			init();
 		});
 		//end of promises
