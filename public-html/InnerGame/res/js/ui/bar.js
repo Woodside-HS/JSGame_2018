@@ -20,6 +20,7 @@ class Bar extends Updateable {
       this.game.context.lineTo(this.data.points[i].x, this.data.points[i].y);
     }
     this.game.context.lineTo(this.data.points[0].x, this.data.points[0].y);
+    //MAY BE AN ISSUE HERE ?!?!?!?!?!?!!?
     this.game.context.lineTo(this.data.points[1].x, this.data.points[1].y);
     this.game.context.stroke();
 

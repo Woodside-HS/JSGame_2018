@@ -18,8 +18,9 @@ const config = {
   frame_rate: 30, //fps
   map_x_size: 100, //measured in tiles
   map_y_size: 100, //measred in tiles
+  mask_radius: 6, //measured in tiles
   tile_size: 25, //Measured in px
   canvas_width: 1024, //Measured in px
   canvas_height: 576, //Measured in px
-  background_color: "#000000" //Hex color
+  background_color: "#101010" //Hex color
 };
