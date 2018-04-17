@@ -6,5 +6,5 @@ const player_config = {
   color: 'rgba(200,75,150,1)', //Any color string
   dash_speed:.2, //fraction of dash distance per frame
   dash_time:5, //dash time, in frames
-    max_hp: 100
+  max_hp: 100
 };
