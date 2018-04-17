@@ -151,13 +151,7 @@ class Player extends Updateable {
       case' ':
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
-      //   if(loc.x>0&&loc.y>0
-      //   && loc.x<config.tile_size*config.map_x_size
-      //   && loc.y<config.tile_size*config.map_y_size
-      //   && !game.mapManager.map[cloc.x][cloc.y].isOccupied
-      // )
         game.player.dashTo(game.mouseLocationAbsolute)
-        console.log(game.mouseLocationAbsolute);
       break;
     }
   }
