@@ -7,10 +7,6 @@ class Bar extends Updateable {
     this.data = data;
     this.trackValue = 1;
   }
-  init() {
-    this.direction = this.data.points[2].toFastVector();
-    this.direction.substract(this.data.points[1]);
-  }
   update() {
     this.trackValue = this.data.object[this.data.tracker] / this.data.max_value;
   }
