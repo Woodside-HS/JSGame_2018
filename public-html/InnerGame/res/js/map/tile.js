@@ -34,7 +34,7 @@ class Tile extends Updateable {
     //draw sprite
     if (!this.seen) {
       this.game.context.fillStyle = "#000000";
-      this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+      this.game.context.fillRect(this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2); //1 pixel bigger
     } else {
       switch(this.tileType) {
         case tile_types.grass:

@@ -105,7 +105,15 @@ class MapManager extends Updateable {
   }
   render() {
     //draw grass
-    this.game.context.drawImage(this.grassImage,0,0,config.map_x_size*config.tile_size,config.map_y_size*config.tile_size);
+    for(let i=0; i<config.map_x_size*config.tile_size; i+=map_config.grass_image_size)
+      for(let j=0; j<config.map_y_size*config.tile_size; j+=map_config.grass_image_size)
+        this.game.context.drawImage(this.grassImage,i,j,map_config.grass_image_size,map_config.grass_image_size);
+
+    //draw border rectangles bc too much grass
+    this.game.context.fillStyle=config.background_color;
+    this.game.context.fillRect(config.map_x_size*config.tile_size,-map_config.grass_image_size,map_config.grass_image_size,config.map_y_size*config.tile_size+2*map_config.grass_image_size)
+    this.game.context.fillRect(-map_config.grass_image_size,config.map_y_size*config.tile_size,config.map_x_size*config.tile_size+2*map_config.grass_image_size,map_config.grass_image_size)
+
 
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
