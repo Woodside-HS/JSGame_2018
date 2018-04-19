@@ -30,21 +30,26 @@ class Tile extends Updateable {
     }
   }
   render() {
-    if(this.tileType == tile_types.grass)
-      return; //grass image is background
 
     //draw sprite
     if (!this.seen) {
       this.game.context.fillStyle = "#000000";
       this.game.context.fillRect(this.loc.x, this.loc.y, config.tile_size, config.tile_size);
-    } else if (this.tileType == tile_types.rock) {
-      this.game.context.drawImage(
-              this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
-              this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
     } else {
-      this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+      switch(this.tileType) {
+        case tile_types.grass:
+          return;
+          break;
+        case tile_types.rock:
+          this.game.context.drawImage(
+            this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
+            this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+          break;
+        default:
+          this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+        }
+      }
     }
-  }
 
   getImage() {
     let index = "";
