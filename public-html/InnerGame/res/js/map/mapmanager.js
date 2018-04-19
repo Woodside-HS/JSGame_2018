@@ -12,8 +12,12 @@ class MapManager extends Updateable {
     this.game = game;
     this.validStartTiles = [];
     this.towerManager = new TowerManager(this.game);
+    this.grassImage=map_config.grass_image;
   }
   init() {
+    //create grass image
+    this.grassImage.src=map_config.grass_image_src;
+
     noise.seed(map_config.noise_seed);
     //Create map array
     for (let i = 0; i < config.map_x_size; i++) {
@@ -67,9 +71,10 @@ class MapManager extends Updateable {
               //if(i!=0&&j!=0) continue;
               let x = a + i;
               let y = b + j;
-              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size)
-                continue;
-              let currentTile = this.map[x][y];
+              let currentTile;
+              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size){
+                currentTile = {tileType:tile_types.rock} //pretend borders are rocks
+              } else currentTile = this.map[x][y];
               if (currentTile.tileType == tile_types.rock) {
                 tile.normalVector.add(new Vector2D(-i, -j));
               }
@@ -99,6 +104,17 @@ class MapManager extends Updateable {
     this.towerManager.update();
   }
   render() {
+    //draw grass
+    for(let i=0; i<config.map_x_size*config.tile_size; i+=map_config.grass_image_size)
+      for(let j=0; j<config.map_y_size*config.tile_size; j+=map_config.grass_image_size)
+        this.game.context.drawImage(this.grassImage,i,j,map_config.grass_image_size,map_config.grass_image_size);
+
+    //draw border rectangles bc too much grass
+    this.game.context.fillStyle=config.background_color;
+    this.game.context.fillRect(config.map_x_size*config.tile_size,-map_config.grass_image_size,map_config.grass_image_size,config.map_y_size*config.tile_size+2*map_config.grass_image_size)
+    this.game.context.fillRect(-map_config.grass_image_size,config.map_y_size*config.tile_size,config.map_x_size*config.tile_size+2*map_config.grass_image_size,map_config.grass_image_size)
+
+
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
         this.map[i][j].render();
