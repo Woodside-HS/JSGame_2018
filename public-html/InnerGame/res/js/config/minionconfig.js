@@ -9,7 +9,7 @@ const status = {
   }
 };
 const minion_config = {
-  hp: 40,
+  hp: 10,
   speed: 450 / config.frame_rate,
   turn_speed: 75 / config.frame_rate,
   damage: 1,
