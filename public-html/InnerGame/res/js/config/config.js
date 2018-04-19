@@ -12,14 +12,15 @@ const config = {
   },
   scaling_factor_x: 1,
   scaling_factor_y: 1,
-  debug_mode: true, // used when we debugging
+  debug_mode: false, // used when we debugging
   view_range: 40, //measured in tiles
   canvas_name: "gameCanvas",
   frame_rate: 30, //fps
-  map_x_size: 80, //measured in tiles
-  map_y_size: 80, //measred in tiles
+  map_x_size: 100, //measured in tiles
+  map_y_size: 100, //measred in tiles
+  mask_radius: 6, //measured in tiles
   tile_size: 25, //Measured in px
   canvas_width: 1024, //Measured in px
   canvas_height: 576, //Measured in px
-  background_color: "#000000" //Hex color
+  background_color: "#101010" //Hex color
 };
