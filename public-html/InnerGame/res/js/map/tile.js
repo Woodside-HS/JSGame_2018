@@ -28,6 +28,9 @@ class Tile extends Updateable {
     }
   }
   render() {
+    if(this.tileType == tile_types.grass)
+      return; //grass image is background
+
     //draw sprite
     if (this.tileType == tile_types.rock) {
       this.game.context.drawImage(

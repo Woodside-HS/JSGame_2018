@@ -12,8 +12,12 @@ class MapManager extends Updateable {
     this.game = game;
     this.validStartTiles = [];
     this.towerManager = new TowerManager(this.game);
+    this.grassImage=map_config.grass_image;
   }
   init() {
+    //create grass image
+    this.grassImage.src=map_config.grass_image_src;
+
     noise.seed(map_config.noise_seed);
     //Create map array
     for (let i = 0; i < config.map_x_size; i++) {
@@ -99,6 +103,9 @@ class MapManager extends Updateable {
     this.towerManager.update();
   }
   render() {
+    //draw grass
+    this.game.context.drawImage(this.grassImage,0,0,config.map_x_size*config.tile_size,config.map_y_size*config.tile_size);
+
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
         this.map[i][j].render();
