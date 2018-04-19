@@ -113,4 +113,38 @@ class MapManager extends Updateable {
     }
     this.towerManager.render();
   }
+  reveal() {
+      var cloc = positionToGrid(this.game.player.loc);
+      var distSq = config.mask_radius * config.mask_radius;
+      for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
+        for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
+          if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
+            var tile = this.game.mapManager.map[i][j];
+            var tileLoc = positionToGrid(tile.loc);
+            var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+            if(actualDistSq <= distSq){
+              tile.seen = true;
+            }
+          }
+        }
+      }
+    //IF I CAN'T FIX ABOVE EDGE CASES, USE BELOW
+    // this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
+    // for(var x = 0; x <= config.mask_radius; x++){
+    //   for(var y = 0; y <= config.mask_radius; y++){
+    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y + y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y - config.mask_radius > 0){
+    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y - y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
+    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y + y].seen = true;
+    //     }
+    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y - config.mask_radius > 0){
+    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y - y].seen = true;
+    //     }
+    //   }
+    // }
+  }
 }
