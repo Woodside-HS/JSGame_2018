@@ -16,8 +16,10 @@ class Player extends Updateable {
     this.followCooldown = minion_config.follow_timer;
     this.followTimer = minion_config.follow_timer;
     this.hp = player_config.max_hp;
+    this.image=player_config.image;
   }
   init() {
+    this.image.src=player_config.image_src;
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
   }
@@ -98,13 +100,12 @@ class Player extends Updateable {
               player_config.size / 2
               );
     }
-    this.game.context.fillStyle = player_config.color;
-    this.game.context.fillRect(
-            this.loc.x - player_config.size / 2,
-            this.loc.y - player_config.size / 2,
-            player_config.size,
-            player_config.size
-            );
+    this.game.context.save();
+    this.game.context.translate(this.loc.x,this.loc.y);
+    this.game.context.rotate(this.v.th+Math.PI/2);
+    this.game.context.drawImage(this.image,-player_config.size/2,-player_config.size/2,player_config.size,player_config.size)
+    this.game.context.restore();
+
   }
   dashTo(loc){
     let diff = loc.duplicate();
