@@ -7,6 +7,14 @@ function average(array) {
   }
   return total / array.length;
 }
+function convertToAbs(v){
+  let abs = v.duplicate();
+  abs.add(new Vector2D(-config.canvas_width / 2, -config.canvas_height / 2));
+  abs.x *= 1 / config.scaling_factor_x;
+  abs.y *= 1 / config.scaling_factor_y;
+  abs.add(game.player.loc);
+  return abs;
+}
 function pyth(x, y) {
   return Math.sqrt(x * x + y * y);
 }
