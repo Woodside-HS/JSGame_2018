@@ -9,7 +9,7 @@ const status = {
   }
 };
 const minion_config = {
-  hp: 40,
+  hp: 10,
   speed: 450 / config.frame_rate,
   turn_speed: 75 / config.frame_rate,
   damage: 1,
@@ -24,6 +24,6 @@ const minion_config = {
   laser_width: 4,
   follow_timer: .5 * config.frame_rate,
   initial_speed: 300 / config.frame_rate,
-  min_count: 30, //amount that will respawn in debug mode
+  min_count: 5, //amount that will respawn in debug mode
   respawn_cooldown: .2 * config.frame_rate
 };

@@ -29,8 +29,11 @@ class Ranged extends Tower {
         if (diff.m > this.range || this.target.hp <= 0) {
           // find new target
           this.target = null;
-          for (let i = 0; i < this.game.minionManager.minions.length; i++) {
-            let minion = this.game.minionManager.minions[i];
+          for (let i = -1; i < this.game.minionManager.minions.length; i++) {
+            let minion;
+            if(i==-1){ minion=game.player;
+            } else{    minion=game.minionManager.minions[i];
+            }
             let diff = this.loc.duplicate();
             diff.subtract(minion.loc);
             if (diff.m < this.range && (this.target == null || diff.m < this.targetdist)) {
@@ -42,8 +45,11 @@ class Ranged extends Tower {
       }
     } else {
       // find new target
-      for (let i = 0; i < this.game.minionManager.minions.length; i++) {
-        let minion = this.game.minionManager.minions[i];
+      for (let i = -1; i < this.game.minionManager.minions.length; i++) {
+        let minion;
+        if(i==-1){ minion=game.player;
+        } else{    minion=game.minionManager.minions[i];
+        }
         let diff = this.loc.duplicate();
         diff.subtract(minion.loc);
         if (diff.m < this.range && (this.target == null || diff.m < this.targetdist)) {
@@ -61,7 +67,6 @@ class Ranged extends Tower {
       dir.multiply(1 / diff.m);
       dir.multiply(this.bulletspeed);
       let projectile = {
-        target: this.target,
         loc: this.loc.duplicate(),
         v: dir,
         life: Math.floor(diff.m / this.bulletspeed) + 1
@@ -73,10 +78,24 @@ class Ranged extends Tower {
     for (let i = 0; i < this.projectiles.length; i++) {
       let bullet = this.projectiles[i];
       if (bullet.life == 0) {
-        this.onHit(bullet.target);
         this.projectiles.splice(i, 1);
         i--;
         continue;
+      }
+      for(let i=-1; i<game.minionManager.minions.length; i++){
+        let minion;
+        if(i==-1){ minion=game.player;
+        } else{    minion=game.minionManager.minions[i];
+        }
+        let diff=bullet.loc.duplicate();
+        diff.subtract(minion.loc);
+        console.log(minion.size);
+        if(diff.m<this.bulletsize+minion.size/2){
+          this.onHit(minion);
+          this.projectiles.splice(i, 1);
+          i--;
+          break;
+        }
       }
       bullet.life--;
       bullet.loc.add(bullet.v);

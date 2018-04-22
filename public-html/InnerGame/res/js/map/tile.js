@@ -11,8 +11,10 @@ class Tile extends Updateable {
     // nulltype is not a real tile (nulltype overridden before init)
     // override done in map manager
     this.tileType = tile_types.nulltype;
-    this.normalVector = new Vector2D(0, 0);
-    this.quadNormal = new Vector2D(0, 0);
+
+    this.seen = false;
+    this.normalVector = new Vector2D(0,0);
+    this.quadNormal = new Vector2D(0,0);
     this.sourceloc = new FastVector(0, 0);
   }
   init() {
@@ -28,15 +30,26 @@ class Tile extends Updateable {
     }
   }
   render() {
+
     //draw sprite
-    if (this.tileType == tile_types.rock) {
-      this.game.context.drawImage(
-              this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
-              this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+    if (!this.seen) {
+      this.game.context.fillStyle = "#000000";
+      this.game.context.fillRect(this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2); //1 pixel bigger
     } else {
-      this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+      switch(this.tileType) {
+        case tile_types.grass:
+          return;
+          break;
+        case tile_types.rock:
+          this.game.context.drawImage(
+            this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
+            this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+          break;
+        default:
+          this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+        }
+      }
     }
-  }
 
   getImage() {
     let index = "";

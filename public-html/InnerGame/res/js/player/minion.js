@@ -12,6 +12,7 @@ class Minion extends Updateable {
     this.speed = minion_config.speed;
     this.damage = minion_config.damage;
     this.radius = minion_config.size;
+    this.size = minion_config.size; // so other things can reference it
     this.status = status.nullstatus;
     this.statusTimer = null;
     this.isSelected = false;
