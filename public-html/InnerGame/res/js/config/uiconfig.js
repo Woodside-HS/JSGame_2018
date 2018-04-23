@@ -25,7 +25,6 @@ const ui_elements = {
     positive_color: "#31d628",
     negative_color: "red",
     max_value: player_config.max_hp,
-    object: null, //Will be reset in UserInterface.init()
     tracker: "hp",
     points: [
       new FastVector(30, 20),
@@ -44,7 +43,6 @@ const ui_elements = {
     positive_color: "yellow",
     negative_color: "blue",
     max_value: player_config.max_energy,
-    object: null, //Will be reset in UserInterface.init()
     tracker: "energy",
     points: [
       new FastVector(25, 40),
