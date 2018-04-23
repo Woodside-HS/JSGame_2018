@@ -17,6 +17,7 @@ class Player extends Updateable {
     this.followTimer = minion_config.follow_timer;
     this.hp = player_config.max_hp;
     this.energy = player_config.max_energy;
+    this.dashCooldownTimer = player_config.dash_cooldown;
     this.image=player_config.image;
     this.size=player_config.size;
   }
@@ -26,6 +27,7 @@ class Player extends Updateable {
     document.addEventListener("keyup", this.docKeyUp);
   }
   update() {
+    this.dashCooldownTimer--;
     this.cloc = positionToGrid(this.loc);
     this.game.mapManager.reveal();
     this.v.add(this.a);
@@ -37,9 +39,10 @@ class Player extends Updateable {
     if(this.dashV) this.v.add(this.dashV);
 
     this.loc.add(this.v);//because v=ds/dt
-    if(this.dashTimer<=0){
+    if(this.dashTimer<=0 && this.dashV){
       this.v=this.storedV;
       this.dashV=undefined;
+      this.dashCooldownTimer=player_config.dash_cooldown;
     }
 
 
@@ -85,6 +88,7 @@ class Player extends Updateable {
     this.game.context.restore();
   }
   dashTo(loc){
+    if(this.dashCooldownTimer>0) return;
     let diff = loc.duplicate();
     diff.subtract(this.loc);
     diff.multiply(player_config.dash_speed);

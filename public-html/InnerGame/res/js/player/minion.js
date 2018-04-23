@@ -73,7 +73,8 @@ class Minion extends Updateable {
     //movement logic
     this.a = new Vector2D(0, 0);
     //follow the path
-    if (this.path && this.target == null && !this.attackFrame) {
+    if (this.path && this.target == null && !this.attackFrame &&
+       (this.path.map[this.cloc.x][this.cloc.y].direction.x!=0 || this.path.map[this.cloc.x][this.cloc.y].direction.y!=0)) {
       let accel = this.path.map[this.cloc.x][this.cloc.y].direction.toVector2D();
       accel.m = minion_config.turn_speed;
       accel.upComps();
