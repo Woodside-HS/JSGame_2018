@@ -36,6 +36,25 @@ const ui_elements = {
     border_stroke: 2,
     border_color: "#ffffff"
   },
+  energy_meter: {
+    type: element_types.bar,
+    init: function(){
+      this.object = game.player;
+    },
+    positive_color: "yellow",
+    negative_color: "blue",
+    max_value: player_config.max_energy,
+    object: null, //Will be reset in UserInterface.init()
+    tracker: "energy",
+    points: [
+      new FastVector(25, 40),
+      new FastVector(20, 45),
+      new FastVector(100, 45),
+      new FastVector(105, 40)
+    ],
+    border_stroke: 2,
+    border_color: "#ffffff"
+  },
   death_screen: {
     type: element_types.splash_screen,
     src: "../../sprites/grass.png",//temp for testing

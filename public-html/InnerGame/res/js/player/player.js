@@ -16,6 +16,7 @@ class Player extends Updateable {
     this.followCooldown = minion_config.follow_timer;
     this.followTimer = minion_config.follow_timer;
     this.hp = player_config.max_hp;
+    this.energy = player_config.max_energy;
     this.image=player_config.image;
     this.size=player_config.size;
   }

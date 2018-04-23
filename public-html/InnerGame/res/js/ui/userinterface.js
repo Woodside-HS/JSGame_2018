@@ -9,6 +9,7 @@ class UserInterface extends Updateable {
     this.cursorMode = null;
     this.selectedMinions = [];
     this.bars = [];
+    this.splashes = [];
   }
   init() {
     document.addEventListener("click", this.onclick);
@@ -19,8 +20,9 @@ class UserInterface extends Updateable {
     for(let element in ui_elements){
       if(ui_elements.hasOwnProperty(element)){
         if(ui_elements[element].type===element_types.bar){
+          
           ui_elements[element].init();
-          this.bars.push(new Bar(this.game, ui_config[element]));
+          this.bars.push(new Bar(this.game, ui_elements[element]));
         }
         else if (ui_elements[element].type===element_types.menu){
           this.menus.push(element);
@@ -28,14 +30,11 @@ class UserInterface extends Updateable {
         else if (ui_elements[element].type===element_types.button){
           this.buttons.push(element);
         }
-        else if (ui_elements[element].type===element_types.splash){
+        else if (ui_elements[element].type===element_types.splash_screen){
           this.splashes.push(element);
         }
       }
     }
-    let playerHealthbar = new Bar(this.game, ui_elements.player_healthbar);
-    playerHealthbar.data.object = this.game.player;
-    this.bars.push(playerHealthbar);
     this.minimap.init();
   }
   update() {
