@@ -16,6 +16,23 @@ class UserInterface extends Updateable {
     document.addEventListener("mouseup", this.mouseup);
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
+    for(let element in ui_elements){
+      if(ui_elements.hasOwnProperty(element)){
+        if(ui_elements[element].type===element_types.bar){
+          ui_elements[element].init();
+          this.bars.push(new Bar(this.game, ui_config[element]));
+        }
+        else if (ui_elements[element].type===element_types.menu){
+          this.menus.push(element);
+        }
+        else if (ui_elements[element].type===element_types.button){
+          this.buttons.push(element);
+        }
+        else if (ui_elements[element].type===element_types.splash){
+          this.splashes.push(element);
+        }
+      }
+    }
     let playerHealthbar = new Bar(this.game, ui_elements.player_healthbar);
     playerHealthbar.data.object = this.game.player;
     this.bars.push(playerHealthbar);
