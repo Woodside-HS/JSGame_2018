@@ -1,6 +1,10 @@
 
 'use strict'
 
+/**A UI element for general use. Put the data in uiconfig.js
+ * 
+ * @type type
+ */
 class Button extends Updateable {
   constructor(game, location, width, height, src0, src1) {
     super();
