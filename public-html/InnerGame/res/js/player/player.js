@@ -16,6 +16,7 @@ class Player extends Updateable {
     this.followCooldown = minion_config.follow_timer;
     this.followTimer = minion_config.follow_timer;
     this.hp = player_config.max_hp;
+    this.energy = player_config.max_energy;
     this.dashCooldownTimer = player_config.dash_cooldown;
     this.image=player_config.image;
     this.size=player_config.size;
@@ -31,6 +32,9 @@ class Player extends Updateable {
   update() {
     this.shotCooldownTimer--;
     this.dashCooldownTimer--;
+    if(this.energy<player_config.max_energy){
+      this.energy+=player_config.energy_recovery_rate;
+    }
     this.cloc = positionToGrid(this.loc);
     this.game.mapManager.reveal();
 
@@ -117,7 +121,8 @@ class Player extends Updateable {
       this.projectiles[i].render();
   }
   dashTo(loc){
-    if(this.dashCooldownTimer>0) return;
+    if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
+    this.energy-=player_config.dash_cost;
     let diff = loc.duplicate();
     diff.subtract(this.loc);
     diff.multiply(player_config.dash_speed);
@@ -147,7 +152,7 @@ class Player extends Updateable {
       case' ':
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
-        game.player.dashTo(game.mouseLocationAbsolute)
+        game.player.dashTo(game.mouseLocationAbsolute);
       break;
     }
   }

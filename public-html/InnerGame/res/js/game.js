@@ -1,33 +1,38 @@
 'use strict'
 
-// wait for the window to load and than call back setup()
 window.addEventListener('load', setup, false);
 
-var game;   // the global game object
+var game;
 
+/**Called once at the beginning of the game. Never called again. 
+ * May be reused as setup for the Innergame alone.
+ * @returns void
+ */
 function setup() {
-  /*
-   initalize global config object
-   top-level objects that needs to be configured
-   when the program starts:: Located in the config folder
-   */
   config.init();
   game = new Game();
   game.init();
-  game.update();// all logic done at game level
   // call draw according to frame rate
   window.setInterval(draw, 1000 / config.frame_rate);
 }
 
-function draw() {   // the animation loop
+/**Called at every frame. Nothing else should be here other than update and render
+ * 
+ * @returns void
+ */
+function draw() {
   game.update();
   game.render();
 }
 
-// Game is the top level object
+/**The top level object. Don't add code to it unless you have to.
+ * 
+ * @type Game
+ */
 class Game extends Updateable {
   constructor() {   // from setup()
     super();
+    this.isPaused = false;
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.player = new Player(this);
@@ -57,13 +62,17 @@ class Game extends Updateable {
   }
   update() {
     //update mouse location
-    if(this.mouseLocation)
-      this.mouseLocationAbsolute=convertToAbs(this.mouseLocation);
+    if (this.mouseLocation)
+      this.mouseLocationAbsolute = convertToAbs(this.mouseLocation);
 
-    this.mapManager.update();
-    this.minionManager.update();
+    //map, minion, and player behavior can be paused
+    if (!this.isPaused) {
+      this.mapManager.update();
+      this.minionManager.update();
+      this.player.update();
+    }
+
     this.userInterface.update();
-    this.player.update();
   }
   render() {
     //black background over everything
