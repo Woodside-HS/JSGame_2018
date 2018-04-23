@@ -89,7 +89,7 @@ class Ranged extends Tower {
         }
         let diff=bullet.loc.duplicate();
         diff.subtract(minion.loc);
-        if(diff.m<2*this.bulletsize){
+        if(diff.m<this.bulletsize+minion.size/2){
           this.onHit(minion);
           this.projectiles.splice(i, 1);
           i--;
