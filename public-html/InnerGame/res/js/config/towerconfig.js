@@ -12,7 +12,7 @@ const tower_types = {
   //ranged
   spitter: {
     name: 'spitter',
-    hp: 10,
+    hp: 15,
     frequency: 10,
     range: config.tile_size * 5, //6 tiles
     damage: 1,
@@ -32,7 +32,7 @@ const tower_types = {
   },
   sniper: {
     name: 'sniper',
-    hp: 10,
+    hp: 15,
     frequency: 20,
     range: config.tile_size * 10, //6 tiles
     damage: 9,
@@ -46,7 +46,7 @@ const tower_types = {
   },
   repeater: {
     name: 'repeater',
-    hp: 100,
+    hp: 30,
     frequency: 20,
     range: config.tile_size * 5, //6 tiles
     damage: 2,
