@@ -7,6 +7,7 @@ var canvas;
 var ctx;
 var worlds = [];
 var currentLevel = -1;
+var gameState;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -33,9 +34,11 @@ function init(){
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
 
+	gameState = "outer";
+
 	makeWorld();
 
-	setTimeout(animate, 1000/FPS);
+	animate();
 }
 
 function makeWorld(){
@@ -48,10 +51,14 @@ function makeWorld(){
 }
 
 function animate(){
-  //requestAnimationFrame(animate);
-  // FIX_ME should be canvas.width, canvas.height
-  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  //run this level's world
-  worlds[currentLevel].run();
+	if(gameState!="station"){
+	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+	  //run this level's world
+		if(gameState=="outer"){
+			worlds[currentLevel].run();
+		} else if(gameState=="inner"){
+			//inner world
+		}
+	}
   setTimeout(animate, 1000/FPS);
 }
