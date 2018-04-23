@@ -12,7 +12,7 @@ var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
 }
 
-var FPS = 60; // Frames per second
+var FPS = 60; // Desired (intended) Frames per second
 
 var System = function() {
 	return worlds[currentLevel];
@@ -49,6 +49,7 @@ function makeWorld(){
 
 function animate(){
   //requestAnimationFrame(animate);
+  // FIX_ME should be canvas.width, canvas.height
   ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
   //run this level's world
   worlds[currentLevel].run();
