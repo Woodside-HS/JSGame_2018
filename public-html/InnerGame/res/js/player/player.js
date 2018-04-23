@@ -20,19 +20,47 @@ class Player extends Updateable {
     this.dashCooldownTimer = player_config.dash_cooldown;
     this.image=player_config.image;
     this.size=player_config.size;
+    this.shotCooldownTimer=player_config.shot_cooldown;
+    this.projectiles=[];
   }
   init() {
     this.image.src=player_config.image_src;
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
+    document.addEventListener("click", this.onclick);
   }
   update() {
+    this.shotCooldownTimer--;
     this.dashCooldownTimer--;
     if(this.energy<player_config.max_energy){
       this.energy+=player_config.energy_recovery_rate;
     }
     this.cloc = positionToGrid(this.loc);
     this.game.mapManager.reveal();
+
+    for(let i=0; i<this.projectiles.length; i++){
+      if(this.projectiles[i].life<=0){
+        this.projectiles.splice(i,1);
+        i--;
+        continue;
+      }
+      this.projectiles[i].life--;
+
+      this.projectiles[i].loc.add(this.projectiles[i].v);
+
+      for(let j=0; j<game.mapManager.towerManager.enemies.length; j++){
+        let enemy=game.mapManager.towerManager.enemies[j]
+        let diff=this.projectiles[i].loc.duplicate();
+        diff.subtract(enemy.loc);
+        if(diff.m<player_config.bullet_size+enemy.size/2){
+          enemy.hp-=player_config.bullet_damage;
+          this.projectiles.splice(i, 1);
+          i--;
+          break;
+        }
+      }
+    }
+
     this.v.add(this.a);
     //set max velocity
     if (this.v.m > player_config.max_speed) {
@@ -89,6 +117,8 @@ class Player extends Updateable {
     this.game.context.rotate(this.v.th+Math.PI/2);
     this.game.context.drawImage(this.image,-this.size/2,-this.size/2,this.size,this.size)
     this.game.context.restore();
+    for(let i=0; i<this.projectiles.length; i++)
+      this.projectiles[i].render();
   }
   dashTo(loc){
     if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
@@ -141,6 +171,37 @@ class Player extends Updateable {
       case'D':
         game.player.a.x = 0;//stop going right
         break;
+    }
+  }
+  onclick(e){
+    if (game.player.shotCooldownTimer <= 0) {
+      game.player.shotCooldownTimer = player_config.shot_cooldown;
+      for(let i=0; i<player_config.spread_count; i++){
+        let diff = game.mouseLocationAbsolute.duplicate();
+        diff.subtract(game.player.loc);
+        diff.m = player_config.bullet_speed;
+        diff.th += (Math.random()-.5)*player_config.bullet_spread;
+        diff.upComps();
+        let projectile = {
+          game: game,
+          radius: player_config.bullet_size,
+          loc: game.player.loc.duplicate(),
+          v: diff,
+          life: player_config.bullet_distance/diff.m,
+          render: function() {
+            this.game.context.fillStyle = player_config.bullet_color;
+            this.game.context.beginPath();
+            this.game.context.arc(
+                    this.loc.x,
+                    this.loc.y,
+                    this.radius,
+                    0,
+                    2 * Math.PI);
+            this.game.context.fill();
+          }
+        }
+        game.player.projectiles.push(projectile);
+      }
     }
   }
 }

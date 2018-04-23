@@ -10,7 +10,16 @@ const player_config = {
   max_hp: 100,
   max_energy: 50,
   dash_cooldown: 20, //in frames
-  energy_recovery_rate: 0.05, 
+  energy_recovery_rate: 0.05,
   image_src: 'res/sprites/tractor.png',
-  image: new Image() //comes back later, don't touch it unless you have mastered black magic
+  image: new Image(), //comes back later, don't touch it unless you have mastered black magic
+
+  shot_cooldown: 5, //in frames
+  bullet_size: 3, //in px
+  spread_count: 3,
+  bullet_spread: Math.PI/6, //in radians
+  bullet_color: 'rgba(0,200,200,1)',
+  bullet_speed: 10, //in px/frame
+  bullet_distance: 6*config.tile_size, //in px
+  bullet_damage: 2
 };

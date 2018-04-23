@@ -6,6 +6,7 @@ class TowerManager extends Updateable {
     this.game = game;
     this.towers = [];
     this.randoms = [];
+    this.enemies = [];
   }
   init() {
     this.initializeTowerConfig();
@@ -34,9 +35,11 @@ class TowerManager extends Updateable {
     }
   }
   update() {
+    this.enemies=[];
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
         if (this.towers[i][j]) {
+          this.enemies.push(this.towers[i][j]);
           this.towers[i][j].update();
           if (this.towers[i][j].hp <= 0) {
             this.towers[i][j] = null;
