@@ -19,6 +19,10 @@ class Asteroid extends Mover {
 		if(this.radius <= 5) {
 			this.kill();
 		}
+
+		this.vel.add(this.acc);
+    this.loc.add(this.vel.clone().scalarDiv(FPS));
+    this.acc.scalarMult(0);
 	}
 
 	render() {

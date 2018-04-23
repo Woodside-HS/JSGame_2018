@@ -58,7 +58,13 @@ class MinionManager extends Updateable {
     }
   }
   sendMinions(minions, gridloc) {
-    let path = new Path(new FastVector(0, 0), gridloc);
+    let path;
+    if(minions.length==0) return;
+    if (minions[0].path) {//Optimization to prevent creation of new Path object
+      path = minions[0].path;
+    }
+    path = new Path();
+    path.target = new FastVector(gridloc.x, gridloc.y);
     path.dijkstra();
     for (let i = 0; i < minions.length; i++) {
       minions[i].path = path;
