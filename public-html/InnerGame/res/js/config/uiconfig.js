@@ -10,9 +10,15 @@ const cursor_modes = {
   highlighting: 'highlighting',
   moveTo: 'moveTo'
 };
-
+//haha what's an enum
+const element_types = {
+  bar: "bar",
+  splash_screen: "splash",
+  button: "button"
+};
 const ui_elements = {
   player_healthbar: {
+    type: element_types.bar,
     positive_color: "#31d628",
     negative_color: "red",
     max_value: player_config.max_hp,
@@ -26,5 +32,12 @@ const ui_elements = {
     ],
     border_stroke: 2,
     border_color: "#ffffff"
+  },
+  death_screen: {
+    type: element_types.splash_screen,
+    src: "../../sprites/grass.png",
+    update: function(){
+      
+    }
   }
 };

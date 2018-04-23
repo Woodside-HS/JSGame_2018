@@ -5,7 +5,8 @@ class SplashScreen extends Updateable {
     this.isVisible = false;
   }
   init() {
-
+    this.image = new Image(config.canvas_width, config.canvas_height);
+    this.image.src = this.src;
   }
   render() {
     if (this.isVisible) {
