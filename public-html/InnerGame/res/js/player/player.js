@@ -38,19 +38,23 @@ class Player extends Updateable {
     this.cloc = positionToGrid(this.loc);
     this.game.mapManager.reveal();
 
+
+     //update projectiles
     for(let i=0; i<this.projectiles.length; i++){
-      if(this.projectiles[i].life<=0){
+      let bullet=this.projectiles[i];
+      if(bullet.life<=0){
         this.projectiles.splice(i,1);
         i--;
         continue;
       }
-      this.projectiles[i].life--;
+      bullet.life--;
 
-      this.projectiles[i].loc.add(this.projectiles[i].v);
+
+      bullet.loc.add(bullet.v);
 
       for(let j=0; j<game.mapManager.towerManager.enemies.length; j++){
         let enemy=game.mapManager.towerManager.enemies[j]
-        let diff=this.projectiles[i].loc.duplicate();
+        let diff=bullet.loc.duplicate();
         diff.subtract(enemy.loc);
         if(diff.m<player_config.bullet_size+enemy.size/2){
           enemy.hp-=player_config.bullet_damage;
