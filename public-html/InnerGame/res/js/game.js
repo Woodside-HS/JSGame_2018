@@ -33,11 +33,14 @@ class Game extends Updateable {
   constructor() {   // from setup()
     super();
     this.isPaused = false;
+    
+    //managers and such
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.player = new Player(this);
     this.userInterface = new UserInterface(this);
-    //  create the canvas
+    
+    //  find the canvas
     this.canvas = document.getElementById(config.canvas_name);
     if (!this.canvas)
       throw "No valid canvas found!";
