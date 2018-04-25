@@ -7,6 +7,7 @@ var canvas;
 var ctx;
 var worlds = [];
 var currentLevel = -1;
+var currentGame = 'outer';
 var gameState;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
@@ -58,6 +59,8 @@ function animate(){
 			worlds[currentLevel].run();
 		} else if(gameState=="inner"){
 			//inner world
+			game.update();
+			game.render();
 		}
 	}
   setTimeout(animate, 1000/FPS);

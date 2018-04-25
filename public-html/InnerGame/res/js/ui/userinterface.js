@@ -34,7 +34,7 @@ class UserInterface extends Updateable {
         }
       }
     }
-    
+
     this.minimap.init();
   }
   update() {
@@ -81,8 +81,6 @@ class UserInterface extends Updateable {
     this.game.context.translate(config.canvas_width / 2, config.canvas_height / 2);
     this.game.context.scale(config.scaling_factor_x, config.scaling_factor_y);
     this.game.context.translate(-this.game.player.loc.x, -this.game.player.loc.y);
-    if (game.userInterface.cursorMode == cursor_modes.highlighting)
-      this.dragging();
     this.game.context.restore();
 
   }
@@ -112,20 +110,8 @@ class UserInterface extends Updateable {
 
     game.userInterface.mouseHeld = false;
   }
-  dragging() {
-    game.context.fillStyle = ui_config.dragging_color;
-    let x1 = game.userInterface.hlghtstartloc.x;
-    let y1 = game.userInterface.hlghtstartloc.y;
-    let w = game.mouseLocationAbsolute.x - game.userInterface.hlghtstartloc.x;
-    let h = game.mouseLocationAbsolute.y - game.userInterface.hlghtstartloc.y;
-    game.context.fillRect(x1, y1, w, h);
-  }
   mousedown() {
     game.userInterface.mouseHeld = true;
-    if (!game.userInterface.cursorMode) {
-      game.userInterface.hlghtstartloc = game.mouseLocationAbsolute.duplicate();
-      game.userInterface.cursorMode = cursor_modes.highlighting;
-    }
   }
   mouseup() {
   }

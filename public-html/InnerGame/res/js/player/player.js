@@ -8,10 +8,10 @@ class Player extends Updateable {
   constructor(game) {
     super();
     this.game = game;
-    this.loc = new Vector2D(0, 0);//pixel-relative position to map origin
+    this.loc = new InnerVector2D(0, 0);//pixel-relative position to map origin
     this.cloc = positionToGrid(this.loc); //cloc = Cellular LOCation
-    this.v = new Vector2D(0, 0);//velocity, pixels/frame
-    this.a = new Vector2D(0, 0);
+    this.v = new InnerVector2D(0, 0);//velocity, pixels/frame
+    this.a = new InnerVector2D(0, 0);
     this.lastTile = this.cloc //to check when tile changes
     this.followCooldown = minion_config.follow_timer;
     this.followTimer = minion_config.follow_timer;
@@ -27,7 +27,9 @@ class Player extends Updateable {
     this.image.src=player_config.image_src;
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
-    document.addEventListener("click", this.onclick);
+    document.addEventListener("click", this.shoot);
+    document.addEventListener("mousedown", this.mousedown);
+    document.addEventListener("mouseup", this.mouseup);
   }
   update() {
     this.shotCooldownTimer--;
@@ -38,15 +40,29 @@ class Player extends Updateable {
     this.cloc = positionToGrid(this.loc);
     this.game.mapManager.reveal();
 
+    if(player_config.auto_fire&&this.mouseHeld){
+      this.shoot();
+    }
+
+     //update projectiles
     for(let i=0; i<this.projectiles.length; i++){
-      if(this.projectiles[i].life<=0){
+      let bullet = this.projectiles[i];
+      if(bullet.life<=0){
         this.projectiles.splice(i,1);
         i--;
         continue;
       }
-      this.projectiles[i].life--;
+      bullet.life--;
 
-      this.projectiles[i].loc.add(this.projectiles[i].v);
+      if(player_config.bullet_acceleration){
+        bullet.v.m*=player_config.bullet_acceleration;
+        bullet.v.upComps();
+      }
+      if(player_config.bullet_distance/player_config.bullet_speed-bullet.life>player_config.accuracy_time){
+        bullet.v.th+=(Math.random()-.5)*player_config.bullet_wander;
+        bullet.v.upComps();
+      }
+      bullet.loc.add(bullet.v);
 
       for(let j=0; j<game.mapManager.towerManager.enemies.length; j++){
         let enemy=game.mapManager.towerManager.enemies[j]
@@ -173,7 +189,13 @@ class Player extends Updateable {
         break;
     }
   }
-  onclick(e){
+  mousedown(){
+    game.player.mouseHeld=true;
+  }
+  mouseup(){
+    game.player.mouseHeld=false;
+  }
+  shoot(e){
     if (game.player.shotCooldownTimer <= 0) {
       game.player.shotCooldownTimer = player_config.shot_cooldown;
       for(let i=0; i<player_config.spread_count; i++){

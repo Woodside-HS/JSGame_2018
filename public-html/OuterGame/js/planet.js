@@ -3,6 +3,7 @@ class Planet{
   constructor(radius, location){
     this.radius = radius;
     this.loc = location;
+    this.game = new Game();
   }
 
   render () {

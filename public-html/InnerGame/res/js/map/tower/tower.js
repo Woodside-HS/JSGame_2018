@@ -6,7 +6,7 @@ class Tower extends Updateable {
     super();
     this.game = game;
     this.cloc = location;
-    this.loc = new Vector2D(
+    this.loc = new InnerVector2D(
             (this.cloc.x + .5) * config.tile_size,
             (this.cloc.y + .5) * config.tile_size);
     this.type = tower_types.nulltype;

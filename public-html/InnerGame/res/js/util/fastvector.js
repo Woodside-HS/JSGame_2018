@@ -1,6 +1,6 @@
 'use strict'
 
-/**A faster version of Vector2D with fewer features. Never do a square root again!
+/**A faster version of InnerVector2D with fewer features. Never do a square root again!
  * 
  * 
  */
@@ -27,7 +27,7 @@ class FastVector {
   duplicate() {
     return new FastVector(this.x, this.y);
   }
-  toVector2D() {
-    return new Vector2D(this.x, this.y);
+  toInnerVector2D() {
+    return new InnerVector2D(this.x, this.y);
   }
 }
