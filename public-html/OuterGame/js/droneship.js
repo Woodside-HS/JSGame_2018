@@ -114,6 +114,24 @@ class DroneShip extends Mover {
 		// Update the location of this droneship after adjusting
 		// its velocity from per second to per frame.
 		this.loc.add(this.vel.clone().scalarDiv(FPS));
+
+		//vvv issue 98, wrap around edge of world
+		if(Math.abs(this.loc.x)>(System().width*5/4)){
+			let sign = this.loc.x/Math.abs(this.loc.x);
+			if(sign<0){ //if sign is negative, asteroid is at top edge of world, go to bottom
+				this.loc.x = this.loc.x + (System().width*5/2);
+			} else{ //sign is positive, at bottom edge, show up at top
+				this.loc.x = this.loc.x - (System().width*5/2);
+			}
+		}
+		if(Math.abs(this.loc.y)>(System().height*5/4)){
+			let sign = this.loc.y/Math.abs(this.loc.y);
+			if(sign<0){ //left edge, show up on right
+				this.loc.y = this.loc.y + (System().height*5/2);
+			} else{ //right edge, show left
+				this.loc.y = this.loc.y - (System().height*5/2);
+			}
+		}
 	}
 
 	fireBullet() {
