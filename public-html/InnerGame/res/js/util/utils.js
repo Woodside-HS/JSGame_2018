@@ -9,7 +9,7 @@ function average(array) {
 }
 function convertToAbs(v){
   let abs = v.duplicate();
-  abs.add(new Vector2D(-config.canvas_width / 2, -config.canvas_height / 2));
+  abs.add(new InnerVector2D(-config.canvas_width / 2, -config.canvas_height / 2));
   abs.x *= 1 / config.scaling_factor_x;
   abs.y *= 1 / config.scaling_factor_y;
   abs.add(game.player.loc);
@@ -19,13 +19,13 @@ function pyth(x, y) {
   return Math.sqrt(x * x + y * y);
 }
 function positionToGrid(vector) {
-  return new Vector2D(
+  return new InnerVector2D(
           Math.floor(vector.x / config.tile_size),
           Math.floor(vector.y / config.tile_size)
           );
 }
 function gridToPositon(vector) {
-  return  new Vector2D(
+  return  new InnerVector2D(
           vector.x * config.tile_size,
           vector.y * config.tile_size
           );

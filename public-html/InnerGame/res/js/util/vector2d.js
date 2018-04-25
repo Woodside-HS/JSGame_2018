@@ -1,6 +1,6 @@
 'use strict'
 
-class Vector2D {
+class InnerVector2D {
   constructor(x, y) {
     this.x = x;
     this.y = y;
@@ -44,7 +44,7 @@ class Vector2D {
     this.upComps();
   }
   duplicate() {
-    return new Vector2D(this.x, this.y);
+    return new InnerVector2D(this.x, this.y);
   }
   toFastVector() {
     return new FastVector(this.x, this.y);

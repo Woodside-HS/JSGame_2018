@@ -5,7 +5,7 @@ class Tile extends Updateable {
     super();
     this.game = game;
     this.cloc = location; //cloc = Cellular LOCatIOn
-    this.loc = new Vector2D(//pixel-relative position of top left corner to map origin
+    this.loc = new InnerVector2D(//pixel-relative position of top left corner to map origin
             this.cloc.x * config.tile_size,
             this.cloc.y * config.tile_size);
     // nulltype is not a real tile (nulltype overridden before init)
@@ -13,12 +13,13 @@ class Tile extends Updateable {
     this.tileType = tile_types.nulltype;
 
     this.seen = false;
-    this.normalVector = new Vector2D(0,0);
-    this.quadNormal = new Vector2D(0,0);
+    this.normalVector = new InnerVector2D(0,0);
+    this.quadNormal = new InnerVector2D(0,0);
     this.sourceloc = new FastVector(0, 0);
   }
   init() {
     this.image = this.tileType.image;
+    this.image.src = this.tileType.image_src;
     this.isOccupied = this.tileType.is_occupied;
     if (this.tileType == tile_types.rock) {
       let src = this.getImage();
@@ -26,7 +27,6 @@ class Tile extends Updateable {
       this.sourceloc.y = rockSprites['frames'][src]['frame']['y'];
       this.sw = rockSprites['frames'][src]['frame']['w'];
       this.sh = rockSprites['frames'][src]['frame']['h'];
-
     }
   }
   render() {
