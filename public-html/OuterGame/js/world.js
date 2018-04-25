@@ -9,8 +9,8 @@
   this.stations = []; //issue 54
 
     //area is greater than that of canvas
-    this.height = 2400;
-    this.width = 2400;
+    this.height = 1000;
+    this.width = 1000;
     this.frameCount = 0;
     this.realFPS = 0;
 

@@ -73,7 +73,7 @@ class Rocketship extends Mover {
 				this.burstDelay = 0;
 			}
 		}
-		
+
 		this.torpedoTimer--;
 		if(this.torpedoPrimed) {
 			this.attemptTorpedoLaunch();
@@ -87,6 +87,7 @@ class Rocketship extends Mover {
 
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
+
 		//only recalculate direction if velocity is greater than 0
 		if(this.vel.magnitude() > 0.00001){ // issue 3
 			this.dir = this.vel.theta();
@@ -95,6 +96,18 @@ class Rocketship extends Mover {
 
 		this.loc.add(this.vel.clone().scalarDiv(FPS));
 		this.acc.scalarMult(0);
+
+		//vvv issue 98, stop rocketship at edge of world
+		var edge = false;
+		if(Math.abs(this.loc.x)>=(System().width)){
+			edge = true;
+			this.loc.x -=  this.vel.clone().scalarDiv(FPS).x;
+
+		}
+		if(Math.abs(this.loc.y)>=(System().height)){
+			edge = true;
+			this.loc.y -= this.vel.clone().scalarDiv(FPS).y;
+		}
 	}
 
 	applyForce(f){

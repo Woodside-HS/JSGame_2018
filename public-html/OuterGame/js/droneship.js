@@ -118,7 +118,7 @@ class DroneShip extends Mover {
 		//vvv issue 98, wrap around edge of world
 		if(Math.abs(this.loc.x)>(System().width*5/4)){
 			let sign = this.loc.x/Math.abs(this.loc.x);
-			if(sign<0){ //if sign is negative, asteroid is at top edge of world, go to bottom
+			if(sign<0){ //if sign is negative, droneship is at top edge of world, go to bottom
 				this.loc.x = this.loc.x + (System().width*5/2);
 			} else{ //sign is positive, at bottom edge, show up at top
 				this.loc.x = this.loc.x - (System().width*5/2);
