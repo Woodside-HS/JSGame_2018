@@ -7,6 +7,7 @@ var canvas;
 var ctx;
 var worlds = [];
 var currentLevel = -1;
+var currentGame = 'outer';
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -50,7 +51,14 @@ function makeWorld(){
 function animate(){
   //requestAnimationFrame(animate);
   ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  //run this level's world
-  worlds[currentLevel].run();
-  setTimeout(animate, 1000/FPS);
+  //run this level's world if in outer game
+	if(currentGame==='outer'){
+  	worlds[currentLevel].run();
+		setTimeout(animate, 1000/FPS);
+	}
+	else{
+		currentGame.update();
+		currentGame.render();
+		setTimeout(animate, 1000/config.frame_rate);
+	}
 }

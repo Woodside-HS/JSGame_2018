@@ -46,6 +46,13 @@
 			case "t":
 				this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 			break;
+      case"x": //planet landing
+        if(this.checkHitPlanet()){
+          currentGame=this.checkHitPlanet().game;
+          game = currentGame;
+          currentGame.init();
+        }
+      break;
 		}
 	});
 
@@ -184,14 +191,17 @@
 	}
   }
 
-  checkHitPlanet(){ //issue 9
+  checkHitPlanet(){ //issue 9 //returns planet if there is one
+    let out=false;
     for(let i=0;i<this.planets.length;i++){
       if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
+        out=this.planets[i];
       }
     }
+    return out;
   }
 
 	drawWorldEdge(){ //issue 45

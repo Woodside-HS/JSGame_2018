@@ -8,10 +8,10 @@ class Player extends Updateable {
   constructor(game) {
     super();
     this.game = game;
-    this.loc = new Vector2D(0, 0);//pixel-relative position to map origin
+    this.loc = new InnerVector2D(0, 0);//pixel-relative position to map origin
     this.cloc = positionToGrid(this.loc); //cloc = Cellular LOCation
-    this.v = new Vector2D(0, 0);//velocity, pixels/frame
-    this.a = new Vector2D(0, 0);
+    this.v = new InnerVector2D(0, 0);//velocity, pixels/frame
+    this.a = new InnerVector2D(0, 0);
     this.lastTile = this.cloc //to check when tile changes
     this.followCooldown = minion_config.follow_timer;
     this.followTimer = minion_config.follow_timer;

@@ -1,8 +1,8 @@
 const player_config = {
   size: 40, //px
-  max_speed: 7, //px/frame
+  max_speed: 9, //px/frame
   minimap_color: "#FF0000",
-  movement_loss: 0.9, //amount of friction on movement, px/f^2
+  movement_loss: 0.85, //amount of friction on movement, px/f^2
   color: 'rgba(200,75,150,1)', //Any color string
   dash_speed:.1, //fraction of dash distance per frame
   dash_time:8, //dash time, in frames
@@ -27,19 +27,19 @@ const player_config = {
   // bullet_wander: 0,
   // accuracy_time: 0 //in frames
 
-  //flamethrower
-  shot_cooldown: 1, //in frames
-  bullet_size: 3, //in px
-  spread_count: 30,
-  bullet_spread: Math.PI/30, //in radians
-  bullet_color: 'yellow',
-  bullet_speed: 10, //in px/frame
-  bullet_distance: 15*config.tile_size, //in px
-  auto_fire: true,
-  bullet_damage: .02,
-  bullet_wander: Math.PI/9,
-  accuracy_time: 15, //in frames
-  bullet_acceleration: .98
+  // //flamethrower
+  // shot_cooldown: 1, //in frames
+  // bullet_size: 3, //in px
+  // spread_count: 30,
+  // bullet_spread: Math.PI/30, //in radians
+  // bullet_color: 'yellow',
+  // bullet_speed: 10, //in px/frame
+  // bullet_distance: 15*config.tile_size, //in px
+  // auto_fire: true,
+  // bullet_damage: .02,
+  // bullet_wander: Math.PI/9,
+  // accuracy_time: 15, //in frames
+  // bullet_acceleration: .985
 
   // // machine gun
   // shot_cooldown: 2, //in frames
@@ -54,18 +54,18 @@ const player_config = {
   // bullet_wander: 0,
   // accuracy_time: 1 //in frames
 
-  // //bomb
-  // shot_cooldown: 20, //in frames
-  // bullet_size: 3, //in px
-  // spread_count: 20,
-  // bullet_spread: 0, //in radians
-  // bullet_color: 'rgba(200,200,150,1)',
-  // bullet_speed: 10, //in px/frame
-  // bullet_distance: 20*config.tile_size, //in px
-  // auto_fire: true,
-  // bullet_damage: 1,
-  // bullet_wander: Math.PI*3/4,
-  // accuracy_time: 20, //in frames
+  //bomb
+  shot_cooldown: 20, //in frames
+  bullet_size: 3, //in px
+  spread_count: 20,
+  bullet_spread: 0, //in radians
+  bullet_color: 'rgba(200,200,150,1)',
+  bullet_speed: 10, //in px/frame
+  bullet_distance: 20*config.tile_size, //in px
+  auto_fire: true,
+  bullet_damage: 1,
+  bullet_wander: Math.PI*3/4,
+  accuracy_time: 20, //in frames
 
   // //sonic
   // shot_cooldown: 2, //in frames
