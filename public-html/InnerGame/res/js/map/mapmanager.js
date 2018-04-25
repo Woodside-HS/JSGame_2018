@@ -23,7 +23,7 @@ class MapManager extends Updateable {
     for (let i = 0; i < config.map_x_size; i++) {
       this.map.push([]);
       for (let j = 0; j < config.map_y_size; j++) {
-        this.map[i].push(new Tile(this.game, new Vector2D(i, j)));
+        this.map[i].push(new Tile(this.game, new InnerVector2D(i, j)));
       }
     }
     //Initialize tiles
@@ -76,10 +76,10 @@ class MapManager extends Updateable {
                 currentTile = {tileType:tile_types.rock} //pretend borders are rocks
               } else currentTile = this.map[x][y];
               if (currentTile.tileType == tile_types.rock) {
-                tile.normalVector.add(new Vector2D(-i, -j));
+                tile.normalVector.add(new InnerVector2D(-i, -j));
               }
               if (currentTile.tileType == tile_types.rock && (i == 0 || j == 0)) {
-                tile.quadNormal.add(new Vector2D(-i, -j));
+                tile.quadNormal.add(new InnerVector2D(-i, -j));
               }
             }
           }

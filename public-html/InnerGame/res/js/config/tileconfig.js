@@ -14,19 +14,19 @@ const tile_types = {
   grass: {
     minimap_color: new Color("#5ca33c"), //Color object
     is_occupied: false,
-    image_src: 'res/sprites/grass.png',
+    image_src: '../InnerGame/res/sprites/grass.png',
     image: new Image()
   },
   rock: {
     minimap_color: new Color("#696e75"), //Color object
     is_occupied: true,
-    image_src: 'res/sprites/rocks2c.png',
+    image_src: '../InnerGame/res/sprites/rocks2c.png',
     image: new Image()
   },
   water: {
     minimap_color: new Color("#5ae1fc"), //Color object
     is_occupied: true,
-    image_src: 'res/sprites/water.png',
+    image_src: '../InnerGame/res/sprites/water.png',
     image: new Image()
   }
 };

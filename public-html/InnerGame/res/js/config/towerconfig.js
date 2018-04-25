@@ -14,10 +14,10 @@ const tower_types = {
     name: 'spitter',
     hp: 15,
     frequency: 10,
-    range: config.tile_size * 5, //6 tiles
+    range: config.tile_size * 7, // in tiles
     damage: 1,
     cooldown: config.frame_rate * .75, //.75 sec
-    bullet_speed: 4,
+    bullet_speed: 2,
     bullet_size: 6, //radius, in px
     bullet_color: 'orange',
     splash_range: config.tile_size * 1,
@@ -34,10 +34,10 @@ const tower_types = {
     name: 'sniper',
     hp: 15,
     frequency: 20,
-    range: config.tile_size * 10, //6 tiles
+    range: config.tile_size * 11, //6 tiles
     damage: 9,
     cooldown: config.frame_rate * 1, //1 sec
-    bullet_speed: 14,
+    bullet_speed: 7,
     bullet_size: 4, //radius, in px
     bullet_color: 'orange',
     onHit: function (target) {
@@ -48,10 +48,10 @@ const tower_types = {
     name: 'repeater',
     hp: 30,
     frequency: 20,
-    range: config.tile_size * 5, //6 tiles
+    range: config.tile_size * 9, //6 tiles
     damage: 2,
     cooldown: config.frame_rate * .25, //1 sec
-    bullet_speed: 8,
+    bullet_speed: 4,
     bullet_size: 3, //radius, in px
     bullet_color: 'orange',
     onHit: function (target) {

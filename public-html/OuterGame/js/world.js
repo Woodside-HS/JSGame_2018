@@ -54,6 +54,13 @@
 			case "t":
 				this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 			break;
+      case"x": //planet landing
+        if(this.checkHitPlanet()){
+          game=this.checkHitPlanet().game;
+          gameState='inner';
+          game.init();
+        }
+        break;
       case "l": //issue 54
         for(let i=0;i<this.stations.length;i++){
           if(this.stations[i].canLandOn){
@@ -68,7 +75,7 @@
             SpaceStation.infoDiv.removeChildren();
           }
         }
-      break;
+        break;
 		}
 	});
 
@@ -219,15 +226,19 @@
   }
 
   checkHitPlanet(){ //issue 9
+    //returns planet if there is one
     //if ship is over a planet, text will say player can press a key to land on planet
+    let out=false;
     for(let i=0;i<this.planets.length;i++){
       if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
         //check if ship is close to any of the planets
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
+        out=this.planets[i];
       }
     }
+    return out;
   }
 
   checkHitStation(){ //issue 54,
