@@ -19,7 +19,7 @@ const element_types = {
 const ui_elements = {
   player_healthbar: {
     type: element_types.bar,
-    init: function(){
+    init: function () {
       this.object = game.player;
     },
     positive_color: "#31d628",
@@ -37,7 +37,7 @@ const ui_elements = {
   },
   energy_meter: {
     type: element_types.bar,
-    init: function(){
+    init: function () {
       this.object = game.player;
     },
     positive_color: "yellow",
@@ -55,9 +55,13 @@ const ui_elements = {
   },
   death_screen: {
     type: element_types.splash_screen,
-    src: "../../sprites/grass.png",//temp for testing
-    update: function(){
-      
+    src: "res/sprites/splash/youdied.jpg", //temp for testing
+    isVisible: false,
+    update: function () {
+      if (game.player.hp <= 0) {
+        this.isVisible = true;
+        game.isPaused = true;
+      }
     }
   }
 };

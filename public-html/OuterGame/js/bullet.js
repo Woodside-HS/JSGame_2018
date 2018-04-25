@@ -48,16 +48,24 @@ class Bullet extends Mover {
 	}
 }
 
+// BulletImpactVisual
+// A colored circle begins with a radius of 0 and
+// expands until it reaches its maximum radius
+// at which point it is destroyed.
 class BulletImpactVisual extends Mover {
 	constructor(loc, color) {
 		super(loc);
 		this.color = color || 'white';
 		this.maxRadius = 10;
 		this.radius = 0;
-		this.duration = 0.175;
+		this.duration = 0.175;	// default duraton .175 seconds
 		this.timer = this.duration*FPS;
 	}
 
+	// update() --
+	// Expand the circle by an increment or die
+	// when time is up and that would be when the
+	// max radius is reached.
 	update() {
 		this.timer--;
 		this.radius += this.maxRadius / (this.duration*FPS);

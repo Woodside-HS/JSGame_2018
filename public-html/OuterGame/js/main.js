@@ -8,12 +8,13 @@ var ctx;
 var worlds = [];
 var currentLevel = -1;
 var currentGame = 'outer';
+var gameState;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
 }
 
-var FPS = 60; // Frames per second
+var FPS = 60; // Desired (intended) Frames per second
 
 var System = function() {
 	return worlds[currentLevel];
@@ -34,9 +35,11 @@ function init(){
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
 
+	gameState = "outer";
+
 	makeWorld();
 
-	setTimeout(animate, 1000/FPS);
+	animate();
 }
 
 function makeWorld(){
@@ -49,16 +52,16 @@ function makeWorld(){
 }
 
 function animate(){
-  //requestAnimationFrame(animate);
-  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  //run this level's world if in outer game
-	if(currentGame==='outer'){
-  	worlds[currentLevel].run();
-		setTimeout(animate, 1000/FPS);
+	if(gameState!="station"){
+	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+	  //run this level's world
+		if(gameState=="outer"){
+			worlds[currentLevel].run();
+		} else if(gameState=="inner"){
+			//inner world
+			game.update();
+			game.render();
+		}
 	}
-	else{
-		currentGame.update();
-		currentGame.render();
-		setTimeout(animate, 1000/config.frame_rate);
-	}
+  setTimeout(animate, 1000/FPS);
 }

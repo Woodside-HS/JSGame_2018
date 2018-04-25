@@ -33,6 +33,8 @@ class Game extends Updateable {
   constructor() {   // from setup()
     super();
     this.isPaused = false;
+
+    //managers and such
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.player = new Player(this);
