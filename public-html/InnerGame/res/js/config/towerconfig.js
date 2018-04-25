@@ -14,7 +14,7 @@ const tower_types = {
     name: 'spitter',
     hp: 15,
     frequency: 10,
-    range: config.tile_size * 5, //6 tiles
+    range: config.tile_size * 8, // in tiles
     damage: 1,
     cooldown: config.frame_rate * .75, //.75 sec
     bullet_speed: 4,
@@ -34,7 +34,7 @@ const tower_types = {
     name: 'sniper',
     hp: 15,
     frequency: 20,
-    range: config.tile_size * 10, //6 tiles
+    range: config.tile_size * 12, //6 tiles
     damage: 9,
     cooldown: config.frame_rate * 1, //1 sec
     bullet_speed: 14,
@@ -48,7 +48,7 @@ const tower_types = {
     name: 'repeater',
     hp: 30,
     frequency: 20,
-    range: config.tile_size * 5, //6 tiles
+    range: config.tile_size * 10, //6 tiles
     damage: 2,
     cooldown: config.frame_rate * .25, //1 sec
     bullet_speed: 8,
