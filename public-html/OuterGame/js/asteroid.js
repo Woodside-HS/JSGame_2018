@@ -6,7 +6,11 @@ class Asteroid extends Mover {
 		let stats = new StatBlock(1000, {killable: false}); // Health based on radius
 		stats.assign(this);
 
-		this.deathEvents.push(() => {
+		// All functions in the deathEvents array will execute
+		// from Mover.kill()
+		this.deathEvents.push(
+			// add a visual to run when this asteroid dies
+			() => {
 			let collisionVisual = new BulletImpactVisual(this.loc.clone(), 'gray');
 			collisionVisual.maxRadius = 8;
 			System().addVisual(collisionVisual);
@@ -14,10 +18,11 @@ class Asteroid extends Mover {
 	}
 
 	update() {
+		// reduce the radius of this asteroid when it takes damage
 		this.radius -= this.stats.damageTaken / 3;
 		this.stats.damageTaken = 0;
 		if(this.radius <= 5) {
-			this.kill();
+			this.kill();	// Mover.kill()
 		}
 
 		this.vel.add(this.acc);
