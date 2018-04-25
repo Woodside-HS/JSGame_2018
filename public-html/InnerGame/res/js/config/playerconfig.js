@@ -21,6 +21,5 @@ const player_config = {
   bullet_color: 'rgba(0,200,200,1)',
   bullet_speed: 10, //in px/frame
   bullet_distance: 6*config.tile_size, //in px
-  bullet_damage: 2,
-  bullet_wander: Math.PI/24
+  bullet_damage: 2
 };
