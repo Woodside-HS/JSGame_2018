@@ -51,7 +51,7 @@ SpaceStation.html = '\
   <h1 style="font-size:40px;">Space Station</h1>\
   <img id="exitButton" src="shopIMGS/exit.png">\
   <div id="items">\
-    <h2>Items</h2>\
+    <h3>Items</h3>\
     <div id="catAdiv" class="catDiv">\
       <div id="Cookie" class="tile">\
         <img class="imgTile" src="shopIMGS/cookie.png">\
@@ -94,7 +94,7 @@ SpaceStation.html = '\
     <input class="radio" type="radio" name="category" id="catC" onchange="SpaceStation.changeCategory()">C\
   </div>\
   <div id="info">\
-    <h2>Info</h2>\
+    <h3>Info</h3>\
   </div>\
 ';
 
