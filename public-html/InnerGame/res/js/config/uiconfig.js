@@ -55,11 +55,12 @@ const ui_elements = {
   },
   death_screen: {
     type: element_types.splash_screen,
-    src: "res/sprites/grass.png", //temp for testing
+    src: "res/sprites/splash/youdied.jpg", //temp for testing
     isVisible: false,
     update: function () {
       if (game.player.hp <= 0) {
         this.isVisible = true;
+        game.isPaused = true;
       }
     }
   }
