@@ -1,0 +1,116 @@
+#spacestation{
+  display: none;
+  width: 950px;
+  height: 620px;
+  background-color: black;
+  position:absolute;
+  top: 50px;
+  left: 50px;
+  z-index: 10;
+  border-radius: 30px;
+  background-image: url("../shopIMGS/background.png");
+}
+
+#items{
+  float: left;
+  font-size: 20px;
+  margin-left: 30px;
+  width: 420px;
+  height: 500px;
+  background-color: white;
+  border-radius: 15%;
+  background-image: url("../shopIMGS/shopBackground.png");
+}
+
+#info{
+  float: right;
+  font-size: 20px;
+  margin-right: 30px;
+  width: 420px;
+  height: 500px;
+  background-color: white;
+  border-radius: 15%;
+  background-image: url("../shopIMGS/infoBackground.png");
+}
+
+#exitButton{
+  width:180px;
+  height:45px;
+  border: 2px black solid;
+  border-radius: 15px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: lightgreen;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tile{
+  width:100px;
+  height: 100px;
+  float: left;
+  margin: 0px 5px 15px 20px;
+  padding: 5px;
+  background-color: lightblue;
+  border-radius: 25%;
+  cursor: pointer;
+}
+
+.tile:hover{
+  background-color: blue;
+}
+
+.imgTile{
+  width: 100%;
+  height: 100%;
+  border-radius: 25%;
+}
+
+#infoImg{
+  width: 200px;
+  height: 200px;
+}
+
+#infoName{
+  font-size: 50px;
+  margin-top: 10px;
+  background-color: white;
+  margin-bottom: 25px;
+}
+
+#infoButton{
+  background-color: lightgreen;
+  border-radius: 15%;
+  width: 100px;
+  height: 60px;
+  font-size: 30px;
+  font-family: monospace;
+  box-shadow: 0 9px #999;
+  outline: none;
+  border: 2px black solid;
+}
+
+#infoButton:hover{
+  background-color: green;
+}
+
+#infoButton:active{
+  background-color: green;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+#radioButtons{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+}
+
+.radio{
+  margin-left: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+}

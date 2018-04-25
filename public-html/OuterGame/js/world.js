@@ -5,6 +5,9 @@
     this.planets = [];
 	this.entities = []; // Array of entities
 	this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
+
+  this.stations = []; //issue 54
+
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
@@ -25,8 +28,13 @@
 	this.targetWheelRotation = 0; // This is just used for the "Scanning..." visual effect
 
 	document.addEventListener("click", (e) => {
-		let target = this.getCursorTarget(); // Finds the right target
-		this.target(target);
+    if(this.atStation){ //if player is at a station, will use listener to click on buttons
+      let cursorLoc = new Vector2D(e.offsetX,e.offsetY);
+      this.stations[0].checkClickButton(cursorLoc);
+    } else{
+      let target = this.getCursorTarget(); // Finds the right target
+  		this.target(target);
+    }
 	})
 
     //add event listeners that toggle acceleration/deceleration/turning on
@@ -46,6 +54,21 @@
 			case "t":
 				this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 			break;
+      case "l": //issue 54
+        for(let i=0;i<this.stations.length;i++){
+          if(this.stations[i].canLandOn){
+            //^^if player is close enough to a station to land on it
+            gameState = "station";
+            var div = document.getElementById("spacestation");
+            div.style.display = "block";
+            //^^will render station instead of space in run function
+            //vvv reset store
+            div.children[3].children[0].checked="checked";
+            SpaceStation.changeCategory();
+            SpaceStation.infoDiv.removeChildren();
+          }
+        }
+      break;
 		}
 	});
 
@@ -94,6 +117,7 @@
 
     this.makePlanets(50);
 	this.makeAsteroids(200, true); //issue 12, will spawn in canvas
+  this.makeStations(1); //issue 54
 
 	this.makeEnemies(15); // Spawns in drone ships
 
@@ -182,11 +206,23 @@
 		drone.initialize();
 		// TODO: add more types of enemies
 	}
+}
+
+  makeStations(num){ //issue 54
+    for(let i=0;i<num;i++){
+      // let x = (Math.random() * this.width*2) - this.width;
+      // let y = (Math.random() * this.height*2) - this.height;
+      let x = 0;
+      let y = 0;
+      this.stations[i] = new SpaceStation(new Vector2D(x,y));
+    }
   }
 
   checkHitPlanet(){ //issue 9
+    //if ship is over a planet, text will say player can press a key to land on planet
     for(let i=0;i<this.planets.length;i++){
       if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
+        //check if ship is close to any of the planets
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
@@ -194,7 +230,21 @@
     }
   }
 
-	drawWorldEdge(){ //issue 45
+  checkHitStation(){ //issue 54,
+    //if the ship is hovering over a station, text will pop up on canvas
+    for(let i=0;i<this.stations.length;i++){
+      if(Vector2D.distance(this.stations[i].loc,this.ship.loc)<40){
+        ctx.fillStyle="white";
+        ctx.font = "20px Georgia";
+        ctx.fillText("[L] to land at station",canvas.width/2-50,canvas.height/2-50);
+        this.stations[i].canLandOn = true;
+      } else{
+        this.stations[i].canLandOn = false;
+      }
+    }
+  }
+
+  drawWorldEdge(){ //issue 45
     ctx.beginPath();
     ctx.moveTo(-this.width,-this.height);
     ctx.lineTo(this.width,-this.height);
@@ -418,12 +468,31 @@
     w.realFPS = frames*4;
   }
 
+  drawCursor(){
+    // Recolor cursor based on what it's hovering over
+
+    let cursorColor = '#00FFFF'; // Defaults to light blue
+
+    ctx.save();
+		let cursorPos = this.screenCursorPos();
+		ctx.translate(cursorPos.x, cursorPos.y);
+		ctx.beginPath();
+		ctx.fillStyle = cursorColor;
+		ctx.strokeStyle = cursorColor;
+	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.beginPath();
+		ctx.arc(0, 0, 6, 0, Math.PI * 2);
+		ctx.stroke();
+		ctx.restore();
+  }
 
 	update(){
     this.frameCount++;
 		this.camera.update(); // No effect until the camera is implemented
 		this.checkHitPlanet(); //issue 9
     this.checkAsteroidCollision();
+    this.checkHitStation(); //issue 54
 
 		if(this.debugMode) { // Display coordinates of ship and cursor
 
@@ -462,23 +531,10 @@
 			}
 		}
 
-		// Recolor cursor based on what it's hovering over
 
-		let cursorColor = '#00FFFF'; // Defaults to light blue
 
 		// Draw cursor
-		ctx.save();
-		let cursorPos = this.screenCursorPos();
-		ctx.translate(cursorPos.x, cursorPos.y);
-		ctx.beginPath();
-		ctx.fillStyle = cursorColor;
-		ctx.strokeStyle = cursorColor;
-	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.beginPath();
-		ctx.arc(0, 0, 6, 0, Math.PI * 2);
-		ctx.stroke();
-		ctx.restore();
+		this.drawCursor();
 
 		if(this.cursorTarget) {
 
@@ -691,6 +747,9 @@
     for(var i = 0; i < this.planets.length; i++){
       arr.push(this.planets[i]); // Adding planets
     }
+    for(let i in this.stations){ //issue 54
+      this.stations[i].renderInSpace();
+    }
   	for(let i in this.entities) {
   		arr.push(this.entities[i]); // Adding entities
 	}
@@ -707,8 +766,8 @@
   }
 
   run(){
-    this.render();
     this.update();
+    this.render();
   }
 
 }
