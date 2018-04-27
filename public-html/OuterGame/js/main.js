@@ -1,8 +1,6 @@
+window.onload = init;
 window.onload = loadImages;
-//new branch
-//  This is for demo purposes
 
-//change 2
 var canvas;
 var ctx;
 var planet;
