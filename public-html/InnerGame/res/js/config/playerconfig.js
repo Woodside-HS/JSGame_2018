@@ -1,6 +1,6 @@
 const player_config = {
   size: 40, //px
-  max_speed: 9, //px/frame
+  max_speed: 270/config.frame_rate, //px/sec
   minimap_color: "#FF0000",
   movement_loss: 0.85, //amount of friction on movement, px/f^2
   color: 'rgba(200,75,150,1)', //Any color string
@@ -15,7 +15,7 @@ const player_config = {
   image: new Image(), //comes back later, don't touch it unless you have mastered black magic
 
   // //shotgun
-  // shot_cooldown: 30, //in frames
+  // shot_cooldown: 30*config.frame_rate/30, //in sec
   // bullet_size: 3, //in px
   // spread_count: 12,
   // bullet_spread: Math.PI/8, //in radians
@@ -28,7 +28,7 @@ const player_config = {
   // accuracy_time: 0 //in frames
 
   // //flamethrower
-  // shot_cooldown: 1, //in frames
+  // shot_cooldown: 1*config.frame_rate/30, //in sec
   // bullet_size: 3, //in px
   // spread_count: 30,
   // bullet_spread: Math.PI/30, //in radians
@@ -42,7 +42,7 @@ const player_config = {
   // bullet_acceleration: .985
 
   // // machine gun
-  // shot_cooldown: 2, //in frames
+  // shot_cooldown: 2*config.frame_rate/30, //in sec
   // bullet_size: 5, //in px
   // spread_count: 1,
   // bullet_spread: Math.PI/16, //in radians
@@ -55,7 +55,7 @@ const player_config = {
   // accuracy_time: 1 //in frames
 
   //bomb
-  shot_cooldown: 20, //in frames
+  shot_cooldown: 20*config.frame_rate/30, //in sec
   bullet_size: 3, //in px
   spread_count: 20,
   bullet_spread: 0, //in radians
@@ -68,7 +68,7 @@ const player_config = {
   accuracy_time: 20, //in frames
 
   // //sonic
-  // shot_cooldown: 2, //in frames
+  // shot_cooldown: 2*config.frame_rate/30, //in sec
   // bullet_size: 2, //in px
   // spread_count: 80,
   // bullet_spread: Math.PI*2, //in radians
@@ -81,7 +81,7 @@ const player_config = {
   // accuracy_time: 0 //in frames
 
   // //cannon
-  // shot_cooldown: 30, //in frames
+  // shot_cooldown: 30*config.frame_rate/30, //in sec
   // bullet_size: 8, //in px
   // spread_count: 1,
   // bullet_spread: Math.PI/64, //in radians

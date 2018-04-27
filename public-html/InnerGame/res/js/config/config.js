@@ -15,7 +15,7 @@ const config = {
   debug_mode: false, // used when we debugging
   view_range: 40, //measured in tiles
   canvas_name: "gameCanvas",
-  frame_rate: 60, //fps
+  frame_rate: FPS, //fps
   map_x_size: 60, //measured in tiles
   map_y_size: 60, //measred in tiles
   mask_radius: 12, //measured in tiles

@@ -77,15 +77,17 @@ class Ranged extends Tower {
     //update projectiles
     for (let i = 0; i < this.projectiles.length; i++) {
       let bullet = this.projectiles[i];
-      if (bullet.life == 0) {
+      if (bullet.life <= 0) {
         this.projectiles.splice(i, 1);
         i--;
         continue;
       }
-      for(let i=-1; i<game.minionManager.minions.length; i++){
+      bullet.life--;
+      bullet.loc.add(bullet.v);
+      for(let j=-1; j<game.minionManager.minions.length; j++){
         let minion;
-        if(i==-1){ minion=game.player;
-        } else{    minion=game.minionManager.minions[i];
+        if(j==-1){ minion=game.player;
+        } else{    minion=game.minionManager.minions[j];
         }
         let diff=bullet.loc.duplicate();
         diff.subtract(minion.loc);
@@ -96,8 +98,6 @@ class Ranged extends Tower {
           break;
         }
       }
-      bullet.life--;
-      bullet.loc.add(bullet.v);
     }
   }
   onHit(target) {

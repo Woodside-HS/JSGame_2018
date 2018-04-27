@@ -21,12 +21,12 @@ class TowerManager extends Updateable {
         localPerlin = normalizePerlin(noise.perlin2(
                 i / config.map_x_size * tower_config.noise_scale,
                 j / config.map_y_size * tower_config.noise_scale
-              ));
+                ));
         if (localPerlin > tower_config.tower_range[0] &&
                 localPerlin < tower_config.tower_range[1] &&
                 this.randoms[i][j] < tower_config.tower_rate &&
                 !this.game.mapManager.map[i][j].isOccupied
-              ) {
+                ) {
           this.loadTower(new FastVector(i, j));
         } else {
           this.towers[i].push(null);
@@ -35,7 +35,7 @@ class TowerManager extends Updateable {
     }
   }
   update() {
-    this.enemies=[];
+    this.enemies = [];
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
         if (this.towers[i][j]) {
@@ -52,13 +52,9 @@ class TowerManager extends Updateable {
   render() {
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
-        if (!this.game.mapManager.map[i][j].seen) {
-          this.game.context.fillStyle = "#000000";
-        } else {
-          this.game.context.fillStyle = ui_config.minimap_border_color;
-          if (this.towers[i][j]) {
-            this.towers[i][j].render();
-          }
+        this.game.context.fillStyle = ui_config.minimap_border_color;
+        if (this.towers[i][j]) {
+          this.towers[i][j].render();
         }
       }
     }

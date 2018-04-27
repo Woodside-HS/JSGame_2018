@@ -1,11 +1,15 @@
-window.onload = init;
+window.onload = loadImages;
 //new branch
 //  This is for demo purposes
 
 //change 2
 var canvas;
 var ctx;
+var planet;
+var Images = {};
+var SpritesheetArray = [];
 var worlds = [];
+var imageArray = [];
 var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
@@ -15,7 +19,7 @@ var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
 }
 
-var FPS = 60; // Desired (intended) Frames per second
+var FPS = 40; // Desired (intended) Frames per second
 
 var System = function() {
 	return worlds[currentLevel];
@@ -23,6 +27,251 @@ var System = function() {
 
 //var ship;
 
+function loadImages(){
+	//start of loading promises into Images
+	Promise.all(
+		[new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid1.png';
+		}).then(function(img){
+			Images['Asteroid1'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid2.png';
+		}).then(function(img){
+			Images['Asteroid2'] = img;
+		}), new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid3.png';
+		}).then(function(img){
+			Images['Asteroid3'] = img;
+		}), new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid4.png';
+		}).then(function(img){
+			Images['Asteroid4'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid5.png';
+		}).then(function(img){
+			Images['Asteroid5'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid6.png';
+		}).then(function(img){
+			Images['Asteroid6'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid7.png';
+		}).then(function(img){
+			Images['Asteroid7'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid8.png';
+		}).then(function(img){
+			Images['Asteroid8'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid9.png';
+		}).then(function(img){
+			Images['Asteroid9'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/Asteroid10.png';
+		}).then(function(img){
+			Images['Asteroid10'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0001.png';
+		}).then(function(img){
+			Images['Planet1'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0002.png';
+		}).then(function(img){
+			Images['Planet2'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0003.png';
+		}).then(function(img){
+			Images['Planet3'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0004.png';
+		}).then(function(img){
+			Images['Planet4'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0005.png';
+		}).then(function(img){
+			Images['Planet5'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0006.png';
+		}).then(function(img){
+			Images['Planet6'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0007.png';
+		}).then(function(img){
+			Images['Planet7'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0008.png';
+		}).then(function(img){
+			Images['Planet8'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0009.png';
+		}).then(function(img){
+			Images['Planet9'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'js/Planet/PlanetTestRender0010.png';
+		}).then(function(img){
+			Images['Planet10'] = img;
+		})
+	]).then(function(){
+		init();
+	});
+}
 function init(){
 	// resources
 
@@ -37,11 +286,14 @@ function init(){
 
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
-
 	gameState = "outer";
 
 	makeWorld();
-
+	var wrapper = document.getElementById('wrapper');
+	var loaderwrapper = document.getElementById('loader-wrapper');
+	loaderwrapper.style.display = 'none';
+	wrapper.style.display = 'block';
+	setTimeout(animate, 1000/FPS);
 	animate();
 }
 
@@ -52,6 +304,7 @@ function makeWorld(){
   //add world to array
   worlds.push(w);
   w.initialize();
+	setInterval(animate, 1000/FPS)
 }
 
 function animate(){
@@ -66,5 +319,4 @@ function animate(){
 			game.render();
 		}
 	}
-  setTimeout(animate, 1000/FPS);
 }
