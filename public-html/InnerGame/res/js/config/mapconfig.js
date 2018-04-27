@@ -7,5 +7,6 @@ const map_config = {
   water_range: [0, 0.3],
   grass_image_src: 'res/sprites/grass.png',
   grass_image: new Image(),
-  grass_image_size:400
+  grass_image_size:400,
+  mask_border_size: 1
 };
