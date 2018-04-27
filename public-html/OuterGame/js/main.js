@@ -266,9 +266,10 @@ function loadImages(){
 			img.src = 'js/Planet/PlanetTestRender0010.png';
 		}).then(function(img){
 			Images['Planet10'] = img;
-			init();
 		})
-	]);
+	]).then(function(){
+		init();
+	});
 }
 function init(){
 	canvas = document.getElementById('cnv');
