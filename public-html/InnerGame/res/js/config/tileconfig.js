@@ -28,6 +28,12 @@ const tile_types = {
     is_occupied: true,
     image_src: '../InnerGame/res/sprites/water.png',
     image: new Image()
+  },
+  fog: {
+    minimap_color: new Color("#202020"), //Color object
+    is_occupied: false,
+    image_src: '../InnerGame/res/sprites/fog.png',
+    image: new Image()
   }
 };
 const tile_config = {

@@ -59,7 +59,6 @@ class TowerManager extends Updateable {
       }
     }
   }
-  }
   initializeTowerConfig() {
     tower_types.asArray = [];
     tower_types.asArray.push(tower_types.nulltype);
@@ -72,9 +71,9 @@ class TowerManager extends Updateable {
     }
     for (let i = 0; i < tower_types.asArray.length; i++) {
       tower_types.asArray[i].frequency /= totalFrequency;
-      }
     }
-    loadTower(cloc) {
+  }
+  loadTower(cloc) {
     let random = Math.random();
     let incrementalFrequency = 0;
     for (let i = 0; i < tower_types.asArray.length; i++) {
