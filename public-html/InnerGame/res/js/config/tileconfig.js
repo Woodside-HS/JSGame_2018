@@ -6,6 +6,8 @@ const tile_types = {
     tile_types.grass.image.src = tile_types.grass.image_src;
     tile_types.rock.image.src = tile_types.rock.image_src;
     tile_types.water.image.src = tile_types.water.image_src;
+    tile_types.mask.image.src = tile_types.mask.image_src;
+    console.log("b")
   },
   nulltype: {
     minimap_color: new Color("pink"), //Color object
@@ -29,11 +31,12 @@ const tile_types = {
     image_src: '../InnerGame/res/sprites/water.png',
     image: new Image()
   },
-  fog: {
+  mask: {
     minimap_color: new Color("#202020"), //Color object
     is_occupied: false,
     image_src: '../InnerGame/res/sprites/fog.png',
-    image: new Image()
+    image: new Image(),
+    size: 40
   }
 };
 const tile_config = {
