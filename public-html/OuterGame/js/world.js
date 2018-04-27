@@ -28,10 +28,7 @@
 	this.targetWheelRotation = 0; // This is just used for the "Scanning..." visual effect
 
 	document.addEventListener("click", (e) => {
-    if(this.atStation){ //if player is at a station, will use listener to click on buttons
-      let cursorLoc = new Vector2D(e.offsetX,e.offsetY);
-      this.stations[0].checkClickButton(cursorLoc);
-    } else{
+    if(!this.atStation){
       let target = this.getCursorTarget(); // Finds the right target
   		this.target(target);
     }
@@ -75,7 +72,7 @@
             SpaceStation.infoDiv.removeChildren();
           }
         }
-        break;
+      break;
 		}
 	});
 
