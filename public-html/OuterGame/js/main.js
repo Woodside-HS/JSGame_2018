@@ -286,7 +286,11 @@ function init(){
 	gameState = "outer";
 
 	makeWorld();
-
+	var wrapper = document.getElementById('wrapper');
+	var loaderwrapper = document.getElementById('loader-wrapper');
+	loaderwrapper.style.display = 'none';
+	wrapper.style.display = 'block';
+	setTimeout(animate, 1000/FPS);
 	animate();
 }
 
