@@ -49,6 +49,7 @@ function makeWorld(){
   //add world to array
   worlds.push(w);
   w.initialize();
+	setInterval(animate, 1000/FPS)
 }
 
 function animate(){
@@ -63,5 +64,4 @@ function animate(){
 			game.render();
 		}
 	}
-  setTimeout(animate, 1000/FPS);
 }
