@@ -21,6 +21,7 @@ class Tile extends Updateable {
     this.image = this.tileType.image;
     this.image.src = this.tileType.image_src;
     this.isOccupied = this.tileType.is_occupied;
+    this.isWater = this.tileType.is_water;
     if (this.tileType == tile_types.rock) {
       let src = this.getImage();
       this.sourceloc.x = rockSprites['frames'][src]['frame']['x'];

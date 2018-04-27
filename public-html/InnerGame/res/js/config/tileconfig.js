@@ -11,29 +11,34 @@ const tile_types = {
   },
   nulltype: {
     minimap_color: new Color("pink"), //Color object
-    is_occupied: false
+    is_occupied: false,
+    is_water: false,
   },
   grass: {
     minimap_color: new Color("#5ca33c"), //Color object
     is_occupied: false,
+    is_water: false,
     image_src: '../InnerGame/res/sprites/grass.png',
     image: new Image()
   },
   rock: {
     minimap_color: new Color("#696e75"), //Color object
     is_occupied: true,
+    is_water: false,
     image_src: '../InnerGame/res/sprites/rocks2c.png',
     image: new Image()
   },
   water: {
     minimap_color: new Color("#5ae1fc"), //Color object
     is_occupied: true,
+    is_water: true,
     image_src: '../InnerGame/res/sprites/water.png',
     image: new Image()
   },
   mask: {
     minimap_color: new Color("#202020"), //Color object
     is_occupied: false,
+    is_water: false,
     image_src: '../InnerGame/res/sprites/fog.png',
     image: new Image(),
     size: 40
