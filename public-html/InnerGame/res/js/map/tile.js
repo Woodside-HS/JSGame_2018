@@ -5,18 +5,21 @@ class Tile extends Updateable {
     super();
     this.game = game;
     this.cloc = location; //cloc = Cellular LOCatIOn
-    this.loc = new Vector2D(//pixel-relative position of top left corner to map origin
+    this.loc = new InnerVector2D(//pixel-relative position of top left corner to map origin
             this.cloc.x * config.tile_size,
             this.cloc.y * config.tile_size);
     // nulltype is not a real tile (nulltype overridden before init)
     // override done in map manager
     this.tileType = tile_types.nulltype;
-    this.normalVector = new Vector2D(0, 0);
-    this.quadNormal = new Vector2D(0, 0);
+
+    this.seen = false;
+    this.normalVector = new InnerVector2D(0,0);
+    this.quadNormal = new InnerVector2D(0,0);
     this.sourceloc = new FastVector(0, 0);
   }
   init() {
     this.image = this.tileType.image;
+    this.image.src = this.tileType.image_src;
     this.isOccupied = this.tileType.is_occupied;
     if (this.tileType == tile_types.rock) {
       let src = this.getImage();
@@ -24,19 +27,29 @@ class Tile extends Updateable {
       this.sourceloc.y = rockSprites['frames'][src]['frame']['y'];
       this.sw = rockSprites['frames'][src]['frame']['w'];
       this.sh = rockSprites['frames'][src]['frame']['h'];
-
     }
   }
   render() {
+
     //draw sprite
-    if (this.tileType == tile_types.rock) {
-      this.game.context.drawImage(
-              this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
-              this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+    if (!this.seen) {
+      this.game.context.fillStyle = "#000000";
+      this.game.context.fillRect(this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2); //1 pixel bigger
     } else {
-      this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+      switch(this.tileType) {
+        case tile_types.grass:
+          return;
+          break;
+        case tile_types.rock:
+          this.game.context.drawImage(
+            this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
+            this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+          break;
+        default:
+          this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+        }
+      }
     }
-  }
 
   getImage() {
     let index = "";

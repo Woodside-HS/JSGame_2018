@@ -10,13 +10,21 @@ const cursor_modes = {
   highlighting: 'highlighting',
   moveTo: 'moveTo'
 };
-
+//haha what's an enum
+const element_types = {
+  bar: "bar",
+  splash_screen: "splash",
+  button: "button"
+};
 const ui_elements = {
   player_healthbar: {
+    type: element_types.bar,
+    init: function () {
+      this.object = game.player;
+    },
     positive_color: "#31d628",
     negative_color: "red",
     max_value: player_config.max_hp,
-    object: null, //Will be reset in UserInterface.init()
     tracker: "hp",
     points: [
       new FastVector(30, 20),
@@ -26,5 +34,34 @@ const ui_elements = {
     ],
     border_stroke: 2,
     border_color: "#ffffff"
+  },
+  energy_meter: {
+    type: element_types.bar,
+    init: function () {
+      this.object = game.player;
+    },
+    positive_color: "yellow",
+    negative_color: "blue",
+    max_value: player_config.max_energy,
+    tracker: "energy",
+    points: [
+      new FastVector(25, 40),
+      new FastVector(20, 45),
+      new FastVector(100, 45),
+      new FastVector(105, 40)
+    ],
+    border_stroke: 2,
+    border_color: "#ffffff"
+  },
+  death_screen: {
+    type: element_types.splash_screen,
+    src: "res/sprites/splash/youdied.jpg", //temp for testing
+    isVisible: false,
+    update: function () {
+      if (game.player.hp <= 0) {
+        this.isVisible = true;
+        game.isPaused = true;
+      }
+    }
   }
 };

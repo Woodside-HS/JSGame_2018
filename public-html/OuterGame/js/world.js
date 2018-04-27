@@ -5,9 +5,16 @@
     this.planets = [];
 	this.entities = []; // Array of entities
 	this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
+
+  this.stations = []; //issue 54
+
     //area is greater than that of canvas
     this.height = 2400;
     this.width = 2400;
+    this.frameCount = 0;
+    this.realFPS = 0;
+
+    setInterval(this.checkFPS, 250);
 
 	document.addEventListener("mousemove", (e) => {
         var rect = canvas.getBoundingClientRect(); // Gets the absolute size of the canvas
@@ -19,10 +26,15 @@
 	this.cursorTarget = false; // The currently-selected target
 	this.cursorTargetRotation = Math.random() * Math.PI * 2; // Degrees of rotation for selection circle visual
 	this.targetWheelRotation = 0; // This is just used for the "Scanning..." visual effect
-	
+
 	document.addEventListener("click", (e) => {
-		let target = this.getCursorTarget(); // Finds the right target
-		this.target(target);
+    if(this.atStation){ //if player is at a station, will use listener to click on buttons
+      let cursorLoc = new Vector2D(e.offsetX,e.offsetY);
+      this.stations[0].checkClickButton(cursorLoc);
+    } else{
+      let target = this.getCursorTarget(); // Finds the right target
+  		this.target(target);
+    }
 	})
 
     //add event listeners that toggle acceleration/deceleration/turning on
@@ -42,6 +54,28 @@
 			case "t":
 				this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 			break;
+      case"x": //planet landing
+        if(this.checkHitPlanet()){
+          game=this.checkHitPlanet().game;
+          gameState='inner';
+          game.init();
+        }
+        break;
+      case "l": //issue 54
+        for(let i=0;i<this.stations.length;i++){
+          if(this.stations[i].canLandOn){
+            //^^if player is close enough to a station to land on it
+            gameState = "station";
+            var div = document.getElementById("spacestation");
+            div.style.display = "block";
+            //^^will render station instead of space in run function
+            //vvv reset store
+            div.children[3].children[0].checked="checked";
+            SpaceStation.changeCategory();
+            SpaceStation.infoDiv.removeChildren();
+          }
+        }
+        break;
 		}
 	});
 
@@ -89,7 +123,8 @@
 	this.entities.push(this.ship);
 
     this.makePlanets(50);
-	this.makeAsteroids(100, true); //issue 12, will spawn in canvas
+	this.makeAsteroids(200, true); //issue 12, will spawn in canvas
+  this.makeStations(1); //issue 54
 
 	this.makeEnemies(15); // Spawns in drone ships
 
@@ -135,7 +170,8 @@
       var r = (Math.random()*20)+6;
       var x = (Math.random() * this.width*2) - this.width;
       var y = (Math.random() * this.height*2) - this.height;
-      var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
+      //var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
+      var vel = new Vector2D(Math.random()*200-100,Math.random()*200-100);
       var ast = new Asteroid(new Vector2D(x,y),vel,null,r);
       if(!bool){ //bool=if asteroids can show up in canvas
         let b1 = (x+r)<(this.ship.loc.x+(canvas.width/2));
@@ -177,19 +213,49 @@
 		drone.initialize();
 		// TODO: add more types of enemies
 	}
+}
+
+  makeStations(num){ //issue 54
+    for(let i=0;i<num;i++){
+      // let x = (Math.random() * this.width*2) - this.width;
+      // let y = (Math.random() * this.height*2) - this.height;
+      let x = 0;
+      let y = 0;
+      this.stations[i] = new SpaceStation(new Vector2D(x,y));
+    }
   }
 
   checkHitPlanet(){ //issue 9
+    //returns planet if there is one
+    //if ship is over a planet, text will say player can press a key to land on planet
+    let out=false;
     for(let i=0;i<this.planets.length;i++){
       if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
+        //check if ship is close to any of the planets
         ctx.fillStyle="white";
         ctx.font = "20px Georgia";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
+        out=this.planets[i];
+      }
+    }
+    return out;
+  }
+
+  checkHitStation(){ //issue 54,
+    //if the ship is hovering over a station, text will pop up on canvas
+    for(let i=0;i<this.stations.length;i++){
+      if(Vector2D.distance(this.stations[i].loc,this.ship.loc)<40){
+        ctx.fillStyle="white";
+        ctx.font = "20px Georgia";
+        ctx.fillText("[L] to land at station",canvas.width/2-50,canvas.height/2-50);
+        this.stations[i].canLandOn = true;
+      } else{
+        this.stations[i].canLandOn = false;
       }
     }
   }
 
-	drawWorldEdge(){ //issue 45
+  drawWorldEdge(){ //issue 45
     ctx.beginPath();
     ctx.moveTo(-this.width,-this.height);
     ctx.lineTo(this.width,-this.height);
@@ -259,7 +325,7 @@
 		}
 		return false;
 	}
-	
+
 	targetNearestEntity() { // It's easier than clicking
 		let bestDist = {dist: 0, entity: false}; // Stores the best (nearest) distance to the ship
 		for(let i in this.entities) {
@@ -291,9 +357,153 @@
 		this.cursorTarget = target; // Sets the target
 	}
 
+  checkAsteroidCollision() {
+
+    for(var i = 0; i < this.entities.length ; i++){
+      if(this.entities[i] instanceof Asteroid === false){
+        continue;
+      }
+      for(var j = i + 1; j < this.entities.length; j++){
+        if(this.entities[j] instanceof Asteroid === false){
+          continue;
+        }
+
+        var b1 = this.entities[i];
+        var b2 = this.entities[j];
+
+        //check if edges of 2 asteroids are touching
+        var dist = Vector2D.distance(b1.loc,b2.loc);
+        if( dist <= b1.radius + b2.radius){
+          console.log('collision detected');
+
+          // sometimes the balls will stick together if there is
+          // too much overlap initially.  So separate them enough
+          // that they are just touching
+          var vec = Vector2D.subtract(b1.loc, b2.loc);
+          vec.setMag((b1.radius+b2.radius - vec.magnitude())/2);
+          b1.loc.add(vec);
+          vec.scalarMult(-1);
+          b2.loc.add(vec);
+
+          // note the total momentum before the collision
+          var p_initial = Vector2D.add(b1.momentum(), b2.momentum());
+
+          //momentum & velocity of center of mass
+          var total_mass = b1.mass() + b2.mass();
+          var vel_cm = Vector2D.scalarDiv(p_initial, total_mass);
+          //calculate velocities after collision using vf = 2*v_cm - vi
+          //http://courses.ncssm.edu/apb11o/resources/guides/G09-4b.com.htm
+
+          // Where is the center of mass?  It must lie on a line
+          // connecting the two colliding objects with a magnitude
+          // proportionate to the two masses.
+          var vec_cm = Vector2D.subtract(b1.loc, b2.loc);
+          vec_cm.setMag(vec_cm.magnitude() * (b1.mass()/(b1.mass()+b2.mass())));
+          vec_cm.add(b2.loc); // location of CM
+
+          // For each ball, what is the component of its velocity towards
+          // the center of mass and what is the component that is not
+          // in the direction of the center of mass?
+
+          // get a vector from  ball 1 to the center of mass
+          var vel_b1_cm = Vector2D.subtract(vec_cm, b1.loc);
+          // its magnitude should be the magnitude of the balls velocity
+          // times the cosine of the angle between itself and the
+          // velocity of the ball
+          var angleBetween = Vector2D.angleBetween(b1.vel,vel_b1_cm);
+          var cos = Math.cos(angleBetween);
+          // component of b1 velocity on a line to the CM
+          vel_b1_cm.setMag(b1.vel.magnitude() * Math.cos(Vector2D.angleBetween(b1.vel,vel_b1_cm)));
+          // component of the CM's velocity on a line towards b1
+          var vel_cm_b1 = Vector2D.copy(vel_b1_cm); // on the same line as vel_b1_cm
+          vel_cm_b1.setMag(vel_cm.magnitude() * Math.cos(Vector2D.angleBetween(vel_cm,vel_cm_b1)));
+
+          // The component of the ball's velocity not in the direction of the
+          // center of mass should be the difference between its total velocity
+          // and the component in the direction of the center of mass
+          var vel_b1_not_cm = Vector2D.subtract(b1.vel,vel_b1_cm);
+          // is it the same as the sine of the angle between? Yes
+          // var vel_b1_not_cm_mag = b1.vel.magnitude() * Math.sin(Vector2D.angleBetween(b1.vel,vel_b1_cm));
+          // console.log(vel_b1_not_cm.magnitude(), vel_b1_not_cm_mag);
+
+          // Now repeat for the second ball
+          var vel_b2_cm = Vector2D.subtract(vec_cm, b2.loc);
+          vel_b2_cm.setMag(b2.vel.magnitude() * Math.cos(Vector2D.angleBetween(b2.vel,vel_b2_cm)));
+          var vel_b2_not_cm = Vector2D.subtract(b2.vel,vel_b2_cm);
+
+          //  console.log('b1 initial velocity', b1.vel);
+          //  console.log('b1 component velocity', vel_b1_cm);
+          //  console.log('center of mass velocity', vel_cm);
+          //  console.log('CM component velocity', vel_cm_b1);
+          //  console.log('b2 initial velocity', b2.vel);
+          //  console.log('b2 component velocity', vel_b2_cm);
+
+          var v1_final = Vector2D.scalarMult(vel_cm_b1, 2);
+          v1_final.subtract(vel_b1_cm);   // subtract velocity towards the CM
+          v1_final.add(vel_b1_not_cm);    // add back the velocity not towards the CM
+          // console.log(`b1 final velocity ${v1_final}`);
+
+          var v2_final = Vector2D.scalarMult(vel_cm_b1, 2);
+          v2_final.subtract(vel_b2_cm);   // subtract velocity towards the CM
+          v2_final.add(vel_b2_not_cm);    // add back the velocity not towards the CM
+
+          // console.log(`b2 final velocity ${v2_final}`);
+          // var init_momentum = Vector2D.add(Vector2D.scalarMult(vel_b1_cm,b1.mass),
+          //                                     Vector2D.scalarMult(vel_b2_cm,b2.mass));
+          //
+          // var final_momentum = Vector2D.add(Vector2D.scalarMult(v1_final,b1.mass),
+          //                                     Vector2D.scalarMult(v2_final,b2.mass));
+          // // console.log(`initial momentum ${init_momentum}`);
+          // console.log(`final momentum ${final_momentum}`);
+
+          b1.vel = v1_final;
+          b2.vel = v2_final;
+
+          // note the total momentum after the collision
+          var p_final = Vector2D.add(b1.momentum(), b2.momentum());
+          // console.log(`initial momentum ${p_initial}`);
+          // console.log(`final momentum ${p_final}`);
+          // console.log(totalKineticEnergy());
+          // console.log(p_final.x, p_final.y);
+
+        }
+      }
+    }
+
+  }
+
+  checkFPS(){
+    var w = worlds[currentLevel];
+    var frames = w.frameCount;
+    w.frameCount = 0;
+    w.realFPS = frames*4;
+  }
+
+  drawCursor(){
+    // Recolor cursor based on what it's hovering over
+
+    let cursorColor = '#00FFFF'; // Defaults to light blue
+
+    ctx.save();
+		let cursorPos = this.screenCursorPos();
+		ctx.translate(cursorPos.x, cursorPos.y);
+		ctx.beginPath();
+		ctx.fillStyle = cursorColor;
+		ctx.strokeStyle = cursorColor;
+	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.beginPath();
+		ctx.arc(0, 0, 6, 0, Math.PI * 2);
+		ctx.stroke();
+		ctx.restore();
+  }
+
 	update(){
+    this.frameCount++;
 		this.camera.update(); // No effect until the camera is implemented
 		this.checkHitPlanet(); //issue 9
+    this.checkAsteroidCollision();
+    this.checkHitStation(); //issue 54
 
 		if(this.debugMode) { // Display coordinates of ship and cursor
 
@@ -303,6 +513,7 @@
 			ctx.font = "20px Georgia";
 
 			ctx.fillText("Press [U] to toggle Debug Mode",20,175);
+      ctx.fillText("FPS:" + this.realFPS, 20, 200);
 
 			ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")",20,canvas.height-15);
 			ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")",20,canvas.height-40);
@@ -331,23 +542,10 @@
 			}
 		}
 
-		// Recolor cursor based on what it's hovering over
 
-		let cursorColor = '#00FFFF'; // Defaults to light blue
 
 		// Draw cursor
-		ctx.save();
-		let cursorPos = this.screenCursorPos();
-		ctx.translate(cursorPos.x, cursorPos.y);
-		ctx.beginPath();
-		ctx.fillStyle = cursorColor;
-		ctx.strokeStyle = cursorColor;
-	    ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
-		ctx.fill();
-		ctx.beginPath();
-		ctx.arc(0, 0, 6, 0, Math.PI * 2);
-		ctx.stroke();
-		ctx.restore();
+		this.drawCursor();
 
 		if(this.cursorTarget) {
 
@@ -392,7 +590,7 @@
 
 		let segments = 36; // Number of segments in the health wheel
 		for(let i = 0; i < segments; i++) {
-			
+
 			let color = '#008800'; // GREEN. Default health color
 			if(this.ship.stats.health() / this.ship.stats.maxHp <= i / segments) {
 				color = '#AA0000'; // The wheel turns RED when the ship is damaged.
@@ -409,7 +607,7 @@
 			ctx.lineWidth = 2;
 
 			for(let x in this.ship.shields) {
-				
+
 				let color = this.ship.shields[x].color; // Defaults to the shield's color
 				if(this.ship.shields[x].offline && (this.ship.shields[x].offlineTimer / (this.ship.shields[x].rechargeDuration * FPS)) > (i / segments)) {
 					color = '#444444'; // If the shield is offline, then it's GREY instead
@@ -436,18 +634,18 @@
 			i++;
 			ctx.textAlign = "center";
 			ctx.fillStyle = "#AA0000";
-			ctx.fillText("Shields Offline!",pos.x,pos.y + 75); 
+			ctx.fillText("Shields Offline!",pos.x,pos.y + 75);
 			ctx.textAlign = "start";
 		}
 		if(this.ship.stats.health() <= (this.ship.stats.maxHp * 0.25)) {
 			ctx.textAlign = "center";
 			ctx.fillStyle = "#AA0000";
-			ctx.fillText("Damage Critical!",pos.x,pos.y + 75 + 25*i); 
+			ctx.fillText("Damage Critical!",pos.x,pos.y + 75 + 25*i);
 			ctx.textAlign = "start";
 		}
 
 		if(this.cursorTarget && this.cursorTarget.stats && this.cursorTarget != this.ship) {
-			
+
 			pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
 			let segments = 36;
 			if(this.targetWheelRotation < segments) {
@@ -455,7 +653,7 @@
 			}
 			this.targetWheelRotation += segments/FPS;
 			for(let i = 0; i < segments; i++) {
-			
+
 				let color = '#888800';
 				if(this.cursorTarget.stats.health() / this.cursorTarget.stats.maxHp <= i / segments) {
 					color = '#AA0000';
@@ -518,7 +716,7 @@
 			if(!this.cursorTarget.targetScanned) {
 				ctx.textAlign = "center";
 				ctx.fillStyle = "#00FFFF";
-				ctx.fillText("Scanning...",pos.x,pos.y + 75); 
+				ctx.fillText("Scanning...",pos.x,pos.y + 75);
 				ctx.textAlign = "start";
 			}
 		}
@@ -560,6 +758,9 @@
     for(var i = 0; i < this.planets.length; i++){
       arr.push(this.planets[i]); // Adding planets
     }
+    for(let i in this.stations){ //issue 54
+      this.stations[i].renderInSpace();
+    }
   	for(let i in this.entities) {
   		arr.push(this.entities[i]); // Adding entities
 	}
@@ -570,14 +771,14 @@
 	for(let i in arr) {
 		arr[i].render(); // Render everything visible in the universe
   	}
-    
+
 	ctx.restore();
 
   }
 
   run(){
-    this.render();
     this.update();
+    this.render();
   }
 
 }

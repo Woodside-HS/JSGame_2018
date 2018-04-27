@@ -1,4 +1,4 @@
-
+// DroneShips are enemies of the player ship and fire at it
 class DroneShip extends Mover {
 	constructor(loc){
 		super(loc);
@@ -33,11 +33,13 @@ class DroneShip extends Mover {
 		this.addShield(shield);
 	}
 
+	// Update()
+	// Called from World.update() for every entity every frame
 	update(){
-
+		// Did this droneship just die?
 		if(this.stats.health() <= 0) {
-			this.kill();
-
+			this.kill();	// Mover.kill()
+			// Add a visual of an expanding circle -- bullet.js
 			let collisionVisual = new BulletImpactVisual(this.loc.clone(), 'red');
 			collisionVisual.maxRadius = this.radius * 1.5;
 			System().addVisual(collisionVisual);
@@ -66,28 +68,70 @@ class DroneShip extends Mover {
 
 		this.firing = false;
 
-		let distance = this.loc.distance(System().ship.loc);
+		// How far is this droneship from the player ship?
+		// If it's within 800 we want to steer towards the player ship
+		// and possibly start firing at it.
+		let distance = this.loc.distance(playerShip.loc);
 		if(distance < 800) {
-			let vector = this.loc.vectorTo(System().ship.loc).setMag(75/FPS);
+			// Within 800px from the player ship so steer
+			// towards the player ship.
+			// For a steering acceleration, start with a vector from
+			// this droneship toward the playership and give it
+			// a magnitude of 75px per second.
+			let vector = this.loc.vectorTo(playerShip.loc).setMag(75/FPS);
 			let addition = this.vel.clone().setMag(vector.magnitude());
+			// Take the current velocity of this droneship and give it
+			// the same magnitude -- 75 per second
 			vector.add(addition);
+			// Add those two vectors and then add that steering acceleration
+			// to the velocity of this droneship.
 			this.vel.add(vector);
-			if(Math.abs(this.loc.vectorTo(System().ship.loc).theta() - this.vel.theta()) <= (this.allowedFireArc / 180 * Math.PI / 2)) { // Angled less than 45 degrees away
+			// If the angle between the velocity of this droneship
+			// and the direction toward the player ship
+			// is within 45 degrees, start firing at the player ship.
+			let angleBetween = Math.abs(this.loc.vectorTo(playerShip.loc).theta() - this.vel.theta());
+			let angleRange = ((this.allowedFireArc/2) / 180) * Math.PI;	// radian equivalent of half of 45 degrees
+			if(angleBetween <= angleRange) { // Angled less than +- 22.5 degrees away
 				this.firing = true;
 			}
-			if(Math.abs(this.loc.vectorTo(System().ship.loc).theta() - this.vel.theta()) <= Math.PI / 2) {
+			// If the angle between the velocity of this droneship
+			// and the direction toward the player ship
+			// is within 90 degrees, slow down.
+			if(angleBetween <= Math.PI / 2) {
 				// Deaccelerate to help them turn
 				this.vel.scalarDiv(1 + 3/FPS);
 			}
 		}
-
+		// keep the velocity of this droneship within limits
 		this.vel.limit(this.maxVel);
-		//only recalculate direction if velocity is greater than 0
+		// Only recalculate direction if velocity is greater than 0
+		// A velocity of 0 is always an angle of 0 but we don't want
+		// this droneship to suddenly face in a different direction
+		// when it comes to a stop.
 		if(this.vel.magnitude() > 0){
 			this.dir = this.vel.theta();
 		}
-
+		// Update the location of this droneship after adjusting
+		// its velocity from per second to per frame.
 		this.loc.add(this.vel.clone().scalarDiv(FPS));
+
+		//vvv issue 98, wrap around edge of world
+		if(Math.abs(this.loc.x)>(System().width*5/4)){
+			let sign = this.loc.x/Math.abs(this.loc.x);
+			if(sign<0){ //if sign is negative, droneship is at top edge of world, go to bottom
+				this.loc.x = this.loc.x + (System().width*5/2);
+			} else{ //sign is positive, at bottom edge, show up at top
+				this.loc.x = this.loc.x - (System().width*5/2);
+			}
+		}
+		if(Math.abs(this.loc.y)>(System().height*5/4)){
+			let sign = this.loc.y/Math.abs(this.loc.y);
+			if(sign<0){ //left edge, show up on right
+				this.loc.y = this.loc.y + (System().height*5/2);
+			} else{ //right edge, show left
+				this.loc.y = this.loc.y - (System().height*5/2);
+			}
+		}
 	}
 
 	fireBullet() {
@@ -146,8 +190,8 @@ class TorpedoCruiser extends DroneShip {
 	}
 
 	update() {
-		super.update();
-		
+		super.update();	// DroneShip.update()
+
 		this.torpedoTimer--;
 		let distance = this.loc.distance(System().ship.loc);
 		if(this.torpedoTimer <= 0 && distance <= 800) {
@@ -215,7 +259,7 @@ class ShieldPlatform extends DroneShip {
 	initialize() {
 		let shield = new Shield(this);
 		this.addShield(shield);
-		
+
 		shield = new Shield(this, 150, "#AAFFFF");
 		shield.rpm = 5;
 		shield.stats.maxHp = 120;
@@ -233,7 +277,7 @@ class ShieldPlatform extends DroneShip {
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
 		ctx.rotate(this.rotation);
-		
+
 		for(let i = 0; i < 2; i++) {
 
 			ctx.beginPath();

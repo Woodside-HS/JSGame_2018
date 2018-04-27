@@ -11,12 +11,14 @@ var SpritesheetArray = [];
 var worlds = [];
 var imageArray = [];
 var currentLevel = -1;
+var currentGame = 'outer';
+var gameState;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
 }
 
-var FPS = 60; // Frames per second
+var FPS = 40; // Desired (intended) Frames per second
 
 var System = function() {
 	return worlds[currentLevel];
@@ -300,12 +302,11 @@ function init(){
 
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
+	gameState = "outer";
+
 	makeWorld();
-	var wrapper = document.getElementById('wrapper');
-	var loaderwrapper = document.getElementById('loader-wrapper');
-	loaderwrapper.style.display = 'none';
-	wrapper.style.display = 'block';
-	setTimeout(animate, 1000/FPS);
+
+	animate();
 }
 
 function makeWorld(){
@@ -315,12 +316,19 @@ function makeWorld(){
   //add world to array
   worlds.push(w);
   w.initialize();
+	setInterval(animate, 1000/FPS)
 }
 
 function animate(){
-  //requestAnimationFrame(animate);
-  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
-  //run this level's world
-  worlds[currentLevel].run();
-  setTimeout(animate, 1000/FPS);
+	if(gameState!="station"){
+	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
+	  //run this level's world
+		if(gameState=="outer"){
+			worlds[currentLevel].run();
+		} else if(gameState=="inner"){
+			//inner world
+			game.update();
+			game.render();
+		}
+	}
 }

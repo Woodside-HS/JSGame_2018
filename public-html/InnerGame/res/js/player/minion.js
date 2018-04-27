@@ -12,11 +12,12 @@ class Minion extends Updateable {
     this.speed = minion_config.speed;
     this.damage = minion_config.damage;
     this.radius = minion_config.size;
+    this.size = minion_config.size; // so other things can reference it
     this.status = status.nullstatus;
     this.statusTimer = null;
     this.isSelected = false;
-    this.v = new Vector2D(0, 0);
-    this.a = new Vector2D(0, 0);
+    this.v = new InnerVector2D(0, 0);
+    this.a = new InnerVector2D(0, 0);
     this.path;
     this.followMode = true; //whether or not to follow the player
     this.target = null;
@@ -70,10 +71,11 @@ class Minion extends Updateable {
     }
 
     //movement logic
-    this.a = new Vector2D(0, 0);
+    this.a = new InnerVector2D(0, 0);
     //follow the path
-    if (this.path && this.target == null && !this.attackFrame) {
-      let accel = this.path.map[this.cloc.x][this.cloc.y].direction.toVector2D();
+    if (this.path && this.target == null && !this.attackFrame &&
+       (this.path.map[this.cloc.x][this.cloc.y].direction.x!=0 || this.path.map[this.cloc.x][this.cloc.y].direction.y!=0)) {
+      let accel = this.path.map[this.cloc.x][this.cloc.y].direction.toInnerVector2D();
       accel.m = minion_config.turn_speed;
       accel.upComps();
       this.a.add(accel);
@@ -99,7 +101,7 @@ class Minion extends Updateable {
     let hitboxCloc = positionToGrid(hitBoxPos);
 
     //check for corner collision
-    if (
+    if (false&& //turned off for now
             (hitboxCloc.y >= 0 &&
                     hitboxCloc.y < config.map_y_size &&
                     hitboxCloc.x >= 0 &&

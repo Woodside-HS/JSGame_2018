@@ -6,13 +6,14 @@ class Tower extends Updateable {
     super();
     this.game = game;
     this.cloc = location;
-    this.loc = new Vector2D(
+    this.loc = new InnerVector2D(
             (this.cloc.x + .5) * config.tile_size,
             (this.cloc.y + .5) * config.tile_size);
     this.type = tower_types.nulltype;
     this.fillStyle = "rgba(255,255,0,1)";
     this.fontstyle = "rgba(0,0,255,1)";
     this.maxhp = tower_types.nulltype.hp;
+    this.size = config.tile_size;
     this.hp = this.maxhp;
     game.mapManager.map[this.cloc.x][this.cloc.y].isOccupied = true;
   }

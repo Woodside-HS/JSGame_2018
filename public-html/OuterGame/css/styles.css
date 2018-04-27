@@ -13,7 +13,10 @@ canvas {
   border: 0px solid black;
   margin: auto;
   text-align: center;
-  padding: 60px;
+  padding: 20px;
+  width: 1024px;
+  height: 676px;
+  position: relative;
 }
 
 #loader-wrapper {

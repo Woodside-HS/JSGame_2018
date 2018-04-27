@@ -5,6 +5,7 @@ class Planet{
     this.loc = location;
     var planetImageNum = Math.floor(Math.random()*10+1);
     this.planetImage = Images['Planet' + planetImageNum];
+    this.game = new Game();
   }
 
   render () {
