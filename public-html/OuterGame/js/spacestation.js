@@ -5,8 +5,6 @@ class SpaceStation{
 
     this.canLandOn = false;
 
-
-
     //create html div for whole space station
     this.div = document.createElement("div");
     this.div.id = "spacestation";

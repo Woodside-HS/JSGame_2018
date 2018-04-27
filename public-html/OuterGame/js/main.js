@@ -9,6 +9,7 @@ var worlds = [];
 var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
+var resources;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -23,6 +24,8 @@ var System = function() {
 //var ship;
 
 function init(){
+	// resources
+
 	canvas = document.getElementById('cnv');
 
 	canvas.width = 1024;
