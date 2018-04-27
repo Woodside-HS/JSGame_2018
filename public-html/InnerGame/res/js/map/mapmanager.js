@@ -13,6 +13,7 @@ class MapManager extends Updateable {
     this.validStartTiles = [];
     this.towerManager = new TowerManager(this.game);
     this.grassImage=map_config.grass_image;
+    this.powerupManager = new PowerUpManager(this.game);
   }
   init() {
     //create grass image
@@ -57,7 +58,6 @@ class MapManager extends Updateable {
         }
 
         //Initialize
-
       }
     }
 
@@ -91,6 +91,7 @@ class MapManager extends Updateable {
 
 
     this.towerManager.init();
+    this.powerupManager.init();
 
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
     this.game.player.loc = startTile.loc.duplicate();
@@ -102,6 +103,7 @@ class MapManager extends Updateable {
       }
     }
     this.towerManager.update();
+    this.powerupManager.update();
   }
   render() {
     //draw grass
@@ -121,6 +123,7 @@ class MapManager extends Updateable {
       }
     }
     this.towerManager.render();
+    this.powerupManager.render();
   }
   reveal() {
       var cloc = positionToGrid(this.game.player.loc);
