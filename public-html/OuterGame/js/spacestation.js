@@ -133,7 +133,12 @@ SpaceStation.infoDiv = { //for changing the item shown in info div
     button.id = "infoButton";
     button.item = item;
     button.onclick = function(){
-      console.log(this.item.id + " buy");
+      // console.log(this.item.id + " buy " + this.item.children[1].id);
+      let price = this.item.children[1].id
+      if(resources.money>=price){
+        resources.buy(this.item,"exampleCat",price);
+        console.log(resources["exampleCat"]);
+      }
     };
     info.appendChild(button);
     var price = document.createTextNode("   "+ item.children[1].id);
