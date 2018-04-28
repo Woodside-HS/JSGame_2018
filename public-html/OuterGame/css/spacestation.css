@@ -114,3 +114,37 @@
   margin-right: 10px;
   cursor: pointer;
 }
+
+#collection{
+  background-color: green;
+  border: 1px black solid;
+  position: absolute;
+  bottom: -250px;
+  width: 600px;
+  height: 200px;
+}
+
+.collCats{
+  width: 30%;
+  height: 90%;
+  background-color: lightgreen;
+  float: left;
+  margin: 10px 10px 10px 10px;
+}
+
+.collectionImg{
+  width: 25%;
+  height: 25%;
+  margin-top: -15px;
+  margin-bottom: 10px;
+}
+
+#creditsColl{
+  position: absolute;
+  bottom: -250px;
+  right: 0px;
+  width: 180px;
+  height: 180px;
+  background-color: lightblue;
+  border: 10px blue solid;
+}

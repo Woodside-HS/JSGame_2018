@@ -50,7 +50,7 @@ SpaceStation.html = '\
   <img id="exitButton" src="shopIMGS/exit.png">\
   <div id="items">\
     <h3>Items</h3>\
-    <div id="catAdiv" class="catDiv">\
+    <div id="boostsDiv" class="catDiv">\
       <div id="Cookie" class="tile">\
         <img class="imgTile" src="shopIMGS/cookie.png">\
         <span style="display:none;" id="2.35"></span>\
@@ -64,7 +64,7 @@ SpaceStation.html = '\
         <span style="display:none;" id="1.45"></span>\
       </div>\
     </div>\
-    <div id="catBdiv" class="catDiv">\
+    <div id="repairsDiv" class="catDiv">\
       <div id="Cake" class="tile">\
         <img class="imgTile" src="shopIMGS/cake.png">\
         <span style="display:none;" id="4.30"></span>\
@@ -74,42 +74,67 @@ SpaceStation.html = '\
         <span style="display:none;" id="3.60"></span>\
       </div>\
     </div>\
-    <div id="catCdiv" class="catDiv">\
-    <div id="Tea" class="tile">\
-      <img class="imgTile" src="shopIMGS/tea.png">\
-      <span style="display:none;" id="2.40"></span>\
-    </div>\
+    <div id="weaponsDiv" class="catDiv">\
+      <div id="Tea" class="tile">\
+        <img class="imgTile" src="shopIMGS/tea.png">\
+        <span style="display:none;" id="2.40"></span>\
+      </div>\
       <div id="Coffee" class="tile">\
         <img class="imgTile" src="shopIMGS/coffee.png">\
         <span style="display:none;" id="3.50"></span>\
       </div>\
     </div>\
+    <div id="creditsDiv" class="catDiv">\
+      <div id="Donut" class="tile">\
+        <img class="imgTile" src="shopIMGS/donut.png">\
+        <span style="display:none;" id="2.60"></span>\
+      </div>\
+      <div id="Macaron" class="tile">\
+        <img class="imgTile" src="shopIMGS/macaron.png">\
+        <span style="display:none;" id="4.75"></span>\
+      </div>\
+    </div>\
   </div>\
   <div id="radioButtons">\
     <input class="radio" type="radio" name="category" id="allCat" checked="checked" onchange="SpaceStation.changeCategory()">All\
-    <input class="radio" type="radio" name="category" id="catA" onchange="SpaceStation.changeCategory()">A\
-    <input class="radio" type="radio" name="category" id="catB" onchange="SpaceStation.changeCategory()">B\
-    <input class="radio" type="radio" name="category" id="catC" onchange="SpaceStation.changeCategory()">C\
+    <input class="radio" type="radio" name="category" id="boosts" onchange="SpaceStation.changeCategory()">Boosts\
+    <input class="radio" type="radio" name="category" id="repairs" onchange="SpaceStation.changeCategory()">Repairs<br>\
+    <input class="radio" type="radio" name="category" id="weapons" onchange="SpaceStation.changeCategory()">Weapons\
+    <input class="radio" type="radio" name="category" id="credits" onchange="SpaceStation.changeCategory()">Credits\
   </div>\
   <div id="info">\
     <h3>Info</h3>\
   </div>\
+  <div id="collection">\
+    <div class="collCats" id="boostsColl">\
+      <p>Boosts</p>\
+    </div>\
+    <div class="collCats" id="repairsColl">\
+      <p>Repairs</p>\
+    </div>\
+    <div class="collCats" id="weaponsColl">\
+      <p>Weapons</p>\
+    </div>\
+  </div>\
+  <div id="creditsColl">\
+    <p>Credits</p>\
+  </div>\
 ';
 
 SpaceStation.changeCategory = function(){
-  var array = [document.getElementById("catA"),document.getElementById("catB"),document.getElementById("catC"),document.getElementById("allCat")]
+  var array = [document.getElementById("boosts"),document.getElementById("repairs"),document.getElementById("weapons"),document.getElementById("credits"),document.getElementById("allCat")]
   for(let i in array){
     if(array[i].checked){
-      if(i==3){
+      if(i==array.length-1){
         for(let i=0;i<array.length-1;i++){
-          document.getElementById(""+array[i].id+"div").style.display = "block";
+          document.getElementById(""+array[i].id + "Div").style.display = "block";
         }
       } else{
-        document.getElementById(""+array[i].id+"div").style.display = "block";
+        document.getElementById(""+array[i].id + "Div").style.display = "block";
       }
     } else{
-      if(i!=3){
-        document.getElementById(""+array[i].id+"div").style.display = "none";
+      if(i!=array.length-1){
+        document.getElementById(""+array[i].id + "Div").style.display = "none";
       }
     }
   }
@@ -129,15 +154,20 @@ SpaceStation.infoDiv = { //for changing the item shown in info div
     div.id = "infoName";
     info.appendChild(div);
     var button = document.createElement("button");
-    button.innerHTML = "Buy";
+    if(item.parentElement.id=="creditsDiv"){
+      button.innerHTML = "Sell";
+    } else{
+      button.innerHTML = "Buy";
+    }
     button.id = "infoButton";
     button.item = item;
     button.onclick = function(){
-      // console.log(this.item.id + " buy " + this.item.children[1].id);
-      let price = this.item.children[1].id
+      let price = this.item.children[1].id;
       if(resources.money>=price){
-        resources.buy(this.item,"exampleCat",price);
-        console.log(resources["exampleCat"]);
+        var object = {
+          div : this.item
+        };
+        resources.buy(object,price);
       }
     };
     info.appendChild(button);

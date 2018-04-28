@@ -273,25 +273,33 @@ function loadImages(){
 function init(){
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
 		money : 100,
-		credits : [creditEx = {value:10}], //each element is an object literal with a value
+		credits : [creditEx = {value:10}], //each has a value
 		creatures : [],
-		boosts : [],
-		repairs : [],
-		exampleCat : [],
+		boosts : [], //boost speed, firing frequency
+		repairs : [], //repair/upgrade shield
+		weapons : [], //add different kinds of weapons to use
 		shieldLevel : 1,
 		engineLevel : 1,
 		weaponsLevel : 1,
 
 		convertCredits : function(){
-			for(i in this.credits){
+			for(let i = this.credits.length-1;i>=0;i--){
 				this.money += this.credits[i].value;
+				this.credits.pop();
 			}
 		},
-		collect : function(object, category){
+		collect : function(object){
+			var category = ""+object.div.parentElement.id;
+			category = category.slice(0,category.length-3);
 			this[category].push(object);
+			var div = document.getElementById(""+category+"Coll");
+			var obj = document.createElement("img");
+			obj.src = ""+object.div.children[0].src;
+			obj.className = "collectionImg";
+			div.appendChild(obj);
 		},
-		buy : function(object,category,price){
-			this.collect(object,category);
+		buy : function(object,price){
+			this.collect(object);
 			this.money -= price;
 		}
 	};
