@@ -45,5 +45,9 @@ const tile_types = {
   }
 };
 const tile_config = {
+  animal_image: new Image(),
+  animal_image_src: '../InnerGame/res/sprites/rocks2c.png',
+  gridline_stroke: 1,
+  gridline_color: "#000000",
   tile_overlap: 1
 };

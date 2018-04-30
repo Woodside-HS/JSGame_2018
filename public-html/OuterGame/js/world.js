@@ -51,13 +51,14 @@
 				case "t":
 					this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 					break;
-				case "x": //planet landing
-					if (this.checkHitPlanet()) {
-						game = this.checkHitPlanet().game;
-						gameState = 'inner';
-						game.init();
-					}
-					break;
+          case"x": //planet landing
+            if(gameState=='outer'&& (playerShip.vel.x||playerShip.vel.y) && this.checkHitPlanet()){
+              game=this.checkHitPlanet().game;
+              gameState='inner';
+              playerShip.vel=new Vector2D(0,0);
+              game.startup();
+            }
+            break;
 				case "l": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
@@ -122,7 +123,7 @@
 
 		this.makeEnemies(15); // Spawns in drone ships
 
-		
+
 		//create rocketship at center of canvas
 		this.ship = new Rocketship(new Vector2D(0, 0));
 		playerShip = this.ship; // A dumb global variable we have for some reason
@@ -498,7 +499,7 @@
 		ctx.stroke();
 		ctx.restore();
 
-		
+
 		if (this.cursorTarget && this.cursorTarget.stats && this.cursorTarget != this.ship) {
 
 			let pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
@@ -580,7 +581,7 @@
 	update() {
 		this.frameCount++;
 		this.camera.update(); // No effect until the camera is implemented
-		
+
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
 
@@ -651,7 +652,7 @@
 			arr[i].render(); // Render everything visible in the universe
 		}
 		ctx.restore();
-		
+
 		this.drawHealthMeter();
 		this.checkHitPlanet();
 		this.drawSelectionBuffer();
@@ -700,7 +701,7 @@
 	}
 
 	/**Draw the health meter in the upper left corner.
-	 * 
+	 *
 	 */
 	drawHealthMeter(){
 
