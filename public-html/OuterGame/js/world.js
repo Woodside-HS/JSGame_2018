@@ -495,79 +495,11 @@
 		ctx.arc(0, 0, 6, 0, Math.PI * 2);
 		ctx.stroke();
 		ctx.restore();
-	}
-
-	update() {
-		this.frameCount++;
-		this.camera.update(); // No effect until the camera is implemented
-		
-		this.checkAsteroidCollision();
-		this.checkHitStation(); //issue 54
 
 		
-
-
-
-		// Draw cursor
-		this.drawCursor();
-
-		if (this.cursorTarget) {
-
-			let position = this.getScreenPosition(this.cursorTarget); // Get position of the target on the screen
-
-			ctx.save();
-			ctx.translate(position.x, position.y);
-			ctx.beginPath();
-			ctx.strokeStyle = '#00FFFF';
-			ctx.arc(0, 0, this.cursorTarget.radius * 1.2 + 1, 0, Math.PI * 2);
-			ctx.stroke();
-			ctx.restore();
-
-			if (!this.cursorTarget.targetScanned) {
-				this.ship.targetScanTimer++;
-				if (this.ship.targetScanTimer >= this.ship.targetScanDuration * FPS) {
-					this.cursorTarget.targetScanned = true;
-					this.ship.targetScanTimer = 0;
-				}
-			}
-
-			for (let i = 0; i < 3; i++) {
-
-				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
-
-				ctx.save();
-				ctx.translate(secondPos.x, secondPos.y);
-				ctx.beginPath();
-				ctx.fillStyle = '#00FFFF';
-				ctx.arc(0, 0, this.cursorTarget.radius / 12 + 2, 0, Math.PI * 2);
-				ctx.fill();
-				ctx.restore();
-			}
-
-			this.cursorTargetRotation += (2 * Math.PI) / FPS / 4; // 4 seconds per rotation
-
-		}
-
-		
-
-		let i = 0;
-		if (this.ship.shield && this.ship.shield.offline) {
-			i++;
-			ctx.textAlign = "center";
-			ctx.fillStyle = "#AA0000";
-			ctx.fillText("Shields Offline!", pos.x, pos.y + 75);
-			ctx.textAlign = "start";
-		}
-		if (this.ship.stats.health() <= (this.ship.stats.maxHp * 0.25)) {
-			ctx.textAlign = "center";
-			ctx.fillStyle = "#AA0000";
-			ctx.fillText("Damage Critical!", pos.x, pos.y + 75 + 25 * i);
-			ctx.textAlign = "start";
-		}
-
 		if (this.cursorTarget && this.cursorTarget.stats && this.cursorTarget != this.ship) {
 
-			pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
+			let pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
 			let segments = 36;
 			if (this.targetWheelRotation < segments) {
 				this.targetWheelRotation = segments;
@@ -641,6 +573,74 @@
 				ctx.textAlign = "start";
 			}
 		}
+	}
+
+	update() {
+		this.frameCount++;
+		this.camera.update(); // No effect until the camera is implemented
+		
+		this.checkAsteroidCollision();
+		this.checkHitStation(); //issue 54
+
+		
+
+
+
+
+		if (this.cursorTarget) {
+
+			let position = this.getScreenPosition(this.cursorTarget); // Get position of the target on the screen
+
+			ctx.save();
+			ctx.translate(position.x, position.y);
+			ctx.beginPath();
+			ctx.strokeStyle = '#00FFFF';
+			ctx.arc(0, 0, this.cursorTarget.radius * 1.2 + 1, 0, Math.PI * 2);
+			ctx.stroke();
+			ctx.restore();
+
+			if (!this.cursorTarget.targetScanned) {
+				this.ship.targetScanTimer++;
+				if (this.ship.targetScanTimer >= this.ship.targetScanDuration * FPS) {
+					this.cursorTarget.targetScanned = true;
+					this.ship.targetScanTimer = 0;
+				}
+			}
+
+			for (let i = 0; i < 3; i++) {
+
+				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
+
+				ctx.save();
+				ctx.translate(secondPos.x, secondPos.y);
+				ctx.beginPath();
+				ctx.fillStyle = '#00FFFF';
+				ctx.arc(0, 0, this.cursorTarget.radius / 12 + 2, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.restore();
+			}
+
+			this.cursorTargetRotation += (2 * Math.PI) / FPS / 4; // 4 seconds per rotation
+
+		}
+
+		
+
+		let i = 0;
+		if (this.ship.shield && this.ship.shield.offline) {
+			i++;
+			ctx.textAlign = "center";
+			ctx.fillStyle = "#AA0000";
+			ctx.fillText("Shields Offline!", pos.x, pos.y + 75);
+			ctx.textAlign = "start";
+		}
+		if (this.ship.stats.health() <= (this.ship.stats.maxHp * 0.25)) {
+			ctx.textAlign = "center";
+			ctx.fillStyle = "#AA0000";
+			ctx.fillText("Damage Critical!", pos.x, pos.y + 75 + 25 * i);
+			ctx.textAlign = "start";
+		}
+
 
 		let collisions = []; // Empty array to be filled with collisions
 		for (let i in this.entities) { // Looks through every entity
@@ -696,6 +696,7 @@
 		
 		this.drawHealthMeter();
 		this.checkHitPlanet();
+		this.drawCursor();
 		this.drawDebug();
 
 	}
