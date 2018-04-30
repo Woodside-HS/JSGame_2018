@@ -5,8 +5,6 @@ class SpaceStation{
 
     this.canLandOn = false;
 
-
-
     //create html div for whole space station
     this.div = document.createElement("div");
     this.div.id = "spacestation";
@@ -51,7 +49,7 @@ SpaceStation.html = '\
   <h1 style="font-size:40px;">Space Station</h1>\
   <img id="exitButton" src="shopIMGS/exit.png">\
   <div id="items">\
-    <h2>Items</h2>\
+    <h3>Items</h3>\
     <div id="catAdiv" class="catDiv">\
       <div id="Cookie" class="tile">\
         <img class="imgTile" src="shopIMGS/cookie.png">\
@@ -94,7 +92,7 @@ SpaceStation.html = '\
     <input class="radio" type="radio" name="category" id="catC" onchange="SpaceStation.changeCategory()">C\
   </div>\
   <div id="info">\
-    <h2>Info</h2>\
+    <h3>Info</h3>\
   </div>\
 ';
 
@@ -135,7 +133,12 @@ SpaceStation.infoDiv = { //for changing the item shown in info div
     button.id = "infoButton";
     button.item = item;
     button.onclick = function(){
-      console.log(this.item.id + " buy");
+      // console.log(this.item.id + " buy " + this.item.children[1].id);
+      let price = this.item.children[1].id
+      if(resources.money>=price){
+        resources.buy(this.item,"exampleCat",price);
+        console.log(resources["exampleCat"]);
+      }
     };
     info.appendChild(button);
     var price = document.createTextNode("   "+ item.children[1].id);

@@ -28,10 +28,7 @@
 	this.targetWheelRotation = 0; // This is just used for the "Scanning..." visual effect
 
 	document.addEventListener("click", (e) => {
-    if(this.atStation){ //if player is at a station, will use listener to click on buttons
-      let cursorLoc = new Vector2D(e.offsetX,e.offsetY);
-      this.stations[0].checkClickButton(cursorLoc);
-    } else{
+    if(!this.atStation){
       let target = this.getCursorTarget(); // Finds the right target
   		this.target(target);
     }
@@ -75,7 +72,7 @@
             SpaceStation.infoDiv.removeChildren();
           }
         }
-        break;
+      break;
 		}
 	});
 
@@ -144,7 +141,7 @@
 
   makePlanets(num){
     for(var i = 0; i < num; i++){
-      var radius = Math.random() * 50 + 10;
+      var radius = Math.random() * 50 + 50;
       //set location vector, prevent planet overlap by choosing new location for planet
       //until all planets are far enough apart
       while (true) {
@@ -167,7 +164,7 @@
     var a = true; //check if is far enough away from other entities to be drawn
     while(counter>0){
       a = true;
-      var r = (Math.random()*20)+5;
+      var r = (Math.random()*20)+6;
       var x = (Math.random() * this.width*2) - this.width;
       var y = (Math.random() * this.height*2) - this.height;
       //var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
