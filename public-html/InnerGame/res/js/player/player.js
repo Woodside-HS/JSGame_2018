@@ -103,10 +103,19 @@ class Player extends Updateable {
     hitBoxPos.add(vDir);
     let hitboxCloc = positionToGrid(hitBoxPos);
     //check for a collision in the x direction
+    if(hitboxCloc.x >= 0 &&
+       hitboxCloc.x < config.map_x_size &&
+       hitboxCloc.y >= 0 &&
+       hitboxCloc.y < config.map_y_size &&
+       this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater){
+         this.v.m = 2;
+         this.v.upComps();
+    }
     if (
             hitboxCloc.x < 0 ||
             hitboxCloc.x >= config.map_x_size ||
-            this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied
+            (this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied &&
+              !this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater)
             ) {
       this.loc.subtract(this.v);//hold it!
       this.v.x = 0;//stop going that way
@@ -117,7 +126,8 @@ class Player extends Updateable {
     if (
             hitboxCloc.y < 0 ||
             hitboxCloc.y >= config.map_y_size ||
-            this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied
+            (this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied &&
+              !this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isWater)
             ) {
       this.loc.subtract(this.v);//hol up
       this.v.y = 0;//stop going that way

@@ -28,7 +28,7 @@ class Minimap extends Updateable {
           currentColor = tower_config.minimap_color;
         }
         if (!this.game.mapManager.map[i][j].seen) {
-          currentColor = new Color("black");
+          currentColor = tile_types.mask.minimap_color;
         }
         //update image
         this.imgData.data[pixelIndex + 0] = currentColor.red();

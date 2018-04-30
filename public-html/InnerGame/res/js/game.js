@@ -38,6 +38,7 @@ class Game extends Updateable {
     this.mapManager = new MapManager(this);
     this.minionManager = new MinionManager(this);
     this.player = new Player(this);
+    this.mask = new Mask(this);
     this.userInterface = new UserInterface(this);
     //  create the canvas
     this.canvas = canvas;
@@ -57,12 +58,14 @@ class Game extends Updateable {
 
   }
   init() {
+    config.init();
     this.mapManager.init();
     this.minionManager.init();
   }
   startup(){//things that need to be called on start
     this.player.init();
     this.userInterface.init();
+    this.mask.init();
   }
   update() {
     //update mouse location
@@ -74,6 +77,7 @@ class Game extends Updateable {
       this.mapManager.update();
       this.minionManager.update();
       this.player.update();
+      this.mask.update();
     }
 
     this.userInterface.update();
@@ -88,9 +92,14 @@ class Game extends Updateable {
     this.context.translate(config.canvas_width / 2, config.canvas_height / 2);
     this.context.scale(config.scaling_factor_x, config.scaling_factor_y);
     this.context.translate(-this.player.loc.x, -this.player.loc.y);
+
+    //translated bits
     this.mapManager.render();
     this.minionManager.render();
     this.player.render();
+    this.mask.render();
+
+    //return to normal
     this.context.restore();
 
     //always static
