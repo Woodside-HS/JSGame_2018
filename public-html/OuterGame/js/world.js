@@ -548,50 +548,7 @@
 
 		}
 
-		// Draw a visual for the ship's health in the top left corner
-
-		let pos = new Vector2D(canvas.width * 0.075, canvas.height * 0.125);
-
-		let segments = 36; // Number of segments in the health wheel
-		for (let i = 0; i < segments; i++) {
-
-			let color = '#008800'; // GREEN. Default health color
-			if (this.ship.stats.health() / this.ship.stats.maxHp <= i / segments) {
-				color = '#AA0000'; // The wheel turns RED when the ship is damaged.
-			}
-			ctx.beginPath();
-			ctx.arc(pos.x, pos.y, 30, (Math.PI / segments) * (2 * i - 0.5), (Math.PI / segments) * (2 * i + 0.5));
-			let width = 20;
-			if (i % 2 == 0) {
-				width = 30; // This causes a nice visual effect.
-			}
-			ctx.lineWidth = width;
-			ctx.strokeStyle = color;
-			ctx.stroke();
-			ctx.lineWidth = 2;
-
-			for (let x in this.ship.shields) {
-
-				let color = this.ship.shields[x].color; // Defaults to the shield's color
-				if (this.ship.shields[x].offline && (this.ship.shields[x].offlineTimer / (this.ship.shields[x].rechargeDuration * FPS)) > (i / segments)) {
-					color = '#444444'; // If the shield is offline, then it's GREY instead
-				}
-				if (this.ship.shields[x].stats.health() / this.ship.shields[x].stats.maxHp <= i / segments) {
-					color = '#660000'; // Damaged part of the shield is red
-				}
-
-				ctx.beginPath();
-				ctx.arc(pos.x, pos.y, 30 + 12 * (x) + 15 - 1, (Math.PI / segments) * (2 * i - 0.5), (Math.PI / segments) * (2 * i + 0.5));
-				let width = 10;
-				if (i % 2 == (x % 2)) {
-					width = 20;
-				}
-				ctx.lineWidth = width;
-				ctx.strokeStyle = color;
-				ctx.stroke();
-				ctx.lineWidth = 2;
-			}
-		}
+		
 
 		let i = 0;
 		if (this.ship.shield && this.ship.shield.offline) {
@@ -737,10 +694,59 @@
 		}
 		ctx.restore();
 		
-		
+		this.drawHealthMeter();
 		this.checkHitPlanet();
 		this.drawDebug();
 
+	}
+
+	/**Draw the health meter in the upper left corner.
+	 * 
+	 */
+	drawHealthMeter(){
+
+		let pos = new Vector2D(canvas.width * 0.075, canvas.height * 0.125);
+
+		let segments = 36; // Number of segments in the health wheel
+		for (let i = 0; i < segments; i++) {
+
+			let color = '#008800'; // GREEN. Default health color
+			if (this.ship.stats.health() / this.ship.stats.maxHp <= i / segments) {
+				color = '#AA0000'; // The wheel turns RED when the ship is damaged.
+			}
+			ctx.beginPath();
+			ctx.arc(pos.x, pos.y, 30, (Math.PI / segments) * (2 * i - 0.5), (Math.PI / segments) * (2 * i + 0.5));
+			let width = 20;
+			if (i % 2 == 0) {
+				width = 30; // This causes a nice visual effect.
+			}
+			ctx.lineWidth = width;
+			ctx.strokeStyle = color;
+			ctx.stroke();
+			ctx.lineWidth = 2;
+
+			for (let x in this.ship.shields) {
+
+				let color = this.ship.shields[x].color; // Defaults to the shield's color
+				if (this.ship.shields[x].offline && (this.ship.shields[x].offlineTimer / (this.ship.shields[x].rechargeDuration * FPS)) > (i / segments)) {
+					color = '#444444'; // If the shield is offline, then it's GREY instead
+				}
+				if (this.ship.shields[x].stats.health() / this.ship.shields[x].stats.maxHp <= i / segments) {
+					color = '#660000'; // Damaged part of the shield is red
+				}
+
+				ctx.beginPath();
+				ctx.arc(pos.x, pos.y, 30 + 12 * (x) + 15 - 1, (Math.PI / segments) * (2 * i - 0.5), (Math.PI / segments) * (2 * i + 0.5));
+				let width = 10;
+				if (i % 2 == (x % 2)) {
+					width = 20;
+				}
+				ctx.lineWidth = width;
+				ctx.strokeStyle = color;
+				ctx.stroke();
+				ctx.lineWidth = 2;
+			}
+		}
 	}
 
 	drawDebug(){
