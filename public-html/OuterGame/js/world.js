@@ -587,42 +587,7 @@
 
 
 
-		if (this.cursorTarget) {
-
-			let position = this.getScreenPosition(this.cursorTarget); // Get position of the target on the screen
-
-			ctx.save();
-			ctx.translate(position.x, position.y);
-			ctx.beginPath();
-			ctx.strokeStyle = '#00FFFF';
-			ctx.arc(0, 0, this.cursorTarget.radius * 1.2 + 1, 0, Math.PI * 2);
-			ctx.stroke();
-			ctx.restore();
-
-			if (!this.cursorTarget.targetScanned) {
-				this.ship.targetScanTimer++;
-				if (this.ship.targetScanTimer >= this.ship.targetScanDuration * FPS) {
-					this.cursorTarget.targetScanned = true;
-					this.ship.targetScanTimer = 0;
-				}
-			}
-
-			for (let i = 0; i < 3; i++) {
-
-				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
-
-				ctx.save();
-				ctx.translate(secondPos.x, secondPos.y);
-				ctx.beginPath();
-				ctx.fillStyle = '#00FFFF';
-				ctx.arc(0, 0, this.cursorTarget.radius / 12 + 2, 0, Math.PI * 2);
-				ctx.fill();
-				ctx.restore();
-			}
-
-			this.cursorTargetRotation += (2 * Math.PI) / FPS / 4; // 4 seconds per rotation
-
-		}
+		
 
 		
 
@@ -696,9 +661,49 @@
 		
 		this.drawHealthMeter();
 		this.checkHitPlanet();
+		this.drawSelectionBuffer();
 		this.drawCursor();
 		this.drawDebug();
 
+	}
+
+	drawSelectionBuffer(){
+		if (this.cursorTarget) {
+
+			let position = this.getScreenPosition(this.cursorTarget); // Get position of the target on the screen
+
+			ctx.save();
+			ctx.translate(position.x, position.y);
+			ctx.beginPath();
+			ctx.strokeStyle = '#00FFFF';
+			ctx.arc(0, 0, this.cursorTarget.radius * 1.2 + 1, 0, Math.PI * 2);
+			ctx.stroke();
+			ctx.restore();
+
+			if (!this.cursorTarget.targetScanned) {
+				this.ship.targetScanTimer++;
+				if (this.ship.targetScanTimer >= this.ship.targetScanDuration * FPS) {
+					this.cursorTarget.targetScanned = true;
+					this.ship.targetScanTimer = 0;
+				}
+			}
+
+			for (let i = 0; i < 3; i++) {
+
+				let secondPos = position.clone().add(new AngularVector2D(this.cursorTarget.radius * 1.2, this.cursorTargetRotation + (i * Math.PI * 2 / 3)));
+
+				ctx.save();
+				ctx.translate(secondPos.x, secondPos.y);
+				ctx.beginPath();
+				ctx.fillStyle = '#00FFFF';
+				ctx.arc(0, 0, this.cursorTarget.radius / 12 + 2, 0, Math.PI * 2);
+				ctx.fill();
+				ctx.restore();
+			}
+
+			this.cursorTargetRotation += (2 * Math.PI) / FPS / 4; // 4 seconds per rotation
+
+		}
 	}
 
 	/**Draw the health meter in the upper left corner.
