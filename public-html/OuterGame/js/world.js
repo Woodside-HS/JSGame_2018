@@ -116,16 +116,18 @@
 		// Debug mode determines whether certain measurements appear for testing purposes
 		this.debugMode = true;
 
-		//create rocketship at center of canvas
-		this.ship = new Rocketship(new Vector2D(0, 0));
-		playerShip = this.ship; // A dumb global variable we have for some reason
-		this.entities.push(this.ship);
-
 		this.makePlanets(50);
 		this.makeAsteroids(200, true); //issue 12, will spawn in canvas
 		this.makeStations(1); //issue 54
 
 		this.makeEnemies(15); // Spawns in drone ships
+
+		
+		//create rocketship at center of canvas
+		this.ship = new Rocketship(new Vector2D(0, 0));
+		playerShip = this.ship; // A dumb global variable we have for some reason
+		this.entities.push(this.ship);
+
 
 		this.cursorX = -50;
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
@@ -581,15 +583,6 @@
 		
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
-
-		
-
-
-
-
-		
-
-		
 
 		let i = 0;
 		if (this.ship.shield && this.ship.shield.offline) {
