@@ -27,8 +27,7 @@ class PowerUpManager extends Updateable {
       this.validStartTiles[index].powerup= new PowerUp(this.game, type, this.validStartTiles[index].cloc);
       this.powerups.push(this.validStartTiles[index].powerup)
       this.validStartTiles[index].powerup.init();
-      this.validStartTiles.splice(index,1)
-
+      this.validStartTiles.splice(index,1);
     }
   }
   update() {

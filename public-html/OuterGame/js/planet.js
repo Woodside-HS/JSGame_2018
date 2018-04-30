@@ -4,6 +4,7 @@ class Planet{
     this.radius = radius;
     this.loc = location;
     this.game = new Game();
+    this.game.init();
   }
 
   render () {

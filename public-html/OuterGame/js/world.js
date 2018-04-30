@@ -55,10 +55,11 @@
 				this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 			break;
       case"x": //planet landing
-        if(this.checkHitPlanet()){
+        if(gameState=='outer'&& (playerShip.vel.x||playerShip.vel.y) && this.checkHitPlanet()){
           game=this.checkHitPlanet().game;
           gameState='inner';
-          game.init();
+          playerShip.vel=new Vector2D(0,0);
+          game.startup();
         }
         break;
       case "l": //issue 54

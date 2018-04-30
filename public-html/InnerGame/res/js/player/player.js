@@ -24,6 +24,7 @@ class Player extends Updateable {
     this.projectiles=[];
   }
   init() {
+    this.hasMoved=false;
     this.image.src=player_config.image_src;
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
@@ -32,6 +33,7 @@ class Player extends Updateable {
     document.addEventListener("mouseup", this.mouseup);
   }
   update() {
+    this.hasMoved=true;
     this.shotCooldownTimer--;
     this.dashCooldownTimer--;
     if(this.energy<player_config.max_energy){
@@ -124,6 +126,7 @@ class Player extends Updateable {
     }
 
 
+
     if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
     if(this.dashTimer>0) this.dashTimer--;
   }
@@ -135,6 +138,7 @@ class Player extends Updateable {
     this.game.context.restore();
     for(let i=0; i<this.projectiles.length; i++)
       this.projectiles[i].render();
+    this.checkImportantLoc();
   }
   dashTo(loc){
     if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
@@ -145,6 +149,21 @@ class Player extends Updateable {
     this.dashV=diff.duplicate();
     this.dashTimer=player_config.dash_time;
     this.storedV=this.v;
+  }
+  checkImportantLoc(){
+    //returns improtant loc, if it is one
+    if(game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal){
+      //do something
+      game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal=false;
+      return 'animal';
+    }
+    if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
+      console.log('hello');
+      this.game.context.fillStyle="white";
+      this.game.context.font = "20px Georgia";
+      this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
+      return 'start';
+    }
   }
   docKeyDown(e) {
     let key = String.fromCharCode(e.keyCode);
@@ -169,6 +188,9 @@ class Player extends Updateable {
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
+      break;
+      case'X':
+        if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
       break;
     }
   }

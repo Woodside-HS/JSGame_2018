@@ -93,8 +93,13 @@ class MapManager extends Updateable {
     this.towerManager.init();
     this.powerupManager.init();
 
+    // initialiaze start location
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+    startTile.isStart = true;
     this.game.player.loc = startTile.loc.duplicate();
+
+    let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+    animalTile.hasAnimal = true;
   }
   update() {
     for (let i = 0; i < config.map_x_size; i++) {

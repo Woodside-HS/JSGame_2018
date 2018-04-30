@@ -18,6 +18,8 @@ class Tile extends Updateable {
     this.sourceloc = new FastVector(0, 0);
   }
   init() {
+    this.animalImage = tile_config.animal_image;
+    this.animalImage.src = tile_config.animal_image_src;
     this.image = this.tileType.image;
     this.image.src = this.tileType.image_src;
     this.isOccupied = this.tileType.is_occupied;
@@ -37,16 +39,18 @@ class Tile extends Updateable {
       this.game.context.fillRect(this.loc.x-1, this.loc.y-1, config.tile_size+2, config.tile_size+2); //1 pixel bigger
     } else {
       switch(this.tileType) {
-        case tile_types.grass:
-          return;
-          break;
+        case tile_types.grass:;
+        break;
         case tile_types.rock:
-          this.game.context.drawImage(
-            this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
-            this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+        this.game.context.drawImage(
+          this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
+          this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
           break;
-        default:
+          default:
           this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+        }
+        if(this.hasAnimal||this.isStart){
+          this.game.context.drawImage(this.animalImage, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
         }
       }
     }
