@@ -500,7 +500,7 @@
 	update() {
 		this.frameCount++;
 		this.camera.update(); // No effect until the camera is implemented
-		this.checkHitPlanet(); //issue 9
+		
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
 
@@ -735,9 +735,10 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
-
 		ctx.restore();
 		
+		
+		this.checkHitPlanet();
 		this.drawDebug();
 
 	}
