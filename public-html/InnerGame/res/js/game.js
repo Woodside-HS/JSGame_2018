@@ -90,10 +90,14 @@ class Game extends Updateable {
     this.context.translate(config.canvas_width / 2, config.canvas_height / 2);
     this.context.scale(config.scaling_factor_x, config.scaling_factor_y);
     this.context.translate(-this.player.loc.x, -this.player.loc.y);
+
+    //translated bits
     this.mapManager.render();
     this.minionManager.render();
     this.player.render();
     this.mask.render();
+
+    //return to normal
     this.context.restore();
 
     //always static
