@@ -14,14 +14,17 @@ class Rocketship extends Mover {
 
 		this.vel = new Vector2D(0.0001, 0.0001); // issue 3
 		this.acc = new Vector2D(0, 0);
-		this.frictionAcc = 15;
+		this.frictionAcc = 3;
 
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
 		this.maxVel = 180;
 		this.mouseLoc = null;
-		this.minMovementRange = this.frictionAcc;
+		this.minMovementRange = 50;
+		this.image = new Image();
+		this.image.src = "res/ships/playerShip.png";
+		this.shipScalingFactor = 0.5;
 
 		// Setup scanner
 
@@ -117,45 +120,6 @@ class Rocketship extends Mover {
 		this.acc.add(f);
 	}
 
-	turnRight() {
-		//console.log('r');
-		var m;
-		if (this.vel.magnitude() > 0) {
-			m = this.vel.magnitude() / 30;
-		} else {
-			m = 0.001;
-		}
-		var f = new AngularVector2D(m, this.dir + Math.PI / 2);
-		this.applyForce(f);
-	}
-
-	turnLeft() {
-		//console.log('l');
-		var m;
-		if (this.vel.magnitude() > 0) {
-			m = this.vel.magnitude() / 30;
-		} else {
-			m = 0.001;
-		}
-		var f = new AngularVector2D(m, this.dir - Math.PI / 2);
-		this.applyForce(f);
-	}
-
-	accelerate() {
-		//apply a force in the direction the ship is traveling
-		var f = new AngularVector2D(6, this.dir);
-		this.applyForce(f);
-	}
-
-	decelerate() {
-		//apply a force in the opposite direction of the ship
-		//checks velocity to make ship stop, not travel backward
-		if (this.vel.magnitude() > 0.0001) {
-			var f = new AngularVector2D(this.vel.magnitude() / 30 + 1, this.vel.theta() + Math.PI);
-			f.limit(this.vel.magnitude() - 0.0001);
-			this.applyForce(f);
-		}
-	}
 
 	fireBullet() {
 		let angle = this.vel.theta();
@@ -194,17 +158,9 @@ class Rocketship extends Mover {
 
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
-		ctx.rotate(this.dir)
-		ctx.beginPath();
-		ctx.moveTo(8, 0);
-		ctx.lineTo(-12, -8);
-		ctx.lineTo(-4, 0);
-		ctx.lineTo(-12, 8);
-		ctx.lineTo(8, 0);
-
-		ctx.fillStyle = 'gray';
-		ctx.fill();
-
+		ctx.rotate(this.dir+ Math.PI/2)
+		ctx.scale(this.shipScalingFactor,this.shipScalingFactor);
+		ctx.drawImage(this.image, this.image.width/(-2), this.image.height/(-2));
 		ctx.restore();
 
 	}
