@@ -21,6 +21,9 @@
 
 			this.cursorX = e.clientX - rect.left; // Adjust cursor coordinates to be relative to element
 			this.cursorY = e.clientY - rect.top;
+			if (gameState === "outer") {
+				worlds[currentLevel].ship.mouseLoc = new Vector2D(this.cursorX, this.cursorY);
+			}
 		});
 
 		this.cursorTarget = false; // The currently-selected target
@@ -51,14 +54,14 @@
 				case "t":
 					this.ship.attemptTorpedoLaunch(); // Launch torpedos, or prime torpedos for launch
 					break;
-          case"x": //planet landing
-            if(gameState=='outer'&& (playerShip.vel.x||playerShip.vel.y) && this.checkHitPlanet()){
-              game=this.checkHitPlanet().game;
-              gameState='inner';
-              playerShip.vel=new Vector2D(0,0);
-              game.startup();
-            }
-            break;
+				case "x": //planet landing
+					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
+						game = this.checkHitPlanet().game;
+						gameState = 'inner';
+						playerShip.vel = new Vector2D(0, 0);
+						game.startup();
+					}
+					break;
 				case "l": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
@@ -77,40 +80,6 @@
 			}
 		});
 
-		document.addEventListener("keydown", function (event) {
-			;
-			switch (event.key) {
-				case "s":
-					worlds[currentLevel].ship.down = true; // DEACCELERATE
-					break;
-				case "w":
-					worlds[currentLevel].ship.up = true; // ACCELERATE
-					break;
-				case "a":
-					worlds[currentLevel].ship.left = true; // TURN LEFT
-					break;
-				case "d":
-					worlds[currentLevel].ship.right = true; // TURN RIGHT
-					break;
-			}
-		});
-		document.addEventListener("keyup", function (event) {
-			;
-			switch (event.key) {
-				case "s":
-					worlds[currentLevel].ship.down = false; // DEACCELERATE
-					break;
-				case "w":
-					worlds[currentLevel].ship.up = false; // ACCELERATE
-					break;
-				case "a":
-					worlds[currentLevel].ship.left = false; // TURN LEFT
-					break;
-				case "d":
-					worlds[currentLevel].ship.right = false; // TURN RIGHT
-					break;
-			}
-		});
 	}
 
 	initialize() {
@@ -661,7 +630,7 @@
 
 	}
 
-	drawSelectionBuffer(){
+	drawSelectionBuffer() {
 		if (this.cursorTarget) {
 
 			let position = this.getScreenPosition(this.cursorTarget); // Get position of the target on the screen
@@ -703,7 +672,7 @@
 	/**Draw the health meter in the upper left corner.
 	 *
 	 */
-	drawHealthMeter(){
+	drawHealthMeter() {
 
 		let pos = new Vector2D(canvas.width * 0.075, canvas.height * 0.125);
 
@@ -749,7 +718,7 @@
 		}
 	}
 
-	drawDebug(){
+	drawDebug() {
 		if (this.debugMode) { // Display coordinates of ship and cursor
 
 			// Typing out debug mode information
