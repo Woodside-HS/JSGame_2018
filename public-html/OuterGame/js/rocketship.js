@@ -14,12 +14,14 @@ class Rocketship extends Mover {
 
 		this.vel = new Vector2D(0.0001, 0.0001); // issue 3
 		this.acc = new Vector2D(0, 0);
+		this.frictionAcc = 15;
+
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
 		this.maxVel = 180;
 		this.mouseLoc = null;
-		this.minMovementRange = 15;
+		this.minMovementRange = this.frictionAcc;
 
 		// Setup scanner
 
@@ -83,7 +85,9 @@ class Rocketship extends Mover {
 				this.acc.setMag(movementVector.magnitude() - this.minMovementRange);
 			}
 		}
-
+		let frictionAcc = this.vel.clone();
+		frictionAcc.setMag(-1 * this.frictionAcc);
+		this.vel.add(frictionAcc);
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
 
