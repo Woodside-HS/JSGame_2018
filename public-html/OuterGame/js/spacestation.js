@@ -73,6 +73,10 @@ SpaceStation.html = '\
         <img class="imgTile" src="shopIMGS/pie.png">\
         <span style="display:none;" id="3.60"></span>\
       </div>\
+      <div id="Donut" class="tile">\
+        <img class="imgTile" src="shopIMGS/donut.png">\
+        <span style="display:none;" id="2.60"></span>\
+      </div>\
     </div>\
     <div id="weaponsDiv" class="catDiv">\
       <div id="Tea" class="tile">\
@@ -85,10 +89,6 @@ SpaceStation.html = '\
       </div>\
     </div>\
     <div id="creditsDiv" class="catDiv">\
-      <div id="Donut" class="tile">\
-        <img class="imgTile" src="shopIMGS/donut.png">\
-        <span style="display:none;" id="2.60"></span>\
-      </div>\
       <div id="Macaron" class="tile">\
         <img class="imgTile" src="shopIMGS/macaron.png">\
         <span style="display:none;" id="4.75"></span>\
@@ -115,9 +115,6 @@ SpaceStation.html = '\
     <div class="collCats" id="weaponsColl">\
       <p>Weapons</p>\
     </div>\
-  </div>\
-  <div id="creditsColl">\
-    <p>Credits</p>\
   </div>\
 ';
 
@@ -156,20 +153,23 @@ SpaceStation.infoDiv = { //for changing the item shown in info div
     var button = document.createElement("button");
     if(item.parentElement.id=="creditsDiv"){
       button.innerHTML = "Sell";
+      button.onclick = function(){
+        resources.sellCredits();
+      };
     } else{
       button.innerHTML = "Buy";
+      button.onclick = function(){
+        let price = this.item.children[1].id;
+        if(resources.money>=price){
+          var object = {
+            div : this.item
+          };
+          resources.buy(object,price);
+        }
+      };
     }
     button.id = "infoButton";
     button.item = item;
-    button.onclick = function(){
-      let price = this.item.children[1].id;
-      if(resources.money>=price){
-        var object = {
-          div : this.item
-        };
-        resources.buy(object,price);
-      }
-    };
     info.appendChild(button);
     var price = document.createTextNode("   "+ item.children[1].id);
     price.id = "infoPrice";

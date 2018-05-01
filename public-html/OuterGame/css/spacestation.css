@@ -122,6 +122,7 @@
   bottom: -250px;
   width: 600px;
   height: 200px;
+  display: none;
 }
 
 .collCats{

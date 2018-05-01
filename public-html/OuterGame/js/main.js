@@ -278,11 +278,12 @@ function init(){
 		boosts : [], //boost speed, firing frequency
 		repairs : [], //repair/upgrade shield
 		weapons : [], //add different kinds of weapons to use
+		aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		engineLevel : 1,
 		weaponsLevel : 1,
 
-		convertCredits : function(){
+		sellCredits : function(){
 			for(let i = this.credits.length-1;i>=0;i--){
 				this.money += this.credits[i].value;
 				this.credits.pop();
