@@ -157,3 +157,50 @@ class Torpedo extends Bullet {
 		ctx.fill();
 	}
 }
+
+class BurstBomb extends Bullet {
+	
+	constructor(loc, vel, acc, radius) {
+		super(loc, vel, acc, radius);
+
+		this.timedLife = 1 + 1;
+		this.explosionCount = 16;
+
+		this.radius *= 2;
+
+		this.collisionEvents.push((other) => {
+			if(other.faction == this.owner.faction || (other.owner && other.owner.faction == this.owner.faction)) {
+				return; // Don't collide with the rocketship or its bullets/missiles
+			}
+
+			if(other.offline) {
+				return;
+			}
+
+			this.burst();
+		})
+	}
+
+	update() {
+		super.update();
+		if(this.timedLife <= 1) {
+			this.burst();
+		}
+	}
+
+	burst() {
+		this.destroy();
+
+		let collisionVisual = new BulletImpactVisual(this.loc.clone(), this.color);
+		collisionVisual.maxRadius *= 3;
+		System().addVisual(collisionVisual);
+
+		for(let i = 0; i < this.explosionCount; i++) {
+			let vect = new AngularVector2D(250, Math.PI * 2 * (i/this.explosionCount));
+			let bullet = new Bullet(this.loc.clone(), vect, new Vector2D(0,0), 3);
+			bullet.owner = this.owner;
+			bullet.color = this.color;
+			System().addEntity(bullet);
+		}
+	}
+}

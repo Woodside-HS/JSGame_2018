@@ -6,6 +6,8 @@ class DroneShip extends Mover {
 
 		this.vel = new Vector2D(Math.random() * 20 - 10, Math.random() * 20 - 10);
 
+		this.color = '#AA0000';
+
 		let stats = new StatBlock(40);
 		stats.assign(this);
 
@@ -14,6 +16,7 @@ class DroneShip extends Mover {
 		this.maxVel = 100;
 
 		this.firing = false;
+		this.bulletType = Bullet;
 
 		this.burstInterval = 0.8; // Seconds between burst attacks
 		this.burstCount = 2; // Shots per burst
@@ -38,7 +41,7 @@ class DroneShip extends Mover {
 		if(this.stats.health() <= 0) {
 			this.kill();
 
-			let collisionVisual = new BulletImpactVisual(this.loc.clone(), 'red');
+			let collisionVisual = new BulletImpactVisual(this.loc.clone(), this.color);
 			collisionVisual.maxRadius = this.radius * 1.5;
 			System().addVisual(collisionVisual);
 			return;
@@ -94,9 +97,9 @@ class DroneShip extends Mover {
 		let angle = this.vel.theta();
 		angle += -this.fireSpread/360*Math.PI + Math.random() * this.fireSpread/180*Math.PI;
 		let velocity = new AngularVector2D(250, angle);
-		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
+		let bullet = new this.bulletType(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
 		bullet.owner = this;
-		bullet.color = "#AA0000";
+		bullet.color = this.color;
 		System().addEntity(bullet);
 	}
 
@@ -112,7 +115,7 @@ class DroneShip extends Mover {
 		ctx.lineTo(-12, 12);
 		ctx.lineTo(8, 0);
 
-		ctx.fillStyle = 'red';
+		ctx.fillStyle = this.color;
 		ctx.fill();
 
 		ctx.restore();
@@ -258,5 +261,37 @@ class ShieldPlatform extends DroneShip {
 
 		ctx.restore();
 
+	}
+}
+
+class BurstBomber extends DroneShip {
+
+	constructor(loc) {
+		super(loc);
+
+		this.color = "orange";
+		this.burstCount = 3;
+		this.fireRate = 1;
+		this.burstInterval = 4;
+
+		this.bulletType = BurstBomb;
+	}
+
+	render() {
+
+		ctx.save();
+		ctx.translate(this.loc.x, this.loc.y);
+		ctx.rotate(this.vel.theta());
+		ctx.beginPath();
+		ctx.moveTo(8, 0);
+		ctx.lineTo(-12, -12);
+		ctx.lineTo(-4, 0);
+		ctx.lineTo(-12, 12);
+		ctx.lineTo(8, 0);
+
+		ctx.fillStyle = this.color;
+		ctx.fill();
+
+		ctx.restore();
 	}
 }

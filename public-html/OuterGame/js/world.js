@@ -91,7 +91,7 @@
     this.makePlanets(50);
 	this.makeAsteroids(100, true); //issue 12, will spawn in canvas
 
-	this.makeEnemies(15); // Spawns in drone ships
+	this.makeEnemies(25); // Spawns in drone ships
 
 	this.cursorX = -50;
 	this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
@@ -167,8 +167,11 @@
 		let x = Math.random() * this.width * 2 - this.width;
 		let y = Math.random() * this.height * 2 - this.height;
 		let drone = new DroneShip(new Vector2D(x, y));
+		if(i % 3 == 0) {
+			drone = new BurstBomber(new Vector2D(x, y));
+		}
 		if(i % 6 == 0) {
-			//drone = new TorpedoCruiser(new Vector2D(x, y));
+			drone = new TorpedoCruiser(new Vector2D(x, y));
 		}
 		if(i % 14 == 0) {
 			//drone = new ShieldPlatform(new Vector2D(x, y));
@@ -183,7 +186,7 @@
     for(let i=0;i<this.planets.length;i++){
       if(Vector2D.distance(this.planets[i].loc,this.ship.loc)<(this.planets[i].radius+20)){
         ctx.fillStyle="white";
-        ctx.font = "20px Georgia";
+        ctx.font = "20px Comic Sans MS";
         ctx.fillText("[X] to land on planet",canvas.width/2-50,canvas.height/2-50);
       }
     }
@@ -299,8 +302,8 @@
 
 			// Typing out debug mode information
 
-			ctx.fillStyle="white";
-			ctx.font = "20px Georgia";
+			ctx.fillStyle="#FF88FF";
+			ctx.font = "20px Comic Sans MS";
 
 			ctx.fillText("Press [U] to toggle Debug Mode",20,175);
 
