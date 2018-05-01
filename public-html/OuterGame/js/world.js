@@ -21,6 +21,9 @@
 
 			this.cursorX = e.clientX - rect.left; // Adjust cursor coordinates to be relative to element
 			this.cursorY = e.clientY - rect.top;
+			if(gameState==="outer"){
+			worlds[currentLevel].ship.mouseLoc = new Vector2D(this.cursorX, this.cursorY);
+			}
 		});
 
 		this.cursorTarget = false; // The currently-selected target
