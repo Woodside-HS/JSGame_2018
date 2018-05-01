@@ -13,8 +13,20 @@ class MapManager extends Updateable {
     this.validStartTiles = [];
     this.towerManager = new TowerManager(this.game);
     this.grassImage=map_config.grass_image;
+    this.powerupManager = new PowerUpManager(this.game);
   }
   init() {
+    //set world-specific config
+    tower_config.tower_range=[
+      Math.random()*-(tower_config.tower_range_ranges[0]-tower_config.tower_range_ranges[1])+tower_config.tower_range_ranges[0],
+      Math.random()*-(tower_config.tower_range_ranges[2]-tower_config.tower_range_ranges[3])+tower_config.tower_range_ranges[2]];
+    tower_config.tower_rate=Math.random()*-(tower_config.tower_rate_range[0]-tower_config.tower_rate_range[1])+tower_config.tower_rate_range[0];
+
+    map_config.water_range=[
+      Math.random()*-(map_config.water_range_ranges[0]-map_config.water_range_ranges[1])+map_config.water_range_ranges[0],
+      Math.random()*-(map_config.water_range_ranges[2]-map_config.water_range_ranges[3])+map_config.water_range_ranges[2]];
+    map_config.rock_probability=Math.random()*-(map_config.rock_probability_range[0]-map_config.rock_probability_range[1])+map_config.rock_probability_range[0];
+
     //create grass image
     this.grassImage.src=map_config.grass_image_src;
 
@@ -57,7 +69,6 @@ class MapManager extends Updateable {
         }
 
         //Initialize
-
       }
     }
 
@@ -91,9 +102,15 @@ class MapManager extends Updateable {
 
 
     this.towerManager.init();
+    this.powerupManager.init();
 
+    // initialiaze start location
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+    startTile.isStart = true;
     this.game.player.loc = startTile.loc.duplicate();
+
+    let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+    animalTile.hasAnimal = true;
   }
   update() {
     for (let i = 0; i < config.map_x_size; i++) {
@@ -102,6 +119,7 @@ class MapManager extends Updateable {
       }
     }
     this.towerManager.update();
+    this.powerupManager.update();
   }
   render() {
     //draw grass
@@ -121,6 +139,7 @@ class MapManager extends Updateable {
       }
     }
     this.towerManager.render();
+    this.powerupManager.render();
   }
   reveal() {
       var cloc = positionToGrid(this.game.player.loc);
