@@ -19,9 +19,11 @@ class Rocketship extends Mover {
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
+		this.configMaxVel=180;
 		this.maxVel = 180;
 		this.mouseLoc = null;
-		this.minMovementRange = 50;
+		this.minMovementRange = 1;
+		this.mouseAccel = .5
 		this.image = new Image();
 		this.image.src = "res/ships/enemyShip.png";
 		this.shipScalingFactor = .6;
@@ -83,9 +85,12 @@ class Rocketship extends Mover {
 		if (this.mouseLoc) {
 			let movementVector = worlds[currentLevel].worldCursorPos();
 			movementVector.subtract(this.loc);
+			if (2*movementVector.magnitude() < this.configMaxVel) {
+				this.maxVel=2*movementVector.magnitude();
+			}
 			if (movementVector.magnitude() > this.minMovementRange) {
 				this.acc = movementVector.clone();
-				this.acc.setMag(movementVector.magnitude() - this.minMovementRange);
+				this.acc.setMag(this.mouseAccel*(movementVector.magnitude() - this.minMovementRange));
 			}
 		}
 		let frictionAcc = this.vel.clone();
