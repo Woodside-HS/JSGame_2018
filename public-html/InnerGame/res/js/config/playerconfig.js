@@ -16,9 +16,9 @@ const player_config = {
   image: new Image(), //comes back later, don't touch it unless you have mastered black magic
 
   //god
-  shot_cooldown: 2*config.frame_rate/30, //in sec
-  bullet_size: 3, //in px
-  spread_count: 20,
+  shot_cooldown: 1*config.frame_rate/30, //in sec
+  bullet_size: 2, //in px
+  spread_count: 40,
   bullet_spread: Math.PI/8, //in radians
   bullet_color: 'rgba(0,200,100,1)',
   bullet_speed: 5, //in px/frame
