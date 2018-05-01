@@ -1,11 +1,11 @@
 #spacestation{
   display: none;
-  width: 90%;
-  height: 75%;
+  width: 950px;
+  height: 620px;
   background-color: black;
   position:absolute;
-  top: 5%;
-  left: 5%;
+  top: 50px;
+  left: 50px;
   z-index: 10;
   border-radius: 30px;
   background-image: url("../shopIMGS/background.png");
@@ -14,9 +14,9 @@
 #items{
   float: left;
   font-size: 20px;
-  margin-left: 3%;
-  width: 45%;
-  height: 80%;
+  margin-left: 30px;
+  width: 420px;
+  height: 500px;
   background-color: white;
   border-radius: 15%;
   background-image: url("../shopIMGS/shopBackground.png");
@@ -25,9 +25,9 @@
 #info{
   float: right;
   font-size: 20px;
-  margin-right: 3%;
-  width: 45%;
-  height: 80%;
+  margin-right: 30px;
+  width: 420px;
+  height: 500px;
   background-color: white;
   border-radius: 15%;
   background-image: url("../shopIMGS/infoBackground.png");
@@ -39,8 +39,8 @@
   border: 2px black solid;
   border-radius: 15px;
   position: absolute;
-  top: 2%;
-  right: 2%;
+  top: 15px;
+  right: 15px;
   background-color: lightgreen;
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
   font-size: 20px;
@@ -48,10 +48,10 @@
 }
 
 .tile{
-  width:85px;
-  height: 85px;
+  width:100px;
+  height: 100px;
   float: left;
-  margin: 0px 10px 20px 30px;
+  margin: 0px 5px 15px 20px;
   padding: 5px;
   background-color: lightblue;
   border-radius: 25%;
@@ -74,10 +74,10 @@
 }
 
 #infoName{
-  font-size: 30px;
+  font-size: 50px;
   margin-top: 10px;
   background-color: white;
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
 #infoButton{
