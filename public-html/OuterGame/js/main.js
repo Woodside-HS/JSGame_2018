@@ -273,7 +273,7 @@ function loadImages(){
 function init(){
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
 		money : 100,
-		credits : [creditEx = {value:10}], //each has a value
+		credits : [creditEx = {value:4.75, name:"Macaron"}], //each has a value
 		creatures : [],
 		boosts : [], //boost speed, firing frequency
 		repairs : [], //repair/upgrade shield
