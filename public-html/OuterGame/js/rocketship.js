@@ -76,11 +76,11 @@ class Rocketship extends Mover {
 		}
 
 		if (this.mouseLoc) {
-			let movementVector = this.mouseLoc.clone();
+			let movementVector = worlds[currentLevel].worldCursorPos();
 			movementVector.subtract(this.loc);
 			if (movementVector.magnitude() > this.minMovementRange) {
-				this.vel = movementVector.clone();
-				this.vel.setMag(movementVector.magnitude() - this.minMovementRange);
+				this.acc = movementVector.clone();
+				this.acc.setMag(movementVector.magnitude() - this.minMovementRange);
 			}
 		}
 
