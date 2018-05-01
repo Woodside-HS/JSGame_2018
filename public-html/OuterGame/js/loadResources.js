@@ -382,9 +382,13 @@ function loadImages(){
 		}).then(function(img){
 			Images['cupcake'] = img;
 		}),
-	]);
+	]).then(function(){
+		loadSounds();
+	})
 }
 
 function loadSounds(){
-	Promise.all([]);
+	Promise.all([]).then(function(){
+		init();
+	})
 }

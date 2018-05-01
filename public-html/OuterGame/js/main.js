@@ -27,8 +27,6 @@ var System = function() {
 
 function load(){
 	loadImages();
-	loadSounds();
-	init();
 }
 function init(){
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
