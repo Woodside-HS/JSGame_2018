@@ -33,6 +33,16 @@ class Player extends Updateable {
     document.addEventListener("mouseup", this.mouseup);
   }
   update() {
+    //set max v
+    this.maxV=player_config.max_speed;
+    if(this.cloc.x >= 0 &&
+       this.cloc.x < config.map_x_size &&
+       this.cloc.y >= 0 &&
+       this.cloc.y < config.map_y_size &&
+       this.game.mapManager.map[this.cloc.x][this.cloc.y].isWater){
+         this.maxV=player_config.water_speed;
+    }
+
     this.hasMoved=true;
     this.shotCooldownTimer--;
     this.dashCooldownTimer--;
@@ -81,8 +91,8 @@ class Player extends Updateable {
 
     this.v.add(this.a);
     //set max velocity
-    if (this.v.m > player_config.max_speed) {
-      this.v.m = player_config.max_speed;
+    if (this.v.m > this.maxV) {
+      this.v.m*=.5;
       this.v.upComps();
     }
     if(this.dashV) this.v.add(this.dashV);
@@ -103,14 +113,7 @@ class Player extends Updateable {
     hitBoxPos.add(vDir);
     let hitboxCloc = positionToGrid(hitBoxPos);
     //check for a collision in the x direction
-    if(hitboxCloc.x >= 0 &&
-       hitboxCloc.x < config.map_x_size &&
-       hitboxCloc.y >= 0 &&
-       hitboxCloc.y < config.map_y_size &&
-       this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater){
-         this.v.m = 2;
-         this.v.upComps();
-    }
+
     if (
             hitboxCloc.x < 0 ||
             hitboxCloc.x >= config.map_x_size ||

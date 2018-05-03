@@ -1,6 +1,6 @@
 class Rocketship extends Mover {
 
-	constructor(location){
+	constructor(location) {
 		super(location);
 		this.loc = location;
 		this.radius = 15;
@@ -12,18 +12,21 @@ class Rocketship extends Mover {
 		let stats = new StatBlock(100);
 		stats.assign(this);
 
-		this.vel = new Vector2D(0.0001,0.0001); // issue 3
-		this.acc = new Vector2D(0,0);
+		this.vel = new Vector2D(0.0001, 0.0001); // issue 3
+		this.acc = new Vector2D(0, 0);
+		this.frictionAcc = 3;
+
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
+		this.configMaxVel=180;
 		this.maxVel = 180;
-		//booleans keep track of when the ship is accelerating/decelerating/turning
-		//turned on in main.js when asdw keys are pressed
-		this.up = false; //w key
-		this.down = false; //s key
-		this.right = false; //d key
-		this.left = false; //a key
+		this.mouseLoc = null;
+		this.minMovementRange = 1;
+		this.mouseAccel = .5
+		this.image = new Image();
+		this.image.src = "res/ships/enemyShip.png";
+		this.shipScalingFactor = .6;
 
 		// Setup scanner
 
@@ -34,11 +37,11 @@ class Rocketship extends Mover {
 
 		this.burstInterval = 0.3; // Seconds between burst attacks
 		this.burstCount = 3; // Shots per burst
-		this.burstDelay = this.burstInterval*FPS; // Frames since last burst was fired
+		this.burstDelay = this.burstInterval * FPS; // Frames since last burst was fired
 		this.shotsFired = this.burstCount; // Number of shots fired in current burst
 
 		this.fireRate = 12; // Shots per second during burst
-		this.fireDelay = FPS/this.fireRate; // Frames since last shot was fired
+		this.fireDelay = FPS / this.fireRate; // Frames since last shot was fired
 		this.fireSpread = 45; // Inaccuracy of firing, in degrees
 
 		// Torpedo settings
@@ -52,12 +55,12 @@ class Rocketship extends Mover {
 		this.addShield(shield);
 	}
 
-	update(){
+	update() {
 
-		if(this.firing) { // If ship is actively in shooting mode...
-			if(this.shotsFired < this.burstCount) { // If it hasn't completed its burst yet...
+		if (this.firing) { // If ship is actively in shooting mode...
+			if (this.shotsFired < this.burstCount) { // If it hasn't completed its burst yet...
 				this.fireDelay++;
-				if(this.fireDelay >= FPS / this.fireRate) {
+				if (this.fireDelay >= FPS / this.fireRate) {
 					this.fireDelay -= FPS / this.fireRate;
 					this.shotsFired++;
 					this.fireBullet(); // Fire a bullet!
@@ -66,30 +69,38 @@ class Rocketship extends Mover {
 		} else {
 			this.shotsFired = this.burstCount; // Whenever the ship stops firing, it cancels the current burst. This just looks nicer, it's not a big change.
 		}
-		if(this.shotsFired == this.burstCount) {
+		if (this.shotsFired == this.burstCount) {
 			this.burstDelay++;
-			if(this.burstDelay >= this.burstInterval*FPS) { // Once the burst interval is over, it's ready to start the next burst
+			if (this.burstDelay >= this.burstInterval * FPS) { // Once the burst interval is over, it's ready to start the next burst
 				this.shotsFired = 0;
 				this.burstDelay = 0;
 			}
 		}
 
 		this.torpedoTimer--;
-		if(this.torpedoPrimed) {
+		if (this.torpedoPrimed) {
 			this.attemptTorpedoLaunch();
 		}
 
-		//execute appropriate functions if keys are down
-		if(this.up) { this.accelerate(); }
-		if(this.down) { this.decelerate(); }
-		if(this.right) { this.turnRight(); }
-		if(this.left) { this.turnLeft(); }
-
+		if (this.mouseLoc) {
+			let movementVector = worlds[currentLevel].worldCursorPos();
+			movementVector.subtract(this.loc);
+			if (2*movementVector.magnitude() < this.configMaxVel) {
+				this.maxVel=2*movementVector.magnitude();
+			}
+			if (movementVector.magnitude() > this.minMovementRange) {
+				this.acc = movementVector.clone();
+				this.acc.setMag(this.mouseAccel*(movementVector.magnitude() - this.minMovementRange));
+			}
+		}
+		let frictionAcc = this.vel.clone();
+		frictionAcc.setMag(-1 * this.frictionAcc);
+		this.vel.add(frictionAcc);
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
 
 		//only recalculate direction if velocity is greater than 0
-		if(this.vel.magnitude() > 0.00001){ // issue 3
+		if (this.vel.magnitude() > 0.00001) { // issue 3
 			this.dir = this.vel.theta();
 		}
 		// removed a condition for issue 3
@@ -99,73 +110,34 @@ class Rocketship extends Mover {
 
 		//vvv issue 98, stop rocketship at edge of world
 		var edge = false;
-		if(Math.abs(this.loc.x)>=(System().width)){
+		if (Math.abs(this.loc.x) >= (System().width)) {
 			edge = true;
-			this.loc.x -=  this.vel.clone().scalarDiv(FPS).x;
+			this.loc.x -= this.vel.clone().scalarDiv(FPS).x;
 
 		}
-		if(Math.abs(this.loc.y)>=(System().height)){
+		if (Math.abs(this.loc.y) >= (System().height)) {
 			edge = true;
 			this.loc.y -= this.vel.clone().scalarDiv(FPS).y;
 		}
 	}
 
-	applyForce(f){
+	applyForce(f) {
 		this.acc.add(f);
 	}
 
-	turnRight(){
-		//console.log('r');
-		var m;
-		if(this.vel.magnitude() > 0){
-			m = this.vel.magnitude()/30;
-		} else{
-			m = 0.001;
-		}
-		var f = new AngularVector2D(m, this.dir + Math.PI/2);
-		this.applyForce(f);
-	}
-
-	turnLeft(){
-		//console.log('l');
-		var m;
-		if(this.vel.magnitude() > 0){
-			m = this.vel.magnitude()/30;
-		} else{
-			m = 0.001;
-		}
-		var f = new AngularVector2D(m, this.dir - Math.PI/2);
-		this.applyForce(f);
-	}
-
-	accelerate(){
-		//apply a force in the direction the ship is traveling
-		var f = new AngularVector2D(6, this.dir);
-		this.applyForce(f);
-	}
-
-	decelerate(){
-		//apply a force in the opposite direction of the ship
-		//checks velocity to make ship stop, not travel backward
-		if(this.vel.magnitude() > 0.0001){
-			var f = new AngularVector2D(this.vel.magnitude()/30 + 1, this.vel.theta() + Math.PI);
-			f.limit(this.vel.magnitude()-0.0001);
-			this.applyForce(f);
-		}
-	}
 
 	fireBullet() {
 		let angle = this.vel.theta();
-		angle += -this.fireSpread/360*Math.PI + Math.random() * this.fireSpread/180*Math.PI;
+		angle += -this.fireSpread / 360 * Math.PI + Math.random() * this.fireSpread / 180 * Math.PI;
 		let velocity = new AngularVector2D(250, angle);
-		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 3);
+		let bullet = new Bullet(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0, 0), 3);
 		bullet.owner = this;
 		bullet.color = "yellow";
 		System().addEntity(bullet);
 	}
 
 	attemptTorpedoLaunch() {
-		if(this.torpedoTimer <= 0) {
+		if (this.torpedoTimer <= 0) {
 			this.fireTorpedo();
 			this.torpedoPrimed = false;
 			this.torpedoTimer = this.torpedoCooldown * FPS;
@@ -176,32 +148,24 @@ class Rocketship extends Mover {
 
 	fireTorpedo() {
 		let angle = this.vel.theta();
-		angle += -Math.PI/12 + Math.random() * Math.PI/6;
+		angle += -Math.PI / 12 + Math.random() * Math.PI / 6;
 		let velocity = new AngularVector2D(120, angle);
-		let bullet = new Torpedo(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0,0), 6);
+		let bullet = new Torpedo(this.loc.clone().add(this.vel.clone().setMag(8)), this.vel.clone().add(velocity), new Vector2D(0, 0), 6);
 		bullet.owner = this;
-		if(System().cursorTarget) {
+		if (System().cursorTarget) {
 			bullet.target = System().cursorTarget;
 		}
 		bullet.color = "yellow";
 		System().addEntity(bullet);
 	}
 
-	render(){
+	render() {
 
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
-		ctx.rotate(this.dir)
-		ctx.beginPath();
-		ctx.moveTo(8, 0);
-		ctx.lineTo(-12, -8);
-		ctx.lineTo(-4, 0);
-		ctx.lineTo(-12, 8);
-		ctx.lineTo(8, 0);
-
-		ctx.fillStyle = 'gray';
-		ctx.fill();
-
+		ctx.rotate(this.dir+ Math.PI/2)
+		ctx.scale(this.shipScalingFactor,this.shipScalingFactor);
+		ctx.drawImage(this.image, this.image.width/(-2), this.image.height/(-2));
 		ctx.restore();
 
 	}
