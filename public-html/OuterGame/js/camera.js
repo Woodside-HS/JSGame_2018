@@ -4,6 +4,8 @@ class Camera {
 		this.loc = playerShip.loc.clone();
 		this.vel = new Vector2D(0,0);
 		this.acc = new Vector2D(0,0);
+		this.friction = 5;
+		this.player_attraction = 1;
 	}
 
 	update() {
@@ -12,22 +14,25 @@ class Camera {
 				this.vel = new Vector2D();
 			}
 		} else {
-
-			let vectorTo = this.loc.vectorTo(System().ship.loc);
-
-			let scale = this.loc.distance(System().ship.loc);
-			let vel = vectorTo.clone().scalarMult(scale);
-			vel.scalarDiv(FPS*2).add(vectorTo.clone().setMag(40)).limit(800);
-			this.velocity = this.loc.vectorTo(System().ship.loc).scalarMult(this.loc.distance(System().ship.loc)).scalarDiv(World.FPS*2)
-			.add(this.loc.vectorTo(System().ship.loc).setMag(40)).limit(800);
-
-			this.vel = vel;
-
-		}
-		if(this.loc.distance(System().ship.loc) < 10) {
-			this.vel.scalarMult(0.25);
+			let travelVector = this.loc.vectorTo(System().ship.loc);//point toward player
+			//travelVector.scalarMult(travelVector.magnitude());
+			travelVector.scalarMult(1/FPS);//move slower at lower framerate
+			travelVector.scalarMult(this.player_attraction);
+			travelVector.limit(100);
+			this.acc = travelVector;
 		}
 
+		if(this.acc.magnitude()>this.friction){
+			let frictionForce = this.vel.clone();
+			frictionForce.setDirection(frictionForce.theta()+Math.PI);
+			frictionForce.setMag(this.friction);
+			this.acc.add(frictionForce);
+		}
+		else{
+			this.vel.setMag(0);
+		}
+		this.vel.add(this.acc)
 		this.loc.add(this.vel);
+		console.log(this.loc);
 	}
 }

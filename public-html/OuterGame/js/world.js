@@ -345,7 +345,6 @@
 				//check if edges of 2 asteroids are touching
 				var dist = Vector2D.distance(b1.loc, b2.loc);
 				if (dist <= b1.radius + b2.radius) {
-					console.log('collision detected');
 
 					// sometimes the balls will stick together if there is
 					// too much overlap initially.  So separate them enough
@@ -598,7 +597,7 @@
 
 		ctx.save();
 		//keep ship in center of canvas
-		ctx.translate(canvas.width / 2 - this.ship.loc.x, canvas.height / 2 - this.ship.loc.y);
+		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 
