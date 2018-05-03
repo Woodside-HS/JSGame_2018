@@ -62,7 +62,7 @@
 						game.startup();
 					}
 					break;
-				case "l": //issue 54
+				case "f": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
 							//^^if player is close enough to a station to land on it
@@ -218,7 +218,7 @@
 			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) < 40) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[L] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
 				this.stations[i].canLandOn = true;
 			} else {
 				this.stations[i].canLandOn = false;

@@ -246,6 +246,30 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
+			img.src = 'res/ships/enemyShip.png';
+		}).then(function(img){
+			Images['enemyShip'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/ships/playerShip.png';
+		}).then(function(img){
+			Images['playerShip'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
 			img.src = 'res/sprites/grass.png';
 		}).then(function(img){
 			Images['grass'] = img;
