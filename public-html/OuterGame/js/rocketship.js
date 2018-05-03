@@ -25,8 +25,8 @@ class Rocketship extends Mover {
 		this.minMovementRange = 1;
 		this.mouseAccel = .5
 		this.image = new Image();
-		this.image.src = "res/ships/playerShip.png";
-		this.shipScalingFactor = 0.5;
+		this.image.src = "res/ships/enemyShip.png";
+		this.shipScalingFactor = .6;
 
 		// Setup scanner
 
