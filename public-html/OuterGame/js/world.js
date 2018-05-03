@@ -729,31 +729,31 @@
 			ctx.fillText("Press [U] to toggle Debug Mode", 20, 175);
 			ctx.fillText("FPS:" + this.realFPS, 20, 200);
 
-			ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")", 20, canvas.height - 15);
-			ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")", 20, canvas.height - 40);
-			ctx.fillText("Ship Coordinates: (" + Math.round(this.ship.loc.x) + ", " + Math.round(this.ship.loc.y) + ")", 20, canvas.height - 65);
-
-			ctx.fillText("Ship Velocity: " + Math.round(this.ship.vel.magnitude()) + " (" + Math.round(this.ship.vel.x) + ", " + Math.round(this.ship.vel.y) + ")", 20, canvas.height - 120);
-			let facing = -this.ship.vel.theta() / Math.PI;
-			if (facing < 0) {
-				facing = 2 + facing;
-			}
-			ctx.fillText("Ship Facing: " + Math.round(facing * 180) + "° (" + (Math.round(facing * 100) / 100) + "π Rad)", 20, canvas.height - 145);
-
-			ctx.fillText("Number of Entities: " + this.entities.length, 20, canvas.height - 200);
-			ctx.fillText("Number of Planets: " + this.planets.length, 20, canvas.height - 225);
-
-			// Debug mode information for the cursor target (if one exists)
-
-			ctx.fillStyle = "#00FFFF";
-			if (this.cursorTarget) {
-				ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 230);
-				ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 255);
-				ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 280);
-				ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 305);
-			} else {
-				ctx.fillText("-No Target-", 20, 230);
-			}
+			// ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")", 20, canvas.height - 15);
+			// ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")", 20, canvas.height - 40);
+			// ctx.fillText("Ship Coordinates: (" + Math.round(this.ship.loc.x) + ", " + Math.round(this.ship.loc.y) + ")", 20, canvas.height - 65);
+            //
+			// ctx.fillText("Ship Velocity: " + Math.round(this.ship.vel.magnitude()) + " (" + Math.round(this.ship.vel.x) + ", " + Math.round(this.ship.vel.y) + ")", 20, canvas.height - 120);
+			// let facing = -this.ship.vel.theta() / Math.PI;
+			// if (facing < 0) {
+			// 	facing = 2 + facing;
+			// }
+			// ctx.fillText("Ship Facing: " + Math.round(facing * 180) + "° (" + (Math.round(facing * 100) / 100) + "π Rad)", 20, canvas.height - 145);
+            //
+			// ctx.fillText("Number of Entities: " + this.entities.length, 20, canvas.height - 200);
+			// ctx.fillText("Number of Planets: " + this.planets.length, 20, canvas.height - 225);
+            //
+			// // Debug mode information for the cursor target (if one exists)
+            //
+			// ctx.fillStyle = "#00FFFF";
+			// if (this.cursorTarget) {
+			// 	ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 230);
+			// 	ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 255);
+			// 	ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 280);
+			// 	ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 305);
+			// } else {
+			// 	ctx.fillText("-No Target-", 20, 230);
+			// }
 		}
 	}
 
