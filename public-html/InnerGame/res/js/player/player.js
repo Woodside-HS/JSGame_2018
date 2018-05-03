@@ -34,6 +34,7 @@ class Player extends Updateable {
   }
   update() {
     //set max v
+    var loc = this.loc.duplicate(); //to see if loc has changed
     this.maxV=player_config.max_speed;
     if(this.cloc.x >= 0 &&
        this.cloc.x < config.map_x_size &&
@@ -50,7 +51,7 @@ class Player extends Updateable {
       this.energy+=player_config.energy_recovery_rate;
     }
     this.cloc = positionToGrid(this.loc);
-    this.game.mapManager.reveal();
+//    this.game.mapManager.reveal();
 
     if(player_config.auto_fire&&this.mouseHeld){
       this.shoot();
@@ -142,6 +143,13 @@ class Player extends Updateable {
 
     if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
     if(this.dashTimer>0) this.dashTimer--;
+    if(loc.x != this.loc.x || loc.y != this.loc.y){
+      if(playerStats.reveal == 'reveal1'){
+        this.reveal1();
+      }else if(playerStats.reveal == 'reveal2'){
+        this.game.mapManager.reveal();
+      }
+    }
   }
   render() {
     this.game.context.save();
@@ -152,6 +160,44 @@ class Player extends Updateable {
     for(let i=0; i<this.projectiles.length; i++)
       this.projectiles[i].render();
     this.checkImportantLoc();
+  }
+  reveal1(){
+    var cloc = positionToGrid(this.loc);
+    var distSq = 50;
+    var angleC = this.v.th + Math.PI/6;
+    var angleCC = this.v.th - Math.PI/6;
+    var angleToAdd = 0;
+    if((angleC > Math.PI && angleCC < Math.PI)||(angleC > -Math.PI && angleCC < -Math.PI)){
+      angleToAdd = 2*Math.PI;
+      if(angleCC < 0){
+        angleCC += angleToAdd;
+      }
+      if(angleC < 0){
+        angleC += angleToAdd;
+      }
+    }
+    var map = this.game.mapManager.map;
+    for(let i = cloc.x - 16; i < cloc.x + 16; i++){
+      for(let j = cloc.y - 16; j < cloc.y + 16; j++){
+        if(map[i] && map[i][j]){
+          var tile = map[i][j];
+          var tileLoc = positionToGrid(tile.loc);
+          var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+          if(actualDistSq <= distSq){
+            var tileDirection = tile.loc.duplicate();
+            tileDirection.subtract(this.loc);
+            tileDirection.upPols();
+            if(tileDirection.th < 0){
+              tileDirection.th += angleToAdd;
+            }
+            if(tileDirection.th <= angleC && tileDirection.th >= angleCC){
+              tile.seen = true;
+              //console.log(Math.floor(tileDirection.th*180/Math.PI));
+            }
+          }
+        }
+      }
+    }
   }
   dashTo(loc){
     if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
