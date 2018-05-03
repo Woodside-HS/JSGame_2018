@@ -18,17 +18,17 @@ class MapManager extends Updateable {
   init() {
     //set world-specific config
     map_config.noise_scale=Math.random()*-(map_config.noise_scale_range[0]-map_config.noise_scale_range[1])+map_config.noise_scale_range[0];
-    tower_config.tower_range=[
-      Math.random()*-(tower_config.tower_range_ranges[0]-tower_config.tower_range_ranges[1])+tower_config.tower_range_ranges[0],
-      Math.random()*-(tower_config.tower_range_ranges[2]-tower_config.tower_range_ranges[3])+tower_config.tower_range_ranges[2]];
-    tower_config.tower_rate=Math.random()*-(tower_config.tower_rate_range[0]-tower_config.tower_rate_range[1])+tower_config.tower_rate_range[0];
     map_config.rock_probability=Math.random()*-(map_config.rock_probability_range[0]-map_config.rock_probability_range[1])+map_config.rock_probability_range[0];
     map_config.water_range=[
       Math.random()*-(map_config.water_range_ranges[0]-map_config.water_range_ranges[1])+map_config.water_range_ranges[0],
       Math.random()*-(map_config.water_range_ranges[2]-map_config.water_range_ranges[3])+map_config.water_range_ranges[2]];
     if(map_config.rock_probability>1-map_config.water_range[1])
       map_config.water_range[1]=(1-map_config.rock_probability)*.9;
-
+    tower_config.tower_range=[
+      Math.random()*-(tower_config.tower_range_ranges[0]-tower_config.tower_range_ranges[1])+tower_config.tower_range_ranges[0],
+      Math.random()*-(tower_config.tower_range_ranges[2]-tower_config.tower_range_ranges[3])+tower_config.tower_range_ranges[2]];
+    tower_config.tower_rate=Math.random()*-(tower_config.tower_rate_range[0]-tower_config.tower_rate_range[1])+tower_config.tower_rate_range[0];
+    tower_config.tower_rate/=tower_config.tower_range[1]-tower_config.tower_range[0]
     //create grass image
     this.grassImage.src=map_config.grass_image_src;
 
