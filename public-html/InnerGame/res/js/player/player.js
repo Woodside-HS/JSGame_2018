@@ -25,7 +25,9 @@ class Player extends Updateable {
   }
   init() {
     this.hasMoved=false;
-    this.image.src=player_config.image_src;
+//    this.image.src=player_config.image_src;
+    // issue 118  don't reload this image for every player
+    this.image = Images.tractor;
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
     document.addEventListener("click", this.shoot);

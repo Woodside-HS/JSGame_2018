@@ -301,6 +301,18 @@ function loadImages(){
 		}).then(function(img){
 			Images['water'] = img;
 		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/splash/youdied.jpg';
+		}).then(function(img){
+			Images['splash'] = img;
+		}),
 
 		// Trading post images
 

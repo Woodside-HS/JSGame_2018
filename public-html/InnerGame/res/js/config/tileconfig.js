@@ -7,6 +7,10 @@ const tile_types = {
     tile_types.rock.image = Images.rocks2c;
     tile_types.water.image = Images.water;
     tile_types.mask.image = Images.fog;
+
+    // ??
+    tile_config.animal_image = Images.rocks2c;
+
     console.log("b")
   },
   nulltype: {
