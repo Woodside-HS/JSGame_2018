@@ -261,8 +261,8 @@
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -596,7 +596,7 @@
 	render() {
 
 		ctx.save();
-		//keep ship in center of canvas
+		//translate to camera
 		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
@@ -619,6 +619,8 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+
+		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();
