@@ -56,13 +56,18 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
+						if(!this.checkHitPlanet().game){
+							// issue 118 create inner games on demand
+						    this.checkHitPlanet().game = new Game();
+						    this.checkHitPlanet().game.init();
+						}
 						game = this.checkHitPlanet().game;
 						gameState = 'inner';
 						playerShip.vel = new Vector2D(0, 0);
 						game.startup();
 					}
 					break;
-				case "l": //issue 54
+				case "f": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
 							//^^if player is close enough to a station to land on it
@@ -218,7 +223,7 @@
 			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) < 40) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[L] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
 				this.stations[i].canLandOn = true;
 			} else {
 				this.stations[i].canLandOn = false;
@@ -261,8 +266,8 @@
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -628,7 +633,7 @@
 	render() {
 
 		ctx.save();
-		//keep ship in center of canvas
+		//translate to camera
 		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
@@ -651,6 +656,8 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+
+		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();

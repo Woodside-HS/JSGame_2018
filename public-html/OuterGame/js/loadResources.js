@@ -238,6 +238,9 @@ function loadImages(){
 		}).then(function(img){
 			Images['Planet10'] = img;
 		}),
+
+		// Inner game Images
+
 		new Promise(function(resolve, reject){
 			var img = new Image();
 			img.addEventListener('load', function(){
@@ -246,7 +249,31 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = 'res/sprites/grass.png';
+			img.src = 'res/ships/enemyShip.png';
+		}).then(function(img){
+			Images['enemyShip'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/ships/playerShip.png';
+		}).then(function(img){
+			Images['playerShip'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/grass.png';
 		}).then(function(img){
 			Images['grass'] = img;
 		}),
@@ -258,9 +285,9 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = 'res/sprites/rock.png';
+			img.src = '../InnerGame/res/sprites/fog.png';
 		}).then(function(img){
-			Images['rock'] = img;
+			Images['fog'] = img;
 		}),
 		new Promise(function(resolve, reject){
 			var img = new Image();
@@ -270,7 +297,7 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = 'res/sprites/rocks2c.png';
+			img.src = '../InnerGame/res/sprites/rocks2c.png';
 		}).then(function(img){
 			Images['rocks2c'] = img;
 		}),
@@ -282,7 +309,7 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = 'res/sprites/tractor.png';
+			img.src = '../InnerGame/res/sprites/tractor.png';
 		}).then(function(img){
 			Images['tractor'] = img;
 		}),
@@ -294,10 +321,85 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = 'res/sprites/water.gif';
+			img.src = '../InnerGame/res/sprites/WATERTiles.png';
 		}).then(function(img){
 			Images['water'] = img;
 		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/hpPU.png';
+		}).then(function(img){
+			Images['hpPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/shieldPU.png';
+		}).then(function(img){
+			Images['shieldPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/moneyPU.png';
+		}).then(function(img){
+			Images['moneyPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/techPU.png';
+		}).then(function(img){
+			Images['techPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/arrowPU.png';
+		}).then(function(img){
+			Images['arrowPU'] = img;
+		}),
+    new Promise(function(resolve, reject){
+	    var img = new Image();
+    	img.addEventListener('load', function(){
+    		resolve(img);
+    	});
+    	img.addEventListener('error', function(){
+    		reject();
+    	});
+	  	img.src = '../InnerGame/res/sprites/splash/youdied.jpg';
+		}).then(function(img){
+			Images['splash'] = img;
+		}),
+
+		// Trading post images
+
 		new Promise(function(resolve, reject){
 			var img = new Image();
 			img.addEventListener('load', function(){
