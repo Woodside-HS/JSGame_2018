@@ -4,33 +4,102 @@
   height: 75%;
   background-color: black;
   position:absolute;
-  top: 5%;
+  top: 20%;
   left: 5%;
   z-index: 10;
   border-radius: 30px;
   background-image: url("../shopIMGS/background.png");
 }
 
-#items{
+.menuButton{
+  width: 120px;
+  height: 80px;
+  background-color: black;
+  font-size: 30px;
+  margin-left: 25%;
+  margin-top: 10%;
+  padding: 10px;
+  color: white;
+  float: left;
+  cursor: pointer;
+  border-radius: 20%;
+}
+
+.backButton{
+  width: 60px;
+  height: 30px;
+  background-color: yellow;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 20%;
+  cursor: pointer;
+  padding: 3px;
+}
+
+#radioButtons{
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  cursor: pointer;
+}
+
+#radioButtons .radio {
+    background-color: #4CAF50; /* Green */
+    border: 1px solid green;
+    color: white;
+    padding: 30px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    cursor: pointer;
+    width: 100px;
+    display: block;
+}
+
+#radioButtons .radio:not(:last-child) {
+    border-bottom: none; /* Prevent double borders */
+}
+
+#radioButtons .radio:hover {
+    background-color: #3e8e41;
+}
+
+.items{
   float: left;
   font-size: 20px;
-  margin-left: 3%;
-  width: 45%;
-  height: 80%;
+  margin-left: 150px;
+  margin-top: -20px;
+  width: 350px;
+  height: 450px;
   background-color: white;
   border-radius: 15%;
   background-image: url("../shopIMGS/shopBackground.png");
 }
 
-#info{
+#invItems{
+  width: 430px;
+  margin-left: 30px;
+}
+
+.info{
   float: right;
   font-size: 20px;
-  margin-right: 3%;
-  width: 45%;
-  height: 80%;
+  margin-right: 50px;
+  margin-top: -20px;
+  width: 350px;
+  height: 450px;
   background-color: white;
   border-radius: 15%;
   background-image: url("../shopIMGS/infoBackground.png");
+}
+
+#invInfo{
+  width: 430px;
+
 }
 
 #exitButton{
@@ -48,10 +117,10 @@
 }
 
 .tile{
-  width:85px;
-  height: 85px;
+  width:75px;
+  height: 75px;
   float: left;
-  margin: 0px 10px 20px 30px;
+  margin: 30px 5px 20px 20px;
   padding: 5px;
   background-color: lightblue;
   border-radius: 25%;
@@ -100,52 +169,4 @@
   background-color: green;
   box-shadow: 0 5px #666;
   transform: translateY(4px);
-}
-
-#radioButtons{
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  font-size: 20px;
-}
-
-.radio{
-  margin-left: 20px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-#collection{
-  background-color: green;
-  border: 1px black solid;
-  position: absolute;
-  bottom: -250px;
-  width: 600px;
-  height: 200px;
-  display: none;
-}
-
-.collCats{
-  width: 30%;
-  height: 90%;
-  background-color: lightgreen;
-  float: left;
-  margin: 10px 10px 10px 10px;
-}
-
-.collectionImg{
-  width: 25%;
-  height: 25%;
-  margin-top: -15px;
-  margin-bottom: 10px;
-}
-
-#creditsColl{
-  position: absolute;
-  bottom: -250px;
-  right: 0px;
-  width: 180px;
-  height: 180px;
-  background-color: lightblue;
-  border: 10px blue solid;
 }

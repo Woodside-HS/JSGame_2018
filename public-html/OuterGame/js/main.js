@@ -30,6 +30,7 @@ function load(){
 }
 function init(){
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
+		health: 1,
 		money : 100,
 		credits : [creditEx = {value:4.75, name:"Macaron"}], //each has a value
 		creatures : [],
@@ -39,7 +40,7 @@ function init(){
 		aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		engineLevel : 1,
-		weaponsLevel : 1,
+		weaponsLevel : 1, //may have to split into different weapons/tools
 
 		sellCredits : function(){
 			for(let i = this.credits.length-1;i>=0;i--){
@@ -60,6 +61,14 @@ function init(){
 		buy : function(object,price){
 			this.collect(object);
 			this.money -= price;
+		},
+
+		infoDiv : document.getElementById("infoDiv"),
+		clearSubDiv : function(num){
+			var div = this.infoDiv.children[num];
+	    for(let i = 1; i<div.children.length;i++){
+	      div.children[i].remove();
+	    }
 		}
 	};
 
