@@ -100,6 +100,25 @@ class MapManager extends Updateable {
             }
           }
         }
+        if (tile.tileType == tile_types.water) {
+          for (let i = -1; i < 2; i++) {
+            for (let j = -1; j < 2; j++) {
+              //if(i!=0&&j!=0) continue;
+              let x = a + i;
+              let y = b + j;
+              let currentTile;
+              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size){
+                currentTile = {tileType:tile_types.water} //pretend borders are water
+              } else currentTile = this.map[x][y];
+              if (currentTile.tileType == tile_types.water) {
+                tile.normalVector.add(new InnerVector2D(-i, -j));
+              }
+              if (currentTile.tileType == tile_types.water && (i == 0 || j == 0)) {
+                tile.quadNormal.add(new InnerVector2D(-i, -j));
+              }
+            }
+          }
+        }
         //intitialize
         this.map[a][b].init();
       }
@@ -130,7 +149,7 @@ class MapManager extends Updateable {
     //draw grass
     for(let i=0; i<config.map_x_size*config.tile_size; i+=map_config.grass_image_size)
       for(let j=0; j<config.map_y_size*config.tile_size; j+=map_config.grass_image_size)
-        this.game.context.drawImage(this.grassImage,i,j,map_config.grass_image_size,map_config.grass_image_size);
+        this.game.context.drawImage(Images['grass'],i,j,map_config.grass_image_size,map_config.grass_image_size);
 
     //draw border rectangles bc too much grass
     this.game.context.fillStyle=config.background_color;
