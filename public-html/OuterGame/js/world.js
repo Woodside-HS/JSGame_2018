@@ -56,6 +56,11 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
+						if(!this.checkHitPlanet().game){
+							// issue 118 create inner games on demand
+						    this.checkHitPlanet().game = new Game();
+						    this.checkHitPlanet().game.init();
+						}
 						game = this.checkHitPlanet().game;
 						gameState = 'inner';
 						playerShip.vel = new Vector2D(0, 0);
@@ -261,8 +266,8 @@
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -345,7 +350,6 @@
 				//check if edges of 2 asteroids are touching
 				var dist = Vector2D.distance(b1.loc, b2.loc);
 				if (dist <= b1.radius + b2.radius) {
-					console.log('collision detected');
 
 					// sometimes the balls will stick together if there is
 					// too much overlap initially.  So separate them enough
@@ -597,8 +601,8 @@
 	render() {
 
 		ctx.save();
-		//keep ship in center of canvas
-		ctx.translate(canvas.width / 2 - this.ship.loc.x, canvas.height / 2 - this.ship.loc.y);
+		//translate to camera
+		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 
@@ -620,6 +624,8 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+
+		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();
