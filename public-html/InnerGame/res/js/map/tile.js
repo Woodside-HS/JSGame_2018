@@ -52,7 +52,7 @@ class Tile extends Updateable {
           break;
         case tile_types.water:
         this.game.context.drawImage(
-          this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
+          this.image, this.sourceloc.x+1, this.sourceloc.y+1, this.sw-2, this.sh-2,
           this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
           break;
           default:

@@ -144,7 +144,7 @@ class MapManager extends Updateable {
     //draw grass
     for(let i=0; i<config.map_x_size*config.tile_size; i+=map_config.grass_image_size)
       for(let j=0; j<config.map_y_size*config.tile_size; j+=map_config.grass_image_size)
-        this.game.context.drawImage(this.grassImage,i,j,map_config.grass_image_size,map_config.grass_image_size);
+        this.game.context.drawImage(Images['grass'],i,j,map_config.grass_image_size,map_config.grass_image_size);
 
     //draw border rectangles bc too much grass
     this.game.context.fillStyle=config.background_color;
