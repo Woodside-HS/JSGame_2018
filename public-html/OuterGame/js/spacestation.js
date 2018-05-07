@@ -12,6 +12,59 @@ class SpaceStation{
     //create an attribute of the space station class to add html in this file
     this.div.innerHTML = SpaceStation.html;
 
+    SpaceStation.infoDiv = { //for changing the item shown in info div
+      shopInfo : document.getElementById("shopInfo"),
+      invInfo : document.getElementById("invInfo"),
+      render : function(item,page){ //item=shop item div, page=shop (t)/inventory (f)
+        var infoDiv;
+        if(page){
+          infoDiv = SpaceStation.infoDiv.shopInfo;
+        } else{
+          infoDiv = SpaceStation.infoDiv.invInfo;
+        }
+        this.removeChildren(infoDiv);
+        var img = document.createElement("img");
+        img.src = item.children[0].src;
+        img.id = "infoImg";
+        infoDiv.appendChild(img);
+        var div = document.createElement("div");
+        var node = document.createTextNode(""+item.id);
+        div.appendChild(node);
+        div.id = "infoName";
+        infoDiv.appendChild(div);
+        var button = document.createElement("button");
+        if(item.parentElement.id=="creditsDiv"){
+          button.innerHTML = "Sell";
+          button.onclick = function(){
+            resources.sellCredits();
+          };
+        } else{
+          button.innerHTML = "Buy";
+          button.onclick = function(){
+            let price = this.item.children[1].id;
+            if(resources.money>=price){
+              var object = {
+                div : this.item
+              };
+              resources.buy(object,price);
+            }
+          };
+        }
+        button.id = "infoButton";
+        button.item = item;
+        infoDiv.appendChild(button);
+        var price = document.createTextNode("   "+ item.children[1].id);
+        price.id = "infoPrice";
+        div.appendChild(price);
+      },
+      removeChildren : function(infoDiv){ //infoDiv sends in the right div to clear out
+        for(let i=1;i<infoDiv.children.length;i++){
+          infoDiv.children[i].remove();
+        }
+      },
+    };
+
+
     //event listener for clicking on button to exit station back to outer game
     document.getElementById("exitButton").addEventListener("click",function(event){
       this.parentElement.style.display = "none";
@@ -19,19 +72,19 @@ class SpaceStation{
     });
 
     //add click listener to each button in items and inventory
-    var items = this.div.children[3].children[2]; //div is space station, getting items div
+    var items = document.getElementById("shopItems"); //div is space station, getting items div
     for(let i=0;i<items.children.length;i++){ //items children = different categories
       for(let j=0; j<items.children[i].children.length;j++){ //in each category, there are items
         items.children[i].children[j].addEventListener("click",function(event){
-          SpaceStation.infoDiv.render(this);
+          SpaceStation.infoDiv.render(this,true);
           //^^^^render info of this item in the info div
         });
       }
     }
-    var inventory = this.div.children[4].children[1];
+    var inventory = document.getElementById("invItems");
     for(let i=0;i<inventory.children.length;i++){ //inventory children are the items
       inventory.children[i].addEventListener("click",function(event){
-        SpaceStation.infoDiv.render(this);
+        SpaceStation.infoDiv.render(this,false);
       });
     }
 
@@ -150,7 +203,6 @@ SpaceStation.html = '\
     <div class="info" id="shopInfo">\
       <h3>Info</h3>\
     </div>\
-    <div id="test"></div>\
   </div>\
   <div id="inventory" style="display:none">\
     <div class="backButton">Back</div>\
@@ -165,70 +217,3 @@ SpaceStation.html = '\
     </div>\
   </div>\
 ';
-
-SpaceStation.changeCategory = function(){
-  var array = [document.getElementById("boosts"),document.getElementById("repairs"),document.getElementById("weapons"),document.getElementById("misc"),document.getElementById("allCat")]
-  for(let i in array){
-    if(array[i].checked){
-      if(i==array.length-1){
-        for(let i=0;i<array.length-1;i++){
-          document.getElementById(""+array[i].id + "Div").style.display = "block";
-        }
-      } else{
-        document.getElementById(""+array[i].id + "Div").style.display = "block";
-      }
-    } else{
-      if(i!=array.length-1){
-        document.getElementById(""+array[i].id + "Div").style.display = "none";
-      }
-    }
-  }
-}
-
-SpaceStation.infoDiv = { //for changing the item shown in info div
-  info : document.getElementById("test"),
-  render : function(item){ //item=shop item div
-    this.removeChildren();
-    var img = document.createElement("img");
-    img.src = item.children[0].src;
-    img.id = "infoImg";
-    info.appendChild(img);
-    var div = document.createElement("div");
-    var node = document.createTextNode(""+item.id);
-    div.appendChild(node);
-    div.id = "infoName";
-    info.appendChild(div);
-    var button = document.createElement("button");
-    if(item.parentElement.id=="creditsDiv"){
-      button.innerHTML = "Sell";
-      button.onclick = function(){
-        resources.sellCredits();
-      };
-    } else{
-      button.innerHTML = "Buy";
-      button.onclick = function(){
-        let price = this.item.children[1].id;
-        if(resources.money>=price){
-          var object = {
-            div : this.item
-          };
-          resources.buy(object,price);
-        }
-      };
-    }
-    button.id = "infoButton";
-    button.item = item;
-    info.appendChild(button);
-    var price = document.createTextNode("   "+ item.children[1].id);
-    price.id = "infoPrice";
-    div.appendChild(price);
-  },
-  removeChildren : function(){
-    console.log(info);
-    if(info.children.length>2){
-      document.getElementById("infoImg").style.display = "none";
-      document.getElementById("infoName").style.display = "none";
-      document.getElementById("infoButton").style.display = "none";
-    }
-  },
-};
