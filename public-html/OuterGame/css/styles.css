@@ -27,6 +27,26 @@ canvas {
     height: 67%;
     z-index: 1000;
 }
+.info {
+  width: 129px;
+  height: 80px;
+  float:left;
+  background-color: white;
+  border: black solid 2px;
+  margin-left: 35px;
+  margin-right: 35px;
+  margin-top: 8px;
+  border-radius: 10px;
+
+}
+#infoDiv {
+  width:1024px;
+  height:100px;
+  float:left;
+  background-color: green;
+
+}
+
 #loader {
     display: block;
     position: relative;
