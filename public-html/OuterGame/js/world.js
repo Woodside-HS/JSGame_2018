@@ -56,13 +56,18 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
+						if(!this.checkHitPlanet().game){
+							// issue 118 create inner games on demand
+						    this.checkHitPlanet().game = new Game();
+						    this.checkHitPlanet().game.init();
+						}
 						game = this.checkHitPlanet().game;
 						gameState = 'inner';
 						playerShip.vel = new Vector2D(0, 0);
 						game.startup();
 					}
 					break;
-				case "l": //issue 54
+				case "f": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
 							//^^if player is close enough to a station to land on it
@@ -214,7 +219,7 @@
 			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) < 40) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[L] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
 				this.stations[i].canLandOn = true;
 			} else {
 				this.stations[i].canLandOn = false;
@@ -257,8 +262,8 @@
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -327,27 +332,43 @@
 	checkAsteroidCollision() {
 
 		for (var i = 0; i < this.entities.length; i++) {
-			if (this.entities[i] instanceof Asteroid === false) {
+			if (!(this.entities[i] instanceof Asteroid || this.entities[i] instanceof Rocketship || this.entities[i] instanceof DroneShip)) {
 				continue;
 			}
 			for (var j = i + 1; j < this.entities.length; j++) {
-				if (this.entities[j] instanceof Asteroid === false) {
+				if  (!(this.entities[j] instanceof Asteroid || this.entities[j] instanceof Rocketship || this.entities[j] instanceof DroneShip)) {
 					continue;
 				}
 
 				var b1 = this.entities[i];
+				var r1;
+				if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+					r1 = b1.shields[0].radius;
+				}else{
+					r1 = b1.radius;
+				}
+
 				var b2 = this.entities[j];
+				var r2;
+				if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+					r2 = b2.shields[0].radius;
+				}else{
+					r2 = b2.radius;
+				}
 
 				//check if edges of 2 asteroids are touching
 				var dist = Vector2D.distance(b1.loc, b2.loc);
-				if (dist <= b1.radius + b2.radius) {
+
+				if (dist <= r1 + r2) {
 					console.log('collision detected');
+
+
 
 					// sometimes the balls will stick together if there is
 					// too much overlap initially.  So separate them enough
 					// that they are just touching
 					var vec = Vector2D.subtract(b1.loc, b2.loc);
-					vec.setMag((b1.radius + b2.radius - vec.magnitude()) / 2);
+					vec.setMag((r1 + r2 - vec.magnitude()) / 2);
 					b1.loc.add(vec);
 					vec.scalarMult(-1);
 					b2.loc.add(vec);
@@ -423,6 +444,7 @@
 					// // console.log(`initial momentum ${init_momentum}`);
 					// console.log(`final momentum ${final_momentum}`);
 
+
 					b1.vel = v1_final;
 					b2.vel = v2_final;
 
@@ -432,6 +454,19 @@
 					// console.log(`final momentum ${p_final}`);
 					// console.log(totalKineticEnergy());
 					// console.log(p_final.x, p_final.y);
+
+					if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+						b1.shields[0].stats.takeDamage(5);
+					}else{
+						b1.stats.takeDamage(5);
+					}
+
+					if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+						b2.shields[0].stats.takeDamage(5);
+					}else{
+						b2.stats.takeDamage(5);
+					}
+
 
 				}
 			}
@@ -551,6 +586,7 @@
 		this.checkHitStation(); //issue 54
 
 		let i = 0;
+		let pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
 		if (this.ship.shield && this.ship.shield.offline) {
 			i++;
 			ctx.textAlign = "center";
@@ -593,8 +629,8 @@
 	render() {
 
 		ctx.save();
-		//keep ship in center of canvas
-		ctx.translate(canvas.width / 2 - this.ship.loc.x, canvas.height / 2 - this.ship.loc.y);
+		//translate to camera
+		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 
@@ -616,6 +652,8 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+
+		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();
@@ -725,31 +763,31 @@
 			ctx.fillText("Press [U] to toggle Debug Mode", 20, 175);
 			ctx.fillText("FPS:" + this.realFPS, 20, 200);
 
-			ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")", 20, canvas.height - 15);
-			ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")", 20, canvas.height - 40);
-			ctx.fillText("Ship Coordinates: (" + Math.round(this.ship.loc.x) + ", " + Math.round(this.ship.loc.y) + ")", 20, canvas.height - 65);
-
-			ctx.fillText("Ship Velocity: " + Math.round(this.ship.vel.magnitude()) + " (" + Math.round(this.ship.vel.x) + ", " + Math.round(this.ship.vel.y) + ")", 20, canvas.height - 120);
-			let facing = -this.ship.vel.theta() / Math.PI;
-			if (facing < 0) {
-				facing = 2 + facing;
-			}
-			ctx.fillText("Ship Facing: " + Math.round(facing * 180) + "° (" + (Math.round(facing * 100) / 100) + "π Rad)", 20, canvas.height - 145);
-
-			ctx.fillText("Number of Entities: " + this.entities.length, 20, canvas.height - 200);
-			ctx.fillText("Number of Planets: " + this.planets.length, 20, canvas.height - 225);
-
-			// Debug mode information for the cursor target (if one exists)
-
-			ctx.fillStyle = "#00FFFF";
-			if (this.cursorTarget) {
-				ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 230);
-				ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 255);
-				ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 280);
-				ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 305);
-			} else {
-				ctx.fillText("-No Target-", 20, 230);
-			}
+			// ctx.fillText("Cursor World Coordinates: (" + Math.round(this.worldCursorPos().x) + ", " + Math.round(this.worldCursorPos().y) + ")", 20, canvas.height - 15);
+			// ctx.fillText("Cursor Screen Coordinates: (" + Math.round(this.shipCursorPos().x) + ", " + Math.round(this.shipCursorPos().y) + ")", 20, canvas.height - 40);
+			// ctx.fillText("Ship Coordinates: (" + Math.round(this.ship.loc.x) + ", " + Math.round(this.ship.loc.y) + ")", 20, canvas.height - 65);
+            //
+			// ctx.fillText("Ship Velocity: " + Math.round(this.ship.vel.magnitude()) + " (" + Math.round(this.ship.vel.x) + ", " + Math.round(this.ship.vel.y) + ")", 20, canvas.height - 120);
+			// let facing = -this.ship.vel.theta() / Math.PI;
+			// if (facing < 0) {
+			// 	facing = 2 + facing;
+			// }
+			// ctx.fillText("Ship Facing: " + Math.round(facing * 180) + "° (" + (Math.round(facing * 100) / 100) + "π Rad)", 20, canvas.height - 145);
+            //
+			// ctx.fillText("Number of Entities: " + this.entities.length, 20, canvas.height - 200);
+			// ctx.fillText("Number of Planets: " + this.planets.length, 20, canvas.height - 225);
+            //
+			// // Debug mode information for the cursor target (if one exists)
+            //
+			// ctx.fillStyle = "#00FFFF";
+			// if (this.cursorTarget) {
+			// 	ctx.fillText("Target Name: " + (this.cursorTarget.name ? this.cursorTarget.name : "-None-"), 20, 230);
+			// 	ctx.fillText("Target Coordinates: (" + Math.round(this.cursorTarget.loc.x) + ", " + Math.round(this.cursorTarget.loc.y) + ")", 20, 255);
+			// 	ctx.fillText((this.cursorTarget.vel ? "Target Velocity: " + Math.round(this.cursorTarget.vel.magnitude()) + " (" + Math.round(this.cursorTarget.vel.x) + ", " + Math.round(this.cursorTarget.vel.y) + ")" : "No Target Velocity"), 20, 280);
+			// 	ctx.fillText((this.cursorTarget.stats ? "Target Health: " + Math.round(this.cursorTarget.stats.health()) + "/" + Math.round(this.cursorTarget.stats.maxHp) : "No Target Health"), 20, 305);
+			// } else {
+			// 	ctx.fillText("-No Target-", 20, 230);
+			// }
 		}
 	}
 
