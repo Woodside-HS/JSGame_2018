@@ -201,7 +201,7 @@ SpaceStation.infoDiv = { //for changing the item shown in info div
     div.appendChild(price);
   },
   removeChildren : function(){
-    console.log(this.info);
+    console.log(info);
     // if(info.children.length>2){
     //   document.getElementById("infoImg").style.display = "none";
     //   document.getElementById("infoName").style.display = "none";
