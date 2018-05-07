@@ -18,17 +18,21 @@ class SpaceStation{
       gameState = "outer";
     });
 
-    //add click listener to each button
+    //add click listener to each button in items and inventory
     var items = this.div.children[3].children[2]; //div is space station, getting items div
-    for(let i=0;i<items.children.length;i++){
-      for(let j=0; j<items.children[i].children.length;j++){
-        // items.children[i].children[j].spacestation = this;
-        //^^^use this property in eventlistener for access to infodiv object literal
+    for(let i=0;i<items.children.length;i++){ //items children = different categories
+      for(let j=0; j<items.children[i].children.length;j++){ //in each category, there are items
         items.children[i].children[j].addEventListener("click",function(event){
           SpaceStation.infoDiv.render(this);
           //^^^^render info of this item in the info div
         });
       }
+    }
+    var inventory = this.div.children[4].children[1];
+    for(let i=0;i<inventory.children.length;i++){ //inventory children are the items
+      inventory.children[i].addEventListener("click",function(event){
+        SpaceStation.infoDiv.render(this);
+      });
     }
 
     //add click listener for inventory and shop buttons
@@ -51,6 +55,24 @@ class SpaceStation{
         menu.style.display = "block";
         document.getElementById("shop").style.display = "none";
         document.getElementById("inventory").style.display = "none";
+      });
+    }
+
+    //add click listener for the "radio buttons" ->actually divs
+    var buttons = document.getElementById("radioButtons").children;
+    var itemCats = document.getElementById("shopItems").children;
+    for(let i=0;i<buttons.length;i++){
+      buttons[i].addEventListener("click",function(event){
+        if(this.id=="allCat"){ //this button shows all the items
+          for(let i=0;i<itemCats.length;i++){ //traverse categories in items
+            itemCats[i].style.display = "block";
+          }
+        } else{
+          for(let i=0;i<itemCats.length;i++){ //traverse categories in items
+            itemCats[i].style.display = "none";
+          }
+          document.getElementById(""+this.id+"Div").style.display = "block";
+        }
       });
     }
   }
@@ -83,7 +105,7 @@ SpaceStation.html = '\
       <div class="radio" id="weapons">Weapons</div>\
       <div class="radio" id="misc">Misc</div>\
     </div>\
-    <div class="items">\
+    <div class="items" id="shopItems">\
       <div id="boostsDiv" class="catDiv">\
         <div id="Cookie" class="tile">\
           <img class="imgTile" src="shopIMGS/cookie.png">\
@@ -125,9 +147,10 @@ SpaceStation.html = '\
       <div id="miscDiv" class="catDiv">\
       </div>\
     </div>\
-    <div class="info" id="shopInfoDiv">\
+    <div class="info" id="shopInfo">\
       <h3>Info</h3>\
     </div>\
+    <div id="test"></div>\
   </div>\
   <div id="inventory" style="display:none">\
     <div class="backButton">Back</div>\
@@ -163,7 +186,7 @@ SpaceStation.changeCategory = function(){
 }
 
 SpaceStation.infoDiv = { //for changing the item shown in info div
-  info : document.getElementById("shopInfoDiv"),
+  info : document.getElementById("test"),
   render : function(item){ //item=shop item div
     this.removeChildren();
     var img = document.createElement("img");
@@ -202,10 +225,10 @@ SpaceStation.infoDiv = { //for changing the item shown in info div
   },
   removeChildren : function(){
     console.log(info);
-    // if(info.children.length>2){
-    //   document.getElementById("infoImg").style.display = "none";
-    //   document.getElementById("infoName").style.display = "none";
-    //   document.getElementById("infoButton").style.display = "none";
-    // }
+    if(info.children.length>2){
+      document.getElementById("infoImg").style.display = "none";
+      document.getElementById("infoName").style.display = "none";
+      document.getElementById("infoButton").style.display = "none";
+    }
   },
 };

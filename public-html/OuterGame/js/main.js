@@ -63,12 +63,21 @@ function init(){
 			this.money -= price;
 		},
 
-		infoDiv : document.getElementById("infoDiv"),
+		infoPanel : document.getElementById("infoPanel"),
 		clearSubDiv : function(num){
-			var div = this.infoDiv.children[num];
+			var div = infoPanel.children[num];
 	    for(let i = 1; i<div.children.length;i++){
 	      div.children[i].remove();
 	    }
+		},
+		updateHealth : function(){
+
+		},
+		updateMoney : function(){
+
+		},
+		updateLevels : function(){
+			
 		}
 	};
 
