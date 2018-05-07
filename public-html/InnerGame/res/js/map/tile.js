@@ -19,9 +19,10 @@ class Tile extends Updateable {
     }
     init() {
       this.animalImage = tile_config.animal_image;
-      this.animalImage.src = tile_config.animal_image_src;
+      // issue 118 dont load these images every time
+//      this.animalImage.src = tile_config.animal_image_src;
       this.image = this.tileType.image;
-      this.image.src = this.tileType.image_src;
+//      this.image.src = this.tileType.image_src;
       this.isOccupied = this.tileType.is_occupied;
       this.isWater = this.tileType.is_water;
       if (this.tileType == tile_types.rock) {
