@@ -12,6 +12,7 @@ var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
 var resources;
+var gamePlanet;
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -96,6 +97,8 @@ function animate(){
 			//inner world
 			game.update();
 			game.render();
+		} else if(gameState=="transition"){
+
 		}
 	}
 }

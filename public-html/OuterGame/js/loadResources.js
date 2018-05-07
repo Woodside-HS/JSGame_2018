@@ -400,6 +400,18 @@ function loadImages(){
 		}).then(function(img){
 			Images['cupcake'] = img;
 		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'Panels/panel.png';
+		}).then(function(img){
+			Images['panel01'] = img;
+		}),
 	]).then(function(){
 		loadSounds();
 	})

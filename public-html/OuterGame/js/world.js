@@ -61,6 +61,7 @@
 						    this.checkHitPlanet().game = new Game();
 						    this.checkHitPlanet().game.init();
 						}
+						gamePlanet=this.checkHitPlanet();
 						game = this.checkHitPlanet().game;
 						gameState = 'inner';
 						playerShip.vel = new Vector2D(0, 0);
