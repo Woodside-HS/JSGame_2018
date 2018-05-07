@@ -83,8 +83,12 @@ class Player extends Updateable {
         let diff=this.projectiles[i].loc.duplicate();
         diff.subtract(enemy.loc);
         if(diff.m<player_config.bullet_size+enemy.size/2){
-          enemy.hp-=player_config.bullet_damage;
-          this.projectiles.splice(i, 1);
+          if(!player_config.damage_dropoff)
+            player_config.damage_dropoff=0;
+          enemy.hp-=player_config.bullet_damage*
+              Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
+          if(!player_config.penetrating)
+            this.projectiles.splice(i, 1);
           i--;
           break;
         }
@@ -247,6 +251,7 @@ class Player extends Updateable {
           loc: game.player.loc.duplicate(),
           v: diff,
           life: player_config.bullet_distance/diff.m,
+          maxLife: player_config.bullet_distance/diff.m,
           render: function() {
             this.game.context.fillStyle = player_config.bullet_color;
             this.game.context.beginPath();
@@ -259,6 +264,8 @@ class Player extends Updateable {
             this.game.context.fill();
           }
         }
+        if(player_config.render_bullet)
+          projectile.render=player_config.render_bullet;
         game.player.projectiles.push(projectile);
       }
     }

@@ -52,7 +52,7 @@ class Path {
 
     try {
       if (this.map[tile.x][tile.y].direction === directions.null) {
-        if(!game.mapManager.map[tile.x][tile.y].isOccupied){
+        if(!game.mapManager.map[tile.x][tile.y].isOccupied || game.mapManager.map[tile.x][tile.y].isWater){
         open.push(tile);
         }
         tile.direction = direction;
