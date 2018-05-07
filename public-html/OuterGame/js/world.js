@@ -56,6 +56,11 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
+						if(!this.checkHitPlanet().game){
+							// issue 118 create inner games on demand
+						    this.checkHitPlanet().game = new Game();
+						    this.checkHitPlanet().game.init();
+						}
 						game = this.checkHitPlanet().game;
 						gameState = 'inner';
 						playerShip.vel = new Vector2D(0, 0);

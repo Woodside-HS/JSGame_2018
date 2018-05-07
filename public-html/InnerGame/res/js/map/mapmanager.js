@@ -12,7 +12,9 @@ class MapManager extends Updateable {
     this.game = game;
     this.validStartTiles = [];
     this.towerManager = new TowerManager(this.game);
-    this.grassImage=map_config.grass_image;
+    //this.grassImage=map_config.grass_image;
+    // issue 118 use image loaded only once
+    this.grassImage = Images.grass;
     this.powerupManager = new PowerUpManager(this.game);
   }
   init() {
@@ -30,7 +32,8 @@ class MapManager extends Updateable {
     tower_config.tower_rate=Math.random()*-(tower_config.tower_rate_range[0]-tower_config.tower_rate_range[1])+tower_config.tower_rate_range[0];
     tower_config.tower_rate/=tower_config.tower_range[1]-tower_config.tower_range[0]
     //create grass image
-    this.grassImage.src=map_config.grass_image_src;
+    // issue 118 dont load these images every time
+    // this.grassImage.src=map_config.grass_image_src;
 
     noise.seed(map_config.noise_seed);
     //Create map array
