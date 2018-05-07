@@ -330,6 +330,66 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
+			img.src = 'res/sprites/hpPU.png';
+		}).then(function(img){
+			Images['hpPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/sprites/shieldPU.png';
+		}).then(function(img){
+			Images['shieldPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/sprites/moneyPU.png';
+		}).then(function(img){
+			Images['moneyPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/sprites/techPU.png';
+		}).then(function(img){
+			Images['techPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/sprites/arrowPU.png';
+		}).then(function(img){
+			Images['arrowPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
 			img.src = 'shopIMGS/background.png';
 		}).then(function(img){
 			Images['shopBackground'] = img;

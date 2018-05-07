@@ -32,7 +32,7 @@ const tile_types = {
     minimap_color: new Color("#5ae1fc"), //Color object
     is_occupied: true,
     is_water: true,
-    image_src: '../InnerGame/res/sprites/water.png',
+    image_src: '../InnerGame/res/sprites/WATERTiles.png',
     image: new Image()
   },
   mask: {
