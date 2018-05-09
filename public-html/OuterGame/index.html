@@ -77,10 +77,11 @@
         <div class="info" id="info4"><p1 id=p4></p1></div>
         <div class="info" id="info5"><p1 id=p5></p1></div>
         <script>
-        for(var i = 0; i < 3; i++){
+        for(var i = 0; i < 4; i++){
         var randomtitle = Math.floor((Math.random()* 5) + 1);
         var randomnum = (Math.random() * 100) - 25;
         document.getElementById("p"+ randomtitle).innerHTML = randomnum;
+        document.getElementById("p"+ randomtitle).style.fontSize = "230%";
       }
         </script>
         </div>
