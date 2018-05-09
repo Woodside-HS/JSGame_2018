@@ -12,12 +12,13 @@ var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
 var resources;
+var playerStats = {revealLevel: 2};//which reveal method to use. 1,2,3,4
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
 }
 
-var FPS = 40; // Desired (intended) Frames per second
+var FPS = 60; // Desired (intended) Frames per second
 
 var System = function() {
 	return worlds[currentLevel];
@@ -77,7 +78,7 @@ function init(){
 
 		},
 		updateLevels : function(){
-			
+
 		}
 	};
 

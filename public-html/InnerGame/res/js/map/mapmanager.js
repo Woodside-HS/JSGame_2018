@@ -131,11 +131,29 @@ class MapManager extends Updateable {
     // initialiaze start location
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
     startTile.isStart = true;
-    this.game.player.loc = startTile.loc.duplicate();
+//    startTile.seen = true;
+
 
     for(let i=0; i<loot_config.animal_count;i++){
       let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
       animalTile.loot = loot_types.animals[Math.floor(randIn(0, loot_types.animals.length))];
+    }
+    this.game.player.loc = startTile.loc.duplicate();
+    let cloc = positionToGrid(this.game.player.loc);
+    this.game.mapManager.map[cloc.x][cloc.y + 1].seen = true;
+    this.game.mapManager.map[cloc.x][cloc.y - 1].seen = true;
+    this.game.mapManager.map[cloc.x - 1][cloc.y].seen = true;
+    this.game.mapManager.map[cloc.x + 1][cloc.y].seen = true;
+    this.game.mapManager.map[cloc.x - 1][cloc.y + 1].seen = true;
+    this.game.mapManager.map[cloc.x - 1][cloc.y - 1].seen = true;
+    this.game.mapManager.map[cloc.x + 1][cloc.y + 1].seen = true;
+    this.game.mapManager.map[cloc.x + 1][cloc.y - 1].seen = true;
+    if(playerStats.revealLevel == 1 || playerStats.revealLevel == 2){
+      this.game.player.revealCone();
+    }else if(playerStats.revealLevel == 3 || playerStats.revealLevel == 4){
+      this.game.mapManager.revealCircle();
+    }else if(playerStats.revealLevel == 5){
+      this.game.mapManager.revealAll();
     }
   }
   update() {
@@ -167,9 +185,13 @@ class MapManager extends Updateable {
     this.towerManager.render();
     this.powerupManager.render();
   }
-  reveal() {
+  revealCircle() {
       var cloc = positionToGrid(this.game.player.loc);
-      var distSq = config.mask_radius * config.mask_radius;
+      if(playerStats.revealLevel == 3){
+        var distSq = 50;
+      }else if(playerStats.revealLevel == 4){
+        var distSq = 120;
+      }
       for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
         for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
           if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
@@ -182,23 +204,13 @@ class MapManager extends Updateable {
           }
         }
       }
-    //IF I CAN'T FIX ABOVE EDGE CASES, USE BELOW
-    // this.map[this.game.player.cloc.x][this.game.player.cloc.y].seen = true; //current tile
-    // for(var x = 0; x <= config.mask_radius; x++){
-    //   for(var y = 0; y <= config.mask_radius; y++){
-    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
-    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y + y].seen = true;
-    //     }
-    //     if(this.game.player.cloc.x + config.mask_radius < config.map_x_size && this.game.player.cloc.y - config.mask_radius > 0){
-    //       this.map[this.game.player.cloc.x + x][this.game.player.cloc.y - y].seen = true;
-    //     }
-    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y + config.mask_radius < config.map_y_size){
-    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y + y].seen = true;
-    //     }
-    //     if(this.game.player.cloc.x - config.mask_radius > 0 && this.game.player.cloc.y - config.mask_radius > 0){
-    //       this.map[this.game.player.cloc.x - x][this.game.player.cloc.y - y].seen = true;
-    //     }
-    //   }
-    // }
+  }
+  revealAll(){
+    for (let i = 0; i < this.game.mapManager.map.length; i++) {
+      for (let j = 0; j < this.game.mapManager.map.length; j++) {
+        var tile = this.game.mapManager.map[i][j];
+        tile.seen = true;
+      }
+    }
   }
 }
