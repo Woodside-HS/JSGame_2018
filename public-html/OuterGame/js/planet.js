@@ -3,8 +3,9 @@ class Planet{
   constructor(radius, location){
     this.radius = radius;
     this.loc = location;
-    var planetImageNum = Math.floor(Math.random()*10+1);
+    var planetImageNum = Math.floor(Math.random()*5+1);
     this.planetImage = Images['Planet' + planetImageNum];
+    this.storyImage = Images["panel0" + planetImageNum];
     // issue 118 create inner games on demand
     // this.game = new Game();
     // this.game.init();

@@ -492,9 +492,57 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = 'Panels/panel.png';
+			img.src = '../OuterGame/res/panels/paneltemp1.png';
 		}).then(function(img){
 			Images['panel01'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../OuterGame/res/panels/paneltemp2.png';
+		}).then(function(img){
+			Images['panel02'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../OuterGame/res/panels/paneltemp3.png';
+		}).then(function(img){
+			Images['panel03'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../OuterGame/res/panels/paneltemp4.png';
+		}).then(function(img){
+			Images['panel04'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../OuterGame/res/panels/paneltemp5.png';
+		}).then(function(img){
+			Images['panel05'] = img;
 		}),
 	]).then(function(){
 		loadSounds();
