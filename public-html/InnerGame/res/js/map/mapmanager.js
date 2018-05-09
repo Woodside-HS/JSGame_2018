@@ -140,14 +140,10 @@ class MapManager extends Updateable {
     }
     this.game.player.loc = startTile.loc.duplicate();
     let cloc = positionToGrid(this.game.player.loc);
-    this.game.mapManager.map[cloc.x][cloc.y + 1].seen = true;
-    this.game.mapManager.map[cloc.x][cloc.y - 1].seen = true;
-    this.game.mapManager.map[cloc.x - 1][cloc.y].seen = true;
-    this.game.mapManager.map[cloc.x + 1][cloc.y].seen = true;
-    this.game.mapManager.map[cloc.x - 1][cloc.y + 1].seen = true;
-    this.game.mapManager.map[cloc.x - 1][cloc.y - 1].seen = true;
-    this.game.mapManager.map[cloc.x + 1][cloc.y + 1].seen = true;
-    this.game.mapManager.map[cloc.x + 1][cloc.y - 1].seen = true;
+    for(let i=cloc.x-1; i<=cloc.x+1; i++)
+      for(let j=cloc.y-1; j<=cloc.y+1; j++)
+        if(i>0&&i<config.map_x_size&&j>0&&j<config.map_y_size)
+          this.game.mapManager.map[i][j].seen = true;
     if(playerStats.revealLevel == 1 || playerStats.revealLevel == 2){
       this.game.player.revealCone();
     }else if(playerStats.revealLevel == 3 || playerStats.revealLevel == 4){
