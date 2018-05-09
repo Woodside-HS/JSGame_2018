@@ -51,18 +51,18 @@ class Tile extends Updateable {
           this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
           this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
           break;
-        case tile_types.water:
-        this.game.context.drawImage(
-          this.image, this.sourceloc.x+1, this.sourceloc.y+1, this.sw-2, this.sh-2,
-          this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
-          break;
-          default:
-          this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          case tile_types.water:
+          this.game.context.drawImage(
+            this.image, this.sourceloc.x+1, this.sourceloc.y+1, this.sw-2, this.sh-2,
+            this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+            break;
+            default:
+            this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          }
+          if(this.hasAnimal||this.isStart){
+            this.game.context.drawImage(this.animalImage, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          }
         }
-        if(this.hasAnimal||this.isStart){
-          this.game.context.drawImage(this.animalImage, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
-        }
-      }
 
       getImageRock() {
         let index = "";
