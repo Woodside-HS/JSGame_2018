@@ -249,6 +249,30 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
+			img.src = 'res/ships/enemyShip.png';
+		}).then(function(img){
+			Images['enemyShip'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = 'res/ships/playerShip.png';
+		}).then(function(img){
+			Images['playerShip'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
 			img.src = '../InnerGame/res/sprites/grass.png';
 		}).then(function(img){
 			Images['grass'] = img;
@@ -297,7 +321,7 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = '../InnerGame/res/sprites/water.gif';
+			img.src = '../InnerGame/res/sprites/WATERTiles.png';
 		}).then(function(img){
 			Images['water'] = img;
 		}),
@@ -309,7 +333,67 @@ function loadImages(){
 			img.addEventListener('error', function(){
 				reject();
 			});
-			img.src = '../InnerGame/res/sprites/splash/youdied.jpg';
+			img.src = '../InnerGame/res/sprites/hpPU.png';
+		}).then(function(img){
+			Images['hpPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/shieldPU.png';
+		}).then(function(img){
+			Images['shieldPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/moneyPU.png';
+		}).then(function(img){
+			Images['moneyPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/techPU.png';
+		}).then(function(img){
+			Images['techPU'] = img;
+		}),
+		new Promise(function(resolve, reject){
+			var img = new Image();
+			img.addEventListener('load', function(){
+				resolve(img);
+			});
+			img.addEventListener('error', function(){
+				reject();
+			});
+			img.src = '../InnerGame/res/sprites/arrowPU.png';
+		}).then(function(img){
+			Images['arrowPU'] = img;
+		}),
+    new Promise(function(resolve, reject){
+	    var img = new Image();
+    	img.addEventListener('load', function(){
+    		resolve(img);
+    	});
+    	img.addEventListener('error', function(){
+    		reject();
+    	});
+	  	img.src = '../InnerGame/res/sprites/splash/youdied.jpg';
 		}).then(function(img){
 			Images['splash'] = img;
 		}),

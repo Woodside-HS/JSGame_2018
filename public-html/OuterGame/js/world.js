@@ -68,7 +68,7 @@
 						game.startup();
 					}
 					break;
-				case "l": //issue 54
+				case "f": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
 							//^^if player is close enough to a station to land on it
@@ -224,7 +224,7 @@
 			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) < 40) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[L] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
 				this.stations[i].canLandOn = true;
 			} else {
 				this.stations[i].canLandOn = false;
@@ -337,26 +337,43 @@
 	checkAsteroidCollision() {
 
 		for (var i = 0; i < this.entities.length; i++) {
-			if (this.entities[i] instanceof Asteroid === false) {
+			if (!(this.entities[i] instanceof Asteroid || this.entities[i] instanceof Rocketship || this.entities[i] instanceof DroneShip)) {
 				continue;
 			}
 			for (var j = i + 1; j < this.entities.length; j++) {
-				if (this.entities[j] instanceof Asteroid === false) {
+				if  (!(this.entities[j] instanceof Asteroid || this.entities[j] instanceof Rocketship || this.entities[j] instanceof DroneShip)) {
 					continue;
 				}
 
 				var b1 = this.entities[i];
+				var r1;
+				if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+					r1 = b1.shields[0].radius;
+				}else{
+					r1 = b1.radius;
+				}
+
 				var b2 = this.entities[j];
+				var r2;
+				if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+					r2 = b2.shields[0].radius;
+				}else{
+					r2 = b2.radius;
+				}
 
 				//check if edges of 2 asteroids are touching
 				var dist = Vector2D.distance(b1.loc, b2.loc);
-				if (dist <= b1.radius + b2.radius) {
+
+				if (dist <= r1 + r2) {
+					console.log('collision detected');
+
+
 
 					// sometimes the balls will stick together if there is
 					// too much overlap initially.  So separate them enough
 					// that they are just touching
 					var vec = Vector2D.subtract(b1.loc, b2.loc);
-					vec.setMag((b1.radius + b2.radius - vec.magnitude()) / 2);
+					vec.setMag((r1 + r2 - vec.magnitude()) / 2);
 					b1.loc.add(vec);
 					vec.scalarMult(-1);
 					b2.loc.add(vec);
@@ -432,6 +449,7 @@
 					// // console.log(`initial momentum ${init_momentum}`);
 					// console.log(`final momentum ${final_momentum}`);
 
+
 					b1.vel = v1_final;
 					b2.vel = v2_final;
 
@@ -441,6 +459,19 @@
 					// console.log(`final momentum ${p_final}`);
 					// console.log(totalKineticEnergy());
 					// console.log(p_final.x, p_final.y);
+
+					if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+						b1.shields[0].stats.takeDamage(5);
+					}else{
+						b1.stats.takeDamage(5);
+					}
+
+					if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+						b2.shields[0].stats.takeDamage(5);
+					}else{
+						b2.stats.takeDamage(5);
+					}
+
 
 				}
 			}
@@ -560,6 +591,7 @@
 		this.checkHitStation(); //issue 54
 
 		let i = 0;
+		let pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
 		if (this.ship.shield && this.ship.shield.offline) {
 			i++;
 			ctx.textAlign = "center";
