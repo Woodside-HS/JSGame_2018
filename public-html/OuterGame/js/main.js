@@ -34,31 +34,26 @@ function init(){
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
 		health: 1,
 		money : 100,
-		credits : [creditEx = {value:4.75, name:"Macaron"}], //each has a value
-		creatures : [],
-		boosts : [], //boost speed, firing frequency
-		repairs : [], //repair/upgrade shield
-		weapons : [], //add different kinds of weapons to use
+		inventory : [creditEx = {value:4.75, name:"Macaron"}], //each has a value
+		// boosts : [], //boost speed, firing frequency
+		// repairs : [], //repair/upgrade shield
+		// weapons : [], //add different kinds of weapons to use
 		aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		engineLevel : 1,
 		weaponsLevel : 1, //may have to split into different weapons/tools
 
-		sellCredits : function(){
-			for(let i = this.credits.length-1;i>=0;i--){
-				this.money += this.credits[i].value;
-				this.credits.pop();
+		sellItem : function(itemName){
+			for(let i=0;i<this.inventory.length;i++){
+				if(this.inventory[i].name==itemName){
+					this.money += this.inventory[i].value;
+					this.inventory.splice(i,1);
+					break;
+				}
 			}
 		},
 		collect : function(object){
-			var category = ""+object.div.parentElement.id;
-			category = category.slice(0,category.length-3);
-			this[category].push(object);
-			var div = document.getElementById(""+category+"Coll");
-			var obj = document.createElement("img");
-			obj.src = ""+object.div.children[0].src;
-			obj.className = "collectionImg";
-			div.appendChild(obj);
+			this.inventory.push(object);
 		},
 		buy : function(object,price){
 			this.collect(object);

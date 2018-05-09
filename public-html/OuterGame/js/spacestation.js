@@ -33,33 +33,36 @@ class SpaceStation{
         div.id = "infoName";
         infoDiv.appendChild(div);
         var button = document.createElement("button");
-        if(item.parentElement.id=="creditsDiv"){
+        button.id = "infoButton";
+        button.item = item;
+        if(!page){ //if in inventory, sell items
           button.innerHTML = "Sell";
           button.onclick = function(){
-            resources.sellCredits();
+            let price = this.item.children[1].id;
+            let infoName = ""+this.item.id;
+            var object = {value:price, name:infoName};
+            resources.sellItem(object);
           };
-        } else{
+        } else{ //if in shop, buy items
           button.innerHTML = "Buy";
           button.onclick = function(){
             let price = this.item.children[1].id;
             if(resources.money>=price){
-              var object = {
-                div : this.item
-              };
+              var object = {div : this.item};
               resources.buy(object,price);
             }
           };
         }
-        button.id = "infoButton";
-        button.item = item;
         infoDiv.appendChild(button);
         var price = document.createTextNode("   "+ item.children[1].id);
         price.id = "infoPrice";
         div.appendChild(price);
       },
       removeChildren : function(infoDiv){ //infoDiv sends in the right div to clear out
-        for(let i=1;i<infoDiv.children.length;i++){
-          infoDiv.children[i].remove();
+        if(infoDiv.children.length>1){
+          document.getElementById("infoImg").remove();
+          document.getElementById("infoName").remove();
+          document.getElementById("infoButton").remove();
         }
       },
     };
