@@ -5,7 +5,7 @@ const tile_types = {
   init: function () {
     tile_types.grass.image = Images.grass;
     tile_types.rock.image = Images.rocks2c;
-    tile_types.water.image = Images.water;
+    tile_types.water.image = Images.WATERTiles;
     tile_types.mask.image = Images.fog;
 
     // ??
@@ -36,8 +36,8 @@ const tile_types = {
     minimap_color: new Color("#5ae1fc"), //Color object
     is_occupied: true,
     is_water: true,
-    image_src: '../InnerGame/res/sprites/WATERTiles.png',
-    image: new Image()
+    // image_src: '../InnerGame/res/sprites/WATERTiles.png',
+    // image: new Image()
   },
   mask: {
     minimap_color: new Color("#202020"), //Color object
