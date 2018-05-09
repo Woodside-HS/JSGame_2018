@@ -64,7 +64,6 @@ class Tile extends Updateable {
         }
       }
 
-      getImage() {
       getImageRock() {
         let index = "";
         let x1 = this.quadNormal.x;
