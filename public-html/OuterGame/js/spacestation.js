@@ -48,8 +48,8 @@ class SpaceStation{
           button.onclick = function(){
             let price = this.item.children[1].id;
             if(resources.money>=price){
-              var object = {div : this.item};
-              resources.buy(object,price);
+              var object = {cat:this.item.parentElement.id,price:price};
+              resources.buy(object);
             }
           };
         }
@@ -74,7 +74,15 @@ class SpaceStation{
       gameState = "outer";
     });
 
-    //add click listener to each button in items and inventory
+
+    //add click listener for inventory and shop buttons
+    var menu = document.getElementById("menu");
+      //shop
+    menu.children[0].addEventListener("click",function(event){
+      menu.style.display = "none";
+      document.getElementById("shop").style.display = "block";
+    });
+    //add click listener to each button in shop
     var items = document.getElementById("shopItems"); //div is space station, getting items div
     for(let i=0;i<items.children.length;i++){ //items children = different categories
       for(let j=0; j<items.children[i].children.length;j++){ //in each category, there are items
@@ -84,21 +92,8 @@ class SpaceStation{
         });
       }
     }
-    var inventory = document.getElementById("invItems");
-    for(let i=0;i<inventory.children.length;i++){ //inventory children are the items
-      inventory.children[i].addEventListener("click",function(event){
-        SpaceStation.infoDiv.render(this,false);
-      });
-    }
 
-    //add click listener for inventory and shop buttons
-    var menu = document.getElementById("menu");
-        //shop
-    menu.children[0].addEventListener("click",function(event){
-      menu.style.display = "none";
-      document.getElementById("shop").style.display = "block";
-    });
-        //inventory
+      //inventory
     menu.children[1].addEventListener("click",function(event){
       menu.style.display = "none";
       document.getElementById("inventory").style.display = "block";
@@ -129,6 +124,12 @@ class SpaceStation{
           }
           document.getElementById(""+this.id+"Div").style.display = "block";
         }
+        //make the button a different color than the others
+        var buttons = document.getElementById("radioButtons");
+        for(let i=0;i<buttons.children.length;i++){
+          buttons.children[i].style.backgroundColor = "#4CAF50";
+        }
+        this.style.backgroundColor = "darkgreen";
       });
     }
   }
@@ -156,38 +157,23 @@ SpaceStation.html = '\
     <div class="backButton">Back</div>\
     <div id="radioButtons">\
       <div class="radio" id="allCat">All</div>\
-      <div class="radio" id="boosts">Boosts</div>\
-      <div class="radio" id="repairs">Repairs</div>\
+      <div class="radio" id="health">Health</div>\
+      <div class="radio" id="shields">Shields</div>\
       <div class="radio" id="weapons">Weapons</div>\
+      <div class="radio" id="engines">Engines</div>\
       <div class="radio" id="misc">Misc</div>\
     </div>\
     <div class="items" id="shopItems">\
-      <div id="boostsDiv" class="catDiv">\
+      <div id="healthDiv" class="catDiv">\
         <div id="Cookie" class="tile">\
           <img class="imgTile" src="shopIMGS/cookie.png">\
           <span style="display:none;" id="2.35"></span>\
         </div>\
-        <div id="Brownie" class="tile">\
-          <img class="imgTile" src="shopIMGS/brownie.png">\
-          <span style="display:none;" id="2.55"></span>\
-        </div>\
-        <div id="Cupcake" class="tile">\
-          <img class="imgTile" src="shopIMGS/cupcake.png">\
-          <span style="display:none;" id="1.45"></span>\
-        </div>\
       </div>\
-      <div id="repairsDiv" class="catDiv">\
+      <div id="shieldsDiv" class="catDiv">\
         <div id="Cake" class="tile">\
           <img class="imgTile" src="shopIMGS/cake.png">\
           <span style="display:none;" id="4.30"></span>\
-        </div>\
-        <div id="Pie" class="tile">\
-          <img class="imgTile" src="shopIMGS/pie.png">\
-          <span style="display:none;" id="3.60"></span>\
-        </div>\
-        <div id="Donut" class="tile">\
-          <img class="imgTile" src="shopIMGS/donut.png">\
-          <span style="display:none;" id="2.60"></span>\
         </div>\
       </div>\
       <div id="weaponsDiv" class="catDiv">\
@@ -200,7 +186,25 @@ SpaceStation.html = '\
           <span style="display:none;" id="3.50"></span>\
         </div>\
       </div>\
+      <div id="enginesDiv" class="catDiv">\
+        <div id="Brownie" class="tile">\
+          <img class="imgTile" src="shopIMGS/brownie.png">\
+          <span style="display:none;" id="2.55"></span>\
+        </div>\
+        <div id="Cupcake" class="tile">\
+          <img class="imgTile" src="shopIMGS/cupcake.png">\
+          <span style="display:none;" id="1.45"></span>\
+        </div>\
+      </div>\
       <div id="miscDiv" class="catDiv">\
+        <div id="Pie" class="tile">\
+          <img class="imgTile" src="shopIMGS/pie.png">\
+          <span style="display:none;" id="3.60"></span>\
+        </div>\
+        <div id="Donut" class="tile">\
+          <img class="imgTile" src="shopIMGS/donut.png">\
+          <span style="display:none;" id="2.60"></span>\
+        </div>\
       </div>\
     </div>\
     <div class="info" id="shopInfo">\
@@ -210,10 +214,6 @@ SpaceStation.html = '\
   <div id="inventory" style="display:none">\
     <div class="backButton">Back</div>\
     <div class="items" id="invItems">\
-      <div id="Macaron" class="tile">\
-        <img class="imgTile" src="shopIMGS/macaron.png">\
-        <span style="display:none;" id="4.75"></span>\
-      </div>\
     </div>\
     <div class="info" id="invInfo">\
       <h3>Info</h3>\

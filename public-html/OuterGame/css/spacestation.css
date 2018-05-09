@@ -50,7 +50,7 @@
     background-color: #4CAF50; /* Green */
     border: 1px solid green;
     color: white;
-    padding: 30px 0px;
+    padding: 20px 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -64,9 +64,7 @@
     border-bottom: none; /* Prevent double borders */
 }
 
-#radioButtons .radio:hover {
-    background-color: #3e8e41;
-}
+
 
 .items{
   float: left;

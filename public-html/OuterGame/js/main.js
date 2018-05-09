@@ -32,16 +32,16 @@ function load(){
 }
 function init(){
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
-		health: 1,
+		health: 10,
 		money : 100,
-		inventory : [creditEx = {value:4.75, name:"Macaron"}], //each has a value
+		inventory : [], //each has a value
 		// boosts : [], //boost speed, firing frequency
 		// repairs : [], //repair/upgrade shield
 		// weapons : [], //add different kinds of weapons to use
 		aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
-		engineLevel : 1,
 		weaponsLevel : 1, //may have to split into different weapons/tools
+		engineLevel : 1,
 
 		sellItem : function(itemName){
 			for(let i=0;i<this.inventory.length;i++){
@@ -51,13 +51,24 @@ function init(){
 					break;
 				}
 			}
+			this.updateMoney();
 		},
-		collect : function(object){
-			this.inventory.push(object);
-		},
-		buy : function(object,price){
-			this.collect(object);
-			this.money -= price;
+		buy : function(object){ //add object to inventory
+			this.money -= object.price;
+			this.updateMoney();
+			if(object.cat == "shieldsDiv"){
+				this.shieldLevel += 1;
+				this.updateLevels(0);
+			} else if(object.cat == "weaponsDiv"){
+				this.weaponsLevel += 1;
+				this.updateLevels(1);
+			} else if(object.cat == "enginesDiv"){
+				this.engineLevel += 1;
+				this.updateLevels(2);
+			} else if(object.cat == "healthDiv"){
+				this.health +=1;
+				this.updateHealth();
+			}
 		},
 
 		infoPanel : document.getElementById("infoPanel"),
@@ -68,15 +79,42 @@ function init(){
 	    }
 		},
 		updateHealth : function(){
-
+			var div = document.getElementById("Health");
+			div.children[0].innerHTML = "" + this.health*10 + "%";
 		},
 		updateMoney : function(){
-
+			var div = document.getElementById("Money");
+			div.children[0].innerHTML = "$" + this.money.toFixed(2);
 		},
-		updateLevels : function(){
-
+		updateLevels : function(num){
+			var div = document.getElementById("Ship Levels");
+			if(num==0){
+				div.children[num].innerHTML = "Shield: " + this.shieldLevel;
+			} else if(num==1){
+				div.children[num].innerHTML = "Weapons: " + this.weaponsLevel;
+			} else if(num==2){
+				div.children[num].innerHTML = "Engines: " + this.engineLevel;
+			}
 		}
 	};
+
+	// //add a div (item) to the inventory in resources
+	// var div = document.createElement("div");
+	// div.id = "Macaron";
+	// div.className = "tile";
+	// var img = document.createElement("img");
+	// img.src = "shopIMGS/macaron.png";
+	// img.className = "imgTile";
+	// var span = document.createElement("span");
+	// span.style.display = "none";
+	// span.id = 4.75;
+	// div.appendChild(img);
+	// div.appendChild(span);
+	// div.addEventListener("click",function(event){
+	// 	SpaceStation.infoDiv.render(this,false);
+	// });
+	// var inv = document.getElementById("invItems");
+	// inv.appendChild(div);
 
 	canvas = document.getElementById('cnv');
 

@@ -17,8 +17,12 @@ canvas {
   margin-right: 35px;
   margin-top: 8px;
   border-radius: 10px;
-
 }
+
+.shipLvls{
+  margin: 0px;
+}
+
 #infoPanel {
   width:1024px;
   height:100px;
