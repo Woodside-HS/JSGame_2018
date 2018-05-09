@@ -13,6 +13,8 @@
 		this.width = 2400;
 		this.frameCount = 0;
 		this.realFPS = 0;
+		this.canvasLoc = new Vector2D(0,0);
+		//this.pastVels = []; //array of ships velocties for canvas lag
 
 		setInterval(this.checkFPS, 250);
 
@@ -108,7 +110,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		this.camera = new Camera(); // TODO: make this actually do something?
+		//this.camera = new Camera(); // TODO: make this actually do something?
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
@@ -584,8 +586,12 @@
 
 	update() {
 		this.frameCount++;
-		this.camera.update(); // No effect until the camera is implemented
+		//this.camera.update(); // No effect until the camera is implemented
+		var canvToShip = Vector2D.subtract(this.ship.loc, this.canvasLoc);
+		canvToShip.scalarMult(.01);
 
+
+		this.canvasLoc.add(canvToShip);
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
 
@@ -634,7 +640,9 @@
 
 		ctx.save();
 		//translate to camera
-		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
+		//ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
+		//ctx.translate(canvas.width / 2 - this.ship.loc.x, canvas.height / 2 - this.ship.loc.y);
+		ctx.translate(canvas.width / 2 - this.canvasLoc.x, canvas.height / 2 - this.canvasLoc.y);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 

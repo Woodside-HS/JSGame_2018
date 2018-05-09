@@ -54,6 +54,11 @@ class Rocketship extends Mover {
 		this.addShield(shield);
 	}
 
+	mass() {
+		//return Math.PI * Math.pow(this.radius, 2);
+		return 100;
+	}
+
 	update() {
 
 		if (this.firing) { // If ship is actively in shooting mode...
@@ -103,6 +108,7 @@ class Rocketship extends Mover {
 			this.dir = this.vel.theta();
 		}
 		// removed a condition for issue 3
+		//System().pastVels.push(this.vel.clone().scalarDiv(FPS));
 
 		this.loc.add(this.vel.clone().scalarDiv(FPS));
 		this.acc.scalarMult(0);
