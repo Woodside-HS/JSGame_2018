@@ -13,8 +13,8 @@ canvas {
   float:left;
   background-color: white;
   border: black solid 2px;
-  margin-left: 35px;
-  margin-right: 35px;
+  margin-left: 160px;
+  margin-right: 0px;
   margin-top: 8px;
   border-radius: 10px;
 }
