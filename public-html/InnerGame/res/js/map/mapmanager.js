@@ -133,8 +133,10 @@ class MapManager extends Updateable {
     startTile.isStart = true;
     this.game.player.loc = startTile.loc.duplicate();
 
-    let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
-    animalTile.hasAnimal = true;
+    for(let i=0; i<loot_config.animal_count;i++){
+      let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+      animalTile.loot = loot_types.animals[Math.floor(randIn(0, loot_types.animals.length))];
+    }
   }
   update() {
     for (let i = 0; i < config.map_x_size; i++) {

@@ -171,10 +171,15 @@ class Player extends Updateable {
   }
   checkImportantLoc(){
     //returns improtant loc, if it is one
-    if(game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal){
+    if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
+      let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
       //do something
-      game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal=false;
-      return 'animal';
+      inventory.children[1].appendChild(loot.htmlElement);
+      loot.htmlElement.addEventListener("click",function(event){
+        SpaceStation.infoDiv.render(this,false);
+      });
+      game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
+      return 'loot';
     }
     if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
       console.log('hello');
