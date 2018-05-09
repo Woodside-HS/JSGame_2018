@@ -43,18 +43,18 @@ const player_config = {
   // accuracy_time: 0 //in frames
 
   //flamethrower
-  shot_cooldown: 1*config.frame_rate/30, //in sec
-  bullet_size: 3, //in px
-  spread_count: 30,
-  bullet_spread: Math.PI/30, //in radians
-  bullet_color: 'yellow',
-  bullet_speed: 10, //in px/frame
-  bullet_distance: 15*config.tile_size, //in px
-  auto_fire: true,
-  bullet_damage: .02,
-  bullet_wander: Math.PI/9,
-  accuracy_time: 15, //in frames
-  bullet_acceleration: .985
+  // shot_cooldown: 1*config.frame_rate/30, //in sec
+  // bullet_size: 3, //in px
+  // spread_count: 30,
+  // bullet_spread: Math.PI/30, //in radians
+  // bullet_color: 'yellow',
+  // bullet_speed: 10, //in px/frame
+  // bullet_distance: 15*config.tile_size, //in px
+  // auto_fire: true,
+  // bullet_damage: .02,
+  // bullet_wander: Math.PI/9,
+  // accuracy_time: 15, //in frames
+  // bullet_acceleration: .985
 
   // // machine gun
   // shot_cooldown: 2*config.frame_rate/30, //in sec
@@ -135,18 +135,18 @@ const player_config = {
   // accuracy_time: 0 //in frames
 
   // //cannon
-  // shot_cooldown: 30*config.frame_rate/30, //in sec
-  // bullet_size: 8, //in px
-  // spread_count: 1,
-  // bullet_spread: Math.PI/64, //in radians
-  // bullet_color: 'rgba(200,200,150,1)',
-  // bullet_speed: 2, //in px/frame
-  // bullet_distance: 15*config.tile_size, //in px
-  // auto_fire: true,
-  // bullet_damage: 20,
-  // bullet_wander: Math.PI/64,
-  // accuracy_time: 5, //in frames
-  // bullet_acceleration: 1.1
+  shot_cooldown: 30*config.frame_rate/30, //in sec
+  bullet_size: 8, //in px
+  spread_count: 1,
+  bullet_spread: Math.PI/64, //in radians
+  bullet_color: 'rgba(200,200,150,1)',
+  bullet_speed: 2, //in px/frame
+  bullet_distance: 15*config.tile_size, //in px
+  auto_fire: true,
+  bullet_damage: 20,
+  bullet_wander: Math.PI/64,
+  accuracy_time: 5, //in frames
+  bullet_acceleration: 1.1
 };
 
 if(config.debug_mode)
