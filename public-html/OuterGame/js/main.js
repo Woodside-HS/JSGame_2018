@@ -12,7 +12,7 @@ var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
 var resources;
-var playerStats = {reveal:'reveal1'};//which reveal method to use. 'reveal1','reveal2','reveal3','reveal4'
+var playerStats = {reveal:'reveal5'};//which reveal method to use. 'reveal1','reveal2','reveal3','reveal4'
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;

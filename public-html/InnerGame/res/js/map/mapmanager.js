@@ -113,19 +113,24 @@ class MapManager extends Updateable {
     let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
     startTile.isStart = true;
 //    startTile.seen = true;
-      if(playerStats.reveal == 'reveal1'){
-        this.game.player.reveal1();
-      }else if(playerStats.reveal == 'reveal2'){
-        this.game.player.reveal2();
-      }else if(playerStats.reveal == 'reveal3'){
-        this.game.mapManager.reveal3();
-      }else if(playerStats.reveal == 'reveal4'){
-        this.game.mapManager.reveal4();
-      }else if(playerStats.reveal == 'reveal5'){
-        this.game.mapManager.reveal5();
-      }
-    this.game.player.loc = startTile.loc.duplicate();
 
+    this.game.player.loc = startTile.loc.duplicate();
+    var cloc = positionToGrid(this.game.player.loc);
+    this.game.mapManager.map[cloc.x][cloc.y + 1].seen = true;
+    this.game.mapManager.map[cloc.x][cloc.y - 1].seen = true;
+    this.game.mapManager.map[cloc.x - 1][cloc.y].seen = true;
+    this.game.mapManager.map[cloc.x + 1][cloc.y].seen = true;
+    this.game.mapManager.map[cloc.x - 1][cloc.y + 1].seen = true;
+    this.game.mapManager.map[cloc.x - 1][cloc.y - 1].seen = true;
+    this.game.mapManager.map[cloc.x + 1][cloc.y + 1].seen = true;
+    this.game.mapManager.map[cloc.x + 1][cloc.y - 1].seen = true;
+    if(playerStats.reveal == 'reveal1' || playerStats.reveal == 'reveal2'){
+      this.game.player.revealCone();
+    }else if(playerStats.reveal == 'reveal3' || playerStats.reveal == 'reveal4'){
+      this.game.mapManager.revealCircle();
+    }else if(playerStats.reveal == 'reveal5'){
+      this.game.mapManager.revealAll();
+    }
     let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
     animalTile.hasAnimal = true;
   }
@@ -158,9 +163,13 @@ class MapManager extends Updateable {
     this.towerManager.render();
     this.powerupManager.render();
   }
-  reveal3() {
+  revealCircle() {
       var cloc = positionToGrid(this.game.player.loc);
-      var distSq = 50;
+      if(playerStats.reveal == 'reveal3'){
+        var distSq = 50;
+      }else if(playerStats.reveal == 'reveal4'){
+        var distSq = 120;
+      }
       for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
         for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
           if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
@@ -174,23 +183,7 @@ class MapManager extends Updateable {
         }
       }
   }
-  reveal4() {
-      var cloc = positionToGrid(this.game.player.loc);
-      var distSq = 100;
-      for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
-        for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
-          if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
-            var tile = this.game.mapManager.map[i][j];
-            var tileLoc = positionToGrid(tile.loc);
-            var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
-            if(actualDistSq <= distSq){
-              tile.seen = true;
-            }
-          }
-        }
-      }
-  }
-  reveal5(){
+  revealAll(){
     for (let i = 0; i < this.game.mapManager.map.length; i++) {
       for (let j = 0; j < this.game.mapManager.map.length; j++) {
         var tile = this.game.mapManager.map[i][j];
