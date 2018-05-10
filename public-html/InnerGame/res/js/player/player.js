@@ -226,6 +226,7 @@ class Player extends Updateable {
     if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
       let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
       //do something
+      resources.inventory.push(loot);
       inventory.children[1].appendChild(loot.htmlElement);
       loot.htmlElement.addEventListener("click",function(event){
         SpaceStation.infoDiv.render(this,false);
@@ -234,7 +235,6 @@ class Player extends Updateable {
       return 'loot';
     }
     if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
-      console.log('hello');
       this.game.context.fillStyle="white";
       this.game.context.font = "20px Georgia";
       this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
