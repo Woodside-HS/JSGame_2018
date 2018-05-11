@@ -8,6 +8,7 @@ class Planet{
     this.storyImage = Images["panel0" + planetImageNum];
     this.storyPanelDiv = document.getElementById("gamepanel" + planetImageNum);
     this.storyPanelDiv.appendChild(this.storyImage);
+    this.listenForClick();
     // issue 118 create inner games on demand
     // this.game = new Game();
     // this.game.init();
@@ -23,5 +24,13 @@ class Planet{
 
   showPanel(){
     this.storyPanelDiv.style.display = "block";
+  }
+
+  listenForClick(){
+    this.storyPanelDiv.addEventListener("click", function(){
+      this.style.display = "none";
+      gameState = 'inner';
+      game.startup();
+    });
   }
 }

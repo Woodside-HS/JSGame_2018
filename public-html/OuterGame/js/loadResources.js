@@ -109,22 +109,19 @@ let imageSources = {//Properties of imageSources match names of images
 	},
 	// Panels
 	panel01: {
-		sourceString:"res/panels/paneltemp1.png",
+		sourceString:"res/panels/bluedown.png",
 	},
 	panel02: {
-		sourceString:"res/panels/paneltemp2.png",
+		sourceString:"res/panels/greendown.png",
 	},
 	panel03: {
-		sourceString:"res/panels/paneltemp3.png",
+		sourceString:"res/panels/greydown.png",
 	},
 	panel04: {
-		sourceString:"res/panels/paneltemp4.png",
+		sourceString:"res/panels/purpledown.png",
 	},
 	panel05: {
-		sourceString:"res/panels/paneltemp5.png",
-	},
-	panel06: {
-		sourceString:"res/panels/paneltemp6.png",
+		sourceString:"res/panels/reddown.png",
 	},
 }
 

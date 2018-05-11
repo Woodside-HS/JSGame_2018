@@ -121,8 +121,10 @@ canvas {
   display: none;
   height: 300px;
   width: 600px;
-  margin-top: 3%;
-  margin-left: 3%;
+  position:absolute;
+  top: 5%;
+  left: 5%;
   z-index: 10;
   border: 4px black solid;
+
 }
