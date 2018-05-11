@@ -3,6 +3,7 @@
   width: 90%;
   height: 75%;
   background-color: black;
+  color: white;
   position:absolute;
   top: 20%;
   left: 5%;
@@ -28,7 +29,7 @@
 .backButton{
   width: 60px;
   height: 30px;
-  background-color: yellow;
+  background-color: white;
   position: absolute;
   top: 20px;
   left: 20px;
@@ -37,6 +38,7 @@
   border-radius: 20%;
   cursor: pointer;
   padding: 3px;
+  color: black;
 }
 
 #radioButtons{
@@ -91,6 +93,7 @@
   width: 350px;
   height: 450px;
   background-color: white;
+  color: black;
   border-radius: 15%;
   background-image: url("../shopIMGS/infoBackground.png");
 }
@@ -124,6 +127,7 @@
   background-color: lightblue;
   border-radius: 25%;
   cursor: pointer;
+  border: 1px solid black;
 }
 
 .tile:hover{

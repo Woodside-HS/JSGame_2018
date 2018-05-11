@@ -165,44 +165,44 @@ SpaceStation.html = '\
     </div>\
     <div class="items" id="shopItems">\
       <div id="healthDiv" class="catDiv">\
-        <div id="Cookie" class="tile">\
-          <img class="imgTile" src="shopIMGS/cookie.png">\
+        <div id="Health Boost" class="tile">\
+          <img class="imgTile" src="shopIMGS/health.png">\
           <span style="display:none;" id="2.35"></span>\
         </div>\
       </div>\
       <div id="shieldsDiv" class="catDiv">\
-        <div id="Cake" class="tile">\
-          <img class="imgTile" src="shopIMGS/cake.png">\
+        <div id="Shield Boost" class="tile">\
+          <img class="imgTile" src="shopIMGS/shield.png">\
           <span style="display:none;" id="4.30"></span>\
         </div>\
       </div>\
       <div id="weaponsDiv" class="catDiv">\
-        <div id="Tea" class="tile">\
-          <img class="imgTile" src="shopIMGS/tea.png">\
+        <div id="Turret" class="tile">\
+          <img class="imgTile" src="shopIMGS/turret.png">\
           <span style="display:none;" id="2.40"></span>\
         </div>\
-        <div id="Coffee" class="tile">\
-          <img class="imgTile" src="shopIMGS/coffee.png">\
+        <div id="Laser Gun" class="tile">\
+          <img class="imgTile" src="shopIMGS/lasergun.png">\
           <span style="display:none;" id="3.50"></span>\
         </div>\
       </div>\
       <div id="enginesDiv" class="catDiv">\
-        <div id="Brownie" class="tile">\
-          <img class="imgTile" src="shopIMGS/brownie.png">\
+        <div id="Ship Engine" class="tile">\
+          <img class="imgTile" src="shopIMGS/engine1.png">\
           <span style="display:none;" id="2.55"></span>\
         </div>\
-        <div id="Cupcake" class="tile">\
-          <img class="imgTile" src="shopIMGS/cupcake.png">\
+        <div id="Rover Engine" class="tile">\
+          <img class="imgTile" src="shopIMGS/engine2.png">\
           <span style="display:none;" id="1.45"></span>\
         </div>\
       </div>\
       <div id="miscDiv" class="catDiv">\
-        <div id="Pie" class="tile">\
-          <img class="imgTile" src="shopIMGS/pie.png">\
+        <div id="Fog Remover" class="tile">\
+          <img class="imgTile" src="shopIMGS/fog.png">\
           <span style="display:none;" id="3.60"></span>\
         </div>\
-        <div id="Donut" class="tile">\
-          <img class="imgTile" src="shopIMGS/donut.png">\
+        <div id="Minions" class="tile">\
+          <img class="imgTile" src="shopIMGS/minion.png">\
           <span style="display:none;" id="2.60"></span>\
         </div>\
       </div>\
