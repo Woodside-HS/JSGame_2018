@@ -267,125 +267,125 @@ function loadImages(){
 	});
 }
 
-let soundSources = {//Properties of soundSources match names of sounds
-	backgroundMusic: {
-		sourceString:"res/sounds/A/bgS.mp3",
-	},
-	backgroundMusicAlt: {
-		sourceString:"res/sounds/B/bgS.mp3",
-	},
-	badNoiseDontUse: {
-		sourceString:"res/sounds/B/GoodNoiseplsuse.wav",
-	},
-	click: {
-		sourceString:"res/sounds/A/click.mp3",
-	},
-	cllsn: {
-		sourceString:"res/sounds/A/cllsn.mp3",
-	},
-	ding: {
-		sourceString:"res/sounds/A/ding.mp3",
-	},
-	doom: {
-		sourceString:"res/sounds/A/doom.mp3",
-	},
-	error: {
-		sourceString:"res/sounds/B/err.wav",
-	},
-	keyStroke1: {
-		sourceString:"res/sounds/B/computernoise1.wav",
-	},
-	keyStroke2: {
-		sourceString:"res/sounds/B/computernoise2.wav",
-	},
-	keyStroke3: {
-		sourceString:"res/sounds/B/computernoise3.wav",
-	},
-	mchn: {
-		sourceString:"res/sounds/A/mchn.mp3",
-	},
-	money: {
-		sourceString:"res/sounds/A/money.mp3",
-	},
-	point: {
-		sourceString:"res/sounds/B/points.wav",
-	},
-	mS1: {
-		sourceString:"res/sounds/A/mS1.mp3",
-	},
-	shipCollide1: {
-		sourceString:"res/sounds/B/CollidingwithOtherShips1.wav",
-	},
-	shipCollide2: {
-		sourceString:"res/sounds/B/CollidingwithOtherShips3.wav",
-	},
-	shipForwards: {
-		sourceString:"res/sounds/B/ShipNoiseForward.wav",
-	},
-	shipLand: {
-		sourceString:"res/sounds/B/SpaceShipLanding1.wav",
-	},
-	smash: {
-		sourceString:"res/sounds/A/smash.mp3",
-	},
-	spaceSounds: {
-		sourceString:"res/sounds/B/spaceambience1.wav",
-	},
-	takeoff: {
-		sourceString:"res/sounds/B/Takeoff.wav",
-	},
-	tDest: {
-		sourceString:"res/sounds/A/tDest.mp3",
-	},
-	tNoise: {
-		sourceString:"res/sounds/A/tNoise.mp3",
-	},
-	tpLand: {
-		sourceString:"res/sounds/B/LandingonTradePost.wav",
-	},
-	tradeErr: {
-		sourceString:"res/sounds/B/unsuccessfultrade.wav",
-	},
-	uPup: {
-		sourceString:"res/sounds/A/uPup.mp3",
-	},
-	water: {
-		sourceString:"res/sounds/A/water.mp3",
-	},
-	weaponPulse: {
-		sourceString:"res/sounds/A/weapon.mp3",
-	},
-	xplsn1: {
-		sourceString:"res/sounds/B/explosion4.wav",
-	},
-	xplsn2: {
-		sourceString:"res/sounds/B/explosion5.wav",
-	},
-	xplsn3: {
-		sourceString:"res/sounds/B/explosion3.wav",
-	},
-
-
-}
+// let soundSources = {//Properties of soundSources match names of sounds
+// 	backgroundMusic: {
+// 		sourceString:"res/sounds/A/bgS.mp3",
+// 	},
+// 	backgroundMusicAlt: {
+// 		sourceString:"res/sounds/B/bgS.mp3",
+// 	},
+// 	badNoiseDontUse: {
+// 		sourceString:"res/sounds/B/GoodNoiseplsuse.wav",
+// 	},
+// 	click: {
+// 		sourceString:"res/sounds/A/click.mp3",
+// 	},
+// 	cllsn: {
+// 		sourceString:"res/sounds/A/cllsn.mp3",
+// 	},
+// 	ding: {
+// 		sourceString:"res/sounds/A/ding.mp3",
+// 	},
+// 	doom: {
+// 		sourceString:"res/sounds/A/doom.mp3",
+// 	},
+// 	error: {
+// 		sourceString:"res/sounds/B/err.wav",
+// 	},
+// 	keyStroke1: {
+// 		sourceString:"res/sounds/B/computernoise1.wav",
+// 	},
+// 	keyStroke2: {
+// 		sourceString:"res/sounds/B/computernoise2.wav",
+// 	},
+// 	keyStroke3: {
+// 		sourceString:"res/sounds/B/computernoise3.wav",
+// 	},
+// 	mchn: {
+// 		sourceString:"res/sounds/A/mchn.mp3",
+// 	},
+// 	money: {
+// 		sourceString:"res/sounds/A/money.mp3",
+// 	},
+// 	point: {
+// 		sourceString:"res/sounds/B/points.wav",
+// 	},
+// 	mS1: {
+// 		sourceString:"res/sounds/A/mS1.mp3",
+// 	},
+// 	shipCollide1: {
+// 		sourceString:"res/sounds/B/CollidingwithOtherShips1.wav",
+// 	},
+// 	shipCollide2: {
+// 		sourceString:"res/sounds/B/CollidingwithOtherShips3.wav",
+// 	},
+// 	shipForwards: {
+// 		sourceString:"res/sounds/B/ShipNoiseForward.wav",
+// 	},
+// 	shipLand: {
+// 		sourceString:"res/sounds/B/SpaceShipLanding1.wav",
+// 	},
+// 	smash: {
+// 		sourceString:"res/sounds/A/smash.mp3",
+// 	},
+// 	spaceSounds: {
+// 		sourceString:"res/sounds/B/spaceambience1.wav",
+// 	},
+// 	takeoff: {
+// 		sourceString:"res/sounds/B/Takeoff.wav",
+// 	},
+// 	tDest: {
+// 		sourceString:"res/sounds/A/tDest.mp3",
+// 	},
+// 	tNoise: {
+// 		sourceString:"res/sounds/A/tNoise.mp3",
+// 	},
+// 	tpLand: {
+// 		sourceString:"res/sounds/B/LandingonTradePost.wav",
+// 	},
+// 	tradeErr: {
+// 		sourceString:"res/sounds/B/unsuccessfultrade.wav",
+// 	},
+// 	uPup: {
+// 		sourceString:"res/sounds/A/uPup.mp3",
+// 	},
+// 	water: {
+// 		sourceString:"res/sounds/A/water.mp3",
+// 	},
+// 	weaponPulse: {
+// 		sourceString:"res/sounds/A/weapon.mp3",
+// 	},
+// 	xplsn1: {
+// 		sourceString:"res/sounds/B/explosion4.wav",
+// 	},
+// 	xplsn2: {
+// 		sourceString:"res/sounds/B/explosion5.wav",
+// 	},
+// 	xplsn3: {
+// 		sourceString:"res/sounds/B/explosion3.wav",
+// 	},
+// 
+//
+// }
 
   function loadSounds(){
 	let promises = [];
-	for(let index in soundSources){
-		if(soundSources.hasOwnProperty(index)){
-			promises.push(new Promise(function(resolve,reject){
-				var sou = new Audio(index);
-				sou.addEventListener('load', function(){
-					resolve(img);
-				});
-				sou.addEventListener('error', function(){
-					reject();
-				});
-				sou.src = soundSources[index].sourceString;
-			}).then(function(img){
-				Sounds[index] = sou;
-			}))
-		}
-	}
+	// for(let index in soundSources){
+	// 	if(soundSources.hasOwnProperty(index)){
+	// 		promises.push(new Promise(function(resolve,reject){
+	// 			var sou = new Audio(index);
+	// 			sou.addEventListener('load', function(){
+	// 				resolve(img);
+	// 			});
+	// 			sou.addEventListener('error', function(){
+	// 				reject();
+	// 			});
+	// 			sou.src = soundSources[index].sourceString;
+	// 		}).then(function(img){
+	// 			Sounds[index] = sou;
+	// 		}))
+	// 	}
+	// }
 	Promise.all(promises).then(function(){
 		init();
 	});

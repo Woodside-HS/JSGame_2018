@@ -24,6 +24,8 @@ class DroneShip extends Mover {
 		this.fireDelay = FPS/this.fireRate; // Frames since last shot was fired
 		this.fireSpread = 45; // Inaccuracy of firing, in degrees
 		this.allowedFireArc = 45; // Arc within which the ship will start firing
+
+		this.image = Images['enemyShip'];
 	}
 
 	initialize() {
@@ -146,19 +148,26 @@ class DroneShip extends Mover {
 
 	render(){
 
+		// ctx.save();
+		// ctx.translate(this.loc.x, this.loc.y);
+		// ctx.rotate(this.vel.theta());
+		// ctx.beginPath();
+		// ctx.moveTo(8, 0);
+		// ctx.lineTo(-12, -12);
+		// ctx.lineTo(-4, 0);
+		// ctx.lineTo(-12, 12);
+		// ctx.lineTo(8, 0);
+		//
+		// ctx.fillStyle = 'red';
+		// ctx.fill();
+		//
+		// ctx.restore();
+
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
-		ctx.rotate(this.vel.theta());
-		ctx.beginPath();
-		ctx.moveTo(8, 0);
-		ctx.lineTo(-12, -12);
-		ctx.lineTo(-4, 0);
-		ctx.lineTo(-12, 12);
-		ctx.lineTo(8, 0);
-
-		ctx.fillStyle = 'red';
-		ctx.fill();
-
+		ctx.rotate(this.dir+ Math.PI/2)
+		ctx.scale(this.shipScalingFactor,this.shipScalingFactor);
+		ctx.drawImage(this.image, this.image.width/(-2), this.image.height/(-2));
 		ctx.restore();
 
 	}
