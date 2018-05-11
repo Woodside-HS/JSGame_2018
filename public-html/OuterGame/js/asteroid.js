@@ -20,6 +20,10 @@ class Asteroid extends Mover {
 		});
 	}
 
+	mass() {
+		return 10 * Math.PI * Math.pow(this.radius, 2);
+	}
+
 	update() {
 		// reduce the radius of this asteroid when it takes damage
 		this.radius -= this.stats.damageTaken / 3;

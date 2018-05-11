@@ -97,9 +97,9 @@ class Rocketship extends Mover {
 				this.acc.setMag(this.mouseAccel*(movementVector.magnitude() - this.minMovementRange));
 			}
 		}
-		let frictionAcc = this.vel.clone();
-		frictionAcc.setMag(-1 * this.frictionAcc);
-		this.vel.add(frictionAcc);
+		// let frictionAcc = this.vel.clone();
+		// frictionAcc.setMag(-1 * this.frictionAcc);
+		// this.vel.add(frictionAcc);
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
 
