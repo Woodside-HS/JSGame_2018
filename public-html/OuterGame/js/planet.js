@@ -6,6 +6,8 @@ class Planet{
     var planetImageNum = Math.floor(Math.random()*5+1);
     this.planetImage = Images['Planet' + planetImageNum];
     this.storyImage = Images["panel0" + planetImageNum];
+    this.storyPanelDiv = document.getElementById("gamepanel" + planetImageNum);
+    this.storyPanelDiv.appendChild(this.storyImage);
     // issue 118 create inner games on demand
     // this.game = new Game();
     // this.game.init();
@@ -17,5 +19,9 @@ class Planet{
     var dw = this.radius*2;
     var dh = this.radius*2;
     ctx.drawImage(this.planetImage, dx, dy, dw, dh);
+  }
+
+  showPanel(){
+    this.storyPanelDiv.style.display = "block";
   }
 }

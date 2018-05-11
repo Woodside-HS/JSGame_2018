@@ -63,14 +63,15 @@
 						}
 						gamePlanet=this.checkHitPlanet();
 						game = this.checkHitPlanet().game;
-						ctx.drawImage(gamePlanet.storyImage, 20, 20);
-						switch (event.key) {
-							case "32":
-							gameState = 'inner';
-							playerShip.vel = new Vector2D(0, 0);
-							game.startup();
-							break;
-						}
+						gamePlanet.showPanel();
+						// ctx.drawImage(gamePlanet.storyImage, 20, 20);
+						// switch (event.key) {
+						// 	case "32":
+						// 	gameState = 'inner';
+						// 	playerShip.vel = new Vector2D(0, 0);
+						// 	game.startup();
+						// 	break;
+						// }
 					}
 					break;
 				case "f": //issue 54

@@ -116,3 +116,13 @@ canvas {
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
 }
+
+.gamepanel {
+  display: none;
+  height: 300px;
+  width: 600px;
+  margin-top: 3%;
+  margin-left: 3%;
+  z-index: 10;
+  border: 4px black solid;
+}
