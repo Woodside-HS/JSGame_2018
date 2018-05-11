@@ -41,7 +41,7 @@ class SpaceStation{
             let price = this.item.children[1].id;
             let infoName = ""+this.item.id;
             var object = {value:price, name:infoName};
-            resources.sellItem(object);
+            resources.sellItem(object.name);
           };
         } else{ //if in shop, buy items
           button.innerHTML = "Buy";
