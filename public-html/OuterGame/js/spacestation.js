@@ -82,6 +82,12 @@ class SpaceStation{
       menu.style.display = "none";
       document.getElementById("shop").style.display = "block";
     });
+      //inventory
+    menu.children[1].addEventListener("click",function(event){
+      menu.style.display = "none";
+      document.getElementById("inventory").style.display = "block";
+    });
+
     //add click listener to each button in shop
     var items = document.getElementById("shopItems"); //div is space station, getting items div
     for(let i=0;i<items.children.length;i++){ //items children = different categories
@@ -92,12 +98,6 @@ class SpaceStation{
         });
       }
     }
-
-      //inventory
-    menu.children[1].addEventListener("click",function(event){
-      menu.style.display = "none";
-      document.getElementById("inventory").style.display = "block";
-    });
 
     //add click listener for back buttons
     var backs = document.getElementsByClassName("backButton");

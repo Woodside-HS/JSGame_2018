@@ -129,13 +129,13 @@ class MapManager extends Updateable {
     this.powerupManager.init();
 
     // initialiaze start location
-    let startTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+    let startTile = this.getValidStartTile();
     startTile.isStart = true;
 //    startTile.seen = true;
 
 
     for(let i=0; i<loot_config.animal_count;i++){
-      let animalTile = this.validStartTiles[Math.floor(randIn(0, this.validStartTiles.length))];
+      let animalTile = this.getValidStartTile();
       animalTile.loot = loot_types.animals[Math.floor(randIn(0, loot_types.animals.length))];
     }
     this.game.player.loc = startTile.loc.duplicate();
@@ -209,4 +209,10 @@ class MapManager extends Updateable {
       }
     }
   }
+
+    getValidStartTile(){
+      let index = Math.floor(randIn(0, this.validStartTiles.length));
+      let tile = this.validStartTiles.splice(index,1);
+      return tile[0];
+    }
 }
