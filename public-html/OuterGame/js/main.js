@@ -30,6 +30,7 @@ function load(){
 	loadImages();
 }
 function init(){
+	loot_types.init();
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
 		health: 10,
 		money : 100,
