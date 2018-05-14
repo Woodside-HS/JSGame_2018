@@ -98,23 +98,6 @@ function init(){
 		}
 	};
 
-	// //add a div (item) to the inventory in resources
-	// var div = document.createElement("div");
-	// div.id = "Macaron";
-	// div.className = "tile";
-	// var img = document.createElement("img");
-	// img.src = "shopIMGS/macaron.png";
-	// img.className = "imgTile";
-	// var span = document.createElement("span");
-	// span.style.display = "none";
-	// span.id = 4.75;
-	// div.appendChild(img);
-	// div.appendChild(span);
-	// div.addEventListener("click",function(event){
-	// 	SpaceStation.infoDiv.render(this,false);
-	// });
-	// var inv = document.getElementById("invItems");
-	// inv.appendChild(div);
 
 	canvas = document.getElementById('cnv');
 
