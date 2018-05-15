@@ -223,6 +223,30 @@ class Player extends Updateable {
   }
   checkImportantLoc(){
     //returns improtant loc, if it is one
+    if(game.mapManager.map[this.cloc.x][this.cloc.y].powerup){
+      let powerup=game.mapManager.map[this.cloc.x][this.cloc.y].powerup;
+      game.mapManager.map[this.cloc.x][this.cloc.y].powerup=null;
+      this.game.mapManager.powerupManager.delete(powerup);
+      switch (powerup.type.name){
+        case 'money':
+          resources.money+=powerup.type.amount;
+          resources.updateMoney();
+          break;
+        case 'hp':
+          this.hp+=powerup.type.amount;
+          ui_elements.player_healthbar.max_value+=powerup.type.amount;
+          break;
+        case 'shield':
+          break;
+        case 'arrow':
+          break;
+        case 'tech':
+          break;
+        case 'damage':
+          player_config.damage*=powerup.type.amount;
+          break;
+      }
+    }
     if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
       let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
       //do something
