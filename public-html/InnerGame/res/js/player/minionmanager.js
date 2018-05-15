@@ -24,7 +24,7 @@ class MinionManager extends Updateable {
         this.respawnTimer = this.respawnCooldown;
       }
     }
-
+/*
     //send minions
     if (this.followTimer > 0)
       this.followTimer--;
@@ -35,7 +35,7 @@ class MinionManager extends Updateable {
     if (this.followMouse && !this.followPlayer) {
       this.sendMinions(this.minions, positionToGrid(game.mouseLocationAbsolute))
       this.followTimer = 0;
-    }
+    }*/
 
 
 

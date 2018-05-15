@@ -42,6 +42,7 @@ function init(){
 		shieldLevel : 1,
 		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
+		minions: 5,
 
 		sellItem : function(itemName){
 			for(let i=0;i<this.inventory.length;i++){
