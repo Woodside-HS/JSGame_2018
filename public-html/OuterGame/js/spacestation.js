@@ -40,6 +40,14 @@ class SpaceStation{
           button.onclick = function(){
             resources.sellItem(this.item);
           };
+          let qty = 0;
+          for(let i=0;i<resources.inventory.length;i++){
+            if(resources.inventory[i].name==item.id){
+              qty +=1;
+            }
+          }
+          var quantity = document.createTextNode(" | Qty: "+qty);
+          div.appendChild(quantity);
         } else{ //if in shop, buy items
           button.innerHTML = "Buy";
           button.onclick = function(){
@@ -51,7 +59,7 @@ class SpaceStation{
           };
         }
         infoDiv.appendChild(button);
-        var price = document.createTextNode("   "+ item.children[1].id);
+        var price = document.createTextNode(" | $"+ item.children[1].id);
         price.id = "infoPrice";
         div.appendChild(price);
       },
@@ -61,7 +69,7 @@ class SpaceStation{
           document.getElementById("infoName").remove();
           document.getElementById("infoButton").remove();
         }
-      },
+      }
     };
 
 
