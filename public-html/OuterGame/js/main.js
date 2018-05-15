@@ -37,15 +37,15 @@ function init(){
 		// boosts : [], //boost speed, firing frequency
 		// repairs : [], //repair/upgrade shield
 		// weapons : [], //add different kinds of weapons to use
-		aliens : [], //objects with png and name/planet
+		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
 
 		sellItem : function(itemName){
 			for(let i=0;i<this.inventory.length;i++){
-				if(this.inventory[i].name==itemName){
-					this.money += this.inventory[i].value;
+				if(this.inventory[i].id==itemName){
+					this.money += this.inventory[i].children[1].id;
 					this.inventory.splice(i,1);
 					break;
 				}
@@ -70,13 +70,7 @@ function init(){
 			}
 		},
 
-		infoPanel : document.getElementById("infoPanel"),
-		clearSubDiv : function(num){
-			var div = infoPanel.children[num];
-	    for(let i = 1; i<div.children.length;i++){
-	      div.children[i].remove();
-	    }
-		},
+
 		updateHealth : function(){
 			var div = document.getElementById("Health");
 			div.children[0].innerHTML = "" + this.health*10 + "%";

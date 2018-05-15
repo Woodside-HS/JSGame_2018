@@ -59,7 +59,7 @@ class SpaceStation{
         div.appendChild(price);
       },
       removeChildren : function(infoDiv){ //infoDiv sends in the right div to clear out
-        if(infoDiv.children.length>1){
+        while(infoDiv.children.length>1){  //changed to while condition for bug/issue 131
           document.getElementById("infoImg").remove();
           document.getElementById("infoName").remove();
           document.getElementById("infoButton").remove();
@@ -106,6 +106,9 @@ class SpaceStation{
         menu.style.display = "block";
         document.getElementById("shop").style.display = "none";
         document.getElementById("inventory").style.display = "none";
+        //vv issue 131, clear out info div when leaving display
+        SpaceStation.infoDiv.removeChildren(document.getElementsByClassName("info")[0]);
+        SpaceStation.infoDiv.removeChildren(document.getElementsByClassName("info")[1]);
       });
     }
 
