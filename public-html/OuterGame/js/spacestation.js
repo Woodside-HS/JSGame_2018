@@ -38,10 +38,7 @@ class SpaceStation{
         if(!page){ //if in inventory, sell items
           button.innerHTML = "Sell";
           button.onclick = function(){
-            let price = this.item.children[1].id;
-            let infoName = ""+this.item.id;
-            var object = {value:price, name:infoName};
-            resources.sellItem(object.name);
+            resources.sellItem(this.item);
           };
         } else{ //if in shop, buy items
           button.innerHTML = "Buy";

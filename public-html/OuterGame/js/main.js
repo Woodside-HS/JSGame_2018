@@ -42,13 +42,20 @@ function init(){
 		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
 
-		sellItem : function(itemName){
+		sellItem : function(item){
+			let name = item.id;
+			let available = false;
 			for(let i=0;i<this.inventory.length;i++){
-				if(this.inventory[i].id==itemName){
-					this.money += this.inventory[i].children[1].id;
+				if(this.inventory[i].name==name){
+					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
-					break;
+					available = true;
 				}
+			}
+			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
+				//disable button to show cant sell anymore
+				let button = document.getElementById("invInfo").children[3];
+				button.disabled = true;
 			}
 			this.updateMoney();
 		},
