@@ -27,10 +27,17 @@ class Planet{
   }
 
   listenForClick(){
-    this.storyPanelDiv.addEventListener("click", function(){
-      this.style.display = "none";
-      gameState = 'inner';
-      game.startup();
-    });
+    this.storyPanelDiv.addEventListener("keypress", (event) => {
+      switch(event.key) {
+        case " ":
+        this.storyPanelDiv.removeEventListener("keypress");
+        break;
+      }
+    })
+    // this.storyPanelDiv.addEventListener("click", function(){
+    //   this.style.display = "none";
+    //   gameState = 'inner';
+    //   game.startup();
+    // });
   }
 }
