@@ -11,6 +11,21 @@ class SpaceStation{
     document.getElementById("wrapper").appendChild(this.div);
     //create an attribute of the space station class to add html in this file
     this.div.innerHTML = SpaceStation.html;
+    //add img sources for all the items
+    this.div.style.backgroundImage = "url("+Images.stationBackground.src+")";
+    document.getElementsByClassName("items")[0].style.backgroundImage = "url("+Images.shopBackground.src+")";
+    document.getElementsByClassName("items")[1].style.backgroundImage = "url("+Images.shopBackground.src+")";
+    document.getElementsByClassName("info")[0].style.backgroundImage = "url("+Images.infoBackground.src+")";
+    document.getElementsByClassName("info")[1].style.backgroundImage = "url("+Images.infoBackground.src+")";
+    document.getElementById("exitButton").src = Images.exitButton.src;
+    document.getElementById("Health Boost").children[0].src = Images.health.src;
+    document.getElementById("Shield Boost").children[0].src = Images.shield.src;
+    document.getElementById("Turret").children[0].src = Images.turret.src;
+    document.getElementById("Laser Gun").children[0].src = Images.lasergun.src;
+    document.getElementById("Ship Engine").children[0].src = Images.shipEngine.src;
+    document.getElementById("Rover Engine").children[0].src = Images.roverEngine.src;
+    document.getElementById("Fog Remover").children[0].src = Images.fogRemover.src;
+    document.getElementById("Minions").children[0].src = Images.minion.src;
 
     SpaceStation.infoDiv = { //for changing the item shown in info div
       shopInfo : document.getElementById("shopInfo"),
@@ -156,7 +171,7 @@ class SpaceStation{
 
 SpaceStation.html = '\
   <h1 style="font-size:40px;">Space Station</h1>\
-  <img id="exitButton" src="shopIMGS/exit.png">\
+  <img id="exitButton">\
   <div id="menu">\
     <div id="shopButton" class="menuButton">Go To Shop</div>\
     <div id="inventoryButton" class="menuButton">Go To Inventory</div>\
@@ -174,43 +189,43 @@ SpaceStation.html = '\
     <div class="items" id="shopItems">\
       <div id="healthDiv" class="catDiv">\
         <div id="Health Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/health.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="2.35"></span>\
         </div>\
       </div>\
       <div id="shieldsDiv" class="catDiv">\
         <div id="Shield Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/shield.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="4.30"></span>\
         </div>\
       </div>\
       <div id="weaponsDiv" class="catDiv">\
         <div id="Turret" class="tile">\
-          <img class="imgTile" src="shopIMGS/turret.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="2.40"></span>\
         </div>\
         <div id="Laser Gun" class="tile">\
-          <img class="imgTile" src="shopIMGS/lasergun.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="3.50"></span>\
         </div>\
       </div>\
       <div id="enginesDiv" class="catDiv">\
         <div id="Ship Engine" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine1.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="2.55"></span>\
         </div>\
         <div id="Rover Engine" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine2.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="1.45"></span>\
         </div>\
       </div>\
       <div id="miscDiv" class="catDiv">\
         <div id="Fog Remover" class="tile">\
-          <img class="imgTile" src="shopIMGS/fog.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="3.60"></span>\
         </div>\
         <div id="Minions" class="tile">\
-          <img class="imgTile" src="shopIMGS/minion.png">\
+          <img class="imgTile">\
           <span style="display:none;" id="2.60"></span>\
         </div>\
       </div>\
