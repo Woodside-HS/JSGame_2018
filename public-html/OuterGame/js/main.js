@@ -64,20 +64,27 @@ function init(){
 		buy : function(object){ //add object to inventory
 			this.money -= object.price;
 			this.updateMoney();
-			if(object.cat == "shieldsDiv"){
+			console.log(object.cat);
+			switch (object.cat){
+			case "shieldsDiv":
 				this.shieldLevel += 1;
 				this.updateLevels(0);
-			} else if(object.cat == "weaponsDiv"){
+				break;
+			case "weaponsDiv":
 				this.weaponsLevel += 1;
 				this.updateLevels(1);
-			} else if(object.cat == "enginesDiv"){
+				break;
+			case "enginesDiv":
 				this.engineLevel += 1;
 				this.updateLevels(2);
-			} else if(object.cat == "healthDiv"){
+				break;
+			case "healthDiv":
 				this.health +=1;
 				this.updateHealth();
-			} else if (object.cat==="Minions"){
+				break;
+			case "miscDiv":
 				this.minions+=1;
+				break;
 			}
 		},
 
