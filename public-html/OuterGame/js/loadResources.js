@@ -107,6 +107,11 @@ let imageSources = {//Properties of imageSources match names of images
 	cupcake: {
 		sourceString:"shopIMGS/cupcake.png",
 	},
+	minions{
+		1: "../InnerGame/res/sprites/minions/1.png",
+		2: "../InnerGame/res/sprites/minions/2.png",
+		3: "../InnerGame/res/sprites/minions/3.png",
+	}
 }
 
 function loadImages(){
