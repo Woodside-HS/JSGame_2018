@@ -5,6 +5,9 @@ class Planet{
     this.loc = location;
     var planetImageNum = Math.floor(Math.random()*5+1);
     this.planetImage = Images['Planet' + planetImageNum];
+    this.storyImage = Images["panel0" + planetImageNum];
+    this.storyPanelDiv = document.getElementById("gamepanel" + planetImageNum);
+    this.storyPanelDiv.appendChild(this.storyImage);
     // issue 118 create inner games on demand
     // this.game = new Game();
     // this.game.init();
@@ -17,4 +20,23 @@ class Planet{
     var dh = this.radius*2;
     ctx.drawImage(this.planetImage, dx, dy, dw, dh);
   }
+
+  showPanel(){
+    let panel = this.storyPanelDiv;
+    gameState = "transition";
+    panel.style.display = "block";
+    document.addEventListener("keypress", function handler(event) {
+      switch(event.key) {
+        case " ":
+          document.removeEventListener("keypress", handler);
+          panel.style.display = "none";
+          gameState = "inner";
+          game.startup();
+          break;
+        default:
+          return;
+      }
+    });
+  }
+
 }
