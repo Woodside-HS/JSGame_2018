@@ -45,19 +45,26 @@ function init(){
 		// boosts : [], //boost speed, firing frequency
 		// repairs : [], //repair/upgrade shield
 		// weapons : [], //add different kinds of weapons to use
-		aliens : [], //objects with png and name/planet
+		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
 		minions: 5,
 
-		sellItem : function(itemName){
+		sellItem : function(item){
+			let name = item.id;
+			let available = false;
 			for(let i=0;i<this.inventory.length;i++){
-				if(this.inventory[i].name==itemName){
+				if(this.inventory[i].name==name){
 					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
-					break;
+					available = true;
 				}
+			}
+			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
+				//disable button to show cant sell anymore
+				let button = document.getElementById("invInfo").children[3];
+				button.disabled = true;
 			}
 			this.updateMoney();
 		},
@@ -81,13 +88,7 @@ function init(){
 			}
 		},
 
-		infoPanel : document.getElementById("infoPanel"),
-		clearSubDiv : function(num){
-			var div = infoPanel.children[num];
-	    for(let i = 1; i<div.children.length;i++){
-	      div.children[i].remove();
-	    }
-		},
+
 		updateHealth : function(){
 			var div = document.getElementById("Health");
 			div.children[0].innerHTML = "" + this.health*10 + "%";
