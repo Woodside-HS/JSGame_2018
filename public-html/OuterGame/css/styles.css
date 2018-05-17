@@ -7,7 +7,29 @@ body{
 canvas {
 	cursor: none;
 }
+.infoPanelDiv {
+  width: 129px;
+  height: 80px;
+  float:left;
+  background-color: white;
+  border: black solid 2px;
+  margin-left: 150px;
+  margin-right: 0px;
+  margin-top: 8px;
+  border-radius: 10px;
+}
 
+.shipLvls{
+  margin: 0px;
+}
+
+#infoPanel {
+  width:1024px;
+  height:100px;
+  float:left;
+  background-color: #7bc6b9;
+
+}
 #wrapper {
   display: none;
   border: 0px solid black;
