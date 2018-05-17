@@ -8,7 +8,6 @@ class Planet{
     this.storyImage = Images["panel0" + planetImageNum];
     this.storyPanelDiv = document.getElementById("gamepanel" + planetImageNum);
     this.storyPanelDiv.appendChild(this.storyImage);
-    this.listenForClick();
     // issue 118 create inner games on demand
     // this.game = new Game();
     // this.game.init();
@@ -24,20 +23,40 @@ class Planet{
 
   showPanel(){
     this.storyPanelDiv.style.display = "block";
-  }
-
-  listenForClick(){
-    this.storyPanelDiv.addEventListener("keypress", (event) => {
+    console.log("might");
+    this.storyPanelDiv.addEventListener("keypress", function hidePanel(){
+      console.log("should");
       switch(event.key) {
         case " ":
-        this.storyPanelDiv.removeEventListener("keypress");
-        break;
+          //this.storyPanelDiv.removeEventListener("keypress", hidePanel);
+          this.storyPanelDiv.style.display = "none";
+          gameState = "inner";
+          game.startup();
+          console.log("does");
+          break;
+        default:
+          return;
       }
-    })
-    // this.storyPanelDiv.addEventListener("click", function(){
-    //   this.style.display = "none";
-    //   gameState = 'inner';
-    //   game.startup();
-    // });
+      //this.storyPanelDiv.removeEventListener("keypress", hidePanel);
+    });
+    console.log("doesn't");
   }
+
+  // hidePanel(event){
+  //   if (event.defaultPrevented) {
+  //     return; // Do nothing if the event was already processed
+  //   }
+  //   switch(event.key) {
+  //     case " ":
+  //       this.storyPanelDiv.style.display = "none";
+  //       gameState = "inner";
+  //       game.startup;
+  //       break;
+  //     default:
+  //       return;
+  //   }
+  //   event.preventDefault();
+  //   this.storyPanelDiv.removeEventListener("keypress", hidePanel);
+  // }
+
 }

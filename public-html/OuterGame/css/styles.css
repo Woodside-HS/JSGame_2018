@@ -124,7 +124,7 @@ canvas {
   position:absolute;
   top: 5%;
   left: 5%;
+  /*border doesn't actually fit bottom, too small*/
   z-index: 10;
   border: 4px black solid;
-
 }
