@@ -12,7 +12,14 @@ var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
 var resources;
+var gamePlanet;
 var playerStats = {revealLevel: 2};//which reveal method to use. 1,2,3,4
+
+
+
+
+
+
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -30,6 +37,7 @@ function load(){
 	loadImages();
 }
 function init(){
+	loot_types.init();
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
 		health: 10,
 		money : 100,
@@ -41,6 +49,7 @@ function init(){
 		shieldLevel : 1,
 		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
+		minions: 5,
 
 		sellItem : function(item){
 			let name = item.id;
@@ -74,6 +83,8 @@ function init(){
 			} else if(object.cat == "healthDiv"){
 				this.health +=1;
 				this.updateHealth();
+			} else if (object.cat==="miscDiv"){//it's minions for some reason?
+				this.minions+=1;
 			}
 		},
 
@@ -141,6 +152,8 @@ function animate(){
 			//inner world
 			game.update();
 			game.render();
+		} else if(gameState=="transition"){
+
 		}
 	}
 }

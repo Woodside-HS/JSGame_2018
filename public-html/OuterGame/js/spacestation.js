@@ -122,7 +122,7 @@ class SpaceStation{
     var itemCats = document.getElementById("shopItems").children;
     for(let i=0;i<buttons.length;i++){
       buttons[i].addEventListener("click",function(event){
-        if(this.id=="allCat"){ //this button shows all the items
+        if(this.id=="allCat"){ //this button shows all the items, the Allcat is your god, your savior, your only hope. Kneel before him
           for(let i=0;i<itemCats.length;i++){ //traverse categories in items
             itemCats[i].style.display = "block";
           }

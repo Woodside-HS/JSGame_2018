@@ -260,13 +260,19 @@ class Player extends Updateable {
         if (game.player.a.x != 1)
           game.player.a.x = 1;//go right
         break;
-      case' ':
+      case' '://space
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
       break;
       case'X':
         if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+      break;
+      case ""://shift
+        if(resources.minions>0){
+          game.minionManager.spawnMinion();
+          resources.minions-=1;
+        }
       break;
     }
   }

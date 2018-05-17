@@ -24,17 +24,12 @@ class MinionManager extends Updateable {
         this.respawnTimer = this.respawnCooldown;
       }
     }
-
     //send minions
     if (this.followTimer > 0)
       this.followTimer--;
-    if (!this.followMouse && this.followPlayer && this.followTimer <= 0) {
+    if (this.followTimer <= 0) {
       this.sendMinions(this.minions, game.player.cloc)
       this.followTimer = minion_config.follow_timer;
-    }
-    if (this.followMouse && !this.followPlayer) {
-      this.sendMinions(this.minions, positionToGrid(game.mouseLocationAbsolute))
-      this.followTimer = 0;
     }
 
 
@@ -76,24 +71,5 @@ class MinionManager extends Updateable {
     minion.v.th = Math.random() * 2 * Math.PI
     minion.v.upComps();
     this.minions.push(minion);
-  }
-  docKeyDown(e) {
-    let key = String.fromCharCode(e.keyCode);
-    switch (key) {
-      case '': //shift key
-        game.minionManager.followMouse = true;
-        game.minionManager.followPlayer = false;
-        break;
-    }
-  }
-
-  docKeyUp(e) {
-    let key = String.fromCharCode(e.keyCode);
-    switch (key) {
-      case '': //shift key
-        game.minionManager.followMouse = false;
-        game.minionManager.followPlayer = true;
-        break;
-    }
   }
 }
