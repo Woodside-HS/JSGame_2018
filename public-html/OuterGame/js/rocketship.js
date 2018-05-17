@@ -20,7 +20,7 @@ class Rocketship extends Mover {
 		//ship starts pointing right
 		this.dir = 0;
 		this.configMaxVel=180;
-		this.maxVel = 180;
+		this.maxVel = 600;
 		this.mouseLoc = null;
 		this.minMovementRange = 1;
 		this.mouseAccel = .5

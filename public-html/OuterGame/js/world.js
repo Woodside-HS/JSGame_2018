@@ -93,8 +93,8 @@
 		// Debug mode determines whether certain measurements appear for testing purposes
 		this.debugMode = true;
 
-		this.makePlanets(50);
-		this.makeAsteroids(200, true); //issue 12, will spawn in canvas
+		this.makePlanets(30);
+		this.makeAsteroids(40, true); //issue 12, will spawn in canvas
 		this.makeStations(1); //issue 54
 
 		this.makeEnemies(15); // Spawns in drone ships
@@ -145,7 +145,7 @@
 		var a = true; //check if is far enough away from other entities to be drawn
 		while (counter > 0) {
 			a = true;
-			var r = (Math.random() * 20) + 6;
+			var r = (Math.random() * 20) + 20;
 			var x = (Math.random() * this.width * 2) - this.width;
 			var y = (Math.random() * this.height * 2) - this.height;
 			//var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
@@ -450,7 +450,12 @@
 					// // console.log(`initial momentum ${init_momentum}`);
 					// console.log(`final momentum ${final_momentum}`);
 
-
+					if (b1 instanceof Rocketship) {
+						console.log("b1.vel",b1.vel, "v1_final", v1_final);
+					}
+					if (b2 instanceof Rocketship) {
+						console.log("b2.vel", b2.vel, "v2_final", v2_final);
+					}
 					b1.vel = v1_final;
 					b2.vel = v2_final;
 
@@ -588,7 +593,7 @@
 		this.frameCount++;
 		//this.camera.update(); // No effect until the camera is implemented
 		var canvToShip = Vector2D.subtract(this.ship.loc, this.canvasLoc);
-		canvToShip.scalarMult(.01);
+		canvToShip.scalarMult(.05);
 
 
 		this.canvasLoc.add(canvToShip);
