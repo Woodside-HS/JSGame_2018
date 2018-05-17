@@ -58,20 +58,16 @@
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
 						if(!this.checkHitPlanet().game){
 							// issue 118 create inner games on demand
-						    this.checkHitPlanet().game = new Game();
-						    this.checkHitPlanet().game.init();
+								gamePlanet = this.checkHitPlanet();
+								playerShip.vel = new Vector2D(0, 0);
+						    gamePlanet.game = new Game();
+						    gamePlanet.game.init();
+								game = gamePlanet.game;
+								gamePlanet.showPanel();
 						}
-						gamePlanet=this.checkHitPlanet();
-						game = this.checkHitPlanet().game;
-						gamePlanet.showPanel();
-						// ctx.drawImage(gamePlanet.storyImage, 20, 20);
-						// switch (event.key) {
-						// 	case "32":
-						// 	gameState = 'inner';
-						// 	playerShip.vel = new Vector2D(0, 0);
-						// 	game.startup();
-						// 	break;
-						// }
+					}
+					if (gameState === "inner") {
+						gameState = "station";
 					}
 					break;
 				case "f": //issue 54

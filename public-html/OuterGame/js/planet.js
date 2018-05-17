@@ -22,41 +22,25 @@ class Planet{
   }
 
   showPanel(){
+    let panel = this.storyPanelDiv;
+    gameState = "transition";
     this.storyPanelDiv.style.display = "block";
     console.log("might");
-    this.storyPanelDiv.addEventListener("keypress", function hidePanel(){
+    document.addEventListener("keypress", function handler(event) {
       console.log("should");
       switch(event.key) {
         case " ":
           console.log("does");
-          //this.storyPanelDiv.removeEventListener("keypress", hidePanel);
-          this.storyPanelDiv.style.display = "none";
+          document.removeEventListener("keypress", handler);
+          panel.style.display = "none";
           gameState = "inner";
           game.startup();
           break;
         default:
           return;
       }
-      //this.storyPanelDiv.removeEventListener("keypress", hidePanel);
     });
     console.log("doesn't");
   }
-
-  // hidePanel(event){
-  //   if (event.defaultPrevented) {
-  //     return; // Do nothing if the event was already processed
-  //   }
-  //   switch(event.key) {
-  //     case " ":
-  //       this.storyPanelDiv.style.display = "none";
-  //       gameState = "inner";
-  //       game.startup;
-  //       break;
-  //     default:
-  //       return;
-  //   }
-  //   event.preventDefault();
-  //   this.storyPanelDiv.removeEventListener("keypress", hidePanel);
-  // }
 
 }
