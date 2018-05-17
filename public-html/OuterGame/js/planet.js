@@ -25,12 +25,9 @@ class Planet{
     let panel = this.storyPanelDiv;
     gameState = "transition";
     panel.style.display = "block";
-    console.log("might");
     document.addEventListener("keypress", function handler(event) {
-      console.log("should");
       switch(event.key) {
         case " ":
-          console.log("does");
           document.removeEventListener("keypress", handler);
           panel.style.display = "none";
           gameState = "inner";
@@ -40,7 +37,6 @@ class Planet{
           return;
       }
     });
-    console.log("doesn't");
   }
 
 }
