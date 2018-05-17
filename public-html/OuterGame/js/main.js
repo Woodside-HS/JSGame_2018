@@ -69,7 +69,7 @@ function init(){
 			} else if(object.cat == "healthDiv"){
 				this.health +=1;
 				this.updateHealth();
-			} else if (object.cat==="Minions"){
+			} else if (object.cat==="miscDiv"){//it's minions for some reason?
 				this.minions+=1;
 			}
 		},
