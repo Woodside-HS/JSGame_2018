@@ -24,7 +24,7 @@ class Planet{
   showPanel(){
     let panel = this.storyPanelDiv;
     gameState = "transition";
-    this.storyPanelDiv.style.display = "block";
+    panel.style.display = "block";
     console.log("might");
     document.addEventListener("keypress", function handler(event) {
       console.log("should");
