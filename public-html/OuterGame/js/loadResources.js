@@ -83,70 +83,7 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "../InnerGame/res/sprites/arrowPU.png",
 	},
 	splash: {
-<<<<<<< HEAD
 		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
-=======
-		sourceString: "../InnerGame/res/sprites/splash/youdied.jpg",
-	},
-	// Trading post images
-	shopBackground: {
-		sourceString: "shopIMGS/background.png",
-	},
-	brownie: {
-		sourceString: "shopIMGS/brownie.png",
-	},
-	shopButton: {
-		sourceString: "shopIMGS/button.png",
-	},
-	cake: {
-		sourceString: "shopIMGS/cake.png",
-	},
-	coffee: {
-		sourceString: "shopIMGS/coffee.png",
-	},
-	cookie: {
-		sourceString: "shopIMGS/cookie.png",
-	},
-	cupcake: {
-		sourceString: "shopIMGS/cupcake.png",
-	},
-	// Panels
-	panel01: {
-		sourceString:"res/panels/bluedown.png",
-	},
-	panel02: {
-		sourceString:"res/panels/greendown.png",
-	},
-	panel03: {
-		sourceString:"res/panels/greydown.png",
-	},
-	panel04: {
-		sourceString:"res/panels/purpledown.png",
-	},
-	panel05: {
-		sourceString:"res/panels/reddown.png",
-	},
-	minion1: {
-		sourceString: "../InnerGame/res/sprites/minions/1.png",
-	},
-	minion2: {
-		sourceString: "../InnerGame/res/sprites/minions/2.png",
-	},
-	minion3: {
-		sourceString: "../InnerGame/res/sprites/minions/3.png",
-	},
-	minion4: {
-		sourceString: "../InnerGame/res/sprites/minions/4.png",
-	},
-	minion5: {
-		sourceString: "../InnerGame/res/sprites/minions/5.png",
-	},
-	minion6: {
-		sourceString: "../InnerGame/res/sprites/minions/6.png",
-	},
-	minion7: {
-		sourceString: "../InnerGame/res/sprites/minions/7.png"
->>>>>>> master
 	}
 }
 
