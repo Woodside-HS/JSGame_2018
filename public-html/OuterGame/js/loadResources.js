@@ -84,43 +84,6 @@ let imageSources = {//Properties of imageSources match names of images
 	},
 	splash: {
 		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
-	},
-	// Trading post images
-	stationBackground: {
-		sourceString:"shopIMGS/background.png",
-	},
-	shopBackground: {
-		sourceString:"shopIMGS/shopBackground.png",
-	},
-	infoBackground: {
-		sourceString:"shopIMGS/infoBackground.png",
-	},
-	shipEngine: {
-		sourceString:"shopIMGS/engine1.png",
-	},
-	roverEngine: {
-		sourceString:"shopIMGS/engine2.png",
-	},
-	fogRemover: {
-		sourceString:"shopIMGS/fog.png",
-	},
-	health: {
-		sourceString:"shopIMGS/health.png",
-	},
-	lasergun: {
-		sourceString:"shopIMGS/lasergun.png",
-	},
-	turret: {
-		sourceString:"shopIMGS/turret.png",
-	},
-	shield: {
-		sourceString:"shopIMGS/shield.png",
-	},
-	minion: {
-		sourceString:"shopIMGS/minion.png",
-	},
-	exitButton: {
-		sourceString:"shopIMGS/exit.png",
 	}
 }
 
