@@ -28,11 +28,11 @@ class Planet{
       console.log("should");
       switch(event.key) {
         case " ":
+          console.log("does");
           //this.storyPanelDiv.removeEventListener("keypress", hidePanel);
           this.storyPanelDiv.style.display = "none";
           gameState = "inner";
           game.startup();
-          console.log("does");
           break;
         default:
           return;
