@@ -260,8 +260,10 @@
 
 		let relativePos = this.shipCursorPos();
 
-		let posX = this.ship.loc.x - relativePos.x;
-		let posY = this.ship.loc.y - relativePos.y;
+		// let posX = this.ship.loc.x - relativePos.x;
+		// let posY = this.ship.loc.y - relativePos.y;
+		let posX = this.canvasLoc.x - relativePos.x;
+		let posY = this.canvasLoc.y - relativePos.y;
 
 		return new Vector2D(posX, posY);
 	}
