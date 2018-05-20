@@ -5,6 +5,8 @@ class Asteroid extends Mover {
 		// this.radius = radius;
 		var asteroidImageNum = Math.floor(Math.random()*10+1);
     this.asteroidImage = Images['Asteroid' + asteroidImageNum];
+	this.angle = Math.random(Math.PI*2);
+	this.rotation = Math.random()*0.2;
 
 		let stats = new StatBlock(1000, {killable: false}); // Health based on radius
 		stats.assign(this);
@@ -29,8 +31,9 @@ class Asteroid extends Mover {
 		}
 
 		this.vel.add(this.acc);
-    this.loc.add(this.vel.clone().scalarDiv(FPS));
-    this.acc.scalarMult(0);
+	    this.loc.add(this.vel.clone().scalarDiv(FPS));
+	    this.acc.scalarMult(0);
+		this.angle += this.rotation;
 
 		//vvv issue 98, wrap around edge of world
 		if(Math.abs(this.loc.x)>(System().width*5/4)){
@@ -52,11 +55,10 @@ class Asteroid extends Mover {
 	}
 
 	render() {
-    var dx = this.loc.x-this.radius;
-    var dy = this.loc.y-this.radius;
-    var dw = this.radius*2;
-    var dh = this.radius*2;
-    //ctx.drawImage(asteroid, 0, 0, asteroid.width, asteroid.height, dx, dy, dw, dh);
-		ctx.drawImage(this.asteroidImage, dx, dy, dw, dh);
+		ctx.save();
+		ctx.translate(this.loc.x, this.loc.y);
+		ctx.rotate(this.angle);
+		ctx.drawImage(this.asteroidImage, -this.radius, -this.radius, dw, dh);
+		ctx.restore();
 	}
 }
