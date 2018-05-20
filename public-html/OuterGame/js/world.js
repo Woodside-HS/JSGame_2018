@@ -58,18 +58,17 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
-						if(!this.checkHitPlanet().game){
+						gamePlanet = this.checkHitPlanet();
+						if(!gamePlanet.game){
 							// issue 118 create inner games on demand
-								gamePlanet = this.checkHitPlanet();
-								playerShip.vel = new Vector2D(0, 0);
 						    gamePlanet.game = new Game();
 						    gamePlanet.game.init();
-								game = gamePlanet.game;
-								gamePlanet.showPanel();
 						}
+						game = gamePlanet.game;
+						gamePlanet.showPanel();
 					}
 					if (gameState === "inner") {
-						gameState = "station";
+						gameState = "outer";	// issue 138
 					}
 					break;
 				case "f": //issue 54
