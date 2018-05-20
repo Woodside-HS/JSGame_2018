@@ -60,13 +60,16 @@
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
 						if(!this.checkHitPlanet().game){
 							// issue 118 create inner games on demand
-						    this.checkHitPlanet().game = new Game();
-						    this.checkHitPlanet().game.init();
+								gamePlanet = this.checkHitPlanet();
+								playerShip.vel = new Vector2D(0, 0);
+						    gamePlanet.game = new Game();
+						    gamePlanet.game.init();
+								game = gamePlanet.game;
+								gamePlanet.showPanel();
 						}
-						game = this.checkHitPlanet().game;
-						gameState = 'inner';
-						playerShip.vel = new Vector2D(0, 0);
-						game.startup();
+					}
+					if (gameState === "inner") {
+						gameState = "station";
 					}
 					break;
 				case "f": //issue 54
@@ -77,10 +80,6 @@
 							var div = document.getElementById("spacestation");
 							div.style.display = "block";
 							//^^will render station instead of space in run function
-							//vvv reset store
-							div.children[3].children[0].checked = "checked";
-							SpaceStation.changeCategory();
-							SpaceStation.infoDiv.removeChildren();
 						}
 					}
 					break;

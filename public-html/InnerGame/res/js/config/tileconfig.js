@@ -8,10 +8,6 @@ const tile_types = {
     tile_types.water.image = Images.WATERTiles;
     tile_types.mask.image = Images.fog;
 
-    // ??
-    tile_config.animal_image = Images.rocks2c;
-
-    console.log("b")
   },
   nulltype: {
     minimap_color: new Color("pink"), //Color object

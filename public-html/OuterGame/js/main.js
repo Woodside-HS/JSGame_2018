@@ -12,8 +12,14 @@ var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
 var resources;
-var playerStats = {reveal:'reveal5'};//which reveal method to use. 'reveal1','reveal2','reveal3','reveal4'
-var playerStats = {reveal:'reveal1'};//which reveal method to use. 'reveal1','reveal2','reveal3','reveal4'
+var gamePlanet;
+var playerStats = {revealLevel: 2};//which reveal method to use. 1,2,3,4
+
+
+
+
+
+
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -31,29 +37,78 @@ function load(){
 	loadImages();
 }
 function init(){
+	loot_types.init();
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
+		health: 10,
 		money : 100,
-		credits : [creditEx = {value:10}], //each element is an object literal with a value
-		creatures : [],
-		boosts : [],
-		repairs : [],
-		exampleCat : [],
+		inventory : [], //each has a value
+		// boosts : [], //boost speed, firing frequency
+		// repairs : [], //repair/upgrade shield
+		// weapons : [], //add different kinds of weapons to use
+		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
+		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
-		weaponsLevel : 1,
-		convertCredits : function(){
-			for(i in this.credits){
-				this.money += this.credits[i].value;
+		minions: 5,
+
+		sellItem : function(item){
+			let name = item.id;
+			let available = false;
+			for(let i=0;i<this.inventory.length;i++){
+				if(this.inventory[i].name==name){
+					this.money += this.inventory[i].value;
+					this.inventory.splice(i,1);
+					available = true;
+				}
+			}
+			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
+				//disable button to show cant sell anymore
+				let button = document.getElementById("invInfo").children[3];
+				button.disabled = true;
+			}
+			this.updateMoney();
+		},
+		buy : function(object){ //add object to inventory
+			this.money -= object.price;
+			this.updateMoney();
+			if(object.cat == "shieldsDiv"){
+				this.shieldLevel += 1;
+				this.updateLevels(0);
+			} else if(object.cat == "weaponsDiv"){
+				this.weaponsLevel += 1;
+				this.updateLevels(1);
+			} else if(object.cat == "enginesDiv"){
+				this.engineLevel += 1;
+				this.updateLevels(2);
+			} else if(object.cat == "healthDiv"){
+				this.health +=1;
+				this.updateHealth();
+			} else if (object.cat==="miscDiv"){//it's minions for some reason?
+				this.minions+=1;
 			}
 		},
-		collect : function(object, category){
-			this[category].push(object);
+
+
+		updateHealth : function(){
+			var div = document.getElementById("Health");
+			div.children[0].innerHTML = "" + this.health*10 + "%";
 		},
-		buy : function(object,category,price){
-			this.collect(object,category);
-			this.money -= price;
+		updateMoney : function(){
+			var div = document.getElementById("Money");
+			div.children[0].innerHTML = "$" + this.money.toFixed(2);
+		},
+		updateLevels : function(num){
+			var div = document.getElementById("Ship Levels");
+			if(num==0){
+				div.children[num].innerHTML = "Shield: " + this.shieldLevel;
+			} else if(num==1){
+				div.children[num].innerHTML = "Weapons: " + this.weaponsLevel;
+			} else if(num==2){
+				div.children[num].innerHTML = "Engines: " + this.engineLevel;
+			}
 		}
 	};
+
 
 	canvas = document.getElementById('cnv');
 
@@ -97,6 +152,8 @@ function animate(){
 			//inner world
 			game.update();
 			game.render();
+		} else if(gameState=="transition"){
+
 		}
 	}
 }
