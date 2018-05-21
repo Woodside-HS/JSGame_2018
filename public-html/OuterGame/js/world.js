@@ -247,7 +247,10 @@
 	}
 
 	shipCursorPos() { // Position of cursor relative to SHIP
-
+		// Assumes that the ship is located in the center of the
+		// canvas and that is not a valid assumption anymore.
+		// So this function returns the cursor relative to
+		// the center of the canvas.
 		let posX = canvas.width / 2 - this.screenCursorPos().x;
 		let posY = canvas.height / 2 - this.screenCursorPos().y;
 
@@ -268,8 +271,8 @@
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.canvasLoc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.canvasLoc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -450,12 +453,6 @@
 					// // console.log(`initial momentum ${init_momentum}`);
 					// console.log(`final momentum ${final_momentum}`);
 
-					if (b1 instanceof Rocketship) {
-						console.log("b1.vel",b1.vel, "v1_final", v1_final);
-					}
-					if (b2 instanceof Rocketship) {
-						console.log("b2.vel", b2.vel, "v2_final", v2_final);
-					}
 					b1.vel = v1_final;
 					b2.vel = v2_final;
 
