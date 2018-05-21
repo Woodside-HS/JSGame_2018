@@ -56,15 +56,17 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
-						if(!this.checkHitPlanet().game){
+						gamePlanet = this.checkHitPlanet();
+						if(!gamePlanet.game){
 							// issue 118 create inner games on demand
-						    this.checkHitPlanet().game = new Game();
-						    this.checkHitPlanet().game.init();
+						    gamePlanet.game = new Game();
+						    gamePlanet.game.init();
 						}
-						game = this.checkHitPlanet().game;
-						gameState = 'inner';
-						playerShip.vel = new Vector2D(0, 0);
-						game.startup();
+						game = gamePlanet.game;
+						gamePlanet.showPanel();
+					}
+					if (gameState === "inner") {
+						gameState = "outer";	// issue 138
 					}
 					break;
 				case "f": //issue 54
@@ -87,8 +89,8 @@
 		// Debug mode determines whether certain measurements appear for testing purposes
 		this.debugMode = true;
 
-		this.makePlanets(50);
-		this.makeAsteroids(200, true); //issue 12, will spawn in canvas
+		this.makePlanets(30);
+		this.makeAsteroids(40, true); //issue 12, will spawn in canvas
 		this.makeStations(1); //issue 54
 
 		this.makeEnemies(15); // Spawns in drone ships
@@ -139,11 +141,11 @@
 		var a = true; //check if is far enough away from other entities to be drawn
 		while (counter > 0) {
 			a = true;
-			var r = (Math.random() * 20) + 6;
+			var r = (Math.random() * 20) + 20;
 			var x = (Math.random() * this.width * 2) - this.width;
 			var y = (Math.random() * this.height * 2) - this.height;
 			//var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
-			var vel = new Vector2D(Math.random() * 200 - 100, Math.random() * 200 - 100);
+			var vel = new Vector2D(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
 			var ast = new Asteroid(new Vector2D(x, y), vel, null, r);
 			if (!bool) { //bool=if asteroids can show up in canvas
 				let b1 = (x + r) < (this.ship.loc.x + (canvas.width / 2));

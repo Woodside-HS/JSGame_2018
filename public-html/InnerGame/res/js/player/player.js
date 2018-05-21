@@ -289,9 +289,10 @@ class Player extends Updateable {
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
       break;
-      case'X':
-        if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
-      break;
+      // issue 138 let the outer game keypress handler take care of exiting the inner game
+      // case'X':
+      //   if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+      // break;
       case ""://shift
         if(resources.minions>0){
           game.minionManager.spawnMinion();

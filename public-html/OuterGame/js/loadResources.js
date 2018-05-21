@@ -83,66 +83,74 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "../InnerGame/res/sprites/arrowPU.png",
 	},
 	splash: {
-		sourceString: "../InnerGame/res/sprites/splash/youdied.jpg",
+		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
+	},
+	// Panels
+	panel01: {
+		sourceString:"res/panels/bluedown.png",
+	},
+	panel02: {
+		sourceString:"res/panels/greendown.png",
+	},
+	panel03: {
+		sourceString:"res/panels/greydown.png",
+	},
+	panel04: {
+		sourceString:"res/panels/purpledown.png",
+	},
+	panel05: {
+		sourceString:"res/panels/reddown.png",
 	},
 	// Trading post images
-
 	stationBackground: {
 		sourceString:"shopIMGS/background.png",
-	},
-	shopBackground: {
-		sourceString:"shopIMGS/shopBackground.png",
-	},
-	infoBackground: {
-		sourceString:"shopIMGS/infoBackground.png",
-	},
-	shipEngine: {
-		sourceString:"shopIMGS/engine1.png",
-	},
-	roverEngine: {
-		sourceString:"shopIMGS/engine2.png",
-	},
-	fogRemover: {
-		sourceString:"shopIMGS/fog.png",
-	},
-	health: {
-		sourceString:"shopIMGS/health.png",
-	},
-	lasergun: {
-		sourceString:"shopIMGS/lasergun.png",
-	},
-	turret: {
-		sourceString:"shopIMGS/turret.png",
-	},
-	shield: {
-		sourceString:"shopIMGS/shield.png",
-	},
-	minion: {
-		sourceString:"shopIMGS/minion.png",
-	},
-	exitButton: {
-		sourceString:"shopIMGS/exit.png",
-	},
-	minion1: {
-		sourceString: "../InnerGame/res/sprites/minions/1.png",
-	},
-	minion2: {
-		sourceString: "../InnerGame/res/sprites/minions/2.png",
-	},
-	minion3: {
-		sourceString: "../InnerGame/res/sprites/minions/3.png",
-	},
-	minion4: {
-		sourceString: "../InnerGame/res/sprites/minions/4.png",
-	},
-	minion5: {
-		sourceString: "../InnerGame/res/sprites/minions/5.png",
-	},
-	minion6: {
-		sourceString: "../InnerGame/res/sprites/minions/6.png",
-	},
-	minion7: {
-		sourceString: "../InnerGame/res/sprites/minions/7.png"
+
+
+		roverEngine: {
+			sourceString:"shopIMGS/engine2.png",
+		},
+		fogRemover: {
+			sourceString:"shopIMGS/fog.png",
+		},
+		health: {
+			sourceString:"shopIMGS/health.png",
+		},
+		lasergun: {
+			sourceString:"shopIMGS/lasergun.png",
+		},
+		turret: {
+			sourceString:"shopIMGS/turret.png",
+		},
+		shield: {
+			sourceString:"shopIMGS/shield.png",
+		},
+		minion: {
+			sourceString:"shopIMGS/minion.png",
+		},
+		exitButton: {
+			sourceString:"shopIMGS/exit.png",
+		},
+		minion1: {
+			sourceString: "../InnerGame/res/sprites/minions/1.png",
+		},
+		minion2: {
+			sourceString: "../InnerGame/res/sprites/minions/2.png",
+		},
+		minion3: {
+			sourceString: "../InnerGame/res/sprites/minions/3.png",
+		},
+		minion4: {
+			sourceString: "../InnerGame/res/sprites/minions/4.png",
+		},
+		minion5: {
+			sourceString: "../InnerGame/res/sprites/minions/5.png",
+		},
+		minion6: {
+			sourceString: "../InnerGame/res/sprites/minions/6.png",
+		},
+		minion7: {
+			sourceString: "../InnerGame/res/sprites/minions/7.png"
+		}
 	}
 }
 
