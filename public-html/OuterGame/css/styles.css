@@ -7,12 +7,38 @@ body{
 canvas {
 	cursor: none;
 }
+<<<<<<< HEAD
 #b1 {
   width: 129px;
   height: 80px;
   border: black solid 2px;
   border-radius: 10px;
 }
+=======
+.infoPanelDiv {
+  width: 129px;
+  height: 80px;
+  float:left;
+  background-color: white;
+  border: black solid 2px;
+  margin-left: 150px;
+  margin-right: 0px;
+  margin-top: 8px;
+  border-radius: 10px;
+}
+
+.shipLvls{
+  margin: 0px;
+}
+
+#infoPanel {
+  width:1024px;
+  height:100px;
+  float:left;
+  background-color: #7bc6b9;
+
+}
+>>>>>>> master
 #wrapper {
   display: none;
   border: 0px solid black;
@@ -32,6 +58,7 @@ canvas {
     height: 67%;
     z-index: 1000;
 }
+
 .info {
   width: 129px;
   height: 80px;
@@ -51,6 +78,7 @@ canvas {
   background-color: green;
 
 }
+
 
 #loader {
     display: block;
@@ -118,4 +146,16 @@ canvas {
         -ms-transform: rotate(360deg);  /* IE 9 */
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
+}
+
+.gamepanel {
+  display: none;
+  height: 300px;
+  width: 600px;
+  position:absolute;
+  top: 5%;
+  left: 5%;
+  /*border doesn't actually fit bottom, too small*/
+  z-index: 10;
+  border: 4px black solid;
 }

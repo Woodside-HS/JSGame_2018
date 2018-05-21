@@ -16,20 +16,28 @@ class Tile extends Updateable {
       this.normalVector = new InnerVector2D(0, 0);
       this.quadNormal = new InnerVector2D(0, 0);
       this.sourceloc = new FastVector(0, 0);
+      this.loot = null;
     }
     init() {
-      this.animalImage = tile_config.animal_image;
-      this.animalImage.src = tile_config.animal_image_src;
+      // issue 118 dont load these images every time
+//      this.lootImage.src = tile_config.loot_image_src;
       this.image = this.tileType.image;
-      this.image.src = this.tileType.image_src;
+//      this.image.src = this.tileType.image_src;
       this.isOccupied = this.tileType.is_occupied;
       this.isWater = this.tileType.is_water;
       if (this.tileType == tile_types.rock) {
-        let src = this.getImage();
+        let src = this.getImageRock();
         this.sourceloc.x = rockSprites['frames'][src]['frame']['x'];
         this.sourceloc.y = rockSprites['frames'][src]['frame']['y'];
         this.sw = rockSprites['frames'][src]['frame']['w'];
         this.sh = rockSprites['frames'][src]['frame']['h'];
+      }
+      if (this.tileType == tile_types.water) {
+        let src = this.getImageWater();
+        this.sourceloc.x = waterSprites['frames'][src]['frame']['x'];
+        this.sourceloc.y = waterSprites['frames'][src]['frame']['y'];
+        this.sw = waterSprites['frames'][src]['frame']['w'];
+        this.sh = waterSprites['frames'][src]['frame']['h'];
       }
     }
     render() {
@@ -43,15 +51,23 @@ class Tile extends Updateable {
           this.image, this.sourceloc.x, this.sourceloc.y, this.sw, this.sh,
           this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
           break;
-          default:
-          this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
-        }
-        if(this.hasAnimal||this.isStart){
-          this.game.context.drawImage(this.animalImage, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
-        }
+          case tile_types.water:
+          this.game.context.drawImage(
+            this.image, this.sourceloc.x+1, this.sourceloc.y+1, this.sw-2, this.sh-2,
+            this.loc.x - 1, this.loc.y - 1, config.tile_size + 2, config.tile_size + 2);
+            break;
+            default:
+            this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          }
+          if(this.isStart){ //draw start image
+            this.game.context.drawImage(Images['Planet2'], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          }
+          if(this.loot){ //draw loot image
+            this.game.context.drawImage(Images[this.loot.image], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          }
       }
 
-      getImage() {
+      getImageRock() {
         let index = "";
         let x1 = this.quadNormal.x;
         let y1 = this.quadNormal.y;
@@ -100,6 +116,57 @@ class Tile extends Updateable {
         if (y != 0 || x != 0) {
           index += Math.floor(Math.random() * 5);
         }
+        return index;
+      }
+      getImageWater() {
+        let index = "";
+        let x1 = this.quadNormal.x;
+        let y1 = this.quadNormal.y;
+        let y = this.normalVector.y;
+        let x = this.normalVector.x;
+
+        //check slope
+        if (y == 0 && x == 0) {
+          index += 'solid'
+          //finished
+        } else if (x == 0 || (Math.abs(x) == 1 && Math.abs(y) == 2)) {
+          index += 'h';
+          if (y > 0)
+          index += 'u';
+          if (y < 0)
+          index += 'l';
+        } else if (y == 0 || (Math.abs(x) == 2 && Math.abs(y) == 1)) {
+          index += 'v';
+          if (x > 0)
+          index += 'l';
+          if (x < 0)
+          index += 'r';
+        } else if (y / x > 0) {
+          index += 'dr';
+          if (x > 0)
+          index += 'u';
+          if (x < 0)
+          index += 'l';
+          if (this.normalVector.m > 1.42)
+          index += 'Small';
+          if (this.normalVector.m < 1.42)
+          index += 'Large';
+        } else if (y / x < 0) {
+          index += 'dl'
+          if (x > 0)
+          index += 'l';
+          if (x < 0)
+          index += 'u';
+          if (this.normalVector.m > 1.42)
+          index += 'Small';
+          if (this.normalVector.m < 1.42)
+          index += 'Large';
+        }
+
+
+        if (y != 0 || x != 0) {
+          index += Math.floor(Math.random() * 5);
+        } else {index += Math.floor(Math.random() * 8);}
         return index;
       }
     }

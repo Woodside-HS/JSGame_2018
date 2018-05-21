@@ -25,7 +25,9 @@ class Player extends Updateable {
   }
   init() {
     this.hasMoved=false;
-    this.image.src=player_config.image_src;
+//    this.image.src=player_config.image_src;
+    // issue 118  don't reload this image for every player
+    this.image = Images.tractor;
     document.addEventListener("keydown", this.docKeyDown);
     document.addEventListener("keyup", this.docKeyUp);
     document.addEventListener("click", this.shoot);
@@ -34,6 +36,7 @@ class Player extends Updateable {
   }
   update() {
     //set max v
+    var loc = this.loc.duplicate(); //to see if loc has changed
     this.maxV=player_config.max_speed;
     if(this.cloc.x >= 0 &&
        this.cloc.x < config.map_x_size &&
@@ -50,7 +53,7 @@ class Player extends Updateable {
       this.energy+=player_config.energy_recovery_rate;
     }
     this.cloc = positionToGrid(this.loc);
-    this.game.mapManager.reveal();
+//    this.game.mapManager.reveal();
 
     if(player_config.auto_fire&&this.mouseHeld){
       this.shoot();
@@ -81,8 +84,12 @@ class Player extends Updateable {
         let diff=this.projectiles[i].loc.duplicate();
         diff.subtract(enemy.loc);
         if(diff.m<player_config.bullet_size+enemy.size/2){
-          enemy.hp-=player_config.bullet_damage;
-          this.projectiles.splice(i, 1);
+          if(!player_config.damage_dropoff)
+            player_config.damage_dropoff=0;
+          enemy.hp-=player_config.bullet_damage*
+              Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
+          if(!player_config.penetrating)
+            this.projectiles.splice(i, 1);
           i--;
           break;
         }
@@ -142,6 +149,15 @@ class Player extends Updateable {
 
     if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
     if(this.dashTimer>0) this.dashTimer--;
+    if(loc.x != this.loc.x || loc.y != this.loc.y){
+      if(playerStats.revealLevel == 1 || playerStats.revealLevel == 2){
+        this.game.player.revealCone();
+      }else if(playerStats.revealLevel == 3 || playerStats.revealLevel == 4){
+        this.game.mapManager.revealCircle();
+      }else if(playerStats.revealLevel == 5){
+        this.game.mapManager.revealAll();
+      }
+    }
   }
   render() {
     this.game.context.save();
@@ -152,6 +168,48 @@ class Player extends Updateable {
     for(let i=0; i<this.projectiles.length; i++)
       this.projectiles[i].render();
     this.checkImportantLoc();
+  }
+  revealCone(){
+    var cloc = positionToGrid(this.loc);
+    if(playerStats.revealLevel == 1){
+      var distSq = 50;
+    }else if(playerStats.revealLevel == 2){
+      var distSq = 150;
+    }
+    var angleC = this.v.th + Math.PI/7;
+    var angleCC = this.v.th - Math.PI/7;
+    var angleToAdd = 0;
+    if((angleC > Math.PI && angleCC < Math.PI)||(angleC > -Math.PI && angleCC < -Math.PI)){
+      angleToAdd = 2*Math.PI;
+      if(angleCC < 0){
+        angleCC += angleToAdd;
+      }
+      if(angleC < 0){
+        angleC += angleToAdd;
+      }
+    }
+    var map = this.game.mapManager.map;
+    for(let i = cloc.x - 16; i < cloc.x + 16; i++){
+      for(let j = cloc.y - 16; j < cloc.y + 16; j++){
+        if(map[i] && map[i][j]){
+          var tile = map[i][j];
+          var tileLoc = positionToGrid(tile.loc);
+          var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+          if(actualDistSq <= distSq){
+            var tileDirection = tile.loc.duplicate();
+            tileDirection.subtract(this.loc);
+            tileDirection.upPols();
+            if(tileDirection.th < 0){
+              tileDirection.th += angleToAdd;
+            }
+            if(tileDirection.th <= angleC && tileDirection.th >= angleCC){
+              tile.seen = true;
+              //console.log(Math.floor(tileDirection.th*180/Math.PI));
+            }
+          }
+        }
+      }
+    }
   }
   dashTo(loc){
     if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
@@ -165,13 +223,18 @@ class Player extends Updateable {
   }
   checkImportantLoc(){
     //returns improtant loc, if it is one
-    if(game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal){
+    if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
+      let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
       //do something
-      game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal=false;
-      return 'animal';
+      resources.inventory.push(loot);
+      inventory.children[1].appendChild(loot.htmlElement);
+      loot.htmlElement.addEventListener("click",function(event){
+        SpaceStation.infoDiv.render(this,false);
+      });
+      game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
+      return 'loot';
     }
     if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
-      console.log('hello');
       this.game.context.fillStyle="white";
       this.game.context.font = "20px Georgia";
       this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
@@ -197,13 +260,20 @@ class Player extends Updateable {
         if (game.player.a.x != 1)
           game.player.a.x = 1;//go right
         break;
-      case' ':
+      case' '://space
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
       break;
-      case'X':
-        if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+      // issue 138 let the outer game keypress handler take care of exiting the inner game
+      // case'X':
+      //   if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+      // break;
+      case ""://shift
+        if(resources.minions>0){
+          game.minionManager.spawnMinion();
+          resources.minions-=1;
+        }
       break;
     }
   }
@@ -245,6 +315,7 @@ class Player extends Updateable {
           loc: game.player.loc.duplicate(),
           v: diff,
           life: player_config.bullet_distance/diff.m,
+          maxLife: player_config.bullet_distance/diff.m,
           render: function() {
             this.game.context.fillStyle = player_config.bullet_color;
             this.game.context.beginPath();
@@ -257,6 +328,8 @@ class Player extends Updateable {
             this.game.context.fill();
           }
         }
+        if(player_config.render_bullet)
+          projectile.render=player_config.render_bullet;
         game.player.projectiles.push(projectile);
       }
     }

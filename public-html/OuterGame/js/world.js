@@ -13,6 +13,8 @@
 		this.width = 2400;
 		this.frameCount = 0;
 		this.realFPS = 0;
+		this.canvasLoc = new Vector2D(0,0);
+		//this.pastVels = []; //array of ships velocties for canvas lag
 
 		setInterval(this.checkFPS, 250);
 
@@ -56,13 +58,20 @@
 					break;
 				case "x": //planet landing
 					if (gameState == 'outer' && (playerShip.vel.x || playerShip.vel.y) && this.checkHitPlanet()) {
-						game = this.checkHitPlanet().game;
-						gameState = 'inner';
-						playerShip.vel = new Vector2D(0, 0);
-						game.startup();
+						gamePlanet = this.checkHitPlanet();
+						if(!gamePlanet.game){
+							// issue 118 create inner games on demand
+						    gamePlanet.game = new Game();
+						    gamePlanet.game.init();
+						}
+						game = gamePlanet.game;
+						gamePlanet.showPanel();
+					}
+					if (gameState === "inner") {
+						gameState = "outer";	// issue 138
 					}
 					break;
-				case "l": //issue 54
+				case "f": //issue 54
 					for (let i = 0; i < this.stations.length; i++) {
 						if (this.stations[i].canLandOn) {
 							//^^if player is close enough to a station to land on it
@@ -70,10 +79,6 @@
 							var div = document.getElementById("spacestation");
 							div.style.display = "block";
 							//^^will render station instead of space in run function
-							//vvv reset store
-							div.children[3].children[0].checked = "checked";
-							SpaceStation.changeCategory();
-							SpaceStation.infoDiv.removeChildren();
 						}
 					}
 					break;
@@ -86,8 +91,8 @@
 		// Debug mode determines whether certain measurements appear for testing purposes
 		this.debugMode = true;
 
-		this.makePlanets(50);
-		this.makeAsteroids(200, true); //issue 12, will spawn in canvas
+		this.makePlanets(30);
+		this.makeAsteroids(40, true); //issue 12, will spawn in canvas
 		this.makeStations(1); //issue 54
 
 		this.makeEnemies(15); // Spawns in drone ships
@@ -103,7 +108,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		this.camera = new Camera(); // TODO: make this actually do something?
+		//this.camera = new Camera(); // TODO: make this actually do something?
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
@@ -138,11 +143,11 @@
 		var a = true; //check if is far enough away from other entities to be drawn
 		while (counter > 0) {
 			a = true;
-			var r = (Math.random() * 20) + 6;
+			var r = (Math.random() * 20) + 20;
 			var x = (Math.random() * this.width * 2) - this.width;
 			var y = (Math.random() * this.height * 2) - this.height;
 			//var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
-			var vel = new Vector2D(Math.random() * 200 - 100, Math.random() * 200 - 100);
+			var vel = new Vector2D(Math.random() * 1000 - 500, Math.random() * 1000 - 500);
 			var ast = new Asteroid(new Vector2D(x, y), vel, null, r);
 			if (!bool) { //bool=if asteroids can show up in canvas
 				let b1 = (x + r) < (this.ship.loc.x + (canvas.width / 2));
@@ -218,7 +223,7 @@
 			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) < 40) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[L] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
 				this.stations[i].canLandOn = true;
 			} else {
 				this.stations[i].canLandOn = false;
@@ -242,7 +247,10 @@
 	}
 
 	shipCursorPos() { // Position of cursor relative to SHIP
-
+		// Assumes that the ship is located in the center of the
+		// canvas and that is not a valid assumption anymore.
+		// So this function returns the cursor relative to
+		// the center of the canvas.
 		let posX = canvas.width / 2 - this.screenCursorPos().x;
 		let posY = canvas.height / 2 - this.screenCursorPos().y;
 
@@ -253,16 +261,18 @@
 
 		let relativePos = this.shipCursorPos();
 
-		let posX = this.ship.loc.x - relativePos.x;
-		let posY = this.ship.loc.y - relativePos.y;
+		// let posX = this.ship.loc.x - relativePos.x;
+		// let posY = this.ship.loc.y - relativePos.y;
+		let posX = this.canvasLoc.x - relativePos.x;
+		let posY = this.canvasLoc.y - relativePos.y;
 
 		return new Vector2D(posX, posY);
 	}
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.ship.loc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.ship.loc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.canvasLoc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.canvasLoc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -331,26 +341,43 @@
 	checkAsteroidCollision() {
 
 		for (var i = 0; i < this.entities.length; i++) {
-			if (this.entities[i] instanceof Asteroid === false) {
+			if (!(this.entities[i] instanceof Asteroid || this.entities[i] instanceof Rocketship || this.entities[i] instanceof DroneShip)) {
 				continue;
 			}
 			for (var j = i + 1; j < this.entities.length; j++) {
-				if (this.entities[j] instanceof Asteroid === false) {
+				if  (!(this.entities[j] instanceof Asteroid || this.entities[j] instanceof Rocketship || this.entities[j] instanceof DroneShip)) {
 					continue;
 				}
 
 				var b1 = this.entities[i];
+				var r1;
+				if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+					r1 = b1.shields[0].radius;
+				}else{
+					r1 = b1.radius;
+				}
+
 				var b2 = this.entities[j];
+				var r2;
+				if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+					r2 = b2.shields[0].radius;
+				}else{
+					r2 = b2.radius;
+				}
 
 				//check if edges of 2 asteroids are touching
 				var dist = Vector2D.distance(b1.loc, b2.loc);
-				if (dist <= b1.radius + b2.radius) {
+
+				if (dist <= r1 + r2) {
+					console.log('collision detected');
+
+
 
 					// sometimes the balls will stick together if there is
 					// too much overlap initially.  So separate them enough
 					// that they are just touching
 					var vec = Vector2D.subtract(b1.loc, b2.loc);
-					vec.setMag((b1.radius + b2.radius - vec.magnitude()) / 2);
+					vec.setMag((r1 + r2 - vec.magnitude()) / 2);
 					b1.loc.add(vec);
 					vec.scalarMult(-1);
 					b2.loc.add(vec);
@@ -435,6 +462,19 @@
 					// console.log(`final momentum ${p_final}`);
 					// console.log(totalKineticEnergy());
 					// console.log(p_final.x, p_final.y);
+
+					if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+						b1.shields[0].stats.takeDamage(5);
+					}else{
+						b1.stats.takeDamage(5);
+					}
+
+					if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+						b2.shields[0].stats.takeDamage(5);
+					}else{
+						b2.stats.takeDamage(5);
+					}
+
 
 				}
 			}
@@ -548,12 +588,17 @@
 
 	update() {
 		this.frameCount++;
-		this.camera.update(); // No effect until the camera is implemented
+		//this.camera.update(); // No effect until the camera is implemented
+		var canvToShip = Vector2D.subtract(this.ship.loc, this.canvasLoc);
+		canvToShip.scalarMult(.05);
 
+
+		this.canvasLoc.add(canvToShip);
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
 
 		let i = 0;
+		let pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
 		if (this.ship.shield && this.ship.shield.offline) {
 			i++;
 			ctx.textAlign = "center";
@@ -596,8 +641,10 @@
 	render() {
 
 		ctx.save();
-		//keep ship in center of canvas
-		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
+		//translate to camera
+		//ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
+		//ctx.translate(canvas.width / 2 - this.ship.loc.x, canvas.height / 2 - this.ship.loc.y);
+		ctx.translate(canvas.width / 2 - this.canvasLoc.x, canvas.height / 2 - this.canvasLoc.y);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 
@@ -619,6 +666,8 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+
+		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();

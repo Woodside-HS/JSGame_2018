@@ -19,13 +19,12 @@ class Rocketship extends Mover {
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
-		this.configMaxVel=180;
-		this.maxVel = 180;
+		this.configMaxVel = 200;
+		this.maxVel = this.configMaxVel;
 		this.mouseLoc = null;
 		this.minMovementRange = 1;
-		this.mouseAccel = .5
-		this.image = new Image();
-		this.image.src = "res/ships/enemyShip.png";
+		this.mouseAccel = .05
+		this.image = Images['playerShip'];
 		this.shipScalingFactor = .6;
 
 		// Setup scanner
@@ -53,6 +52,11 @@ class Rocketship extends Mover {
 
 		let shield = new Shield(this);
 		this.addShield(shield);
+	}
+
+	mass() {
+		//return Math.PI * Math.pow(this.radius, 2);
+		return 100;
 	}
 
 	update() {
@@ -86,7 +90,7 @@ class Rocketship extends Mover {
 			let movementVector = worlds[currentLevel].worldCursorPos();
 			movementVector.subtract(this.loc);
 			if (2*movementVector.magnitude() < this.configMaxVel) {
-				this.maxVel=2*movementVector.magnitude();
+				// this.maxVel=2*movementVector.magnitude();
 			}
 			if (movementVector.magnitude() > this.minMovementRange) {
 				this.acc = movementVector.clone();
@@ -99,11 +103,12 @@ class Rocketship extends Mover {
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
 
-		//only recalculate direction if velocity is greater than 0
-		if (this.vel.magnitude() > 0.00001) { // issue 3
+		//only recalculate direction if velocity is greater than 5
+		if (this.vel.magnitude() > 5) { // issue 3
 			this.dir = this.vel.theta();
 		}
 		// removed a condition for issue 3
+		//System().pastVels.push(this.vel.clone().scalarDiv(FPS));
 
 		this.loc.add(this.vel.clone().scalarDiv(FPS));
 		this.acc.scalarMult(0);
