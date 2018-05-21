@@ -18,7 +18,7 @@ class Tower extends Updateable {
                 game.mapManager.map[this.cloc.x][this.cloc.y].isOccupied = true;
                 this.dir = 0;
         }
-        init(){
+        init() {
                 this.image = Images[this.type.imageid];
         }
         update() {
@@ -29,13 +29,15 @@ class Tower extends Updateable {
                         toPlayer.subtract(this.loc);
                         this.game.context.save();
                         this.game.context.translate(
-                                this.loc.x+config.tile_size/2,
-                                this.loc.y+config.tile_size/2
+                                this.loc.x + config.tile_size / 2,
+                                this.loc.y + config.tile_size / 2
                         )
-                        if(toPlayer.m<=this.type.range){
-                                this.dir=toPlayer.th;
+                        if (toPlayer.m <= this.type.range) {
+                                this.dir = toPlayer.th;
                         }
-                        this.game.context.rotate(toPlayer.th);
+                        if (this.type != tower_types.nulltype) {
+                                this.game.context.rotate(toPlayer.th);
+                        }
                         this.game.context.drawImage(
                                 this.image,
                                 - config.tile_size / 2,
