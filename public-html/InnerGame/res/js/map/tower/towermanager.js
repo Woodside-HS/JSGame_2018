@@ -19,17 +19,27 @@ class TowerManager extends Updateable {
       for (let j = 0; j < config.map_y_size; j++) {
         this.randoms[i].push(Math.random());
         localPerlin = normalizePerlin(noise.perlin2(
-                i / config.map_x_size * tower_config.noise_scale,
-                j / config.map_y_size * tower_config.noise_scale
-                ));
+          i / config.map_x_size * tower_config.noise_scale,
+          j / config.map_y_size * tower_config.noise_scale
+        ));
         if (localPerlin > tower_config.tower_range[0] &&
-                localPerlin < tower_config.tower_range[1] &&
-                this.randoms[i][j] < tower_config.tower_rate &&
-                !this.game.mapManager.map[i][j].isOccupied
-                ) {
+          localPerlin < tower_config.tower_range[1] &&
+          this.randoms[i][j] < tower_config.tower_rate &&
+          !this.game.mapManager.map[i][j].isOccupied
+        ) {
           this.loadTower(new FastVector(i, j));
         } else {
           this.towers[i].push(null);
+        }
+      }
+    }
+    for (let i = 0; i < this.towers.length; i++) {
+      if (this.towers[i]) {
+        try{
+        this.towers[i].init();
+        }
+        catch(e){
+          console.log("b");
         }
       }
     }
@@ -95,13 +105,13 @@ class TowerManager extends Updateable {
         case '1':
           game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Tower(game, mouseCLoc.duplicate());
           break;
-        case'2':
+        case '2':
           game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.repeater);
           break;
-        case'3':
+        case '3':
           game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.sniper);
           break;
-        case'4':
+        case '4':
           game.mapManager.towerManager.towers[mouseCLoc.x][mouseCLoc.y] = new Ranged(game, mouseCLoc.duplicate(), tower_types.spitter);
           break;
       }
