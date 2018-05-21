@@ -29,7 +29,8 @@ const tower_types = {
           minion.status = status.poison;
       }
     },
-    imageid: "spitter"
+    imageid: "spitter",
+    imageCount: 8
   },
   sniper: {
     name: 'sniper',
@@ -44,7 +45,8 @@ const tower_types = {
     onHit: function (target) {
       target.hp -= this.damage;
     },
-    imageid: "spitter"
+    imageid: "sniper",
+    imageCount: 10
   },
   repeater: {
     name: 'repeater',
@@ -59,7 +61,8 @@ const tower_types = {
     onHit: function (target) {
       target.hp -= this.damage;
     },
-    imageid: "spitter"
+    imageid: "repeater",
+    imageCount: 20
   }
 };
 const tower_config = {
@@ -71,4 +74,3 @@ const tower_config = {
   tower_rate: 0.15,
   minimap_color: new Color("yellow")
 };
-console.log(tower_types.spitter.image);
