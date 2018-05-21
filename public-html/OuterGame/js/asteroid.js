@@ -24,7 +24,8 @@ class Asteroid extends Mover {
 	}
 
 	mass() {
-		return 10 * Math.PI * Math.pow(this.radius, 2);
+		var massConstant = 30;
+		return massConstant * Math.PI * Math.pow(this.radius, 2);
 	}
 
 	update() {

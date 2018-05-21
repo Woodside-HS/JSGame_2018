@@ -147,7 +147,7 @@
 			var x = (Math.random() * this.width * 2) - this.width;
 			var y = (Math.random() * this.height * 2) - this.height;
 			//var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
-			var vel = new Vector2D(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
+			var vel = new Vector2D(Math.random() * 1000 - 500, Math.random() * 1000 - 500);
 			var ast = new Asteroid(new Vector2D(x, y), vel, null, r);
 			if (!bool) { //bool=if asteroids can show up in canvas
 				let b1 = (x + r) < (this.ship.loc.x + (canvas.width / 2));
