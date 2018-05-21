@@ -108,6 +108,9 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "shopIMGS/cupcake.png",
 	},
 	// Panels
+	panel00: {
+		sourceString:"res/panels/IntroText.png",
+	},
 	panel01: {
 		sourceString:"res/panels/bluedown.png",
 	},

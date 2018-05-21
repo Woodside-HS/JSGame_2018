@@ -137,7 +137,19 @@ function makeWorld(){
   var w = new World(currentLevel);
   //add world to array
   worlds.push(w);
-  w.initialize();
+	let panel = document.getElementById("gamepanel0");
+	panel.style.display = "block";
+	document.addEventListener("keypress", function handler(event) {
+		switch(event.key) {
+			case " ":
+				document.removeEventListener("keypress", handler);
+				panel.style.display = "none";
+				break;
+			default:
+				return;
+		}
+	});
+	w.initialize();
 	setInterval(animate, 1000/FPS)
 }
 
