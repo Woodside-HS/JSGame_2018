@@ -13,7 +13,7 @@ var currentGame = 'outer';
 var gameState;
 var resources;
 var gamePlanet;
-var playerStats = {revealLevel: 2};//which reveal method to use. 1,2,3,4
+var playerStats = {revealLevel: 1};//which reveal method to use. 1,2,3,4
 
 
 
@@ -73,24 +73,36 @@ function init(){
 			this.updateMoney();
 			console.log(object.cat);
 			switch (object.cat){
-			case "shieldsDiv":
+			case "Shield Boost":
 				this.shieldLevel += 1;
 				this.updateLevels(0);
 				break;
-			case "weaponsDiv":
-				this.weaponsLevel += 1;
+			case "Turret":
+				this.outerWeaponsLevel += 1;
 				this.updateLevels(1);
 				break;
-			case "enginesDiv":
-				this.engineLevel += 1;
+			case "Laser Gun":
+				this.innerWeaponsLevel += 1;
+				this.updateLevels(1);
+				break;
+			case "Ship Engine":
+				this.outerEngineLevel += 1;
 				this.updateLevels(2);
 				break;
-			case "healthDiv":
+			case "Rover Engine":
+				this.innerEngineLevel += 1;
+				this.updateLevels(2);
+				break;
+			case "Health Boost":
 				this.health +=1;
 				this.updateHealth();
 				break;
-			case "miscDiv":
+			case "Minions":
 				this.minions+=1;
+				break;
+			case "Fog Remover":
+				if(playerStats.revealLevel<=4)
+				playerStats.revealLevel+=1;
 				break;
 			}
 		},
