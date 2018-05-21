@@ -24,6 +24,8 @@ class Player extends Updateable {
     this.projectiles=[];
   }
   init() {
+    this.damageMultiplier=Math.log(resources.innerWeaponsLevel)
+    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/resources.innerWeaponsLevel,.5)+","+255*Math.pow(1/resources.innerWeaponsLevel,.5)+",1)"
     this.hasMoved=false;
 //    this.image.src=player_config.image_src;
     // issue 118  don't reload this image for every player

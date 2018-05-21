@@ -29,45 +29,45 @@ const player_config = {
   // accuracy_time: 0, //in frames
   // bullet_acceleration: 1.01
 
-  //multi laser
-  shot_cooldown: 1*config.frame_rate/30, //in sec
-  bullet_size: 4, //in px
-  spread_count: 3,
-  bullet_spread: Math.PI/5, //in radians
-  bullet_color: 'rgba(0,200,100,1)',
-  bullet_speed: 10, //in px/frame
-  bullet_distance: 10*config.tile_size, //in px
-  auto_fire: true,
-  bullet_damage: 5,
-  bullet_wander: 0,
-  accuracy_time: 1, //in frames
-  penetrating:true,
-  damage_dropoff:0, //0 to 1
-  bullet_acceleration: 0,
-  render_bullet: function() {
-    game.context.strokeStyle = "rgba(100,100,255,.05)"
-    game.context.lineWidth=5;
-    game.context.beginPath();
-    game.context.moveTo(game.player.loc.x,game.player.loc.y)
-    let diff = game.player.loc.duplicate();
-    diff.subtract(this.loc);
-    diff.m=-.9*10*config.tile_size //range*.9
-    diff.upComps();
-    let drawAt = game.player.loc.duplicate();
-    drawAt.add(diff);
-    game.context.lineTo(drawAt.x,drawAt.y);
-    game.context.stroke();
-    //middle laser
-    game.context.strokeStyle = "rgba(200,200,255,.2)"
-    game.context.lineWidth=1;
-    game.context.beginPath();
-    game.context.moveTo(game.player.loc.x,game.player.loc.y)
-    diff.m*=1/9 //the last bit
-    diff.upComps();
-    drawAt.add(diff);
-    game.context.lineTo(drawAt.x,drawAt.y);
-    game.context.stroke();
-  }
+  // //multi laser
+  // shot_cooldown: 1*config.frame_rate/30, //in sec
+  // bullet_size: 4, //in px
+  // spread_count: 3,
+  // bullet_spread: Math.PI/5, //in radians
+  // bullet_color: "rgba(200,200,255,.2)",
+  // bullet_speed: 10, //in px/frame
+  // bullet_distance: 10*config.tile_size, //in px
+  // auto_fire: true,
+  // bullet_damage: 5,
+  // bullet_wander: 0,
+  // accuracy_time: 1, //in frames
+  // penetrating:true,
+  // damage_dropoff:0, //0 to 1
+  // bullet_acceleration: 0,
+  // render_bullet: function() {
+  //   game.context.strokeStyle = "rgba(100,100,255,.05)"
+  //   game.context.lineWidth=5;
+  //   game.context.beginPath();
+  //   game.context.moveTo(game.player.loc.x,game.player.loc.y)
+  //   let diff = game.player.loc.duplicate();
+  //   diff.subtract(this.loc);
+  //   diff.m=-.9*10*config.tile_size //range*.9
+  //   diff.upComps();
+  //   let drawAt = game.player.loc.duplicate();
+  //   drawAt.add(diff);
+  //   game.context.lineTo(drawAt.x,drawAt.y);
+  //   game.context.stroke();
+  //   //middle laser
+  //   game.context.strokeStyle = player_config.bullet_color;
+  //   game.context.lineWidth=Math.log(resources.innerWeaponsLevel);
+  //   game.context.beginPath();
+  //   game.context.moveTo(game.player.loc.x,game.player.loc.y)
+  //   diff.m*=1/9 //the last bit
+  //   diff.upComps();
+  //   drawAt.add(diff);
+  //   game.context.lineTo(drawAt.x,drawAt.y);
+  //   game.context.stroke();
+  // }
 
   // //shotgun
   // shot_cooldown: 30*config.frame_rate/30, //in sec
@@ -109,44 +109,44 @@ const player_config = {
   // bullet_wander: 0,
   // accuracy_time: 1 //in frames
 
-  // // laser
-  // shot_cooldown: 1*config.frame_rate/30, //in sec
-  // bullet_size: 5, //in px
-  // spread_count: 1,
-  // bullet_spread: 0, //in radians
-  // bullet_color: 'rgba(0,200,100,1)',
-  // bullet_speed: 30, //in px/frame
-  // bullet_distance: 20*config.tile_size, //in px
-  // auto_fire: true,
-  // bullet_damage: 2,
-  // bullet_wander: 0,
-  // accuracy_time: 1, //in frames
-  // penetrating:true,
-  // damage_dropoff:1, //0 to 1
-  // render_bullet: function() {
-  //   game.context.strokeStyle = "rgba(100,100,255,.01)"
-  //   game.context.lineWidth=5;
-  //   game.context.beginPath();
-  //   game.context.moveTo(game.player.loc.x,game.player.loc.y)
-  //   let diff = game.player.loc.duplicate();
-  //   diff.subtract(game.mouseLocationAbsolute);
-  //   diff.m=-.9*20*config.tile_size //range*.9
-  //   diff.upComps();
-  //   let drawAt = game.player.loc.duplicate();
-  //   drawAt.add(diff);
-  //   game.context.lineTo(drawAt.x,drawAt.y);
-  //   game.context.stroke();
-  //   //middle laser
-  //   game.context.strokeStyle = "rgba(200,200,255,.2)"
-  //   game.context.lineWidth=1;
-  //   game.context.beginPath();
-  //   game.context.moveTo(game.player.loc.x,game.player.loc.y)
-  //   diff.m*=1/9 //the last bit
-  //   diff.upComps();
-  //   drawAt.add(diff);
-  //   game.context.lineTo(drawAt.x,drawAt.y);
-  //   game.context.stroke();
-  // }
+  // laser
+  shot_cooldown: 1*config.frame_rate/30, //in sec
+  bullet_size: 5, //in px
+  spread_count: 1,
+  bullet_spread: 0, //in radians
+  bullet_color: 'rgba(0,200,100,1)',
+  bullet_speed: 30, //in px/frame
+  bullet_distance: 20*config.tile_size, //in px
+  auto_fire: true,
+  bullet_damage: 2,
+  bullet_wander: 0,
+  accuracy_time: 1, //in frames
+  penetrating:true,
+  damage_dropoff:1, //0 to 1
+  render_bullet: function() {
+    game.context.strokeStyle = "rgba(100,100,255,.01)"
+    game.context.lineWidth=5;
+    game.context.beginPath();
+    game.context.moveTo(game.player.loc.x,game.player.loc.y)
+    let diff = game.player.loc.duplicate();
+    diff.subtract(game.mouseLocationAbsolute);
+    diff.m=-.9*20*config.tile_size //range*.9
+    diff.upComps();
+    let drawAt = game.player.loc.duplicate();
+    drawAt.add(diff);
+    game.context.lineTo(drawAt.x,drawAt.y);
+    game.context.stroke();
+    //middle laser
+    game.context.strokeStyle = player_config.bullet_color;
+    game.context.lineWidth=1+Math.log(resources.innerWeaponsLevel);
+    game.context.beginPath();
+    game.context.moveTo(game.player.loc.x,game.player.loc.y)
+    diff.m*=1/9 //the last bit
+    diff.upComps();
+    drawAt.add(diff);
+    game.context.lineTo(drawAt.x,drawAt.y);
+    game.context.stroke();
+  }
 
   // //bomb
   // shot_cooldown: 20*config.frame_rate/30, //in sec

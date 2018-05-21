@@ -47,8 +47,10 @@ function init(){
 		// weapons : [], //add different kinds of weapons to use
 		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
-		weaponsLevel : 1, //may have to split into different weapons/tools
-		engineLevel : 1,
+		innerWeaponsLevel : 1, //may have to split into different weapons/tools
+		innerEngineLevel : 1,
+		outerWeaponsLevel : 1, //may have to split into different weapons/tools
+		outerEngineLevel : 1,
 		minions: 5,
 
 		sellItem : function(item){
