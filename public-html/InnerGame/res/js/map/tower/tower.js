@@ -25,7 +25,8 @@ class Tower extends Updateable {
                 return toVector.m <= this.range;
         }
         init() {
-                if (this.type.imageid & !this.type.images & this.type.imageCount) {//on first run
+                if (this.type.imageid && (!this.type.images) && this.type.imageCount) {//on first run
+                        this.type.images = [];
                         for (let i = 0; i < this.type.imageCount; i++) {
                                 let currentImage = new Image();
                                 currentImage.src = "../InnerGame/res/sprites/tower/" + this.type.imageid + "/" + i + ".png";
@@ -36,8 +37,8 @@ class Tower extends Updateable {
         update() {
                 if (this.inRangeOf(this.game.player.loc)) {
                         this.imageIndex += 1;
-                        this.imageIndex %= this.images.length;
-                        this.image = this.images[this.imageIndex];
+                        this.imageIndex %= this.type.images.length;
+                        this.image = this.type.images[this.imageIndex];
                 }
         }
         render() {
