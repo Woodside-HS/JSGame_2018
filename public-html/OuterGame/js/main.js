@@ -59,6 +59,7 @@ function init(){
 					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
 					available = true;
+					SpaceStation.infoDiv.render(item,false);
 				}
 			}
 			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
