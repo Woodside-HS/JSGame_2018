@@ -17,11 +17,29 @@ class Tower extends Updateable {
                 this.hp = this.maxhp;
                 game.mapManager.map[this.cloc.x][this.cloc.y].isOccupied = true;
                 this.dir = 0;
+                this.imageIndex = 0;
+        }
+        inRangeOf(loc) {
+                let toVector = loc.duplicate();
+                toVector.subtract(this.loc);
+                return toVector.m <= this.range;
         }
         init() {
-                this.image = Images[this.type.imageid];
+                if (this.type.imageid && (!this.type.images) && this.type.imageCount) {//on first run
+                        this.type.images = [];
+                        for (let i = 0; i < this.type.imageCount; i++) {
+                                let currentImage = new Image();
+                                currentImage.src = "../InnerGame/res/sprites/tower/" + this.type.imageid + "/" + i + ".png";
+                                this.type.images.push(currentImage);
+                        }
+                }
         }
         update() {
+                if (this.inRangeOf(this.game.player.loc)) {
+                        this.imageIndex += 1;
+                        this.imageIndex %= this.type.images.length;
+                        this.image = this.type.images[this.imageIndex];
+                }
         }
         render() {
                 if (this.image) {
