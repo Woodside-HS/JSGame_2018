@@ -43,7 +43,8 @@ const tower_types = {
     bullet_color: 'orange',
     onHit: function (target) {
       target.hp -= this.damage;
-    }
+    },
+    imageid: "spitter"
   },
   repeater: {
     name: 'repeater',
@@ -57,7 +58,8 @@ const tower_types = {
     bullet_color: 'orange',
     onHit: function (target) {
       target.hp -= this.damage;
-    }
+    },
+    imageid: "spitter"
   }
 };
 const tower_config = {

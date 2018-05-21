@@ -35,12 +35,7 @@ class TowerManager extends Updateable {
     }
     for (let i = 0; i < this.towers.length; i++) {
       if (this.towers[i]) {
-        try{
         this.towers[i].init();
-        }
-        catch(e){
-          console.log("b");
-        }
       }
     }
   }

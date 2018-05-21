@@ -19,8 +19,12 @@ class Tower extends Updateable {
         }
         init(){
                 this.image = Images[this.type.imageid];
+                console.log(this.type);
         }
         update() {
+                if(!this.image){
+                        this.image = Images[this.type.imageid];
+                }
         }
         render() {
                 if (this.image) {
