@@ -66,8 +66,10 @@ class Ranged extends Tower {
       let dir = diff.duplicate();
       dir.multiply(1 / diff.m);
       dir.multiply(this.bulletspeed);
+      let projectileStart = this.loc.duplicate();
+      projectileStart.add(new Vector2D(config.tile_size/2, config.tile_size/2));
       let projectile = {
-        loc: this.loc.duplicate(),
+        loc: projectileStart,
         v: dir,
         life: Math.floor(diff.m / this.bulletspeed) + 1
       }

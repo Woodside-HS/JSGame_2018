@@ -19,18 +19,7 @@ class MapManager extends Updateable {
   }
   init() {
     //set world-specific config
-    map_config.noise_scale=Math.random()*-(map_config.noise_scale_range[0]-map_config.noise_scale_range[1])+map_config.noise_scale_range[0];
-    map_config.rock_probability=Math.random()*-(map_config.rock_probability_range[0]-map_config.rock_probability_range[1])+map_config.rock_probability_range[0];
-    map_config.water_range=[
-      Math.random()*-(map_config.water_range_ranges[0]-map_config.water_range_ranges[1])+map_config.water_range_ranges[0],
-      Math.random()*-(map_config.water_range_ranges[2]-map_config.water_range_ranges[3])+map_config.water_range_ranges[2]];
-    if(map_config.rock_probability>1-map_config.water_range[1])
-      map_config.water_range[1]=(1-map_config.rock_probability)*.9;
-    tower_config.tower_range=[
-      Math.random()*-(tower_config.tower_range_ranges[0]-tower_config.tower_range_ranges[1])+tower_config.tower_range_ranges[0],
-      Math.random()*-(tower_config.tower_range_ranges[2]-tower_config.tower_range_ranges[3])+tower_config.tower_range_ranges[2]];
-    tower_config.tower_rate=Math.random()*-(tower_config.tower_rate_range[0]-tower_config.tower_rate_range[1])+tower_config.tower_rate_range[0];
-    tower_config.tower_rate/=tower_config.tower_range[1]-tower_config.tower_range[0]
+    this.setWorldConfig();
     //create grass image
     // issue 118 dont load these images every time
     // this.grassImage.src=map_config.grass_image_src;
@@ -53,15 +42,15 @@ class MapManager extends Updateable {
          *  all tile type chosen according to perlin noise
          */
         this.map[i][j].perlin = normalizePerlin(noise.perlin2(
-                i / this.map.length * map_config.noise_scale,
-                j / this.map[i].length * map_config.noise_scale
-                ));
+          i / this.map.length * map_config.noise_scale,
+          j / this.map[i].length * map_config.noise_scale
+        ));
 
         //Set tile types
         if (this.map[i][j].perlin > 1 - map_config.rock_probability) {
           this.map[i][j].tileType = tile_types.rock;
         } else if (this.map[i][j].perlin > map_config.water_range[0] &&
-                this.map[i][j].perlin < map_config.water_range[1]) {
+          this.map[i][j].perlin < map_config.water_range[1]) {
           this.map[i][j].tileType = tile_types.water;
         } else {
           this.map[i][j].tileType = tile_types.grass;
@@ -88,8 +77,8 @@ class MapManager extends Updateable {
               let x = a + i;
               let y = b + j;
               let currentTile;
-              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size){
-                currentTile = {tileType:tile_types.rock} //pretend borders are rocks
+              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size) {
+                currentTile = { tileType: tile_types.rock } //pretend borders are rocks
               } else currentTile = this.map[x][y];
               if (currentTile.tileType == tile_types.rock) {
                 tile.normalVector.add(new InnerVector2D(-i, -j));
@@ -107,8 +96,8 @@ class MapManager extends Updateable {
               let x = a + i;
               let y = b + j;
               let currentTile;
-              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size){
-                currentTile = {tileType:tile_types.water} //pretend borders are water
+              if (x < 0 || x >= config.map_x_size || y < 0 || y >= config.map_y_size) {
+                currentTile = { tileType: tile_types.water } //pretend borders are water
               } else currentTile = this.map[x][y];
               if (currentTile.tileType == tile_types.water) {
                 tile.normalVector.add(new InnerVector2D(-i, -j));
@@ -131,27 +120,47 @@ class MapManager extends Updateable {
     // initialiaze start location
     let startTile = this.getValidStartTile();
     startTile.isStart = true;
-//    startTile.seen = true;
+    //    startTile.seen = true;
 
 
-    for(let i=0; i<loot_config.animal_count;i++){
+    for (let i = 0; i < loot_config.animal_count; i++) {
       let animalTile = this.getValidStartTile();
       animalTile.loot = loot_types.animals[Math.floor(randIn(0, loot_types.animals.length))];
     }
     this.game.player.loc = startTile.loc.duplicate();
     let cloc = positionToGrid(this.game.player.loc);
-    for(let i=cloc.x-2; i<=cloc.x+2; i++)
-      for(let j=cloc.y-2; j<=cloc.y+2; j++)
-        if((Math.abs(i-cloc.x)+Math.abs(j-cloc.y))<=2&&i>=0&&i<config.map_x_size&&j>=0&&j<config.map_y_size)
+    for (let i = cloc.x - 2; i <= cloc.x + 2; i++)
+      for (let j = cloc.y - 2; j <= cloc.y + 2; j++)
+        if ((Math.abs(i - cloc.x) + Math.abs(j - cloc.y)) <= 2 && i >= 0 && i < config.map_x_size && j >= 0 && j < config.map_y_size)
           this.game.mapManager.map[i][j].seen = true;
-    if(playerStats.revealLevel == 1 || playerStats.revealLevel == 2){
+    if (playerStats.revealLevel == 1 || playerStats.revealLevel == 2) {
       this.game.player.revealCone();
-    }else if(playerStats.revealLevel == 3 || playerStats.revealLevel == 4){
+    } else if (playerStats.revealLevel == 3 || playerStats.revealLevel == 4) {
       this.game.mapManager.revealCircle();
-    }else if(playerStats.revealLevel == 5){
+    } else if (playerStats.revealLevel == 5) {
       this.game.mapManager.revealAll();
     }
   }
+  /**set world-specific config
+   * called only on mapManager.init()
+   */
+  setWorldConfig() {
+    map_config.noise_scale = Math.random() * -(map_config.noise_scale_range[0] - map_config.noise_scale_range[1]) + map_config.noise_scale_range[0];
+    map_config.rock_probability = Math.random() * -(map_config.rock_probability_range[0] - map_config.rock_probability_range[1]) + map_config.rock_probability_range[0];
+    map_config.water_range = [
+      Math.random() * -(map_config.water_range_ranges[0] - map_config.water_range_ranges[1]) + map_config.water_range_ranges[0],
+      Math.random() * -(map_config.water_range_ranges[2] - map_config.water_range_ranges[3]) + map_config.water_range_ranges[2]
+    ];
+    if (map_config.rock_probability > 1 - map_config.water_range[1])
+      map_config.water_range[1] = (1 - map_config.rock_probability) * .9;
+    tower_config.tower_range = [
+      Math.random() * -(tower_config.tower_range_ranges[0] - tower_config.tower_range_ranges[1]) + tower_config.tower_range_ranges[0],
+      Math.random() * -(tower_config.tower_range_ranges[2] - tower_config.tower_range_ranges[3]) + tower_config.tower_range_ranges[2]
+    ];
+    tower_config.tower_rate = Math.random() * -(tower_config.tower_rate_range[0] - tower_config.tower_rate_range[1]) + tower_config.tower_rate_range[0];
+    tower_config.tower_rate /= tower_config.tower_range[1] - tower_config.tower_range[0];
+  }
+
   update() {
     for (let i = 0; i < config.map_x_size; i++) {
       for (let j = 0; j < config.map_y_size; j++) {
@@ -163,14 +172,14 @@ class MapManager extends Updateable {
   }
   render() {
     //draw grass
-    for(let i=0; i<config.map_x_size*config.tile_size; i+=map_config.grass_image_size)
-      for(let j=0; j<config.map_y_size*config.tile_size; j+=map_config.grass_image_size)
-        this.game.context.drawImage(Images['grass'],i,j,map_config.grass_image_size,map_config.grass_image_size);
+    for (let i = 0; i < config.map_x_size * config.tile_size; i += map_config.grass_image_size)
+      for (let j = 0; j < config.map_y_size * config.tile_size; j += map_config.grass_image_size)
+        this.game.context.drawImage(Images['grass'], i, j, map_config.grass_image_size, map_config.grass_image_size);
 
     //draw border rectangles bc too much grass
-    this.game.context.fillStyle=config.background_color;
-    this.game.context.fillRect(config.map_x_size*config.tile_size,-map_config.grass_image_size,map_config.grass_image_size,config.map_y_size*config.tile_size+2*map_config.grass_image_size)
-    this.game.context.fillRect(-map_config.grass_image_size,config.map_y_size*config.tile_size,config.map_x_size*config.tile_size+2*map_config.grass_image_size,map_config.grass_image_size)
+    this.game.context.fillStyle = config.background_color;
+    this.game.context.fillRect(config.map_x_size * config.tile_size, -map_config.grass_image_size, map_config.grass_image_size, config.map_y_size * config.tile_size + 2 * map_config.grass_image_size)
+    this.game.context.fillRect(-map_config.grass_image_size, config.map_y_size * config.tile_size, config.map_x_size * config.tile_size + 2 * map_config.grass_image_size, map_config.grass_image_size)
 
 
     for (let i = 0; i < config.map_x_size; i++) {
@@ -182,26 +191,26 @@ class MapManager extends Updateable {
     this.powerupManager.render();
   }
   revealCircle() {
-      var cloc = positionToGrid(this.game.player.loc);
-      if(playerStats.revealLevel == 3){
-        var distSq = 50;
-      }else if(playerStats.revealLevel == 4){
-        var distSq = 120;
-      }
-      for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
-        for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
-          if(!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)){
-            var tile = this.game.mapManager.map[i][j];
-            var tileLoc = positionToGrid(tile.loc);
-            var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
-            if(actualDistSq <= distSq){
-              tile.seen = true;
-            }
+    var cloc = positionToGrid(this.game.player.loc);
+    if (playerStats.revealLevel == 3) {
+      var distSq = 50;
+    } else if (playerStats.revealLevel == 4) {
+      var distSq = 120;
+    }
+    for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
+      for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
+        if (!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)) {
+          var tile = this.game.mapManager.map[i][j];
+          var tileLoc = positionToGrid(tile.loc);
+          var actualDistSq = ((cloc.x - tileLoc.x) * (cloc.x - tileLoc.x) + (cloc.y - tileLoc.y) * (cloc.y - tileLoc.y));
+          if (actualDistSq <= distSq) {
+            tile.seen = true;
           }
         }
       }
+    }
   }
-  revealAll(){
+  revealAll() {
     for (let i = 0; i < this.game.mapManager.map.length; i++) {
       for (let j = 0; j < this.game.mapManager.map.length; j++) {
         var tile = this.game.mapManager.map[i][j];
@@ -210,9 +219,9 @@ class MapManager extends Updateable {
     }
   }
 
-    getValidStartTile(){
-      let index = Math.floor(randIn(0, this.validStartTiles.length));
-      let tile = this.validStartTiles.splice(index,1);
-      return tile[0];
-    }
+  getValidStartTile() {
+    let index = Math.floor(randIn(0, this.validStartTiles.length));
+    let tile = this.validStartTiles.splice(index, 1);
+    return tile[0];
+  }
 }

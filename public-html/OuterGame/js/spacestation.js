@@ -38,11 +38,16 @@ class SpaceStation{
         if(!page){ //if in inventory, sell items
           button.innerHTML = "Sell";
           button.onclick = function(){
-            let price = this.item.children[1].id;
-            let infoName = ""+this.item.id;
-            var object = {value:price, name:infoName};
-            resources.sellItem(object.name);
+            resources.sellItem(this.item);
           };
+          let qty = 0;
+          for(let i=0;i<resources.inventory.length;i++){
+            if(resources.inventory[i].name==item.id){
+              qty +=1;
+            }
+          }
+          var quantity = document.createTextNode(" | Qty: "+qty);
+          div.appendChild(quantity);
         } else{ //if in shop, buy items
           button.innerHTML = "Buy";
           button.onclick = function(){
@@ -54,17 +59,17 @@ class SpaceStation{
           };
         }
         infoDiv.appendChild(button);
-        var price = document.createTextNode("   "+ item.children[1].id);
+        var price = document.createTextNode(" | $"+ item.children[1].id);
         price.id = "infoPrice";
         div.appendChild(price);
       },
       removeChildren : function(infoDiv){ //infoDiv sends in the right div to clear out
-        if(infoDiv.children.length>1){
+        while(infoDiv.children.length>1){  //changed to while condition for bug/issue 131
           document.getElementById("infoImg").remove();
           document.getElementById("infoName").remove();
           document.getElementById("infoButton").remove();
         }
-      },
+      }
     };
 
 
@@ -106,6 +111,9 @@ class SpaceStation{
         menu.style.display = "block";
         document.getElementById("shop").style.display = "none";
         document.getElementById("inventory").style.display = "none";
+        //vv issue 131, clear out info div when leaving display
+        SpaceStation.infoDiv.removeChildren(document.getElementsByClassName("info")[0]);
+        SpaceStation.infoDiv.removeChildren(document.getElementsByClassName("info")[1]);
       });
     }
 
