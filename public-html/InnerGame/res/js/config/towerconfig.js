@@ -71,4 +71,3 @@ const tower_config = {
   tower_rate: 0.15,
   minimap_color: new Color("yellow")
 };
-console.log(tower_types.spitter.image);
