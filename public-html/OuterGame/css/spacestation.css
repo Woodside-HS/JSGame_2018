@@ -78,6 +78,7 @@
   background-color: white;
   border-radius: 15%;
   background-image: url("../shopIMGS/shopBackground.png");
+  border: 2px black solid;
 }
 
 #invItems{
@@ -136,13 +137,13 @@
 
 .imgTile{
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   border-radius: 25%;
 }
 
 #infoImg{
   width: 200px;
-  height: 200px;
+  /* height: 200px; */
 }
 
 #infoName{

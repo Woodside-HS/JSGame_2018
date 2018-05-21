@@ -50,6 +50,7 @@ function init(){
 		weaponsLevel : 1, //may have to split into different weapons/tools
 		engineLevel : 1,
 		minions: 5,
+		fogLevel: 1,
 
 		sellItem : function(item){
 			let name = item.id;
@@ -84,8 +85,12 @@ function init(){
 			} else if(object.cat == "healthDiv"){
 				this.health +=1;
 				this.updateHealth();
-			} else if (object.cat==="miscDiv"){//it's minions for some reason?
-				this.minions+=1;
+			} else if (object.cat==="miscDiv"){
+				if(object.id=="Minions"){
+					this.minions+=1;
+				} else if(object.id=="Fog Remover"){
+					fogLevel +=1;
+				}
 			}
 		},
 
