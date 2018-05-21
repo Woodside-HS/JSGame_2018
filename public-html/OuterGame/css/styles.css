@@ -7,7 +7,12 @@ body{
 canvas {
 	cursor: none;
 }
-
+#b1 {
+  width: 129px;
+  height: 80px;
+  border: black solid 2px;
+  border-radius: 10px;
+}
 #wrapper {
   display: none;
   border: 0px solid black;
