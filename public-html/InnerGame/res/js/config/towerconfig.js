@@ -45,8 +45,8 @@ const tower_types = {
     onHit: function (target) {
       target.hp -= this.damage;
     },
-    imageid: "spitter",
-    imageCount: 8
+    imageid: "sniper",
+    imageCount: 10
   },
   repeater: {
     name: 'repeater',
@@ -61,8 +61,8 @@ const tower_types = {
     onHit: function (target) {
       target.hp -= this.damage;
     },
-    imageid: "spitter",
-    imageCount: 8
+    imageid: "repeater",
+    imageCount: 20
   }
 };
 const tower_config = {
