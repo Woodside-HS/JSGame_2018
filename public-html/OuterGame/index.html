@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charSet="utf8"></meta>
   <title>Outer Xenology</title>
@@ -26,7 +25,7 @@
   <script src="js/droneship.js"></script>
   <script src="js/camera.js"></script>
   <script src="js/utilities.js"></script>
-
+  
   <!-- /\         inner |
        |  outer        \/ -->
 
@@ -70,23 +69,29 @@
   <script src="../InnerGame/res/js/player/path/path.js" type="text/javascript"></script>
   <script src="../InnerGame/res/js/player/path/pathtile.js" type="text/javascript"></script>
 </head>
+  <body>
+    <div id="wrapper">
+      <div id = "gamepanel1" class = "gamepanel"></div>
+      <div id = "gamepanel2" class = "gamepanel"></div>
+      <div id = "gamepanel3" class = "gamepanel"></div>
+      <div id = "gamepanel4" class = "gamepanel"></div>
+      <div id = "gamepanel5" class = "gamepanel"></div>
 
-<body>
-  <div id="wrapper">
-    <div id="infoPanel">
-      <div class="infoPanelDiv" id="Health">
-        Health
-        <p>100%</p>
-      </div>
-      <div class="infoPanelDiv" id="Money">
-        Money
-        <p>$100</p>
-      </div>
-      <div class="infoPanelDiv" id="Ship Levels">
-        Ship Levels
-        <p class="shipLvls" id="shield">Shield: 1</p>
-        <p class="shipLvls" id="weapons">Weapons: 1</p>
-        <p class="shipLvls" id="engine">Engine: 1</p>
+      <div id="infoPanel">
+              <div class="infoPanelDiv" id="Health">
+                Health
+                <p>100%</p>
+              </div>
+              <div class="infoPanelDiv" id="Money">
+                Money
+                <p>$100.00</p>
+              </div>
+              <div class="infoPanelDiv" id="Ship Levels">
+                Ship Levels
+                <p class="shipLvls" id="shield">Shield: 1</p>
+                <p class="shipLvls" id="weapons">Weapons: 1</p>
+                <p class="shipLvls" id="engine">Engine: 1</p>
+              </div>
       </div>
     </div>
     <canvas id="cnv"></canvas>

@@ -83,29 +83,23 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "../InnerGame/res/sprites/arrowPU.png",
 	},
 	splash: {
-		sourceString: "../InnerGame/res/sprites/splash/youdied.jpg",
+		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
 	},
-	// Trading post images
-	shopBackground: {
-		sourceString: "shopIMGS/background.png",
+	// Panels
+	panel01: {
+		sourceString:"res/panels/bluedown.png",
 	},
-	brownie: {
-		sourceString: "shopIMGS/brownie.png",
+	panel02: {
+		sourceString:"res/panels/greendown.png",
 	},
-	shopButton: {
-		sourceString: "shopIMGS/button.png",
+	panel03: {
+		sourceString:"res/panels/greydown.png",
 	},
-	cake: {
-		sourceString: "shopIMGS/cake.png",
+	panel04: {
+		sourceString:"res/panels/purpledown.png",
 	},
-	coffee: {
-		sourceString: "shopIMGS/coffee.png",
-	},
-	cookie: {
-		sourceString: "shopIMGS/cookie.png",
-	},
-	cupcake: {
-		sourceString: "shopIMGS/cupcake.png",
+	panel05: {
+		sourceString:"res/panels/reddown.png",
 	},
 	minion1: {
 		sourceString: "../InnerGame/res/sprites/minions/1.png",
