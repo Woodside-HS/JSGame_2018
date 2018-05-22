@@ -22,9 +22,12 @@ class Player extends Updateable {
     this.size=player_config.size;
     this.shotCooldownTimer=player_config.shot_cooldown;
     this.projectiles=[];
+    this.stdmaxV=player_config.max_speed;
   }
   init() {
-    this.damageMultiplier=Math.log(resources.innerWeaponsLevel)
+    this.engineMultiplier=Math.log(resources.innerEngineLevel);
+    this.stdmaxV*=1+this.engineMultiplier;
+    this.damageMultiplier=Math.log(resources.innerWeaponsLevel);
     player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/resources.innerWeaponsLevel,.5)+","+255*Math.pow(1/resources.innerWeaponsLevel,.5)+",.1)"
     this.hasMoved=false;
 //    this.image.src=player_config.image_src;
@@ -39,7 +42,7 @@ class Player extends Updateable {
   update() {
     //set max v
     var loc = this.loc.duplicate(); //to see if loc has changed
-    this.maxV=player_config.max_speed;
+    this.maxV=this.stdmaxV;
     if(this.cloc.x >= 0 &&
        this.cloc.x < config.map_x_size &&
        this.cloc.y >= 0 &&

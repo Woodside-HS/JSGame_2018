@@ -36,6 +36,9 @@ class Tower extends Updateable {
         }
         update() {
                 if (this.inRangeOf(this.game.player.loc)) {
+                        this.loc = new InnerVector2D(
+                                (this.cloc.x) * config.tile_size,
+                                (this.cloc.y) * config.tile_size);
                         this.imageIndex += 1;
                         this.imageIndex %= this.type.images.length;
                         this.image = this.type.images[this.imageIndex];
