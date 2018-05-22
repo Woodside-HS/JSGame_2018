@@ -139,19 +139,20 @@ function makeWorld(){
   //add world to array
   worlds.push(w);
 	let panel = document.getElementById("gamepanel0");
+	panel.appendChild(Images["panel00"]);
 	panel.style.display = "block";
 	document.addEventListener("keypress", function handler(event) {
 		switch(event.key) {
 			case " ":
 				document.removeEventListener("keypress", handler);
 				panel.style.display = "none";
+				w.initialize();
+				setInterval(animate, 1000/FPS);
 				break;
 			default:
 				return;
 		}
 	});
-	w.initialize();
-	setInterval(animate, 1000/FPS)
 }
 
 function animate(){
