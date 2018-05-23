@@ -107,7 +107,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		this.camera = new Camera(); 
+		this.camera = new Camera();
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
