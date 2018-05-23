@@ -19,11 +19,11 @@ class Rocketship extends Mover {
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
-		this.configMaxVel = 200;
+		this.configMaxVel = 300;
 		this.maxVel = this.configMaxVel;
 		this.mouseLoc = null;
 		this.minMovementRange = 1;
-		this.mouseAccel = .05
+		this.mouseAccel = .1
 		this.image = Images['playerShip'];
 		this.shipScalingFactor = .6;
 
