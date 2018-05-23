@@ -93,7 +93,24 @@
                 <p class="shipLvls" id="weapons">Weapons: 1</p>
                 <p class="shipLvls" id="engine">Engine: 1</p>
               </div>
-              <div class="infoPanelDiv" id="helpbutton"><button id="help" type="button"><font size=10>?</font></button></div>
+              <div class="infoPanelDiv" id="helpbutton">
+                <div id="popup">
+                  <font style="padding-top:30px;" size=20>Information: </font>
+                  <div id=cxt><p>This is where all of the information will be</p></div>
+                </div>
+                <script>
+                var pop = document.getElementById("popup")
+                function helpPanel() {
+                  pop.style.display="block";
+                }
+                window.onclick = function(event) {
+                  if(event.target == pop){
+                    pop.style.display = "none";
+                  }
+                }
+                </script>
+                <button id="help" type="button" onclick="helpPanel()"><font size=10>?</font></button>
+              </div>
       </div>
     <canvas id="cnv"></canvas>
 
