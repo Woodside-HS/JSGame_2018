@@ -67,7 +67,8 @@
 						gamePlanet.showPanel();
 					}
 					if (gameState === "inner") {
-						gameState = "outer";	// issue 138
+						if(game.player.checkImportantLoc()== "start")
+							gameState = "outer";	// issue 138
 					}
 					break;
 				case "f": //issue 54
@@ -107,7 +108,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		this.camera = new Camera(); 
+		this.camera = new Camera();
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
@@ -642,7 +643,7 @@
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 
-		
+
 		let arr = []; // Building an array of every entity and planet
 
 		for (var i = 0; i < this.planets.length; i++) {
