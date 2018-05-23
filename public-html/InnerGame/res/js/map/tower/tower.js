@@ -81,7 +81,9 @@ class Tower extends Updateable {
                                 this.type.name,
                                 this.loc.x - config.tile_size / 2,
                                 this.loc.y);
-                        this.game.context.fillStyle = 'rgba(255,0,0,1)';
+                        
+                }
+                this.game.context.fillStyle = 'rgba(255,0,0,1)';
                         this.game.context.fillRect(
                                 this.loc.x - config.tile_size / 2,
                                 this.loc.y + 3 * config.tile_size / 10,
@@ -93,7 +95,6 @@ class Tower extends Updateable {
                                 this.loc.y + 3 * config.tile_size / 10,
                                 this.hp / this.maxhp * config.tile_size,
                                 config.tile_size / 5);
-                }
         }
 
 }
