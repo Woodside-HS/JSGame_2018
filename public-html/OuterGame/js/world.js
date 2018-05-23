@@ -101,7 +101,6 @@
 		playerShip = this.ship; // A dumb global variable we have for some reason
 		this.entities.push(this.ship);
 		resources.health = this.ship.stats;
-		console.log(resources.health);
 
 
 		this.cursorX = -50;
@@ -713,8 +712,8 @@
 	drawHealthMeter() {
 
 		let pos = new Vector2D(canvas.width * 0.075, canvas.height * 0.125);
-		console.log("draw health");
-		let segments = Math.floor(this.ship.stats.maxHP/100*36); // Number of segments in the health wheel
+
+		let segments = Math.floor(this.ship.stats.maxHp/100*36); // Number of segments in the health wheel
 		for (let i = 0; i < segments; i++) {
 
 			let color = '#008800'; // GREEN. Default health color

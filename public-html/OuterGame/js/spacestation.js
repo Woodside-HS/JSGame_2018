@@ -173,7 +173,11 @@ SpaceStation.html = '\
     </div>\
     <div class="items" id="shopItems">\
       <div id="healthDiv" class="catDiv">\
-        <div id="Health Boost" class="tile">\
+        <div id="Max HP Increase" class="tile">\
+          <img class="imgTile" src="shopIMGS/old/health.png">\
+          <span style="display:none;" id="2.35"></span>\
+        </div>\
+        <div id="Instant Health Boost" class="tile">\
           <img class="imgTile" src="shopIMGS/old/health.png">\
           <span style="display:none;" id="2.35"></span>\
         </div>\

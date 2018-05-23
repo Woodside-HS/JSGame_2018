@@ -84,8 +84,11 @@ function init(){
 				this.engineLevel += 1;
 				this.updateLevels(2);
 			} else if(object.cat == "healthDiv"){
-				this.health.maxHp +=3;
-				this.updateHealth();
+				if(object.id=="Max HP Increase"){
+					this.health.maxHp +=3;
+				} else if(object.id == "Instant Health Boost"){
+					System().ship.stats.healDamage(10);
+				}
 			} else if (object.cat==="miscDiv"){
 				if(object.id=="Minions"){
 					this.minions+=1;
@@ -96,11 +99,6 @@ function init(){
 		},
 
 
-		updateHealth : function(){
-			// var div = document.getElementById("Health");
-			// div.children[0].innerHTML = "" + this.health*10 + "%";
-			// console.log(resources.health);
-		},
 		updateMoney : function(){
 			var div = document.getElementById("Money");
 			div.children[0].innerHTML = "$" + this.money.toFixed(2);
