@@ -120,18 +120,15 @@ class SpaceStation{
     //add click listener for the "radio buttons" ->actually divs
     var buttons = document.getElementById("radioButtons").children;
     var itemCats = document.getElementById("shopItems").children;
+    for(let i=0;i<itemCats.length;i++){ //traverse categories in items
+      itemCats[i].style.display = "none";
+    }
     for(let i=0;i<buttons.length;i++){
       buttons[i].addEventListener("click",function(event){
-        if(this.id=="allCat"){ //this button shows all the items, the Allcat is your god, your savior, your only hope. Kneel before him
-          for(let i=0;i<itemCats.length;i++){ //traverse categories in items
-            itemCats[i].style.display = "block";
-          }
-        } else{
           for(let i=0;i<itemCats.length;i++){ //traverse categories in items
             itemCats[i].style.display = "none";
           }
           document.getElementById(""+this.id+"Div").style.display = "block";
-        }
         //make the button a different color than the others
         var buttons = document.getElementById("radioButtons");
         for(let i=0;i<buttons.children.length;i++){
@@ -164,7 +161,6 @@ SpaceStation.html = '\
   <div id="shop" style="display:none">\
     <div class="backButton">Back</div>\
     <div id="radioButtons">\
-      <div class="radio" id="allCat">All</div>\
       <div class="radio" id="health">Health</div>\
       <div class="radio" id="shields">Shields</div>\
       <div class="radio" id="weapons">Weapons</div>\
@@ -220,15 +216,15 @@ SpaceStation.html = '\
       </div>\
       <div id="enginesDiv" class="catDiv">\
         <div id="Engine One" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine_lvl1.jpg">\
+          <img class="imgTile" src="shopIMGS/engine1.png">\
           <span style="display:none;" id="2.55"></span>\
         </div>\
         <div id="Engine Two" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine_lvl2.jpg">\
+          <img class="imgTile" src="shopIMGS/engine2.png">\
           <span style="display:none;" id="1.45"></span>\
         </div>\
         <div id="Engine Three" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine_lvl3.jpg">\
+          <img class="imgTile" src="shopIMGS/engine3.png">\
           <span style="display:none;" id="1.45"></span>\
         </div>\
       </div>\
