@@ -54,6 +54,9 @@ let imageSources = {//Properties of imageSources match names of images
 	starfield: {
 		sourceString: "res/starfield.png"
 	},
+	death: {
+		sourceString: "res/sprites/youdied.jpg"
+	},
 	//inner game images
 	grass: {
 		sourceString: "../InnerGame/res/sprites/grass.png",
