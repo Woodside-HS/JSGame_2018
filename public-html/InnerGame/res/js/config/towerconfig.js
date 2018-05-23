@@ -28,7 +28,9 @@ const tower_types = {
         if (distsqrd(target.loc, minion.loc) < Math.pow(this.splash_range, 2))
           minion.status = status.poison;
       }
-    }
+    },
+    imageid: "spitter",
+    imageCount: 8
   },
   sniper: {
     name: 'sniper',
@@ -42,7 +44,9 @@ const tower_types = {
     bullet_color: 'orange',
     onHit: function (target) {
       target.hp -= this.damage;
-    }
+    },
+    imageid: "sniper",
+    imageCount: 10
   },
   repeater: {
     name: 'repeater',
@@ -56,7 +60,9 @@ const tower_types = {
     bullet_color: 'orange',
     onHit: function (target) {
       target.hp -= this.damage;
-    }
+    },
+    imageid: "repeater",
+    imageCount: 20
   }
 };
 const tower_config = {

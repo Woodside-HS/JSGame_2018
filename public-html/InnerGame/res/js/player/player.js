@@ -22,8 +22,13 @@ class Player extends Updateable {
     this.size=player_config.size;
     this.shotCooldownTimer=player_config.shot_cooldown;
     this.projectiles=[];
+    this.stdmaxV=player_config.max_speed;
   }
   init() {
+    this.engineMultiplier=Math.log(resources.innerEngineLevel);
+    this.stdmaxV*=1+this.engineMultiplier;
+    this.damageMultiplier=Math.log(resources.innerWeaponsLevel);
+    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/resources.innerWeaponsLevel,.5)+","+255*Math.pow(1/resources.innerWeaponsLevel,.5)+",.1)"
     this.hasMoved=false;
 //    this.image.src=player_config.image_src;
     // issue 118  don't reload this image for every player
@@ -37,7 +42,7 @@ class Player extends Updateable {
   update() {
     //set max v
     var loc = this.loc.duplicate(); //to see if loc has changed
-    this.maxV=player_config.max_speed;
+    this.maxV=this.stdmaxV;
     if(this.cloc.x >= 0 &&
        this.cloc.x < config.map_x_size &&
        this.cloc.y >= 0 &&
@@ -223,22 +228,55 @@ class Player extends Updateable {
   }
   checkImportantLoc(){
     //returns improtant loc, if it is one
-    if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
-      let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
-      //do something
-      resources.inventory.push(loot);
-      inventory.children[1].appendChild(loot.htmlElement);
-      loot.htmlElement.addEventListener("click",function(event){
-        SpaceStation.infoDiv.render(this,false);
-      });
-      game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
-      return 'loot';
-    }
-    if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
-      this.game.context.fillStyle="white";
-      this.game.context.font = "20px Georgia";
-      this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
-      return 'start';
+    for(let i=-1; i<=1; i++){
+      for(let j=-1; j<=1; j++){
+        this.cloc.add(new Vector2D(i,j));
+        if(this.cloc.x<0||this.cloc.y<0||
+           this.cloc.x>=config.map_x_size||this.cloc.y>=config.map_y_size)
+            continue;
+        if(game.mapManager.map[this.cloc.x][this.cloc.y].powerup){
+          let powerup=game.mapManager.map[this.cloc.x][this.cloc.y].powerup;
+          game.mapManager.map[this.cloc.x][this.cloc.y].powerup=null;
+          this.game.mapManager.powerupManager.delete(powerup);
+          switch (powerup.type.name){
+            case 'money':
+            resources.money+=powerup.type.amount;
+            resources.updateMoney();
+            break;
+            case 'hp':
+            this.hp+=powerup.type.amount;
+            ui_elements.player_healthbar.max_value+=powerup.type.amount;
+            break;
+            case 'shield':
+            break;
+            case 'arrow':
+            break;
+            case 'tech':
+            break;
+            case 'damage':
+            player_config.damage*=powerup.type.amount;
+            break;
+          }
+        }
+        if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
+          let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
+          //do something
+          resources.inventory.push(loot);
+          inventory.children[1].appendChild(loot.htmlElement);
+          loot.htmlElement.addEventListener("click",function(event){
+            SpaceStation.infoDiv.render(this,false);
+          });
+          game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
+          return 'loot';
+        }
+        if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
+          this.game.context.fillStyle="white";
+          this.game.context.font = "20px Georgia";
+          this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
+          return 'start';
+        }
+        this.cloc.subtract(new Vector2D(i,j));
+      }
     }
   }
   docKeyDown(e) {
@@ -265,9 +303,10 @@ class Player extends Updateable {
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
       break;
-      case'X':
-        if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
-      break;
+      // issue 138 let the outer game keypress handler take care of exiting the inner game
+      // case'X':
+      //   if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+      // break;
       case ""://shift
         if(resources.minions>0){
           game.minionManager.spawnMinion();

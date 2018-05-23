@@ -12,7 +12,14 @@ var currentLevel = -1;
 var currentGame = 'outer';
 var gameState;
 var resources;
-var playerStats = {revealLevel: 2};//which reveal method to use. 1,2,3,4
+var gamePlanet;
+var playerStats = {revealLevel: 1};//which reveal method to use. 1,2,3,4
+
+
+
+
+
+
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
@@ -38,49 +45,71 @@ function init(){
 		// boosts : [], //boost speed, firing frequency
 		// repairs : [], //repair/upgrade shield
 		// weapons : [], //add different kinds of weapons to use
-		aliens : [], //objects with png and name/planet
+		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
-		weaponsLevel : 1, //may have to split into different weapons/tools
-		engineLevel : 1,
+		innerWeaponsLevel : 1, //may have to split into different weapons/tools
+		innerEngineLevel : 1,
+		outerWeaponsLevel : 1, //may have to split into different weapons/tools
+		outerEngineLevel : 1,
 		minions: 5,
 
-		sellItem : function(itemName){
+		sellItem : function(item){
+			let name = item.id;
+			let available = false;
 			for(let i=0;i<this.inventory.length;i++){
-				if(this.inventory[i].name==itemName){
+				if(this.inventory[i].name==name){
 					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
-					break;
+					available = true;
 				}
+			}
+			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
+				//disable button to show cant sell anymore
+				let button = document.getElementById("invInfo").children[3];
+				button.disabled = true;
 			}
 			this.updateMoney();
 		},
 		buy : function(object){ //add object to inventory
 			this.money -= object.price;
 			this.updateMoney();
-			if(object.cat == "shieldsDiv"){
+			console.log(object.cat);
+			switch (object.cat){
+			case "Shield Boost":
 				this.shieldLevel += 1;
 				this.updateLevels(0);
-			} else if(object.cat == "weaponsDiv"){
-				this.weaponsLevel += 1;
+				break;
+			case "Turret":
+				this.outerWeaponsLevel += 1;
 				this.updateLevels(1);
-			} else if(object.cat == "enginesDiv"){
-				this.engineLevel += 1;
+				break;
+			case "Laser Gun":
+				this.innerWeaponsLevel += 1;
+				this.updateLevels(1);
+				break;
+			case "Ship Engine":
+				this.outerEngineLevel += 1;
 				this.updateLevels(2);
-			} else if(object.cat == "healthDiv"){
+				break;
+			case "Rover Engine":
+				this.innerEngineLevel += 1;
+				this.updateLevels(2);
+				break;
+			case "Health Boost":
 				this.health +=1;
 				this.updateHealth();
-			} else if (object.cat==="miscDiv"){//it's minions for some reason?
+				break;
+			case "Minions":
 				this.minions+=1;
+				break;
+			case "Fog Remover":
+				if(playerStats.revealLevel<=4)
+				playerStats.revealLevel+=1;
+				break;
 			}
 		},
 
-		infoPanel : document.getElementById("infoPanel"),
-		clearSubDiv : function(num){
-			var div = infoPanel.children[num];
-	    for(let i = 1; i<div.children.length;i++){
-	      div.children[i].remove();
-	    }
-		},
+
 		updateHealth : function(){
 			var div = document.getElementById("Health");
 			div.children[0].innerHTML = "" + this.health*10 + "%";
@@ -144,6 +173,8 @@ function animate(){
 			//inner world
 			game.update();
 			game.render();
+		} else if(gameState=="transition"){
+
 		}
 	}
 }

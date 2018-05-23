@@ -5,6 +5,8 @@ class Asteroid extends Mover {
 		// this.radius = radius;
 		var asteroidImageNum = Math.floor(Math.random()*10+1);
     this.asteroidImage = Images['Asteroid' + asteroidImageNum];
+	this.angle = Math.random(Math.PI*2);
+	this.rotation = Math.random()*0.2;
 
 		let stats = new StatBlock(1000, {killable: false}); // Health based on radius
 		stats.assign(this);
@@ -17,7 +19,13 @@ class Asteroid extends Mover {
 			let collisionVisual = new BulletImpactVisual(this.loc.clone(), 'gray');
 			collisionVisual.maxRadius = 8;
 			System().addVisual(collisionVisual);
+			System().makeAsteroids(1, true); // Issue 136 regenerate
 		});
+	}
+
+	mass() {
+		var massConstant = 30;
+		return massConstant * Math.PI * Math.pow(this.radius, 2);
 	}
 
 	update() {
@@ -29,8 +37,9 @@ class Asteroid extends Mover {
 		}
 
 		this.vel.add(this.acc);
-    this.loc.add(this.vel.clone().scalarDiv(FPS));
-    this.acc.scalarMult(0);
+	    this.loc.add(this.vel.clone().scalarDiv(FPS));
+	    this.acc.scalarMult(0);
+		this.angle += this.rotation;
 
 		//vvv issue 98, wrap around edge of world
 		if(Math.abs(this.loc.x)>(System().width*5/4)){
@@ -52,11 +61,21 @@ class Asteroid extends Mover {
 	}
 
 	render() {
-    var dx = this.loc.x-this.radius;
-    var dy = this.loc.y-this.radius;
-    var dw = this.radius*2;
-    var dh = this.radius*2;
-    //ctx.drawImage(asteroid, 0, 0, asteroid.width, asteroid.height, dx, dy, dw, dh);
-		ctx.drawImage(this.asteroidImage, dx, dy, dw, dh);
+		// Issue 136 Draw only if the asteroid is within the canvas bounds
+		let cnvLoc = Vector2D.copy(System().camera.loc);
+		let cnvLeft = cnvLoc.x - canvas.width/2;
+		let cnvTop = cnvLoc.y - canvas.height/2;
+		let cnvRight = cnvLoc.x  + canvas.width/2;
+		let cnvBottom = cnvLoc.y + canvas.height/2;
+		if((this.loc.x - this.radius) < cnvRight &&
+			(this.loc.x + this.radius) > cnvLeft &&
+			(this.loc.y + this.radius) > cnvTop &&
+			(this.loc.y - this.radius) < cnvBottom) {
+			ctx.save();
+			ctx.translate(this.loc.x, this.loc.y);
+			ctx.rotate(this.angle);
+			ctx.drawImage(this.asteroidImage, -this.radius, -this.radius, this.radius*2, this.radius*2);
+			ctx.restore();
+		}
 	}
 }

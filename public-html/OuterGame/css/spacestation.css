@@ -166,6 +166,7 @@
 
 #infoButton:hover{
   background-color: green;
+  color: white;
 }
 
 #infoButton:active{

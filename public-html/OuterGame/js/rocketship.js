@@ -19,11 +19,11 @@ class Rocketship extends Mover {
 		//dir keeps track of direction ship is pointing when velocity is 0 or too small
 		//ship starts pointing right
 		this.dir = 0;
-		this.configMaxVel=180;
-		this.maxVel = 180;
+		this.configMaxVel = 300;
+		this.maxVel = this.configMaxVel;
 		this.mouseLoc = null;
 		this.minMovementRange = 1;
-		this.mouseAccel = .5
+		this.mouseAccel = .1
 		this.image = Images['playerShip'];
 		this.shipScalingFactor = .6;
 
@@ -52,6 +52,11 @@ class Rocketship extends Mover {
 
 		let shield = new Shield(this);
 		this.addShield(shield);
+	}
+
+	mass() {
+		//return Math.PI * Math.pow(this.radius, 2);
+		return 100;
 	}
 
 	update() {
@@ -92,17 +97,18 @@ class Rocketship extends Mover {
 				this.acc.setMag(this.mouseAccel*(movementVector.magnitude() - this.minMovementRange));
 			}
 		}
-		let frictionAcc = this.vel.clone();
+		/*let frictionAcc = this.vel.clone();
 		frictionAcc.setMag(-1 * this.frictionAcc);
-		this.vel.add(frictionAcc);
+		this.vel.add(frictionAcc);*/
 		this.vel.add(this.acc);
 		this.vel.limit(this.maxVel);
 
 		//only recalculate direction if velocity is greater than 0
-		if (this.vel.magnitude() > 0.00001) { // issue 3
+		if (this.vel.magnitude() > 0.001) { // issue 3
 			this.dir = this.vel.theta();
 		}
 		// removed a condition for issue 3
+		//System().pastVels.push(this.vel.clone().scalarDiv(FPS));
 
 		this.loc.add(this.vel.clone().scalarDiv(FPS));
 		this.acc.scalarMult(0);
