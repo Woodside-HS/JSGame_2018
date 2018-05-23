@@ -1,89 +1,89 @@
 let imageSources = {//Properties of imageSources match names of images
 	//outer game images
 	Asteroid1: {
-		sourceString:"res/sprites/Planet/Asteroid1.png",
+		sourceString: "res/sprites/Planet/Asteroid1.png",
 	},
 	Asteroid2: {
-		sourceString:"res/sprites/Planet/Asteroid2.png",
+		sourceString: "res/sprites/Planet/Asteroid2.png",
 	},
 	Asteroid3: {
-		sourceString:"res/sprites/Planet/Asteroid3.png",
+		sourceString: "res/sprites/Planet/Asteroid3.png",
 	},
 	Asteroid4: {
-		sourceString:"res/sprites/Planet/Asteroid4.png",
+		sourceString: "res/sprites/Planet/Asteroid4.png",
 	},
 	Asteroid5: {
-		sourceString:"res/sprites/Planet/Asteroid5.png",
+		sourceString: "res/sprites/Planet/Asteroid5.png",
 	},
 	Asteroid6: {
-		sourceString:"res/sprites/Planet/Asteroid6.png",
+		sourceString: "res/sprites/Planet/Asteroid6.png",
 	},
 	Asteroid7: {
-		sourceString:"res/sprites/Planet/Asteroid7.png",
+		sourceString: "res/sprites/Planet/Asteroid7.png",
 	},
 	Asteroid8: {
-		sourceString:"res/sprites/Planet/Asteroid8.png",
+		sourceString: "res/sprites/Planet/Asteroid8.png",
 	},
 	Asteroid9: {
-		sourceString:"res/sprites/Planet/Asteroid9.png",
+		sourceString: "res/sprites/Planet/Asteroid9.png",
 	},
 	Asteroid10: {
-		sourceString:"res/sprites/Planet/Asteroid10.png",
+		sourceString: "res/sprites/Planet/Asteroid10.png",
 	},
 	Planet1: {
-		sourceString:"res/sprites/Planet/PlanetTestRender0001.png",
+		sourceString: "res/sprites/Planet/PlanetTestRender0001.png",
 	},
 	Planet2: {
-		sourceString:"res/sprites/Planet/PlanetTestRender0002.png",
+		sourceString: "res/sprites/Planet/PlanetTestRender0002.png",
 	},
 	Planet3: {
-		sourceString:"res/sprites/Planet/PlanetTestRender0003.png",
+		sourceString: "res/sprites/Planet/PlanetTestRender0003.png",
 	},
 	Planet4: {
-		sourceString:"res/sprites/Planet/PlanetTestRender0004.png",
+		sourceString: "res/sprites/Planet/PlanetTestRender0004.png",
 	},
 	Planet5: {
-		sourceString:"res/sprites/Planet/PlanetTestRender0005.png",
+		sourceString: "res/sprites/Planet/PlanetTestRender0005.png",
 	},
 	enemyShip: {
-		sourceString:"res/ships/enemyShip.png",
+		sourceString: "res/ships/enemyShip.png",
 	},
 	playerShip: {
-		sourceString:"res/ships/playerShip.png",
+		sourceString: "res/ships/playerShip.png",
 	},
 	//inner game images
 	grass: {
-		sourceString:"../InnerGame/res/sprites/grass.png",
+		sourceString: "../InnerGame/res/sprites/grass.png",
 	},
 	fog: {
-		sourceString:"../InnerGame/res/sprites/fog.png",
+		sourceString: "../InnerGame/res/sprites/fog.png",
 	},
 	rocks2c: {
-		sourceString:"../InnerGame/res/sprites/rocks2c.png",
+		sourceString: "../InnerGame/res/sprites/rocks2c.png",
 	},
 	tractor: {
-		sourceString:"../InnerGame/res/sprites/tractor.png",
+		sourceString: "../InnerGame/res/sprites/tractor.png",
 	},
 	WATERTiles: {
-		sourceString:"../InnerGame/res/sprites/WATERTiles.png",
+		sourceString: "../InnerGame/res/sprites/WATERTiles.png",
 	},
 	hpPU: {
-		sourceString:"../InnerGame/res/sprites/hpPU.png",
+		sourceString: "../InnerGame/res/sprites/hpPU.png",
 	},
 	shieldPU: {
-		sourceString:"../InnerGame/res/sprites/shieldPU.png",
+		sourceString: "../InnerGame/res/sprites/shieldPU.png",
 	},
 	moneyPU: {
-		sourceString:"../InnerGame/res/sprites/moneyPU.png",
+		sourceString: "../InnerGame/res/sprites/moneyPU.png",
 	},
 	techPU: {
-		sourceString:"../InnerGame/res/sprites/techPU.png",
+		sourceString: "../InnerGame/res/sprites/techPU.png",
 	},
 	arrowPU: {
-		sourceString:"../InnerGame/res/sprites/arrowPU.png",
+		sourceString: "../InnerGame/res/sprites/arrowPU.png",
 	},
 	splash: {
-		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
+		sourceString: "../InnerGame/res/sprites/splash/youdied.jpg",
 	},
 	alien: {
 		sourceString:"../InnerGame/res/sprites/creatures/Alien.png",
@@ -235,173 +235,193 @@ let imageSources = {//Properties of imageSources match names of images
 
 	// Trading post images
 	shopBackground: {
-		sourceString:"shopIMGS/background.png",
+		sourceString: "shopIMGS/background.png",
 	},
 	brownie: {
-		sourceString:"shopIMGS/brownie.png",
+		sourceString: "shopIMGS/brownie.png",
 	},
 	shopButton: {
-		sourceString:"shopIMGS/button.png",
+		sourceString: "shopIMGS/button.png",
 	},
 	cake: {
-		sourceString:"shopIMGS/cake.png",
+		sourceString: "shopIMGS/cake.png",
 	},
 	coffee: {
-		sourceString:"shopIMGS/coffee.png",
+		sourceString: "shopIMGS/coffee.png",
 	},
 	cookie: {
-		sourceString:"shopIMGS/cookie.png",
+		sourceString: "shopIMGS/cookie.png",
 	},
 	cupcake: {
-		sourceString:"shopIMGS/cupcake.png",
+		sourceString: "shopIMGS/cupcake.png",
 	},
+	minion1: {
+		sourceString: "../InnerGame/res/sprites/minions/1.png",
+	},
+	minion2: {
+		sourceString: "../InnerGame/res/sprites/minions/2.png",
+	},
+	minion3: {
+		sourceString: "../InnerGame/res/sprites/minions/3.png",
+	},
+	minion4: {
+		sourceString: "../InnerGame/res/sprites/minions/4.png",
+	},
+	minion5: {
+		sourceString: "../InnerGame/res/sprites/minions/5.png",
+	},
+	minion6: {
+		sourceString: "../InnerGame/res/sprites/minions/6.png",
+	},
+	minion7: {
+		sourceString: "../InnerGame/res/sprites/minions/7.png"
+
+	}
 }
 
-function loadImages(){
+function loadImages() {
 	let promises = [];
-	for(let index in imageSources){
-		if(imageSources.hasOwnProperty(index)){
-			promises.push(new Promise(function(resolve,reject){
+	for (let index in imageSources) {
+		if (imageSources.hasOwnProperty(index)) {
+			promises.push(new Promise(function (resolve, reject) {
 				var img = new Image();
 				var sourceString = imageSources[index].sourceString;
-				img.addEventListener('load', function(){
+				img.addEventListener('load', function () {
 					resolve(img);
 				});
-				img.addEventListener('error', function(error){
+				img.addEventListener('error', function (error) {
 					console.log('Failed to load: ' + sourceString);
 					reject();
 				});
 				img.src = sourceString;
-			}).then(function(img){
+			}).then(function (img) {
 				Images[index] = img;
 			}))
 		}
 	}
-	Promise.all(promises).then(function(){
+	Promise.all(promises).then(function () {
 		loadSounds();
 	});
 }
 
-let soundSources = {//Properties of soundSources match names of sounds
-	backgroundMusic: {
-		sourceString:"res/sounds/A/bgS.mp3",
-	},
-	backgroundMusicAlt: {
-		sourceString:"res/sounds/B/bgS.mp3",
-	},
-	badNoiseDontUse: {
-		sourceString:"res/sounds/B/GoodNoiseplsuse.wav",
-	},
-	click: {
-		sourceString:"res/sounds/A/click.mp3",
-	},
-	cllsn: {
-		sourceString:"res/sounds/A/cllsn.mp3",
-	},
-	ding: {
-		sourceString:"res/sounds/A/ding.mp3",
-	},
-	doom: {
-		sourceString:"res/sounds/A/doom.mp3",
-	},
-	error: {
-		sourceString:"res/sounds/B/err.wav",
-	},
-	keyStroke1: {
-		sourceString:"res/sounds/B/computernoise1.wav",
-	},
-	keyStroke2: {
-		sourceString:"res/sounds/B/computernoise2.wav",
-	},
-	keyStroke3: {
-		sourceString:"res/sounds/B/computernoise3.wav",
-	},
-	mchn: {
-		sourceString:"res/sounds/A/mchn.mp3",
-	},
-	money: {
-		sourceString:"res/sounds/A/money.mp3",
-	},
-	point: {
-		sourceString:"res/sounds/B/points.wav",
-	},
-	mS1: {
-		sourceString:"res/sounds/A/mS1.mp3",
-	},
-	shipCollide1: {
-		sourceString:"res/sounds/B/CollidingwithOtherShips1.wav",
-	},
-	shipCollide2: {
-		sourceString:"res/sounds/B/CollidingwithOtherShips3.wav",
-	},
-	shipForwards: {
-		sourceString:"res/sounds/B/ShipNoiseForward.wav",
-	},
-	shipLand: {
-		sourceString:"res/sounds/B/SpaceShipLanding1.wav",
-	},
-	smash: {
-		sourceString:"res/sounds/A/smash.mp3",
-	},
-	spaceSounds: {
-		sourceString:"res/sounds/B/spaceambience1.wav",
-	},
-	takeoff: {
-		sourceString:"res/sounds/B/Takeoff.wav",
-	},
-	tDest: {
-		sourceString:"res/sounds/A/tDest.mp3",
-	},
-	tNoise: {
-		sourceString:"res/sounds/A/tNoise.mp3",
-	},
-	tpLand: {
-		sourceString:"res/sounds/B/LandingonTradePost.wav",
-	},
-	tradeErr: {
-		sourceString:"res/sounds/B/unsuccessfultrade.wav",
-	},
-	uPup: {
-		sourceString:"res/sounds/A/uPup.mp3",
-	},
-	water: {
-		sourceString:"res/sounds/A/water.mp3",
-	},
-	weaponPulse: {
-		sourceString:"res/sounds/A/weapon.mp3",
-	},
-	xplsn1: {
-		sourceString:"res/sounds/B/explosion4.wav",
-	},
-	xplsn2: {
-		sourceString:"res/sounds/B/explosion5.wav",
-	},
-	xplsn3: {
-		sourceString:"res/sounds/B/explosion3.wav",
-	}
-
-
-}
+// let soundSources = {//Properties of soundSources match names of sounds
+// 	backgroundMusic: {
+// 		sourceString:"res/sounds/A/bgS.mp3",
+// 	},
+// 	backgroundMusicAlt: {
+// 		sourceString:"res/sounds/B/bgS.mp3",
+// 	},
+// 	badNoiseDontUse: {
+// 		sourceString:"res/sounds/B/GoodNoiseplsuse.wav",
+// 	},
+// 	click: {
+// 		sourceString:"res/sounds/A/click.mp3",
+// 	},
+// 	cllsn: {
+// 		sourceString:"res/sounds/A/cllsn.mp3",
+// 	},
+// 	ding: {
+// 		sourceString:"res/sounds/A/ding.mp3",
+// 	},
+// 	doom: {
+// 		sourceString:"res/sounds/A/doom.mp3",
+// 	},
+// 	error: {
+// 		sourceString:"res/sounds/B/err.wav",
+// 	},
+// 	keyStroke1: {
+// 		sourceString:"res/sounds/B/computernoise1.wav",
+// 	},
+// 	keyStroke2: {
+// 		sourceString:"res/sounds/B/computernoise2.wav",
+// 	},
+// 	keyStroke3: {
+// 		sourceString:"res/sounds/B/computernoise3.wav",
+// 	},
+// 	mchn: {
+// 		sourceString:"res/sounds/A/mchn.mp3",
+// 	},
+// 	money: {
+// 		sourceString:"res/sounds/A/money.mp3",
+// 	},
+// 	point: {
+// 		sourceString:"res/sounds/B/points.wav",
+// 	},
+// 	mS1: {
+// 		sourceString:"res/sounds/A/mS1.mp3",
+// 	},
+// 	shipCollide1: {
+// 		sourceString:"res/sounds/B/CollidingwithOtherShips1.wav",
+// 	},
+// 	shipCollide2: {
+// 		sourceString:"res/sounds/B/CollidingwithOtherShips3.wav",
+// 	},
+// 	shipForwards: {
+// 		sourceString:"res/sounds/B/ShipNoiseForward.wav",
+// 	},
+// 	shipLand: {
+// 		sourceString:"res/sounds/B/SpaceShipLanding1.wav",
+// 	},
+// 	smash: {
+// 		sourceString:"res/sounds/A/smash.mp3",
+// 	},
+// 	spaceSounds: {
+// 		sourceString:"res/sounds/B/spaceambience1.wav",
+// 	},
+// 	takeoff: {
+// 		sourceString:"res/sounds/B/Takeoff.wav",
+// 	},
+// 	tDest: {
+// 		sourceString:"res/sounds/A/tDest.mp3",
+// 	},
+// 	tNoise: {
+// 		sourceString:"res/sounds/A/tNoise.mp3",
+// 	},
+// 	tpLand: {
+// 		sourceString:"res/sounds/B/LandingonTradePost.wav",
+// 	},
+// 	tradeErr: {
+// 		sourceString:"res/sounds/B/unsuccessfultrade.wav",
+// 	},
+// 	uPup: {
+// 		sourceString:"res/sounds/A/uPup.mp3",
+// 	},
+// 	water: {
+// 		sourceString:"res/sounds/A/water.mp3",
+// 	},
+// 	weaponPulse: {
+// 		sourceString:"res/sounds/A/weapon.mp3",
+// 	},
+// 	xplsn1: {
+// 		sourceString:"res/sounds/B/explosion4.wav",
+// 	},
+// 	xplsn2: {
+// 		sourceString:"res/sounds/B/explosion5.wav",
+// 	},
+// 	xplsn3: {
+// 		sourceString:"res/sounds/B/explosion3.wav",
+// 	}
+// }
 
 
   function loadSounds(){
 	let promises = [];
-	for(let index in soundSources){
-		if(soundSources.hasOwnProperty(index)){
-			promises.push(new Promise(function(resolve,reject){
-				var sourceString = soundSources[index].sourceString;
-				var sou = new Audio(sourceString);
-				sou.addEventListener('load', function(){
-					resolve(img);
-				});
-				sou.addEventListener('error', function(){
-					reject();
-				});
-			}).then(function(img){
-				Sounds[index] = sou;
-			}))
-		}
-	}
+	// for(let index in soundSources){
+	// 	if(soundSources.hasOwnProperty(index)){
+	// 		promises.push(new Promise(function(resolve,reject){
+	// 			var sourceString = soundSources[index].sourceString;
+	// 			var sou = new Audio(sourceString);
+	// 			sou.addEventListener('load', function(){
+	// 				resolve(img);
+	// 			});
+	// 			sou.addEventListener('error', function(){
+	// 				reject();
+	// 			});
+	// 		}).then(function(img){
+	// 			Sounds[index] = sou;
+	// 		}))
+	// 	}
+	// }
 	Promise.all(promises).then(function(){
 		init();
 	});

@@ -42,6 +42,7 @@
   <script src="../InnerGame/res/js/util/vector2d.js" type="text/javascript"></script>
   <script src="../InnerGame/res/js/util/fastvector.js" type="text/javascript"></script>
   <script src="../InnerGame/res/js/config/config.js" type="text/javascript"></script>
+  <script src="../InnerGame/res/js/config/lootconfig.js" type="text/javascript"></script>
   <script src="../InnerGame/res/js/sprite.js" type="text/javascript"></script>
   <script src="../InnerGame/res/js/map/mapmanager.js" type="text/javascript"></script>
   <script src="../InnerGame/res/js/config/powerupconfig.js" type="text/javascript"></script>
@@ -71,14 +72,22 @@
 
   <body>
     <div id="wrapper">
-
-      <div id="infoDiv">
-        <div class="info" id="info1"></div>
-        <div class="info" id="info2"></div>
-        <div class="info" id="info3"></div>
-        <div class="info" id="info4"></div>
-        <div class="info" id="info5"></div>
-        </div>
+      <div id="infoPanel">
+              <div class="infoPanelDiv" id="Health">
+                Health
+                <p>100%</p>
+              </div>
+              <div class="infoPanelDiv" id="Money">
+                Money
+                <p>$100</p>
+              </div>
+              <div class="infoPanelDiv" id="Ship Levels">
+                Ship Levels
+                <p class="shipLvls" id="shield">Shield: 1</p>
+                <p class="shipLvls" id="weapons">Weapons: 1</p>
+                <p class="shipLvls" id="engine">Engine: 1</p>
+              </div>
+      </div>
       <canvas id = "cnv"></canvas>
 
     </div>

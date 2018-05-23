@@ -16,11 +16,11 @@ class Tile extends Updateable {
       this.normalVector = new InnerVector2D(0, 0);
       this.quadNormal = new InnerVector2D(0, 0);
       this.sourceloc = new FastVector(0, 0);
+      this.loot = null;
     }
     init() {
-      this.animalImage = tile_config.animal_image;
       // issue 118 dont load these images every time
-//      this.animalImage.src = tile_config.animal_image_src;
+//      this.lootImage.src = tile_config.loot_image_src;
       this.image = this.tileType.image;
 //      this.image.src = this.tileType.image_src;
       this.isOccupied = this.tileType.is_occupied;
@@ -59,10 +59,13 @@ class Tile extends Updateable {
             default:
             this.game.context.drawImage(this.image, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
           }
-          if(this.hasAnimal||this.isStart){
-            this.game.context.drawImage(this.animalImage, this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          if(this.isStart){ //draw start image
+            this.game.context.drawImage(Images['Planet2'], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
           }
-        }
+          if(this.loot){ //draw loot image
+            this.game.context.drawImage(Images[this.loot.image], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+          }
+      }
 
       getImageRock() {
         let index = "";

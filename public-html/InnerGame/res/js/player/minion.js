@@ -25,6 +25,8 @@ class Minion extends Updateable {
     this.timer = this.cooldown;
     this.damage = minion_config.damage;
     this.attackFrame = false; //whether to attack that frame
+    this.type = Math.floor(randIn(0, minion_config.minion_type_count));
+    this.image = Images["minion" + (this.type+1)];
   }
   update() {
     this.cloc = positionToGrid(this.loc);
@@ -74,7 +76,7 @@ class Minion extends Updateable {
     this.a = new InnerVector2D(0, 0);
     //follow the path
     if (this.path && this.target == null && !this.attackFrame &&
-       (this.path.map[this.cloc.x][this.cloc.y].direction.x!=0 || this.path.map[this.cloc.x][this.cloc.y].direction.y!=0)) {
+      (this.path.map[this.cloc.x][this.cloc.y].direction.x != 0 || this.path.map[this.cloc.x][this.cloc.y].direction.y != 0)) {
       let accel = this.path.map[this.cloc.x][this.cloc.y].direction.toInnerVector2D();
       accel.m = minion_config.turn_speed;
       accel.upComps();
@@ -101,14 +103,14 @@ class Minion extends Updateable {
     let hitboxCloc = positionToGrid(hitBoxPos);
 
     //check for corner collision
-    if (false&& //turned off for now
-            (hitboxCloc.y >= 0 &&
-                    hitboxCloc.y < config.map_y_size &&
-                    hitboxCloc.x >= 0 &&
-                    hitboxCloc.x < config.map_x_size &&
-                    this.game.mapManager.map[hitboxCloc.x][hitboxCloc.y].isOccupied
-                    )
-            ) {
+    if (false && //turned off for now
+      (hitboxCloc.y >= 0 &&
+        hitboxCloc.y < config.map_y_size &&
+        hitboxCloc.x >= 0 &&
+        hitboxCloc.x < config.map_x_size &&
+        this.game.mapManager.map[hitboxCloc.x][hitboxCloc.y].isOccupied
+      )
+    ) {
       this.loc.subtract(this.v);//hol up
       this.v.multiply(-.1);//stop going that way
       this.v.upPols();
@@ -116,10 +118,10 @@ class Minion extends Updateable {
     }
     //check for a collision in the x direction
     if (
-            hitboxCloc.x < 0 ||
-            hitboxCloc.x >= config.map_x_size ||
-            this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied && !this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater
-            ) {
+      hitboxCloc.x < 0 ||
+      hitboxCloc.x >= config.map_x_size ||
+      this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isOccupied && !this.game.mapManager.map[hitboxCloc.x][this.cloc.y].isWater
+    ) {
       this.loc.subtract(this.v);//hold it!
       this.v.x = 0;//stop going that way
       this.v.upPols();
@@ -127,10 +129,10 @@ class Minion extends Updateable {
     }
     //check for a collision in the y direction
     if (
-            hitboxCloc.y < 0 ||
-            hitboxCloc.y >= config.map_y_size ||
-            this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied && !this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isWater
-            ) {
+      hitboxCloc.y < 0 ||
+      hitboxCloc.y >= config.map_y_size ||
+      this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isOccupied && !this.game.mapManager.map[this.cloc.x][hitboxCloc.y].isWater
+    ) {
       this.loc.subtract(this.v);//hol up
       this.v.y = 0;//stop going that way
       this.v.upPols();
@@ -142,14 +144,12 @@ class Minion extends Updateable {
     this.statusTimer = status.duration;
   }
   render() {
-    this.game.context.fillStyle = this.fillStyle;
-    this.game.context.beginPath();
-    this.game.context.arc(this.loc.x, this.loc.y, this.radius, 0, 2 * Math.PI);
-    this.game.context.fill();
-    // this.game.context.fillStyle = minion_config.healthbar_negative_color;
-    // this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, 2 * this.radius, this.radius);
-    // this.game.context.fillStyle = minion_config.healthbar_positive_color
-    // this.game.context.fillRect(this.loc.x - this.radius, this.loc.y + 2 / 3 * this.radius, this.hp / this.maxhp * 2 * this.radius, this.radius);
+    this.game.context.drawImage(
+      this.image,
+      this.loc.x - this.size/2,
+      this.loc.y - this.size/2,
+      this.size,
+      this.size);
 
     if (this.attackFrame && this.target) {
       this.game.context.strokeStyle = minion_config.laser_color;

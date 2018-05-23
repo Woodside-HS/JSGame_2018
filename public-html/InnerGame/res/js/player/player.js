@@ -150,11 +150,11 @@ class Player extends Updateable {
     if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
     if(this.dashTimer>0) this.dashTimer--;
     if(loc.x != this.loc.x || loc.y != this.loc.y){
-      if(playerStats.reveal == 'reveal1' || playerStats.reveal == 'reveal2'){
+      if(playerStats.revealLevel == 1 || playerStats.revealLevel == 2){
         this.game.player.revealCone();
-      }else if(playerStats.reveal == 'reveal3' || playerStats.reveal == 'reveal4'){
+      }else if(playerStats.revealLevel == 3 || playerStats.revealLevel == 4){
         this.game.mapManager.revealCircle();
-      }else if(playerStats.reveal == 'reveal5'){
+      }else if(playerStats.revealLevel == 5){
         this.game.mapManager.revealAll();
       }
     }
@@ -171,9 +171,9 @@ class Player extends Updateable {
   }
   revealCone(){
     var cloc = positionToGrid(this.loc);
-    if(playerStats.reveal == 'reveal1'){
+    if(playerStats.revealLevel == 1){
       var distSq = 50;
-    }else if(playerStats.reveal == 'reveal2'){
+    }else if(playerStats.revealLevel == 2){
       var distSq = 150;
     }
     var angleC = this.v.th + Math.PI/7;
@@ -223,13 +223,18 @@ class Player extends Updateable {
   }
   checkImportantLoc(){
     //returns improtant loc, if it is one
-    if(game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal){
+    if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
+      let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
       //do something
-      game.mapManager.map[this.cloc.x][this.cloc.y].hasAnimal=false;
-      return 'animal';
+      resources.inventory.push(loot);
+      inventory.children[1].appendChild(loot.htmlElement);
+      loot.htmlElement.addEventListener("click",function(event){
+        SpaceStation.infoDiv.render(this,false);
+      });
+      game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
+      return 'loot';
     }
     if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
-      console.log('hello');
       this.game.context.fillStyle="white";
       this.game.context.font = "20px Georgia";
       this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
@@ -255,13 +260,19 @@ class Player extends Updateable {
         if (game.player.a.x != 1)
           game.player.a.x = 1;//go right
         break;
-      case' ':
+      case' '://space
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
       break;
       case'X':
         if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+      break;
+      case ""://shift
+        if(resources.minions>0){
+          game.minionManager.spawnMinion();
+          resources.minions-=1;
+        }
       break;
     }
   }

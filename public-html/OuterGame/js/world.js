@@ -75,10 +75,6 @@
 							var div = document.getElementById("spacestation");
 							div.style.display = "block";
 							//^^will render station instead of space in run function
-							//vvv reset store
-							div.children[3].children[0].checked = "checked";
-							SpaceStation.changeCategory();
-							SpaceStation.infoDiv.removeChildren();
 						}
 					}
 					break;
