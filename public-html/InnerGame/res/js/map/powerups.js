@@ -11,7 +11,7 @@ class PowerUpManager extends Updateable {
     for(let i=0; i<map_config.powerup_count; i++){
       let index = Math.floor(Math.random()*this.validStartTiles.length);
       let type;
-      switch (Math.floor(Math.random()*3)){
+      switch (Math.floor(Math.random()*6)){
         case 0:
         type = 'hp'
         break;
@@ -27,17 +27,21 @@ class PowerUpManager extends Updateable {
         case 4:
         type = 'tech'
         break;
+        case 5:
+        type = 'damage'
+        break;
         default:{
         }
       }
-      this.validStartTiles[index].powerup= new PowerUp(this.game, type, this.validStartTiles[index].cloc);
-      this.powerups.push(this.validStartTiles[index].powerup)
+      this.validStartTiles[index].powerup= new PowerUp(this.game, type, this.validStartTiles[index].cloc, i);
+      this.powerups[i]=this.validStartTiles[index].powerup
       this.validStartTiles[index].powerup.init();
       this.validStartTiles.splice(index,1);
     }
   }
   update() {
     for(let i=0; i<this.powerups.length; i++){
+      this.powerups[i].index=i;
       this.powerups[i].update();
     }
   }
@@ -46,10 +50,14 @@ class PowerUpManager extends Updateable {
       this.powerups[i].render();
     }
   }
+  delete(powerup){
+    this.powerups.splice(powerup.index,1);
+  }
 }
 class PowerUp extends Updateable {
-  constructor(game, type, cloc) {
+  constructor(game, type, cloc, index) {
     super();
+    this.index=index;
     this.cloc=cloc;
     this.loc=gridToPositon(cloc);
     this.type=powerup_types[type]
