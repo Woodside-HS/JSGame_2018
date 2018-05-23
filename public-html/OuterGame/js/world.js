@@ -13,7 +13,6 @@
 		this.width = 2400;
 		this.frameCount = 0;
 		this.realFPS = 0;
-		this.canvasLoc = new Vector2D(0,0);
 		//this.pastVels = []; //array of ships velocties for canvas lag
 
 		setInterval(this.checkFPS, 250);
@@ -271,8 +270,8 @@
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.canvasLoc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.canvasLoc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
 
 		return new Vector2D(posX, posY);
 	}
