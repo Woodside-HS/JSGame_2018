@@ -38,8 +38,9 @@ function load(){
 }
 function init(){
 	loot_types.init();
+
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
-		health: 10,
+		health: null,
 		money : 100,
 		inventory : [], //each has a value
 		// boosts : [], //boost speed, firing frequency
@@ -83,7 +84,7 @@ function init(){
 				this.engineLevel += 1;
 				this.updateLevels(2);
 			} else if(object.cat == "healthDiv"){
-				this.health +=1;
+				this.health.maxHp +=3;
 				this.updateHealth();
 			} else if (object.cat==="miscDiv"){
 				if(object.id=="Minions"){
@@ -96,8 +97,9 @@ function init(){
 
 
 		updateHealth : function(){
-			var div = document.getElementById("Health");
-			div.children[0].innerHTML = "" + this.health*10 + "%";
+			// var div = document.getElementById("Health");
+			// div.children[0].innerHTML = "" + this.health*10 + "%";
+			// console.log(resources.health);
 		},
 		updateMoney : function(){
 			var div = document.getElementById("Money");
@@ -145,7 +147,7 @@ function makeWorld(){
   //add world to array
   worlds.push(w);
   w.initialize();
-	setInterval(animate, 1000/FPS)
+	setInterval(animate, 1000/FPS);
 }
 
 function animate(){
