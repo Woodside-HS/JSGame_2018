@@ -2,7 +2,7 @@
 class DroneShip extends Mover {
 	constructor(loc){
 		super(loc);
-		this.radius = 12;
+		this.radius = 20;
 
 		this.vel = new Vector2D(Math.random() * 20 - 10, Math.random() * 20 - 10);
 

@@ -250,6 +250,21 @@ let imageSources = {//Properties of imageSources match names of images
 	t19: {
 		sourceString:"../InnerGame/res/sprites/t2/t0020.png",
 	},
+	panel01: {
+		sourceString:"res/panels/bluedown.png",
+	},
+	panel02: {
+		sourceString:"res/panels/greendown.png",
+	},
+	panel03: {
+		sourceString:"res/panels/greydown.png",
+	},
+	panel04: {
+		sourceString:"res/panels/purpledown.png",
+	},
+	panel05: {
+		sourceString:"res/panels/reddown.png",
+	},
 
 	// Trading post images
 	shopBackground: {
