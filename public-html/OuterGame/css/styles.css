@@ -7,26 +7,23 @@ body{
 canvas {
 	cursor: none;
 }
-<<<<<<< HEAD
-#b1 {
-  width: 129px;
-  height: 80px;
-  border: black solid 2px;
-  border-radius: 10px;
-}
-=======
 .infoPanelDiv {
   width: 129px;
   height: 80px;
   float:left;
   background-color: white;
   border: black solid 2px;
-  margin-left: 150px;
+  margin-left: 100px;
   margin-right: 0px;
   margin-top: 8px;
   border-radius: 10px;
 }
-
+#help {
+  width: 129px;
+  height: 80px;
+  border: black solid 2px;
+  border-radius: 10px;
+}
 .shipLvls{
   margin: 0px;
 }
@@ -38,7 +35,6 @@ canvas {
   background-color: #7bc6b9;
 
 }
->>>>>>> master
 #wrapper {
   display: none;
   border: 0px solid black;
@@ -58,27 +54,6 @@ canvas {
     height: 67%;
     z-index: 1000;
 }
-
-.info {
-  width: 129px;
-  height: 80px;
-  float:left;
-  background-color: white;
-  border: black solid 2px;
-  margin-left: 35px;
-  margin-right: 35px;
-  margin-top: 8px;
-  border-radius: 10px;
-
-}
-#infoDiv {
-  width:1024px;
-  height:100px;
-  float:left;
-  background-color: green;
-
-}
-
 
 #loader {
     display: block;
