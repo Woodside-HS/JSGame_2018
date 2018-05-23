@@ -142,7 +142,7 @@ function init(){
 
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
-	gameState = "outer";
+	gameState = "transition";
 	makeWorld();
 	var wrapper = document.getElementById('wrapper');
 	var loaderwrapper = document.getElementById('loader-wrapper');
@@ -164,6 +164,7 @@ function makeWorld(){
 	document.addEventListener("keypress", function handler(event) {
 		switch(event.key) {
 			case " ":
+				gameState = "outer";
 				document.removeEventListener("keypress", handler);
 				panel.style.display = "none";
 				w.initialize();
