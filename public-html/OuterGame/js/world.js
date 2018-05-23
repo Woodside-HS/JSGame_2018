@@ -676,12 +676,21 @@
 	drawBackground(){
 		let parallaxScale = 0.1;
 		let backgroundImg = Images.starfield;
+		let startLoc = new Vector2D(
+			this.camera.loc.x-canvas.width,
+			this.camera.loc.y-canvas.height
+		);
+		startLoc.scalarMult(parallaxScale);
 		ctx.drawImage(
 			backgroundImg,
-			-parallaxScale * this.camera.loc.x,
-			-parallaxScale*this.camera.loc.y,
-			backgroundImg.width /2 ,
-			backgroundImg.height/2
+			startLoc.x,
+			startLoc.y,
+			backgroundImg.width,
+			backgroundImg.height,
+			(-parallaxScale * this.camera.loc.x) - this.width/2,
+			(-parallaxScale*this.camera.loc.y) - this.height/2,
+			backgroundImg.width,
+			backgroundImg.height
 		);
 	}
 
