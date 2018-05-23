@@ -133,13 +133,7 @@ class MapManager extends Updateable {
       for (let j = cloc.y - 2; j <= cloc.y + 2; j++)
         if ((Math.abs(i - cloc.x) + Math.abs(j - cloc.y)) <= 2 && i >= 0 && i < config.map_x_size && j >= 0 && j < config.map_y_size)
           this.game.mapManager.map[i][j].seen = true;
-    if (playerStats.revealLevel == 1 || playerStats.revealLevel == 2) {
-      this.game.player.revealCone();
-    } else if (playerStats.revealLevel == 3 || playerStats.revealLevel == 4) {
-      this.game.mapManager.revealCircle();
-    } else if (playerStats.revealLevel == 5) {
-      this.game.mapManager.revealAll();
-    }
+    this.game.player.revealCone();
   }
   /**set world-specific config
    * called only on mapManager.init()
@@ -190,35 +184,6 @@ class MapManager extends Updateable {
     this.towerManager.render();
     this.powerupManager.render();
   }
-  revealCircle() {
-    var cloc = positionToGrid(this.game.player.loc);
-    if (playerStats.revealLevel == 3) {
-      var distSq = 50;
-    } else if (playerStats.revealLevel == 4) {
-      var distSq = 120;
-    }
-    for (let i = cloc.x - (config.mask_radius + 1); i < cloc.x + (config.mask_radius + 1); i++) {
-      for (let j = cloc.y - (config.mask_radius + 1); j < cloc.y + (config.mask_radius + 1); j++) {
-        if (!(i < 0) && !(i > config.map_x_size - 1) && !(j < 0) && !(j > config.map_y_size - 1)) {
-          var tile = this.game.mapManager.map[i][j];
-          var tileLoc = positionToGrid(tile.loc);
-          var actualDistSq = ((cloc.x - tileLoc.x) * (cloc.x - tileLoc.x) + (cloc.y - tileLoc.y) * (cloc.y - tileLoc.y));
-          if (actualDistSq <= distSq) {
-            tile.seen = true;
-          }
-        }
-      }
-    }
-  }
-  revealAll() {
-    for (let i = 0; i < this.game.mapManager.map.length; i++) {
-      for (let j = 0; j < this.game.mapManager.map.length; j++) {
-        var tile = this.game.mapManager.map[i][j];
-        tile.seen = true;
-      }
-    }
-  }
-
   getValidStartTile() {
     let index = Math.floor(randIn(0, this.validStartTiles.length));
     let tile = this.validStartTiles.splice(index, 1);

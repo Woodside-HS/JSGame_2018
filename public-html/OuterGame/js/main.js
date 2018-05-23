@@ -97,6 +97,8 @@ function init(){
 				break;
 			case "Health Boost":
 				this.health +=1;
+				player_config.max_hp+=10;
+				ui_elements.player_healthbar.max_value+=10;
 				this.updateHealth();
 				break;
 			case "Minions":
