@@ -87,7 +87,11 @@ function init(){
 				if(object.id=="Max HP Increase"){
 					this.health.maxHp +=3;
 				} else if(object.id == "Instant Health Boost"){
-					System().ship.stats.healDamage(10);
+					if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
+						this.money += object.price;
+					} else{
+						System().ship.stats.healDamage(10);
+					}
 				}
 			} else if (object.cat==="miscDiv"){
 				if(object.id=="Minions"){
