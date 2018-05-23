@@ -634,6 +634,7 @@
 	}
 
 	render() {
+		this.drawBackground();
 
 		ctx.save();
 		//translate to camera
@@ -641,6 +642,7 @@
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 
+		
 		let arr = []; // Building an array of every entity and planet
 
 		for (var i = 0; i < this.planets.length; i++) {
@@ -669,6 +671,27 @@
 		this.drawCursor();
 		this.drawDebug();
 
+	}
+
+	drawBackground(){
+		let parallaxScale = 0.1;
+		let backgroundImg = Images.starfield;
+		let startLoc = new Vector2D(
+			this.camera.loc.x-canvas.width,
+			this.camera.loc.y-canvas.height
+		);
+		startLoc.scalarMult(parallaxScale);
+		ctx.drawImage(
+			backgroundImg,
+			startLoc.x,
+			startLoc.y,
+			backgroundImg.width,
+			backgroundImg.height,
+			(-parallaxScale * this.camera.loc.x) - this.width/2,
+			(-parallaxScale*this.camera.loc.y) - this.height/2,
+			backgroundImg.width,
+			backgroundImg.height
+		);
 	}
 
 	drawSelectionBuffer() {
