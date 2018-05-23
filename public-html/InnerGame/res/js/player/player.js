@@ -48,7 +48,7 @@ class Player extends Updateable {
        this.cloc.y >= 0 &&
        this.cloc.y < config.map_y_size &&
        this.game.mapManager.map[this.cloc.x][this.cloc.y].isWater){
-         this.maxV=player_config.water_speed;
+         this.maxV=player_config.water_speed*this.engineMultiplier;
     }
 
     this.hasMoved=true;
