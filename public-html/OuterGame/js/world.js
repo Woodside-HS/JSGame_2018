@@ -13,7 +13,6 @@
 		this.width = 2400;
 		this.frameCount = 0;
 		this.realFPS = 0;
-		this.canvasLoc = new Vector2D(0,0);
 		//this.pastVels = []; //array of ships velocties for canvas lag
 
 		setInterval(this.checkFPS, 250);
@@ -108,7 +107,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		//this.camera = new Camera(); // TODO: make this actually do something?
+		this.camera = new Camera(); 
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
@@ -150,10 +149,10 @@
 			var vel = new Vector2D(Math.random() * 1000 - 500, Math.random() * 1000 - 500);
 			var ast = new Asteroid(new Vector2D(x, y), vel, null, r);
 			if (!bool) { //bool=if asteroids can show up in canvas
-				let b1 = (x + r) < (this.ship.loc.x + (canvas.width / 2));
-				let b2 = (x - r) > (this.ship.loc.x - (canvas.width / 2));
-				let b3 = (y + r) < (this.ship.loc.y + (canvas.height / 2));
-				let b4 = (y - r) > (this.ship.loc.y - (canvas.height / 2));
+				let b1 = (x + r) < (this.camera.loc.x + (canvas.width / 2));
+				let b2 = (x - r) > (this.camera.loc.x - (canvas.width / 2));
+				let b3 = (y + r) < (this.camera.loc.y + (canvas.height / 2));
+				let b4 = (y - r) > (this.camera.loc.y - (canvas.height / 2));
 				//all the b vars check if the loc+radius are in the canvas
 				if (b1 || b2 || b3 || b4) { // if it's inside the canvas
 					a = false; //asteroid should not be pushed to entities array
@@ -263,16 +262,16 @@
 
 		// let posX = this.ship.loc.x - relativePos.x;
 		// let posY = this.ship.loc.y - relativePos.y;
-		let posX = this.canvasLoc.x - relativePos.x;
-		let posY = this.canvasLoc.y - relativePos.y;
+		let posX = this.camera.loc.x - relativePos.x;
+		let posY = this.camera.loc.y - relativePos.y;
 
 		return new Vector2D(posX, posY);
 	}
 
 	getScreenPosition(object) { // Find position (relative to center of screen) of any object
 
-		let posX = canvas.width / 2 + object.loc.x - this.canvasLoc.x;
-		let posY = canvas.height / 2 + object.loc.y - this.canvasLoc.y;
+		let posX = canvas.width / 2 + object.loc.x - this.camera.loc.x;
+		let posY = canvas.height / 2 + object.loc.y - this.camera.loc.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -588,12 +587,8 @@
 
 	update() {
 		this.frameCount++;
-		//this.camera.update(); // No effect until the camera is implemented
-		var canvToShip = Vector2D.subtract(this.ship.loc, this.canvasLoc);
-		canvToShip.scalarMult(.05);
+		this.camera.update(); //Update the location of the camera
 
-
-		this.canvasLoc.add(canvToShip);
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
 
@@ -642,9 +637,7 @@
 
 		ctx.save();
 		//translate to camera
-		//ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
-		//ctx.translate(canvas.width / 2 - this.ship.loc.x, canvas.height / 2 - this.ship.loc.y);
-		ctx.translate(canvas.width / 2 - this.canvasLoc.x, canvas.height / 2 - this.canvasLoc.y);
+		ctx.translate(-this.camera.loc.x + canvas.width /2 , -this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
 

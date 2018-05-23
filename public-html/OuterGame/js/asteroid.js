@@ -62,7 +62,7 @@ class Asteroid extends Mover {
 
 	render() {
 		// Issue 136 Draw only if the asteroid is within the canvas bounds
-		let cnvLoc = System().canvasLoc;
+		let cnvLoc = Vector2D.copy(System().camera.loc);
 		let cnvLeft = cnvLoc.x - canvas.width/2;
 		let cnvTop = cnvLoc.y - canvas.height/2;
 		let cnvRight = cnvLoc.x  + canvas.width/2;
