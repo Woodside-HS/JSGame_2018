@@ -101,6 +101,36 @@ let imageSources = {//Properties of imageSources match names of images
 	panel05: {
 		sourceString:"res/panels/reddown.png",
 	},
+	// Trading post images
+	stationBackground: {
+		sourceString:"shopIMGS/background.png",
+
+
+		roverEngine: {
+			sourceString:"shopIMGS/engine2.png",
+		},
+		fogRemover: {
+			sourceString:"shopIMGS/fog.png",
+		},
+		health: {
+			sourceString:"shopIMGS/health.png",
+		},
+		lasergun: {
+			sourceString:"shopIMGS/lasergun.png",
+		},
+		turret: {
+			sourceString:"shopIMGS/turret.png",
+		},
+		shield: {
+			sourceString:"shopIMGS/shield.png",
+		},
+		minion: {
+			sourceString:"shopIMGS/minion.png",
+		},
+		exitButton: {
+			sourceString:"shopIMGS/exit.png",
+		}
+	},
 	minion1: {
 		sourceString: "../InnerGame/res/sprites/minions/1.png",
 	},
@@ -123,6 +153,7 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "../InnerGame/res/sprites/minions/7.png"
 	}
 }
+
 
 function loadImages() {
 	let promises = [];

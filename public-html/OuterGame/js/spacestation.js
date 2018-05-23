@@ -53,7 +53,7 @@ class SpaceStation{
           button.onclick = function(){
             let price = this.item.children[1].id;
             if(resources.money>=price){
-              var object = {cat:this.item.parentElement.id,price:price};
+              var object = {cat:this.item.id,price:price};
               resources.buy(object);
             }
           };
