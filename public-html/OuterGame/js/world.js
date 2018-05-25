@@ -587,7 +587,7 @@
 	}
 
 	update() {
-		this.frameCount++;
+//		this.frameCount++;
 		this.camera.update(); //Update the location of the camera
 
 		this.checkAsteroidCollision();
@@ -662,7 +662,7 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
-		
+
 		this.checkHitPlanet();
 
 		//translate to absolute

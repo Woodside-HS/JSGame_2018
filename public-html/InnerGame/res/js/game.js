@@ -80,6 +80,8 @@ class Game extends Updateable {
       this.mask.update();
     }
 
+    
+
     this.userInterface.update();
   }
   render() {

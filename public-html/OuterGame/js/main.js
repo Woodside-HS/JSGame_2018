@@ -166,6 +166,7 @@ function makeWorld(){
 }
 
 function animate(){
+	this.frameCount++;
 	if(gameState!="station"){
 	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
 	  //run this level's world
