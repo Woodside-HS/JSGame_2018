@@ -189,7 +189,7 @@ function animate(){
 			game.update();
 			game.render();
 		} else if(gameState=="transition"){
-
+			//do nothing for now
 		}
 	}
 }
