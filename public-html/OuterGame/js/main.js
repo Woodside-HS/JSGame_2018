@@ -13,7 +13,7 @@ var currentGame = 'outer';
 var gameState;
 var resources;
 var gamePlanet;
-var playerStats = {revealLevel: 2};//which reveal method to use. 1,2,3,4
+var playerStats = {revealLevel: 1};//which reveal method to use. 1,2,3,4
 
 
 
@@ -48,8 +48,10 @@ function init(){
 		// weapons : [], //add different kinds of weapons to use
 		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
-		weaponsLevel : 1, //may have to split into different weapons/tools
-		engineLevel : 1,
+		innerWeaponsLevel : 1, //may have to split into different weapons/tools
+		innerEngineLevel : 1,
+		outerWeaponsLevel : 1, //may have to split into different weapons/tools
+		outerEngineLevel : 1,
 		minions: 5,
 		fogLevel: 1,
 
@@ -74,33 +76,54 @@ function init(){
 		buy : function(object){ //add object to inventory
 			this.money -= object.price;
 			this.updateMoney();
-			if(object.cat == "shieldsDiv"){
+			console.log(object.cat);
+			switch (object.cat){
+			case "Shield Boost":
 				this.shieldLevel += 1;
 				this.updateLevels(0);
-			} else if(object.cat == "weaponsDiv"){
-				this.weaponsLevel += 1;
+				break;
+			case "Turret":
+				this.outerWeaponsLevel += 1;
 				this.updateLevels(1);
-			} else if(object.cat == "enginesDiv"){
-				this.engineLevel += 1;
+				break;
+			case "Laser Gun":
+				this.innerWeaponsLevel += 1;
+				this.updateLevels(1);
+				break;
+			case "Ship Engine":
+				this.outerEngineLevel += 1;
 				this.updateLevels(2);
-			} else if(object.cat == "healthDiv"){
-				if(object.id=="Max HP Increase"){
-					this.health.maxHp +=3;
-				} else if(object.id == "Instant Health Boost"){
-					if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
-						this.money += object.price;
-					} else{
-						System().ship.stats.healDamage(10);
-					}
-				}
-			} else if (object.cat==="miscDiv"){
-				if(object.id=="Minions"){
-					this.minions+=1;
-				} else if(object.id=="Fog Remover"){
-					fogLevel +=1;
-				}
+				break;
+			case "Rover Engine":
+				this.innerEngineLevel += 1;
+				this.updateLevels(2);
+				break;
+			case "Health Boost":
+				this.health +=1;
+				player_config.max_hp+=10;
+				ui_elements.player_healthbar.max_value+=10;
+				this.updateHealth();
+				break;
+			case "Minions":
+				this.minions+=1;
+				break;
+			case "Fog Remover":
+				if(playerStats.revealLevel<=4)
+				playerStats.revealLevel+=1;
+				break;
 			}
 		},
+
+	// 	if(object.id=="Max HP Increase"){
+	// 		this.health.maxHp +=3;
+	// 	} else if(object.id == "Instant Health Boost"){
+	// 		if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
+	// 			this.money += object.price;
+	// 		} else{
+	// 			System().ship.stats.healDamage(10);
+	// 		}
+	// 	}
+	// }
 
 
 		updateMoney : function(){

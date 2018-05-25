@@ -13,6 +13,7 @@
 		this.width = 2400;
 		this.frameCount = 0;
 		this.realFPS = 0;
+		//this.pastVels = []; //array of ships velocties for canvas lag
 
 		setInterval(this.checkFPS, 250);
 
@@ -66,7 +67,8 @@
 						gamePlanet.showPanel();
 					}
 					if (gameState === "inner") {
-						gameState = "outer";	// issue 138
+						if(game.player.checkImportantLoc()== "start")
+							gameState = "outer";	// issue 138
 					}
 					break;
 				case "f": //issue 54
@@ -107,7 +109,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		this.camera = new Camera(); // TODO: make this actually do something?
+		this.camera = new Camera();
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
@@ -146,13 +148,13 @@
 			var x = (Math.random() * this.width * 2) - this.width;
 			var y = (Math.random() * this.height * 2) - this.height;
 			//var vel = new Vector2D(Math.random()*50-25,Math.random()*50-25);
-			var vel = new Vector2D(Math.random() * 2000 - 1000, Math.random() * 2000 - 1000);
+			var vel = new Vector2D(Math.random() * 1000 - 500, Math.random() * 1000 - 500);
 			var ast = new Asteroid(new Vector2D(x, y), vel, null, r);
 			if (!bool) { //bool=if asteroids can show up in canvas
-				let b1 = (x + r) < (this.ship.loc.x + (canvas.width / 2));
-				let b2 = (x - r) > (this.ship.loc.x - (canvas.width / 2));
-				let b3 = (y + r) < (this.ship.loc.y + (canvas.height / 2));
-				let b4 = (y - r) > (this.ship.loc.y - (canvas.height / 2));
+				let b1 = (x + r) < (this.camera.loc.x + (canvas.width / 2));
+				let b2 = (x - r) > (this.camera.loc.x - (canvas.width / 2));
+				let b3 = (y + r) < (this.camera.loc.y + (canvas.height / 2));
+				let b4 = (y - r) > (this.camera.loc.y - (canvas.height / 2));
 				//all the b vars check if the loc+radius are in the canvas
 				if (b1 || b2 || b3 || b4) { // if it's inside the canvas
 					a = false; //asteroid should not be pushed to entities array
@@ -209,7 +211,7 @@
 				//check if ship is close to any of the planets
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[X] to land on planet", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[X] to land on planet", this.ship.loc.x - 100, this.ship.loc.y - 50);
 				out = this.planets[i];
 			}
 		}
@@ -246,7 +248,10 @@
 	}
 
 	shipCursorPos() { // Position of cursor relative to SHIP
-
+		// Assumes that the ship is located in the center of the
+		// canvas and that is not a valid assumption anymore.
+		// So this function returns the cursor relative to
+		// the center of the canvas.
 		let posX = canvas.width / 2 - this.screenCursorPos().x;
 		let posY = canvas.height / 2 - this.screenCursorPos().y;
 
@@ -257,8 +262,10 @@
 
 		let relativePos = this.shipCursorPos();
 
-		let posX = this.ship.loc.x - relativePos.x;
-		let posY = this.ship.loc.y - relativePos.y;
+		// let posX = this.ship.loc.x - relativePos.x;
+		// let posY = this.ship.loc.y - relativePos.y;
+		let posX = this.camera.loc.x - relativePos.x;
+		let posY = this.camera.loc.y - relativePos.y;
 
 		return new Vector2D(posX, posY);
 	}
@@ -447,7 +454,6 @@
 					// // console.log(`initial momentum ${init_momentum}`);
 					// console.log(`final momentum ${final_momentum}`);
 
-
 					b1.vel = v1_final;
 					b2.vel = v2_final;
 
@@ -583,7 +589,7 @@
 
 	update() {
 		this.frameCount++;
-		this.camera.update(); // No effect until the camera is implemented
+		this.camera.update(); //Update the location of the camera
 
 		this.checkAsteroidCollision();
 		this.checkHitStation(); //issue 54
@@ -630,12 +636,14 @@
 	}
 
 	render() {
+		this.drawBackground();
 
 		ctx.save();
 		//translate to camera
-		ctx.translate(-1*this.camera.loc.x + canvas.width /2 , -1*this.camera.loc.y + canvas.height / 2);
+		ctx.translate(-this.camera.loc.x + canvas.width /2 , -this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
+
 
 		let arr = []; // Building an array of every entity and planet
 
@@ -655,16 +663,38 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+		
+		this.checkHitPlanet();
 
 		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();
-		this.checkHitPlanet();
 		this.drawSelectionBuffer();
 		this.drawCursor();
 		this.drawDebug();
 
+	}
+
+	drawBackground(){
+		let parallaxScale = 0.1;
+		let backgroundImg = Images.starfield;
+		let startLoc = new Vector2D(
+			this.camera.loc.x-canvas.width,
+			this.camera.loc.y-canvas.height
+		);
+		startLoc.scalarMult(parallaxScale);
+		ctx.drawImage(
+			backgroundImg,
+			startLoc.x,
+			startLoc.y,
+			backgroundImg.width,
+			backgroundImg.height,
+			(-parallaxScale * this.camera.loc.x) - this.width/2,
+			(-parallaxScale*this.camera.loc.y) - this.height/2,
+			backgroundImg.width,
+			backgroundImg.height
+		);
 	}
 
 	drawSelectionBuffer() {

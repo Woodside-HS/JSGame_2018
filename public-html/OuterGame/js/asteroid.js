@@ -23,6 +23,11 @@ class Asteroid extends Mover {
 		});
 	}
 
+	mass() {
+		var massConstant = 30;
+		return massConstant * Math.PI * Math.pow(this.radius, 2);
+	}
+
 	update() {
 		// reduce the radius of this asteroid when it takes damage
 		this.radius -= this.stats.damageTaken / 3;
@@ -56,24 +61,21 @@ class Asteroid extends Mover {
 	}
 
 	render() {
-		/* Issue 136 Draw only if the asteroid is within the canvas bounds
-		let cnvLoc = System().canvasLoc;
+		// Issue 136 Draw only if the asteroid is within the canvas bounds
+		let cnvLoc = Vector2D.copy(System().camera.loc);
 		let cnvLeft = cnvLoc.x - canvas.width/2;
 		let cnvTop = cnvLoc.y - canvas.height/2;
 		let cnvRight = cnvLoc.x  + canvas.width/2;
 		let cnvBottom = cnvLoc.y + canvas.height/2;
-		if(this.loc.x - this.radius < cnvRight &&
-			this.loc.x + this.radius > cnvLeft &&
-			this.loc.y - this.radius < cnvBottom &&
-			this.loc.y + this.radius < cnvTop) {
-		*/
+		if((this.loc.x - this.radius) < cnvRight &&
+			(this.loc.x + this.radius) > cnvLeft &&
+			(this.loc.y + this.radius) > cnvTop &&
+			(this.loc.y - this.radius) < cnvBottom) {
 			ctx.save();
 			ctx.translate(this.loc.x, this.loc.y);
 			ctx.rotate(this.angle);
 			ctx.drawImage(this.asteroidImage, -this.radius, -this.radius, this.radius*2, this.radius*2);
 			ctx.restore();
-		/* Issue 136 Draw only if the asteroid is within the canvas bounds
 		}
-		*/
 	}
 }

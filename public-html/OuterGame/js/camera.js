@@ -33,6 +33,5 @@ class Camera {
 		}
 		this.vel.add(this.acc)
 		this.loc.add(this.vel);
-		// console.log(this.loc);
 	}
 }
