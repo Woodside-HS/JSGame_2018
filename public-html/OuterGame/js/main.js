@@ -144,7 +144,7 @@ function init(){
 
 	canvas.style.backgroundColor = 'black';
 	ctx = canvas.getContext('2d');
-	gameState = "transition";
+	gameState = "before";
 	makeWorld();
 	var wrapper = document.getElementById('wrapper');
 	var loaderwrapper = document.getElementById('loader-wrapper');
@@ -160,15 +160,29 @@ function makeWorld(){
   var w = new World(currentLevel);
   //add world to array
   worlds.push(w);
-	let panel = document.getElementById("gamepanel0");
-	panel.appendChild(Images["panel00"]);
-	panel.style.display = "block";
+	let panela = document.getElementById("gamepanela");
+	panela.appendChild(Images["splashpanel"]);
+	panela.style.display = "block";
 	document.addEventListener("keypress", function handler(event) {
 		switch(event.key) {
 			case " ":
+				gameState = "transition";
+				document.removeEventListener("keypress", handler);
+				break;
+			default:
+				return;
+		}
+	});
+	let panel1 = document.getElementById("gamepanel0");
+	panel1.appendChild(Images["panel00"]);
+	panel1.style.display = "block";
+	document.addEventListener("keypress", function handler(event) {
+		switch(event.key) {
+			case " ":
+			if(gameState === "transition")
 				gameState = "outer";
 				document.removeEventListener("keypress", handler);
-				panel.style.display = "none";
+				panel1.style.display = "none";
 				w.initialize();
 				setInterval(animate, 1000/FPS);
 				break;
