@@ -69,6 +69,9 @@ let imageSources = {//Properties of imageSources match names of images
 	playerShip: {
 		sourceString: "res/ships/playerShip.png",
 	},
+	starfield: {
+		sourceString: "res/starfield.png"
+	},
 	//inner game images
 	grass: {
 		sourceString: "../InnerGame/res/sprites/grass.png",
@@ -101,155 +104,9 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "../InnerGame/res/sprites/arrowPU.png",
 	},
 	splash: {
-		sourceString: "../InnerGame/res/sprites/splash/youdied.jpg",
+		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
 	},
-	alien: {
-		sourceString:"../InnerGame/res/sprites/creatures/Alien.png",
-	},
-	alien2: {
-		sourceString:"../InnerGame/res/sprites/creatures/AlienMage.png",
-	},
-	bat: {
-		sourceString:"../InnerGame/res/sprites/creatures/FatBat.png",
-	},
-	bunny: {
-		sourceString:"../InnerGame/res/sprites/creatures/Bunny.png",
-	},
-	chicken: {
-		sourceString:"../InnerGame/res/sprites/creatures/chickenwithabelt.png",
-	},
-	creep: {
-		sourceString:"../InnerGame/res/sprites/creatures/Creep.png",
-	},
-	fireSpider: {
-		sourceString:"../InnerGame/res/sprites/creatures/Firespider.png",
-	},
-	fly: {
-		sourceString:"../InnerGame/res/sprites/creatures/Fly.png",
-	},
-	mike: {
-		sourceString:"../InnerGame/res/sprites/creatures/green.png",
-	},
-	rat: {
-		sourceString:"../InnerGame/res/sprites/creatures/Ratwithahood.png",
-	},
-	r0: {
-		sourceString:"../InnerGame/res/sprites/repeater/r0.png",
-	},
-	r1: {
-		sourceString:"../InnerGame/res/sprites/repeater/r1.png",
-	},
-	r2: {
-		sourceString:"../InnerGame/res/sprites/repeater/r2.png",
-	},
-	r3: {
-		sourceString:"../InnerGame/res/sprites/repeater/r3.png",
-	},
-	r4: {
-		sourceString:"../InnerGame/res/sprites/repeater/r4.png",
-	},
-	r5: {
-		sourceString:"../InnerGame/res/sprites/repeater/r5.png",
-	},
-	r6: {
-		sourceString:"../InnerGame/res/sprites/repeater/r6.png",
-	},
-	r7: {
-		sourceString:"../InnerGame/res/sprites/repeater/r7.png",
-	},
-	sn0: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0001.png",
-	},
-	sn0: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0001.png",
-	},
-	sn1: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0002.png",
-	},
-	sn2: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0003.png",
-	},
-	sn3: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0004.png",
-	},
-	sn4: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0005.png",
-	},
-	sn5: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0006.png",
-	},
-	sn6: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0007.png",
-	},
-	sn7: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0008.png",
-	},
-	sn8: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0009.png",
-	},
-	sn9: {
-		sourceString:"../InnerGame/res/sprites/sniper/s0010.png",
-	},
-	t0: {
-		sourceString:"../InnerGame/res/sprites/t2/t0001.png",
-	},
-	t1: {
-		sourceString:"../InnerGame/res/sprites/t2/t0002.png",
-	},
-	t2: {
-		sourceString:"../InnerGame/res/sprites/t2/t0003.png",
-	},
-	t3: {
-		sourceString:"../InnerGame/res/sprites/t2/t0004.png",
-	},
-	t4: {
-		sourceString:"../InnerGame/res/sprites/t2/t0005.png",
-	},
-	t5: {
-		sourceString:"../InnerGame/res/sprites/t2/t0006.png",
-	},
-	t6: {
-		sourceString:"../InnerGame/res/sprites/t2/t0007.png",
-	},
-	t7: {
-		sourceString:"../InnerGame/res/sprites/t2/t0008.png",
-	},
-	t8: {
-		sourceString:"../InnerGame/res/sprites/t2/t0009.png",
-	},
-	t9: {
-		sourceString:"../InnerGame/res/sprites/t2/t0010.png",
-	},
-	t10: {
-		sourceString:"../InnerGame/res/sprites/t2/t0011.png",
-	},
-	t11: {
-		sourceString:"../InnerGame/res/sprites/t2/t0012.png",
-	},
-	t12: {
-		sourceString:"../InnerGame/res/sprites/t2/t0013.png",
-	},
-	t13: {
-		sourceString:"../InnerGame/res/sprites/t2/t0014.png",
-	},
-	t14: {
-		sourceString:"../InnerGame/res/sprites/t2/t0015.png",
-	},
-	t15: {
-		sourceString:"../InnerGame/res/sprites/t2/t0016.png",
-	},
-	t16: {
-		sourceString:"../InnerGame/res/sprites/t2/t0017.png",
-	},
-	t17: {
-		sourceString:"../InnerGame/res/sprites/t2/t0018.png",
-	},
-	t18: {
-		sourceString:"../InnerGame/res/sprites/t2/t0019.png",
-	},
-	t19: {
-		sourceString:"../InnerGame/res/sprites/t2/t0020.png",
-	},
+	// Panels
 	panel01: {
 		sourceString:"res/panels/bluedown.png",
 	},
@@ -265,10 +122,35 @@ let imageSources = {//Properties of imageSources match names of images
 	panel05: {
 		sourceString:"res/panels/reddown.png",
 	},
-
 	// Trading post images
-	shopBackground: {
-		sourceString: "shopIMGS/background.png",
+	stationBackground: {
+		sourceString:"shopIMGS/background.png",
+
+
+		roverEngine: {
+			sourceString:"shopIMGS/engine2.png",
+		},
+		fogRemover: {
+			sourceString:"shopIMGS/fog.png",
+		},
+		health: {
+			sourceString:"shopIMGS/health.png",
+		},
+		lasergun: {
+			sourceString:"shopIMGS/lasergun.png",
+		},
+		turret: {
+			sourceString:"shopIMGS/turret.png",
+		},
+		shield: {
+			sourceString:"shopIMGS/shield.png",
+		},
+		minion: {
+			sourceString:"shopIMGS/minion.png",
+		},
+		exitButton: {
+			sourceString:"shopIMGS/exit.png",
+		}
 	},
 	minion1: {
 		sourceString: "../InnerGame/res/sprites/minions/1.png",
@@ -290,9 +172,9 @@ let imageSources = {//Properties of imageSources match names of images
 	},
 	minion7: {
 		sourceString: "../InnerGame/res/sprites/minions/7.png"
-
 	}
 }
+
 
 function loadImages() {
 	let promises = [];

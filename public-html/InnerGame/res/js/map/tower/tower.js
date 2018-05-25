@@ -33,6 +33,9 @@ class Tower extends Updateable {
                                 this.type.images.push(currentImage);
                         }
                 }
+                if(this.type.images){
+                        this.image = this.type.images[this.imageIndex];
+                }
         }
         update() {
                 if (this.inRangeOf(this.game.player.loc)) {
@@ -73,9 +76,9 @@ class Tower extends Updateable {
                         this.game.context.fillStyle = this.fillStyle;
                         this.game.context.beginPath();
                         this.game.context.arc(
-                                this.loc.x+config.tile_size/2,
-                                this.loc.y+config.tile_size/2,
-                                0.45*config.tile_size,
+                                this.loc.x + config.tile_size / 2,
+                                this.loc.y + config.tile_size / 2,
+                                0.45 * config.tile_size,
                                 0,
                                 2 * Math.PI);
                         this.game.context.fill();
@@ -84,32 +87,32 @@ class Tower extends Updateable {
                                 this.type.name,
                                 this.loc.x,
                                 this.loc.y);
-                        
+
                 }
                 this.drawHealthbar();
         }
-        drawHealthbar(){
+        drawHealthbar() {
                 let upperLeft = new FastVector(
                         config.tile_size * 0.1,
                         config.tile_size * 0.7
                 );
                 let lowerRight = new FastVector(
-                        config.tile_size*0.9,
-                        config.tile_size*0.9
+                        config.tile_size * 0.9,
+                        config.tile_size * 0.9
                 );
                 this.game.context.fillStyle = "#ff0000";
                 this.game.context.fillRect(
-                        this.loc.x+upperLeft.x,
-                        this.loc.y+upperLeft.y,
-                        lowerRight.x-upperLeft.x,
-                        lowerRight.y-upperLeft.y
+                        this.loc.x + upperLeft.x,
+                        this.loc.y + upperLeft.y,
+                        lowerRight.x - upperLeft.x,
+                        lowerRight.y - upperLeft.y
                 );
                 this.game.context.fillStyle = "#00ff00";
                 this.game.context.fillRect(
-                        this.loc.x+upperLeft.x,
-                        this.loc.y+upperLeft.y,
-                        this.hp/this.maxhp * (lowerRight.x-upperLeft.x),
-                        lowerRight.y-upperLeft.y
+                        this.loc.x + upperLeft.x,
+                        this.loc.y + upperLeft.y,
+                        this.hp / this.maxhp * (lowerRight.x - upperLeft.x),
+                        lowerRight.y - upperLeft.y
                 );
         }
 
