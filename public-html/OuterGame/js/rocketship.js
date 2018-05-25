@@ -61,12 +61,12 @@ class Rocketship extends Mover {
 
 	update() {
 
-		if(this.stats.health() <= 1){
-			console.log("dead");
-			var youDiedImage = Images['death'];
-			ctx.drawImage(youDiedImage, 0, 0, System().width, System().height);
-
-		}
+		// if(this.stats.health() <= 1){
+		// 	console.log("dead");
+		// 	var youDiedImage = Images['death'];
+		// 	ctx.drawImage(youDiedImage, 0, 0, System().width, System().height);
+		//
+		// }
 
 		if (this.firing) { // If ship is actively in shooting mode...
 			if (this.shotsFired < this.burstCount) { // If it hasn't completed its burst yet...

@@ -166,6 +166,10 @@ function makeWorld(){
 }
 
 function animate(){
+	if(gameState == "dead"){
+		var youDiedImage = Images['death'];
+		ctx.drawImage(youDiedImage, 0, 0, System().width, System().height);
+	}
 	if(gameState!="station"){
 	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
 	  //run this level's world

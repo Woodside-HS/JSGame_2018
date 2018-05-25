@@ -21,7 +21,24 @@ class StatBlock { // A block containing health, armor, resistance, etc.
 	takeDamage(dmg) {
 		this.damageTaken += dmg;
 		if(this.health() <= 0 && this.killable) {
-			this.entity.kill();
+			if(this.entity instanceof Rocketship){
+				console.log("dead");
+
+				var youDiedImage = Images['death'];
+				this.deathDiv = document.getElementById("deathpanel");
+				this.deathDiv.appendChild(youDiedImage);
+
+
+		    gameState = "transition";
+		    this.deathDiv.style.display = "block";
+
+				//gameState = "dead";
+
+				// ctx.drawImage(youDiedImage, 0, 0, System().width, System().height);
+			}else{
+				this.entity.kill();
+			}
+
 		}
 	}
 
