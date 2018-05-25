@@ -12,6 +12,8 @@ class Tile extends Updateable {
       // override done in map manager
       this.tileType = tile_types.nulltype;
 
+      this.animalNum = planet.planetImageNum;
+
       this.seen = false;
       this.normalVector = new InnerVector2D(0, 0);
       this.quadNormal = new InnerVector2D(0, 0);
@@ -63,7 +65,7 @@ class Tile extends Updateable {
             this.game.context.drawImage(Images['Planet2'], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
           }
           if(this.loot){ //draw loot image
-            this.game.context.drawImage(Images[this.loot.image], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
+            this.game.context.drawImage(Images['creature' + this.animalNum], this.loc.x, this.loc.y, config.tile_size, config.tile_size);
           }
       }
 

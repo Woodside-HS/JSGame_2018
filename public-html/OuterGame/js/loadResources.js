@@ -34,43 +34,37 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "res/sprites/Planet/p0001.png",
 	},
 	Planet2: {
-		sourceString: "res/sprites/Planet/p0002.png",
-	},
-	Planet3: {
-		sourceString: "res/sprites/Planet/p0003.png",
-	},
-	Planet4: {
-		sourceString: "res/sprites/Planet/p0004.png",
-	},
-	Planet5: {
-		sourceString: "res/sprites/Planet/p0005.png",
-	},
-	Planet6: {
-		sourceString: "res/sprites/Planet/p0006.png",
-	},
-	Planet7: {
-		sourceString: "res/sprites/Planet/p0007.png",
-	},
-	Planet8: {
-		sourceString: "res/sprites/Planet/p0008.png",
-	},
-	Planet9: {
-		sourceString: "res/sprites/Planet/p0009.png",
-	},
-	Planet10: {
 		sourceString: "res/sprites/Planet/p0010.png",
 	},
-	Planet11: {
+	Planet3: {
 		sourceString: "res/sprites/Planet/p0011.png",
 	},
-	enemyShip: {
-		sourceString: "res/ships/enemyShip.png",
+	Planet4: {
+		sourceString: "res/sprites/Planet/p0008.png",
+	},
+	Planet5: {
+		sourceString: "res/sprites/Planet/p0006.png",
 	},
 	playerShip: {
-		sourceString: "res/ships/playerShip.png",
+		sourceString: "res/sprites/Finalimgs/SpaceShip.png",
 	},
 	starfield: {
 		sourceString: "res/starfield.png"
+	},
+	Station: {
+		sourceString: "res/sprites/Finalimgs/AllySpaceStation4.png"
+	},
+	Drone1: {
+		sourceString: "res/sprites/Finalimgs/Drone1.png"
+	},
+	Drone2: {
+		sourceString: "res/sprites/Finalimgs/Drone2.png"
+	},
+	Drone3: {
+		sourceString: "res/sprites/Finalimgs/Drone3.png"
+	},
+	Drone4: {
+		sourceString: "res/sprites/Finalimgs/Drone4.png"
 	},
 	//inner game images
 	grass: {
