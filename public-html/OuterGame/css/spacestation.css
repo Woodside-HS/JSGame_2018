@@ -22,6 +22,16 @@
   cursor: pointer;
 }
 
+#moneyDiv{
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  top: 20px;
+  left: 150px;
+  background-color: lightblue;
+  color: black;
+}
+
 .menuButton{
   width: 120px;
   height: 80px;

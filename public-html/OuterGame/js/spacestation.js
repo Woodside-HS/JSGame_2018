@@ -153,6 +153,7 @@ class SpaceStation{
 }
 
 SpaceStation.html = '\
+  <div id="moneyDiv"><p id="amount">$100</p></div>\
   <h1 style="font-size:40px;">Space Station</h1>\
   <img id="exitButton" src="shopIMGS/exit.png">\
   <div id="menu">\

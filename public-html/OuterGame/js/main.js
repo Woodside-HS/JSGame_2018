@@ -43,10 +43,6 @@ function init(){
 		health: null,
 		money : 100,
 		inventory : [], //each has a value
-		// boosts : [], //boost speed, firing frequency
-		// repairs : [], //repair/upgrade shield
-		// weapons : [], //add different kinds of weapons to use
-		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		innerWeaponsLevel : 1, //may have to split into different weapons/tools
 		innerEngineLevel : 1,
@@ -80,29 +76,35 @@ function init(){
 			switch (object.cat){
 			case "Shield Boost":
 				this.shieldLevel += 1;
-				this.updateLevels(0);
+				// this.updateLevels(0);
 				break;
 			case "Turret":
 				this.outerWeaponsLevel += 1;
-				this.updateLevels(1);
+				// this.updateLevels(1);
 				break;
 			case "Laser Gun":
 				this.innerWeaponsLevel += 1;
-				this.updateLevels(1);
+				// this.updateLevels(1);
 				break;
 			case "Ship Engine":
 				this.outerEngineLevel += 1;
-				this.updateLevels(2);
+				// this.updateLevels(2);
 				break;
 			case "Rover Engine":
 				this.innerEngineLevel += 1;
-				this.updateLevels(2);
+				// this.updateLevels(2);
 				break;
-			case "Health Boost":
+			case "Max HP Increase":
 				this.health +=1;
 				player_config.max_hp+=10;
 				ui_elements.player_healthbar.max_value+=10;
-				this.updateHealth();
+				// this.updateHealth();
+				break;
+			case "Instant Health Boost":
+				this.health +=1;
+				player_config.max_hp+=10;
+				ui_elements.player_healthbar.max_value+=10;
+				// this.updateHealth();
 				break;
 			case "Minions":
 				this.minions+=1;
@@ -127,18 +129,30 @@ function init(){
 
 
 		updateMoney : function(){
-			var div = document.getElementById("Money");
-			div.children[0].innerHTML = "$" + this.money.toFixed(2);
+			var div = document.getElementById("moneyDiv");
+			document.getElementById("amount").remove();
+			var node = document.createTextNode("$"+this.money.toFixed(2));
+			var text = document.createElement("p");
+			text.appendChild(node);
+			text.id = "amount";
+			div.appendChild(text);
 		},
-		updateLevels : function(num){
-			var div = document.getElementById("Ship Levels");
-			if(num==0){
-				div.children[num].innerHTML = "Shield: " + this.shieldLevel;
-			} else if(num==1){
-				div.children[num].innerHTML = "Weapons: " + this.weaponsLevel;
-			} else if(num==2){
-				div.children[num].innerHTML = "Engines: " + this.engineLevel;
-			}
+		// updateLevels : function(num){
+		// 	var div = document.getElementById("Ship Levels");
+		// 	if(num==0){
+		// 		div.children[num].innerHTML = "Shield: " + this.shieldLevel;
+		// 	} else if(num==1){
+		// 		div.children[num].innerHTML = "Weapons: " + this.weaponsLevel;
+		// 	} else if(num==2){
+		// 		div.children[num].innerHTML = "Engines: " + this.engineLevel;
+		// 	}
+		// }
+
+		getHealth : function(){
+
+		},
+		getLevel : function(num){
+
 		}
 	};
 
