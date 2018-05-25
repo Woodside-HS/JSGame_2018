@@ -48,7 +48,7 @@ class Player extends Updateable {
        this.cloc.y >= 0 &&
        this.cloc.y < config.map_y_size &&
        this.game.mapManager.map[this.cloc.x][this.cloc.y].isWater){
-         this.maxV=player_config.water_speed;
+         this.maxV=player_config.water_speed*this.engineMultiplier;
     }
 
     this.hasMoved=true;
@@ -87,6 +87,7 @@ class Player extends Updateable {
       for(let j=0; j<game.mapManager.towerManager.enemies.length; j++){
         let enemy=game.mapManager.towerManager.enemies[j]
         let diff=this.projectiles[i].loc.duplicate();
+        diff.subtract(new Vector2D(config.tile_size/2, config.tile_size/2));
         diff.subtract(enemy.loc);
         if(diff.m<player_config.bullet_size+enemy.size/2){
           if(!player_config.damage_dropoff)
@@ -155,13 +156,7 @@ class Player extends Updateable {
     if(!this.dashV) this.v.multiply(player_config.movement_loss);//gradual loss
     if(this.dashTimer>0) this.dashTimer--;
     if(loc.x != this.loc.x || loc.y != this.loc.y){
-      if(playerStats.revealLevel == 1 || playerStats.revealLevel == 2){
-        this.game.player.revealCone();
-      }else if(playerStats.revealLevel == 3 || playerStats.revealLevel == 4){
-        this.game.mapManager.revealCircle();
-      }else if(playerStats.revealLevel == 5){
-        this.game.mapManager.revealAll();
-      }
+      this.game.player.revealCone();
     }
   }
   render() {
@@ -175,15 +170,11 @@ class Player extends Updateable {
     this.checkImportantLoc();
   }
   revealCone(){
-    var cloc = positionToGrid(this.loc);
-    if(playerStats.revealLevel == 1){
-      var distSq = 50;
-    }else if(playerStats.revealLevel == 2){
-      var distSq = 150;
-    }
-    var angleC = this.v.th + Math.PI/7;
-    var angleCC = this.v.th - Math.PI/7;
-    var angleToAdd = 0;
+    let cloc = positionToGrid(this.loc);
+    let distSq = 64*(1+Math.log(playerStats.revealLevel))
+    let angleC = this.v.th + 2*Math.PI*(1-1/Math.log(Math.pow(playerStats.revealLevel, .25)+Math.E-.5));
+    let angleCC = this.v.th - 2*Math.PI*(1-1/Math.log(Math.pow(playerStats.revealLevel, .25)+Math.E-.5));
+    let angleToAdd = 0;
     if((angleC > Math.PI && angleCC < Math.PI)||(angleC > -Math.PI && angleCC < -Math.PI)){
       angleToAdd = 2*Math.PI;
       if(angleCC < 0){
@@ -194,12 +185,12 @@ class Player extends Updateable {
       }
     }
     var map = this.game.mapManager.map;
-    for(let i = cloc.x - 16; i < cloc.x + 16; i++){
-      for(let j = cloc.y - 16; j < cloc.y + 16; j++){
+    for(let i = 0; i < config.map_x_size; i++){
+      for(let j = 0; j < config.map_y_size; j++){
         if(map[i] && map[i][j]){
-          var tile = map[i][j];
-          var tileLoc = positionToGrid(tile.loc);
-          var actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+          let tile = map[i][j];
+          let tileLoc = positionToGrid(tile.loc);
+          let actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
           if(actualDistSq <= distSq){
             var tileDirection = tile.loc.duplicate();
             tileDirection.subtract(this.loc);

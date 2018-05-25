@@ -67,7 +67,8 @@
 						gamePlanet.showPanel();
 					}
 					if (gameState === "inner") {
-						gameState = "outer";	// issue 138
+						if(game.player.checkImportantLoc()== "start")
+							gameState = "outer";	// issue 138
 					}
 					break;
 				case "f": //issue 54
@@ -107,7 +108,7 @@
 		this.cursorY = -50; // The -50 means the cursor doesn't start on the canvas, which is purely for convenience. No in-game effect except a visual tweak.
 
 		// Create camera object which follows the Rocketship
-		this.camera = new Camera(); 
+		this.camera = new Camera();
 	}
 
 	addEntity(entity) { // Function to add an entity to the world
@@ -209,7 +210,7 @@
 				//check if ship is close to any of the planets
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[X] to land on planet", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[X] to land on planet", this.ship.loc.x - 100, this.ship.loc.y - 50);
 				out = this.planets[i];
 			}
 		}
@@ -634,12 +635,14 @@
 	}
 
 	render() {
+		this.drawBackground();
 
 		ctx.save();
 		//translate to camera
 		ctx.translate(-this.camera.loc.x + canvas.width /2 , -this.camera.loc.y + canvas.height / 2);
 		this.drawWorldEdge(); //issue 45
 		//draw all planets & ship
+
 
 		let arr = []; // Building an array of every entity and planet
 
@@ -659,16 +662,38 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+		
+		this.checkHitPlanet();
 
 		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();
-		this.checkHitPlanet();
 		this.drawSelectionBuffer();
 		this.drawCursor();
 		this.drawDebug();
 
+	}
+
+	drawBackground(){
+		let parallaxScale = 0.1;
+		let backgroundImg = Images.starfield;
+		let startLoc = new Vector2D(
+			this.camera.loc.x-canvas.width,
+			this.camera.loc.y-canvas.height
+		);
+		startLoc.scalarMult(parallaxScale);
+		ctx.drawImage(
+			backgroundImg,
+			startLoc.x,
+			startLoc.y,
+			backgroundImg.width,
+			backgroundImg.height,
+			(-parallaxScale * this.camera.loc.x) - this.width/2,
+			(-parallaxScale*this.camera.loc.y) - this.height/2,
+			backgroundImg.width,
+			backgroundImg.height
+		);
 	}
 
 	drawSelectionBuffer() {
