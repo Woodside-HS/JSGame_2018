@@ -146,5 +146,5 @@ canvas {
 }
 
 .gamepanel img {
-  /*height: inherit;*/
+  width: inherit;
 }

@@ -160,36 +160,52 @@ function makeWorld(){
   var w = new World(currentLevel);
   //add world to array
   worlds.push(w);
+	let count = 0;
 	let panela = document.getElementById("gamepanela");
 	panela.appendChild(Images["splashpanel"]);
 	panela.style.display = "block";
 	document.addEventListener("keypress", function handler(event) {
 		switch(event.key) {
 			case " ":
-				gameState = "transition";
-				document.removeEventListener("keypress", handler);
-				break;
+				if(count === 0){
+					gameState = "transition";
+					//document.removeEventListener("keypress", handler);
+					panela.style.display = "none";
+					let panel1 = document.getElementById("gamepanel0");
+					panel1.appendChild(Images["panel00"]);
+					panel1.style.display = "block";
+					count++;
+					break;
+				}else{
+					gameState = "outer";
+					document.removeEventListener("keypress", handler);
+					document.getElementById("gamepanel0").style.display = "none";
+					w.initialize();
+					setInterval(animate, 1000/FPS);
+					break;
+				}
 			default:
 				return;
 		}
 	});
-	let panel1 = document.getElementById("gamepanel0");
-	panel1.appendChild(Images["panel00"]);
-	panel1.style.display = "block";
-	document.addEventListener("keypress", function handler(event) {
-		switch(event.key) {
-			case " ":
-			if(gameState === "transition")
-				gameState = "outer";
-				document.removeEventListener("keypress", handler);
-				panel1.style.display = "none";
-				w.initialize();
-				setInterval(animate, 1000/FPS);
-				break;
-			default:
-				return;
-		}
-	});
+	if(gameState === "transition"){
+		let panel1 = document.getElementById("gamepanel0");
+		panel1.appendChild(Images["panel00"]);
+		panel1.style.display = "block";
+		document.addEventListener("keypress", function handler(event) {
+			switch(event.key) {
+				case " ":
+					gameState = "outer";
+					document.removeEventListener("keypress", handler);
+					panel1.style.display = "none";
+					w.initialize();
+					setInterval(animate, 1000/FPS);
+					break;
+				default:
+					return;
+			}
+		});
+	}
 }
 
 function animate(){
