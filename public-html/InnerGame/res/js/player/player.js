@@ -87,6 +87,7 @@ class Player extends Updateable {
       for(let j=0; j<game.mapManager.towerManager.enemies.length; j++){
         let enemy=game.mapManager.towerManager.enemies[j]
         let diff=this.projectiles[i].loc.duplicate();
+        diff.subtract(new Vector2D(config.tile_size/2, config.tile_size/2));
         diff.subtract(enemy.loc);
         if(diff.m<player_config.bullet_size+enemy.size/2){
           if(!player_config.damage_dropoff)
