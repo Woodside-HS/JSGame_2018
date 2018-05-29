@@ -151,10 +151,10 @@ class SpaceStation{
     // ctx.fillStyle = "blue";
     // ctx.fill();
 
-    var dx = this.loc.x-15;
-    var dy = this.loc.y-15;
-    var dw = 30;
-    var dh = 30;
+    var dx = this.loc.x-60;
+    var dy = this.loc.y-60;
+    var dw = 120;
+    var dh = 120;
     ctx.drawImage(this.stationImage, dx, dy, dw, dh);
   }
 
