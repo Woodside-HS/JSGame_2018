@@ -77,7 +77,7 @@ function init(){
 			this.updateMoney();
 			console.log(object.cat);
 			switch (object.cat){
-			case "Shield Boost":
+			case "Yokerling Bokum":
 				this.shieldLevel += 1;
 				break;
 			case "Fruit Cake":
@@ -92,21 +92,21 @@ function init(){
 			case "Missiles":
 				this.outerWeaponsLevel += 1;
 				break;
-			case "datrepoji2k_1":
+			case "Biffle Ball":
 				this.innerWeaponsLevel += 1;
 				break;
-			case "garminian_2":
+			case "The Holy Grail":
 				this.innerWeaponsLevel += 1;
 				break;
-			case "gaze_3":
+			case "788’481’515’’6765-132154--16":
 				this.innerWeaponsLevel += 1;
 				break;
-			case "Engine One":
+			case "1958 Ferrari GT-3432":
 				break;
-			case "Engine Two":
+			case "[Gurgling Noises]":
 				this.outerEngineLevel += 1;
 				break;
-			case "Engine Three":
+			case "Canadian Mooseherder":
 				this.innerEngineLevel += 1;
 				break;
 			case "Max HP Increase":
@@ -124,7 +124,10 @@ function init(){
 			case "Minions":
 				this.minions+=1;
 				break;
-			case "Fog Remover":
+			case "Game Room":
+				//doesn't do anything?
+				break;
+			case "Vision Enhancer":
 				if(playerStats.revealLevel<=4)
 				playerStats.revealLevel+=1;
 				break;

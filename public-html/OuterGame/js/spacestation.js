@@ -13,6 +13,14 @@ class SpaceStation{
     //create an attribute of the space station class to add html in this file
     this.div.innerHTML = SpaceStation.html;
 
+    //"disable" some items in shop that can't be bought until other item are bought
+    document.getElementById("Fruit Cake").className = "disabledTile";
+    document.getElementById("Yokerling Bokum").className = "disabledTile";
+    document.getElementById("The Holy Grail").className = "disabledTile";
+    document.getElementById("788’481’515’’6765-132154--16").className = "disabledTile";
+    document.getElementById("[Gurgling Noises]").className = "disabledTile";
+    document.getElementById("Canadian Mooseherder").className = "disabledTile";
+
     SpaceStation.infoDiv = { //for changing the item shown in info div
       shopInfo : document.getElementById("shopInfo"),
       invInfo : document.getElementById("invInfo"),
@@ -28,11 +36,15 @@ class SpaceStation{
         img.src = item.children[0].src;
         img.id = "infoImg";
         infoDiv.appendChild(img);
-        var div = document.createElement("div");
-        var node = document.createTextNode(""+item.id);
-        div.appendChild(node);
-        div.id = "infoName";
-        infoDiv.appendChild(div);
+        var div1 = document.createElement("div");
+        var node1 = document.createTextNode(""+item.id);
+        var div2 = document.createElement("div");
+        var node2 = document.createTextNode(""+item.children[3].innerHTML) ;
+        div2.appendChild(node2);
+        div2.id = "infoP";
+        div1.appendChild(node1);
+        div1.id = "infoName";
+        infoDiv.appendChild(div1);
         var button = document.createElement("button");
         button.id = "infoButton";
         button.item = item;
@@ -52,7 +64,7 @@ class SpaceStation{
         } else{ //if in shop, buy items
           button.innerHTML = "Buy";
           button.onclick = function(){
-            let price = this.item.children[1].id;
+            let price = this.item.children[2].id;
             if(resources.money>=price){
               var object = {cat:this.item.id,price:price};
               //var object = {cat:this.item.parentElement.id, id:this.item.id, price:price};
@@ -61,9 +73,10 @@ class SpaceStation{
           };
         }
         infoDiv.appendChild(button);
-        var price = document.createTextNode(" | $"+ item.children[1].id);
+        var price = document.createTextNode(" | $"+ item.children[2].id);
         price.id = "infoPrice";
-        div.appendChild(price);
+        div1.appendChild(price);
+        div1.appendChild(div2);
       },
       removeChildren : function(infoDiv){ //infoDiv sends in the right div to clear out
         while(infoDiv.children.length>1){  //changed to while condition for bug/issue 131
@@ -99,8 +112,10 @@ class SpaceStation{
     for(let i=0;i<items.children.length;i++){ //items children = different categories
       for(let j=0; j<items.children[i].children.length;j++){ //in each category, there are items
         items.children[i].children[j].addEventListener("click",function(event){
-          SpaceStation.infoDiv.render(this,true);
-          //^^^^render info of this item in the info div
+          if(this.className != "disabledTile"){ //if not "disabled"
+            SpaceStation.infoDiv.render(this,true);
+            //^^^^render info of this item in the info div
+          }
         });
       }
     }
@@ -171,79 +186,119 @@ SpaceStation.html = '\
       <div id="healthDiv" class="catDiv">\
         <div id="Max HP Increase" class="tile">\
           <img class="imgTile" src="shopIMGS/old/health.png">\
+          <p>Max HP Increase</p>\
           <span style="display:none;" id="2.35"></span>\
+          <p style="display:none;"></p>\
         </div>\
         <div id="Instant Health Boost" class="tile">\
           <img class="imgTile" src="shopIMGS/old/health.png">\
+          <p>Instant Health Boost</p>\
           <span style="display:none;" id="2.35"></span>\
+          <p style="display:none;"></p>\
         </div>\
       </div>\
       <div id="shieldsDiv" class="catDiv">\
-        <div id="Shield Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/old/shield.png">\
+        <div id="Gandalf" class="tile">\
+          <img class="imgTile" src="shopIMGS/gandalf.png">\
+          <p>Gandalf</p>\
           <span style="display:none;" id="4.30"></span>\
+          <p style="display:none;">“YOU SHALL NOT PASS!!!!” When this wizard was stolen\
+           from Dimension 11984, the kidnappers brought a strange ring with them too. \
+           They are nowhere to be found.</p>\
         </div>\
         <div id="Fruit Cake" class="tile">\
           <img class="imgTile" src="shopIMGS/fruit_cake.png">\
+          <p>Fruit Cake</p>\
           <span style="display:none;" id="4.30"></span>\
+          <p style="display:none;">For eons, humans used to run away from eating \
+          fruitcake. The same is true for most other alien species.</p>\
         </div>\
-        <div id="Gandalf" class="tile">\
-          <img class="imgTile" src="shopIMGS/gandalf.png">\
+        <div id="Yokerling Bokum" class="tile">\
+          <img class="imgTile" src="shopIMGS/old/shield.png">\
+          <p>Yokerling Bokum</p>\
           <span style="display:none;" id="4.30"></span>\
+          <p style="display:none;">This nearly-impenetrable wall was first developed by a \
+          Yokerling warehouse store chain to keep out those without membership cards. It worked.</p>\
         </div>\
       </div>\
       <div id="weaponsDiv" class="catDiv">\
         <div id="Cannon" class="tile">\
           <img class="imgTile" src="shopIMGS/cannon.png">\
+          <p>Cannon</p>\
           <span style="display:none;" id="2.40"></span>\
+          <p style="display:none;"></p>\
         </div>\
         <div id="Missiles" class="tile">\
           <img class="imgTile" src="shopIMGS/missiles.png">\
+          <p>Missiles</p>\
           <span style="display:none;" id="2.40"></span>\
+          <p style="display:none;"></p>\
         </div>\
-        <div id="datrepoji2k_1" class="tile">\
+        <div id="Biffle Ball" class="tile">\
           <img class="imgTile" src="shopIMGS/datrepoji2k_1.png">\
+          <p>Biffle Ball</p>\
           <span style="display:none;" id="3.50"></span>\
+          <p style="display:none;">On the asteroid chain of Biffle-22, \
+          the gigantic inhabitants play a variation of lacrosse with a material \
+          as hard as titanium, which is now used vto manufacture bullets across the galaxy.</p>\
         </div>\
-        <div id="garminian_2" class="tile">\
+        <div id="The Holy Grail" class="tile">\
           <img class="imgTile" src="shopIMGS/garminian_2.png">\
+          <p>The Holy Grail</p>\
           <span style="display:none;" id="3.50"></span>\
+          <p style="display:none;">Once the Holy Grail was found in Petra, Jordan, people decided \
+          to use its heavenly qualities to manufacture excellent bullets.</p>\
         </div>\
-        <div id="gaze_3" class="tile">\
+        <div id="788’481’515’’6765-132154--16" class="tile">\
           <img class="imgTile" src="shopIMGS/gaze_3.png">\
+          <p>788’481’515’’6765-132154--16</p>\
           <span style="display:none;" id="3.50"></span>\
+          <p style="display:none;">82210028’4 02534[033]/68/ 98-4=064 96842`064~1 60634051/*0541 \
+          050+5840+941-*4156 +9484*654 564.</p>\
         </div>\
       </div>\
       <div id="enginesDiv" class="catDiv">\
-        <div id="Engine One" class="tile">\
+        <div id="1958 Ferrari GT-3432" class="tile">\
           <img class="imgTile" src="shopIMGS/engine1.png">\
+          <p>1958 Ferrari GT-3432</p>\
           <span style="display:none;" id="2.55"></span>\
+          <p style="display:none;">The fastest automobile ever created lends itself well to \
+          spaceflight, but the uncontrollable nature of the clutch makes it a very unreliable. </p>\
         </div>\
-        <div id="Engine Two" class="tile">\
+        <div id="[Gurgling Noises]" class="tile">\
           <img class="imgTile" src="shopIMGS/engine2.png">\
+          <p>[Gurgling Noises]</p>\
           <span style="display:none;" id="1.45"></span>\
+          <p style="display:none;">AAAEREHRPSEEEEE MYARFFFF GHEO”PORIE. YYWOPQWEBBEOPE, LLLLAORPORSUFEEQ \
+          BYISPAAIDSE. (Tip: Just take the engine and run)</p>\
         </div>\
-        <div id="Engine Three" class="tile">\
+        <div id="Canadian Mooseherder" class="tile">\
           <img class="imgTile" src="shopIMGS/engine3.png">\
+          <p>Canadian Mooseherder</p>\
           <span style="display:none;" id="1.45"></span>\
+          <p style="display:none;">After the Great Frozzen, the Canadians were most prepared for the \
+          giant herds of moose which would take over the world. The prototype engine could cross a \
+          province in a second, which was crucial to winning the War of Moose Reclamation. </p>\
         </div>\
       </div>\
       <div id="miscDiv" class="catDiv">\
-        <div id="Fog Remover" class="tile">\
-          <img class="imgTile" src="shopIMGS/old/fog.png">\
-          <span style="display:none;" id="3.60"></span>\
-        </div>\
         <div id="Minions" class="tile">\
           <img class="imgTile" src="shopIMGS/minion.png">\
+          <p>Minions</p>\
           <span style="display:none;" id="2.60"></span>\
+          <p style="display:none;"></p>\
         </div>\
-        <div id="Green Room" class="tile">\
+        <div id="Game Room" class="tile">\
           <img class="imgTile" src="shopIMGS/green_room.png">\
+          <p>Game Room</p>\
           <span style="display:none;" id="2.60"></span>\
+          <p style="display:none;">You can’t see it, but there’ll be a pool table and flat-screen TV on the ship.</p>\
         </div>\
-        <div id="Scanner" class="tile">\
+        <div id="Vision Enhancer" class="tile">\
           <img class="imgTile" src="shopIMGS/scannerpsd.png">\
+          <p>Vision Enhancer</p>\
           <span style="display:none;" id="2.60"></span>\
+          <p style="display:none;">Extend the range of your vision on all foggy planets.</p>\
         </div>\
       </div>\
     </div>\
