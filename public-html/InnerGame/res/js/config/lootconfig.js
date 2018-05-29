@@ -8,12 +8,24 @@ const loot_types = {
     {
       name:'nawgpart',
       value: 10
+    },
+    {
+      name:'frank',
+      value: 12
+    },
+    {
+      name:'harold',
+      value: 10
+    },
+    {
+      name:'b̸̳͊̀̔̄̓̽̐̓̃̍̀̐̓̕͠u̸̧̞̪̳͉̗̭̖̪̓͐̀̃̉̌̾̎̐͋̃̾ŗ̶̛̗͕͚̩͓̣̼͇͔̝̰̮̼̓̎͒̾̄̓̌͗̇́͝͝o̸͌͛̇͊̿̓̌͘͜k̶̢̡̘̮͕̙̤̩͔̒̽̏̕,̴̖͚̭͔̖͕͓͔̀̒͐ ̵̨̪̠̹̳̿͗̅̂̀͋͗̈́̊͊̚͜͝͝ḓ̶̞̣̜͖̥̯͉̥͓͔̥̼̎͗͜ȅ̸̛͍͎̮̙̫̅̍̈́̋̑̑́͆̌̎͌s̶̡̧̙̝̳̬͉̟͚̖̫̯͎̉t̸̢̢̲͚̠̘͈͙̹̭̄̀͝͠ô̴̧̺̠͇͚̙͉͎̗͎̙̋̀́͆̈́̒̾r̴̡͕͔͉͎̘̫̪̤̼̽̿͊͊̀̈́̾̉̌͗͘̚͘͝͝y̴̡̢̛͍̺̳͉͗̃̒̏̕ę̷̨̡̛̱̙̮̞̘̘͕̤̱̄̋͋̾̐́̚ṛ̴̯̫̝̗̫̙̤͑͋́̎́̀̑͐̍͐̕͝ͅ ̷̣̲̣̠̣̗͕͎̞͙͆̅̽͗͛́ō̵̧̧̞͔̼͆̑͂͌̄̓̀̉̈̓͘͠͠f̴̧̛̩̖͖͓͍͍̠͓̯̬̅̓̃̓͋͐̃̽̋̑͠ ̴̡̪͈̝̮̠͔̞̙͔͎̽̎̌̽̉̉̾̍͝w̸̞̿͆͝ờ̴̠̼̪̠̓̋̈̆̐́̌͛̎̇͝͠ͅr̶̬̤͚͔͙̙̼̜̻̽͗́̎͌̊̈̓́͜͜͜͠l̷̬͕̹͎̂̀̈́̾̽͆́̊̈͊̔͘d̴̡̗̪̐͑͐͂s̵͚̗͍̈́̍̔̉̇̀̑̉́̕',
+      value: 12
     }
   ],
   init: function(){
     for(let i=0;i<loot_types.animals.length;i++){
       let animal = loot_types.animals[i]
-      animal.image = 'Planet'+(i+1);
+      animal.image = 'creature'+(i+1);
 
       //create htmlElement
       let div = document.createElement("div");
@@ -32,6 +44,6 @@ const loot_types = {
   }
 }
 const loot_config = {
-  animal_count:20
+  animal_count:1
 
 }

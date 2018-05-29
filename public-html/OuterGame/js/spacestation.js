@@ -5,6 +5,7 @@ class SpaceStation{
 
     this.canLandOn = false;
 
+    this.stationImage = Images['Station'];
     //create html div for whole space station
     this.div = document.createElement("div");
     this.div.id = "spacestation";
@@ -71,7 +72,6 @@ class SpaceStation{
         }
       }
     };
-
 
     //event listener for clicking on button to exit station back to outer game
     document.getElementById("exitButton").addEventListener("click",function(event){
@@ -143,13 +143,19 @@ class SpaceStation{
   }
 
   renderInSpace(){
-    ctx.beginPath();
-    ctx.moveTo(this.loc.x,this.loc.y-15);
-    ctx.lineTo(this.loc.x+20,this.loc.y+15);
-    ctx.lineTo(this.loc.x-20,this.loc.y+15);
-    ctx.lineTo(this.loc.x,this.loc.y-15);
-    ctx.fillStyle = "blue";
-    ctx.fill();
+    // ctx.beginPath();
+    // ctx.moveTo(this.loc.x,this.loc.y-15);
+    // ctx.lineTo(this.loc.x+20,this.loc.y+15);
+    // ctx.lineTo(this.loc.x-20,this.loc.y+15);
+    // ctx.lineTo(this.loc.x,this.loc.y-15);
+    // ctx.fillStyle = "blue";
+    // ctx.fill();
+
+    var dx = this.loc.x-60;
+    var dy = this.loc.y-60;
+    var dw = 120;
+    var dh = 120;
+    ctx.drawImage(this.stationImage, dx, dy, dw, dh);
   }
 
 }

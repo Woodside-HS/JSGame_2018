@@ -33,6 +33,7 @@ class Game extends Updateable {
   constructor() {   // from setup()
     super();
     this.isPaused = false;
+    this.planet = null;//to be overwritten later
 
     //managers and such
     this.mapManager = new MapManager(this);
@@ -109,6 +110,16 @@ class Game extends Updateable {
     if(this.mouseLocation){
       this.context.fillStyle = 'rgba(0,0,200,1)'
       this.context.fillRect(this.mouseLocation.x-2,this.mouseLocation.y-2,4,4)
+    }
+
+    // if debug mode, display the observed frames per second
+    if (config.debug_mode) {
+        // borrowed from outer game
+        var ctx = this.context;
+        ctx.fillStyle = "white";
+        ctx.font = "20px Georgia";
+        ctx.fillText("FPS:" + realFPS, 20, 200);
+
     }
   }
   mouseMove(e) {

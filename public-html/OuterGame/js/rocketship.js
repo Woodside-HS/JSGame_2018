@@ -21,11 +21,13 @@ class Rocketship extends Mover {
 		this.dir = 0;
 		this.configMaxVel = 300;
 		this.maxVel = this.configMaxVel;
+		this.kEngineUpgrade = 1;
+		this.maxVel = this.configMaxVel;
 		this.mouseLoc = null;
 		this.minMovementRange = 1;
 		this.mouseAccel = .1
 		this.image = Images['playerShip'];
-		this.shipScalingFactor = .6;
+		this.shipScalingFactor = .33;
 
 		// Setup scanner
 
@@ -60,6 +62,7 @@ class Rocketship extends Mover {
 	}
 
 	update() {
+<<<<<<< HEAD
 
 		// if(this.stats.health() <= 1){
 		// 	console.log("dead");
@@ -68,6 +71,9 @@ class Rocketship extends Mover {
 		//
 		// }
 
+=======
+		this.maxVel = this.getEngineModifier()*this.configMaxVel;
+>>>>>>> master
 		if (this.firing) { // If ship is actively in shooting mode...
 			if (this.shotsFired < this.burstCount) { // If it hasn't completed its burst yet...
 				this.fireDelay++;
@@ -96,12 +102,13 @@ class Rocketship extends Mover {
 		if (this.mouseLoc) {
 			let movementVector = worlds[currentLevel].worldCursorPos();
 			movementVector.subtract(this.loc);
-			if (2*movementVector.magnitude() < this.configMaxVel) {
+			if (2*movementVector.magnitude() < this.maxVel) {
 				this.maxVel=2*movementVector.magnitude();
 			}
 			if (movementVector.magnitude() > this.minMovementRange) {
 				this.acc = movementVector.clone();
 				this.acc.setMag(this.mouseAccel*(movementVector.magnitude() - this.minMovementRange));
+				this.acc.scalarMult(this.getEngineModifier());
 			}
 		}
 		/*let frictionAcc = this.vel.clone();
@@ -180,6 +187,10 @@ class Rocketship extends Mover {
 		ctx.drawImage(this.image, this.image.width/(-2), this.image.height/(-2));
 		ctx.restore();
 
+	}
+
+	getEngineModifier(){
+		return this.kEngineUpgrade*Math.log(resources.outerEngineLevel)+1;
 	}
 
 }
