@@ -6,6 +6,7 @@
 		this.entities = []; // Array of entities
 		this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
 
+
 		this.stations = []; //issue 54
 
 		//area is greater than that of canvas
@@ -57,6 +58,7 @@
 						if(!gamePlanet.game){
 							// issue 118 create inner games on demand
 						    gamePlanet.game = new Game();
+								gamePlanet.game.planet = gamePlanet;
 						    gamePlanet.game.init();
 						}
 						game = gamePlanet.game;
@@ -216,7 +218,7 @@
 	checkHitStation() { //issue 54,
 		//if the ship is hovering over a station, text will pop up on canvas
 		for (let i = 0; i < this.stations.length; i++) {
-			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) < 40) {
+			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) <= 120) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
 				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
@@ -581,7 +583,6 @@
 		this.camera.update(); //Update the location of the camera
 
 		this.checkAsteroidCollision();
-		this.checkHitStation(); //issue 54
 
 		let i = 0;
 		let pos = new Vector2D(canvas.width * 0.175, canvas.height * 0.125);
@@ -622,6 +623,9 @@
 			let visual = this.visuals[i];
 			visual.update(); // Update visuals just like entities
 		}
+
+
+		this.checkHitStation(); //issue 54
 	}
 
 	render() {
