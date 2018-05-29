@@ -141,10 +141,12 @@ canvas {
 
 .gamepanel {
   display: none;
-  width: 1024px;
-  position: absolute;
-}
-
-.gamepanel img {
-  width: inherit;
+  height: 300px;
+  width: 600px;
+  position:absolute;
+  top: 5%;
+  left: 5%;
+  /*border doesn't actually fit bottom, too small*/
+  z-index: 10;
+  border: 4px black solid;
 }
