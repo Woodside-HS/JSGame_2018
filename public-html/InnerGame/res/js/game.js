@@ -33,6 +33,7 @@ class Game extends Updateable {
   constructor() {   // from setup()
     super();
     this.isPaused = false;
+    this.planet = null;//to be overwritten later
 
     //managers and such
     this.mapManager = new MapManager(this);

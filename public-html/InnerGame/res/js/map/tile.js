@@ -12,7 +12,7 @@ class Tile extends Updateable {
       // override done in map manager
       this.tileType = tile_types.nulltype;
 
-      this.animalNum = planet.planetImageNum;
+      this.animalNum = this.game.planet.planetImageNum;
 
       this.seen = false;
       this.normalVector = new InnerVector2D(0, 0);

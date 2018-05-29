@@ -62,6 +62,7 @@
 						if(!gamePlanet.game){
 							// issue 118 create inner games on demand
 						    gamePlanet.game = new Game();
+								gamePlanet.game.planet = gamePlanet;
 						    gamePlanet.game.init();
 						}
 						game = gamePlanet.game;
@@ -663,7 +664,7 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
-		
+
 		this.checkHitPlanet();
 
 		//translate to absolute
