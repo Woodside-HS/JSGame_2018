@@ -41,20 +41,18 @@ function load(){
 }
 function init(){
 	loot_types.init();
+
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
-		health: 10,
+		health: null,
 		money : 100,
 		inventory : [], //each has a value
-		// boosts : [], //boost speed, firing frequency
-		// repairs : [], //repair/upgrade shield
-		// weapons : [], //add different kinds of weapons to use
-		// aliens : [], //objects with png and name/planet
 		shieldLevel : 1,
 		innerWeaponsLevel : 1, //may have to split into different weapons/tools
 		innerEngineLevel : 1,
 		outerWeaponsLevel : 1, //may have to split into different weapons/tools
 		outerEngineLevel : 1,
 		minions: 5,
+		fogLevel: 1,
 
 		sellItem : function(item){
 			let name = item.id;
@@ -64,6 +62,7 @@ function init(){
 					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
 					available = true;
+					SpaceStation.infoDiv.render(item,false);
 				}
 			}
 			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
@@ -80,29 +79,47 @@ function init(){
 			switch (object.cat){
 			case "Shield Boost":
 				this.shieldLevel += 1;
-				this.updateLevels(0);
 				break;
-			case "Turret":
+			case "Fruit Cake":
+				this.shieldLevel += 1;
+				break;
+			case "Gandalf":
+				this.shieldLevel += 1;
+				break;
+			case "Cannon":
 				this.outerWeaponsLevel += 1;
-				this.updateLevels(1);
 				break;
-			case "Laser Gun":
+			case "Missiles":
+				this.outerWeaponsLevel += 1;
+				break;
+			case "datrepoji2k_1":
 				this.innerWeaponsLevel += 1;
-				this.updateLevels(1);
 				break;
-			case "Ship Engine":
+			case "garminian_2":
+				this.innerWeaponsLevel += 1;
+				break;
+			case "gaze_3":
+				this.innerWeaponsLevel += 1;
+				break;
+			case "Engine One":
+				break;
+			case "Engine Two":
 				this.outerEngineLevel += 1;
-				this.updateLevels(2);
 				break;
-			case "Rover Engine":
+			case "Engine Three":
 				this.innerEngineLevel += 1;
-				this.updateLevels(2);
 				break;
-			case "Health Boost":
-				this.health +=1;
+			case "Max HP Increase":
+				this.health.maxHp += 3;
 				player_config.max_hp+=10;
 				ui_elements.player_healthbar.max_value+=10;
-				this.updateHealth();
+				break;
+			case "Instant Health Boost":
+				if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
+					this.money += object.price;
+				} else{
+					System().ship.stats.healDamage(10);
+				}
 				break;
 			case "Minions":
 				this.minions+=1;
@@ -115,23 +132,14 @@ function init(){
 		},
 
 
-		updateHealth : function(){
-			var div = document.getElementById("Health");
-			div.children[0].innerHTML = "" + this.health*10 + "%";
-		},
 		updateMoney : function(){
-			var div = document.getElementById("Money");
-			div.children[0].innerHTML = "$" + this.money.toFixed(2);
-		},
-		updateLevels : function(num){
-			var div = document.getElementById("Ship Levels");
-			if(num==0){
-				div.children[num].innerHTML = "Shield: " + this.shieldLevel;
-			} else if(num==1){
-				div.children[num].innerHTML = "Weapons: " + this.weaponsLevel;
-			} else if(num==2){
-				div.children[num].innerHTML = "Engines: " + this.engineLevel;
-			}
+			var div = document.getElementById("moneyDiv");
+			document.getElementById("amount").remove();
+			var node = document.createTextNode("$"+this.money.toFixed(2));
+			var text = document.createElement("p");
+			text.appendChild(node);
+			text.id = "amount";
+			div.appendChild(text);
 		}
 	};
 
@@ -165,7 +173,7 @@ function makeWorld(){
   //add world to array
   worlds.push(w);
   w.initialize();
-	setInterval(animate, 1000/FPS)
+	setInterval(animate, 1000/FPS);
 }
 
 function animate(){

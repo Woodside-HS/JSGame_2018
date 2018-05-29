@@ -55,6 +55,7 @@ class SpaceStation{
             let price = this.item.children[1].id;
             if(resources.money>=price){
               var object = {cat:this.item.id,price:price};
+              //var object = {cat:this.item.parentElement.id, id:this.item.id, price:price};
               resources.buy(object);
             }
           };
@@ -120,18 +121,15 @@ class SpaceStation{
     //add click listener for the "radio buttons" ->actually divs
     var buttons = document.getElementById("radioButtons").children;
     var itemCats = document.getElementById("shopItems").children;
+    for(let i=0;i<itemCats.length;i++){ //traverse categories in items
+      itemCats[i].style.display = "none";
+    }
     for(let i=0;i<buttons.length;i++){
       buttons[i].addEventListener("click",function(event){
-        if(this.id=="allCat"){ //this button shows all the items, the Allcat is your god, your savior, your only hope. Kneel before him
-          for(let i=0;i<itemCats.length;i++){ //traverse categories in items
-            itemCats[i].style.display = "block";
-          }
-        } else{
           for(let i=0;i<itemCats.length;i++){ //traverse categories in items
             itemCats[i].style.display = "none";
           }
           document.getElementById(""+this.id+"Div").style.display = "block";
-        }
         //make the button a different color than the others
         var buttons = document.getElementById("radioButtons");
         for(let i=0;i<buttons.children.length;i++){
@@ -143,14 +141,6 @@ class SpaceStation{
   }
 
   renderInSpace(){
-    // ctx.beginPath();
-    // ctx.moveTo(this.loc.x,this.loc.y-15);
-    // ctx.lineTo(this.loc.x+20,this.loc.y+15);
-    // ctx.lineTo(this.loc.x-20,this.loc.y+15);
-    // ctx.lineTo(this.loc.x,this.loc.y-15);
-    // ctx.fillStyle = "blue";
-    // ctx.fill();
-
     var dx = this.loc.x-60;
     var dy = this.loc.y-60;
     var dw = 120;
@@ -161,6 +151,7 @@ class SpaceStation{
 }
 
 SpaceStation.html = '\
+  <div id="moneyDiv"><p id="amount">$100</p></div>\
   <h1 style="font-size:40px;">Space Station</h1>\
   <img id="exitButton" src="shopIMGS/exit.png">\
   <div id="menu">\
@@ -170,7 +161,6 @@ SpaceStation.html = '\
   <div id="shop" style="display:none">\
     <div class="backButton">Back</div>\
     <div id="radioButtons">\
-      <div class="radio" id="allCat">All</div>\
       <div class="radio" id="health">Health</div>\
       <div class="radio" id="shields">Shields</div>\
       <div class="radio" id="weapons">Weapons</div>\
@@ -179,44 +169,80 @@ SpaceStation.html = '\
     </div>\
     <div class="items" id="shopItems">\
       <div id="healthDiv" class="catDiv">\
-        <div id="Health Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/health.png">\
+        <div id="Max HP Increase" class="tile">\
+          <img class="imgTile" src="shopIMGS/old/health.png">\
+          <span style="display:none;" id="2.35"></span>\
+        </div>\
+        <div id="Instant Health Boost" class="tile">\
+          <img class="imgTile" src="shopIMGS/old/health.png">\
           <span style="display:none;" id="2.35"></span>\
         </div>\
       </div>\
       <div id="shieldsDiv" class="catDiv">\
         <div id="Shield Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/shield.png">\
+          <img class="imgTile" src="shopIMGS/old/shield.png">\
+          <span style="display:none;" id="4.30"></span>\
+        </div>\
+        <div id="Fruit Cake" class="tile">\
+          <img class="imgTile" src="shopIMGS/fruit_cake.png">\
+          <span style="display:none;" id="4.30"></span>\
+        </div>\
+        <div id="Gandalf" class="tile">\
+          <img class="imgTile" src="shopIMGS/gandalf.png">\
           <span style="display:none;" id="4.30"></span>\
         </div>\
       </div>\
       <div id="weaponsDiv" class="catDiv">\
-        <div id="Turret" class="tile">\
-          <img class="imgTile" src="shopIMGS/turret.png">\
+        <div id="Cannon" class="tile">\
+          <img class="imgTile" src="shopIMGS/cannon.png">\
           <span style="display:none;" id="2.40"></span>\
         </div>\
-        <div id="Laser Gun" class="tile">\
-          <img class="imgTile" src="shopIMGS/lasergun.png">\
+        <div id="Missiles" class="tile">\
+          <img class="imgTile" src="shopIMGS/missiles.png">\
+          <span style="display:none;" id="2.40"></span>\
+        </div>\
+        <div id="datrepoji2k_1" class="tile">\
+          <img class="imgTile" src="shopIMGS/datrepoji2k_1.png">\
+          <span style="display:none;" id="3.50"></span>\
+        </div>\
+        <div id="garminian_2" class="tile">\
+          <img class="imgTile" src="shopIMGS/garminian_2.png">\
+          <span style="display:none;" id="3.50"></span>\
+        </div>\
+        <div id="gaze_3" class="tile">\
+          <img class="imgTile" src="shopIMGS/gaze_3.png">\
           <span style="display:none;" id="3.50"></span>\
         </div>\
       </div>\
       <div id="enginesDiv" class="catDiv">\
-        <div id="Ship Engine" class="tile">\
+        <div id="Engine One" class="tile">\
           <img class="imgTile" src="shopIMGS/engine1.png">\
           <span style="display:none;" id="2.55"></span>\
         </div>\
-        <div id="Rover Engine" class="tile">\
+        <div id="Engine Two" class="tile">\
           <img class="imgTile" src="shopIMGS/engine2.png">\
+          <span style="display:none;" id="1.45"></span>\
+        </div>\
+        <div id="Engine Three" class="tile">\
+          <img class="imgTile" src="shopIMGS/engine3.png">\
           <span style="display:none;" id="1.45"></span>\
         </div>\
       </div>\
       <div id="miscDiv" class="catDiv">\
         <div id="Fog Remover" class="tile">\
-          <img class="imgTile" src="shopIMGS/fog.png">\
+          <img class="imgTile" src="shopIMGS/old/fog.png">\
           <span style="display:none;" id="3.60"></span>\
         </div>\
         <div id="Minions" class="tile">\
           <img class="imgTile" src="shopIMGS/minion.png">\
+          <span style="display:none;" id="2.60"></span>\
+        </div>\
+        <div id="Green Room" class="tile">\
+          <img class="imgTile" src="shopIMGS/green_room.png">\
+          <span style="display:none;" id="2.60"></span>\
+        </div>\
+        <div id="Scanner" class="tile">\
+          <img class="imgTile" src="shopIMGS/scannerpsd.png">\
           <span style="display:none;" id="2.60"></span>\
         </div>\
       </div>\
