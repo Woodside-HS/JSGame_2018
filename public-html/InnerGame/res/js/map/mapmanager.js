@@ -83,7 +83,7 @@ class MapManager extends Updateable {
 
       for (let i = 0; i < loot_config.animal_count; i++) {
         let animalTile = this.getValidStartTile();
-        animalTile.loot = loot_types.animals[Math.floor(randIn(0, loot_types.animals.length))];
+        animalTile.loot = loot_types.animals[this.game.planet.planetImageNum-1];
       }
       this.game.player.loc = startTile.loc.duplicate();
       let cloc = positionToGrid(this.game.player.loc);

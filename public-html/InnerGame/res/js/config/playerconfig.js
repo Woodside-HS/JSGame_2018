@@ -91,7 +91,7 @@ const player_config = {
   bullet_speed: 10, //in px/frame
   bullet_distance: 15*config.tile_size, //in px
   auto_fire: true,
-  bullet_damage: .02,
+  bullet_damage: .05,
   bullet_wander: Math.PI/9,
   accuracy_time: 15, //in frames
   bullet_acceleration: .985
