@@ -76,35 +76,47 @@ function init(){
 			switch (object.cat){
 			case "Shield Boost":
 				this.shieldLevel += 1;
-				// this.updateLevels(0);
 				break;
-			case "Turret":
+			case "Fruit Cake":
+				this.shieldLevel += 1;
+				break;
+			case "Gandalf":
+				this.shieldLevel += 1;
+				break;
+			case "Cannon":
 				this.outerWeaponsLevel += 1;
-				// this.updateLevels(1);
 				break;
-			case "Laser Gun":
+			case "Missiles":
+				this.outerWeaponsLevel += 1;
+				break;
+			case "datrepoji2k_1":
 				this.innerWeaponsLevel += 1;
-				// this.updateLevels(1);
 				break;
-			case "Ship Engine":
+			case "garminian_2":
+				this.innerWeaponsLevel += 1;
+				break;
+			case "gaze_3":
+				this.innerWeaponsLevel += 1;
+				break;
+			case "Engine One":
+				break;
+			case "Engine Two":
 				this.outerEngineLevel += 1;
-				// this.updateLevels(2);
 				break;
-			case "Rover Engine":
+			case "Engine Three":
 				this.innerEngineLevel += 1;
-				// this.updateLevels(2);
 				break;
 			case "Max HP Increase":
-				this.health +=1;
+				this.health.maxHp += 3;
 				player_config.max_hp+=10;
 				ui_elements.player_healthbar.max_value+=10;
-				// this.updateHealth();
 				break;
 			case "Instant Health Boost":
-				this.health +=1;
-				player_config.max_hp+=10;
-				ui_elements.player_healthbar.max_value+=10;
-				// this.updateHealth();
+				if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
+					this.money += object.price;
+				} else{
+					System().ship.stats.healDamage(10);
+				}
 				break;
 			case "Minions":
 				this.minions+=1;
@@ -116,17 +128,6 @@ function init(){
 			}
 		},
 
-	// 	if(object.id=="Max HP Increase"){
-	// 		this.health.maxHp +=3;
-	// 	} else if(object.id == "Instant Health Boost"){
-	// 		if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
-	// 			this.money += object.price;
-	// 		} else{
-	// 			System().ship.stats.healDamage(10);
-	// 		}
-	// 	}
-	// }
-
 
 		updateMoney : function(){
 			var div = document.getElementById("moneyDiv");
@@ -136,23 +137,6 @@ function init(){
 			text.appendChild(node);
 			text.id = "amount";
 			div.appendChild(text);
-		},
-		// updateLevels : function(num){
-		// 	var div = document.getElementById("Ship Levels");
-		// 	if(num==0){
-		// 		div.children[num].innerHTML = "Shield: " + this.shieldLevel;
-		// 	} else if(num==1){
-		// 		div.children[num].innerHTML = "Weapons: " + this.weaponsLevel;
-		// 	} else if(num==2){
-		// 		div.children[num].innerHTML = "Engines: " + this.engineLevel;
-		// 	}
-		// }
-
-		getHealth : function(){
-
-		},
-		getLevel : function(num){
-
 		}
 	};
 
