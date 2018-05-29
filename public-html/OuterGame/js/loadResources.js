@@ -51,10 +51,11 @@ let imageSources = {//Properties of imageSources match names of images
 	starfield: {
 		sourceString: "res/starfield.png"
 	},
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	death: {
 		sourceString: "res/sprites/youdied.jpg"
-=======
+	},
+//=======
 	Station: {
 		sourceString: "res/sprites/Finalimgs/AllySpaceStation4.png"
 	},
@@ -66,7 +67,7 @@ let imageSources = {//Properties of imageSources match names of images
 	},
 	Drone3: {
 		sourceString: "res/sprites/Finalimgs/Drone4.png"
->>>>>>> master
+//>>>>>>> master
 	},
 	//inner game images
 	grass: {

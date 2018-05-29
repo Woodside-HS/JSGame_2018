@@ -2,6 +2,7 @@
 class Asteroid extends Mover {
 	constructor(loc, vel,acc,radius) {
 		super(loc,vel,acc,radius);
+		this.damagePower = 5;
 		// this.radius = radius;
 		var asteroidImageNum = Math.floor(Math.random()*10+1);
     this.asteroidImage = Images['Asteroid' + asteroidImageNum];

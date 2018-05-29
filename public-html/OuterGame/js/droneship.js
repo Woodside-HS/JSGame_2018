@@ -3,7 +3,7 @@ class DroneShip extends Mover {
 	constructor(loc){
 		super(loc);
 		this.radius = 20;
-
+		this.damagePower = 3;
 		this.vel = new Vector2D(Math.random() * 20 - 10, Math.random() * 20 - 10);
 
 		let stats = new StatBlock(40);

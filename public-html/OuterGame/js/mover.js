@@ -8,6 +8,8 @@ class Mover {
     this.vel = vel || new Vector2D(0,0);
     this.acc = acc || new Vector2D(0,0);
 
+    this.damagePower;
+
 	this.shields = [];
 
 	this.collisionEvents = [];
@@ -66,6 +68,14 @@ class Mover {
 		shield.owner = this;
 		System().addEntity(shield);
 	}
+
+  damage(amount){
+    if(this.shields[0] && this.shields[0].stats.health() > 0){
+      this.shields[0].stats.takeDamage(amount);
+    }else{
+      this.stats.takeDamage(amount);
+    }
+  }
 
   destroy() {
 	let idx = System().entities.indexOf(this);

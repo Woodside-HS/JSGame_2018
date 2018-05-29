@@ -456,22 +456,21 @@
 
 					// note the total momentum after the collision
 					var p_final = Vector2D.add(b1.momentum(), b2.momentum());
-					// console.log(`initial momentum ${p_initial}`);
-					// console.log(`final momentum ${p_final}`);
-					// console.log(totalKineticEnergy());
-					// console.log(p_final.x, p_final.y);
 
-					if (b1 instanceof Rocketship || b1 instanceof DroneShip){
-						b1.shields[0].stats.takeDamage(5);
-					}else{
-						b1.stats.takeDamage(5);
-					}
 
-					if (b2 instanceof Rocketship || b2 instanceof DroneShip){
-						b2.shields[0].stats.takeDamage(5);
-					}else{
-						b2.stats.takeDamage(5);
-					}
+					// if (b1 instanceof Rocketship || b1 instanceof DroneShip){
+					// 	b1.shields[0].stats.takeDamage(5);
+					// }else{
+					// 	b1.stats.takeDamage(5);
+					// }
+					//
+					// if (b2 instanceof Rocketship || b2 instanceof DroneShip){
+					// 	b2.shields[0].stats.takeDamage(5);
+					// }else{
+					// 	b2.stats.takeDamage(5);
+					// }
+					b1.damage(b2.damagePower);
+					b2.damage(b1.damagePower);
 
 
 				}

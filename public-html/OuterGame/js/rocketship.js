@@ -4,6 +4,7 @@ class Rocketship extends Mover {
 		super(location);
 		this.loc = location;
 		this.radius = 15;
+		this.damagePower = 3;
 
 		this.name = "Explorer";
 
@@ -62,18 +63,9 @@ class Rocketship extends Mover {
 	}
 
 	update() {
-<<<<<<< HEAD
 
-		// if(this.stats.health() <= 1){
-		// 	console.log("dead");
-		// 	var youDiedImage = Images['death'];
-		// 	ctx.drawImage(youDiedImage, 0, 0, System().width, System().height);
-		//
-		// }
-
-=======
 		this.maxVel = this.getEngineModifier()*this.configMaxVel;
->>>>>>> master
+
 		if (this.firing) { // If ship is actively in shooting mode...
 			if (this.shotsFired < this.burstCount) { // If it hasn't completed its burst yet...
 				this.fireDelay++;
