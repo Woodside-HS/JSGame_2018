@@ -141,14 +141,6 @@ class SpaceStation{
   }
 
   renderInSpace(){
-    // ctx.beginPath();
-    // ctx.moveTo(this.loc.x,this.loc.y-15);
-    // ctx.lineTo(this.loc.x+20,this.loc.y+15);
-    // ctx.lineTo(this.loc.x-20,this.loc.y+15);
-    // ctx.lineTo(this.loc.x,this.loc.y-15);
-    // ctx.fillStyle = "blue";
-    // ctx.fill();
-
     var dx = this.loc.x-60;
     var dy = this.loc.y-60;
     var dw = 120;
