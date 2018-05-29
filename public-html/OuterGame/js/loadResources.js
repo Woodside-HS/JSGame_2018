@@ -55,15 +55,12 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "res/sprites/Finalimgs/AllySpaceStation4.png"
 	},
 	Drone1: {
-		sourceString: "res/sprites/Finalimgs/Drone1.png"
-	},
-	Drone2: {
 		sourceString: "res/sprites/Finalimgs/Drone2.png"
 	},
-	Drone3: {
+	Drone2: {
 		sourceString: "res/sprites/Finalimgs/Drone3.png"
 	},
-	Drone4: {
+	Drone3: {
 		sourceString: "res/sprites/Finalimgs/Drone4.png"
 	},
 	//inner game images
@@ -99,6 +96,21 @@ let imageSources = {//Properties of imageSources match names of images
 	},
 	splash: {
 		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
+	},
+	creature1: {
+		sourceString:"../InnerGame/res/sprites/creatures/FatBat.png"
+	},
+	creature2: {
+		sourceString:"../InnerGame/res/sprites/creatures/green.png"
+	},
+	creature3: {
+		sourceString:"../InnerGame/res/sprites/creatures/chickenwithabelt.png"
+	},
+	creature4: {
+		sourceString:"../InnerGame/res/sprites/creatures/Ratwithahood.png"
+	},
+	creature5: {
+		sourceString:"../InnerGame/res/sprites/creatures/AlienMage.png"
 	},
 	// Panels
 	panel01: {

@@ -25,7 +25,9 @@ class DroneShip extends Mover {
 		this.fireSpread = 45; // Inaccuracy of firing, in degrees
 		this.allowedFireArc = 45; // Arc within which the ship will start firing
 
-		this.droneNum = Math.floor(Math.random()*4+1);
+		this.shipScalingFactor = .38;
+
+		this.droneNum = Math.floor(Math.random()*3+1);
 		this.image = Images['Drone' + this.droneNum];
 	}
 

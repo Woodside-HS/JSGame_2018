@@ -6,6 +6,7 @@
 		this.entities = []; // Array of entities
 		this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
 
+
 		this.stations = []; //issue 54
 
 		//area is greater than that of canvas
