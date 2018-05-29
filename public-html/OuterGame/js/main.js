@@ -14,18 +14,21 @@ var gameState;
 var resources;
 var gamePlanet;
 var playerStats = {revealLevel: 1};//which reveal method to use. 1,2,3,4
+var frameCount = 0;	// one per animation frame
+var realFPS = 0;	// observed frames per second
 
+var FPS = 60; // Desired (intended) Frames per second
+function checkFPS() {
+	var frames = frameCount;
+	frameCount = 0;
+	realFPS = frames * 4;
+}
 
-
-
-
-
+setInterval(checkFPS, 250);	// observe FPS every quarter second
 
 var playerShip = function() { // Mostly-useless function but sometimes important
 	return System().ship;
 }
-
-var FPS = 60; // Desired (intended) Frames per second
 
 var System = function() {
 	return worlds[currentLevel];
@@ -209,6 +212,7 @@ function makeWorld(){
 }
 
 function animate(){
+	frameCount++;
 	if(gameState!="station"){
 	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
 	  //run this level's world
