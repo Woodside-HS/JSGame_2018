@@ -211,7 +211,7 @@
 				//check if ship is close to any of the planets
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[X] to land on planet", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[X] to land on planet", this.ship.loc.x - 100, this.ship.loc.y - 50);
 				out = this.planets[i];
 			}
 		}
@@ -663,12 +663,13 @@
 		for (let i in arr) {
 			arr[i].render(); // Render everything visible in the universe
 		}
+		
+		this.checkHitPlanet();
 
 		//translate to absolute
 		ctx.restore();
 
 		this.drawHealthMeter();
-		this.checkHitPlanet();
 		this.drawSelectionBuffer();
 		this.drawCursor();
 		this.drawDebug();
