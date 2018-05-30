@@ -71,6 +71,9 @@ class SpaceStation{
               resources.buy(object);
             }
           };
+          if(item.className == "oldTile"){
+            button.disabled = true;
+          }
         }
         infoDiv.appendChild(button);
         var price = document.createTextNode(" | $"+ item.children[2].id);

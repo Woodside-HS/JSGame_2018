@@ -79,12 +79,20 @@ function init(){
 			switch (object.cat){
 			case "Yokerling Bokum":
 				this.shieldLevel += 1;
+				document.getElementById("Yokerling Bokum").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Fruit Cake":
 				this.shieldLevel += 1;
+				document.getElementById("Yokerling Bokum").className = "tile";
+				document.getElementById("Fruit Cake").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Gandalf":
 				this.shieldLevel += 1;
+				document.getElementById("Fruit Cake").className = "tile";
+				document.getElementById("Gandalf").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Cannon":
 				this.outerWeaponsLevel += 1;
@@ -94,20 +102,36 @@ function init(){
 				break;
 			case "Biffle Ball":
 				this.innerWeaponsLevel += 1;
+				document.getElementById("The Holy Grail").className = "tile";
+				document.getElementById("Biffle Ball").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "The Holy Grail":
 				this.innerWeaponsLevel += 1;
+				document.getElementById("788’481’515’’6765-132154--16").className = "tile";
+				document.getElementById("The Holy Grail").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "788’481’515’’6765-132154--16":
 				this.innerWeaponsLevel += 1;
+				document.getElementById("788’481’515’’6765-132154--16").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "1958 Ferrari GT-3432":
+			document.getElementById("[Gurgling Noises]").className = "tile";
+			document.getElementById("1958 Ferrari GT-3432").className = "oldTile";
+			document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "[Gurgling Noises]":
-				this.outerEngineLevel += 1;
+				// this.outerEngineLevel += 1;
+				document.getElementById("Canadian Mooseherder").className = "tile";
+				document.getElementById("[Gurgling Noises]").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Canadian Mooseherder":
-				this.innerEngineLevel += 1;
+				// this.innerEngineLevel += 1;
+				document.getElementById("Canadian Mooseherder").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Max HP Increase":
 				this.health.maxHp += 3;
