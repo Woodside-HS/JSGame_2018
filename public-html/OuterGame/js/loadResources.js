@@ -113,6 +113,12 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString:"../InnerGame/res/sprites/creatures/AlienMage.png"
 	},
 	// Panels
+	splashpanel: {
+		sourceString:"res/panels/TheSplash.png",
+	},
+	panel00: {
+		sourceString:"res/panels/IntroText2.png",
+	},
 	panel01: {
 		sourceString:"res/panels/bluedown.png",
 	},

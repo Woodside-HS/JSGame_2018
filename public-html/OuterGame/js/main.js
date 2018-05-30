@@ -172,8 +172,52 @@ function makeWorld(){
   var w = new World(currentLevel);
   //add world to array
   worlds.push(w);
-  w.initialize();
-	setInterval(animate, 1000/FPS);
+	play = false;
+	let panela = document.getElementById("gamepanela");
+	panela.appendChild(Images["splashpanel"]);
+	panela.style.display = "block";
+	document.addEventListener("keypress", function handler(event) {
+		switch(event.key) {
+			case " ":
+				if(!play){ //Zeej: to get from splash (planela) to intro (panel1) correctly
+					gameState = "transition";
+					//document.removeEventListener("keypress", handler);
+					panela.style.display = "none";
+					let panel1 = document.getElementById("gamepanel0");
+					panel1.appendChild(Images["panel00"]);
+					panel1.style.display = "block";
+					play = true;
+					break;
+				}else{
+					gameState = "outer";
+					document.removeEventListener("keypress", handler);
+					document.getElementById("gamepanel0").style.display = "none";
+					w.initialize();
+					setInterval(animate, 1000/FPS);
+					break;
+				}
+			default:
+				return;
+		}
+	});
+	if(gameState === "transition"){
+		let panel1 = document.getElementById("gamepanel0");
+		panel1.appendChild(Images["panel00"]);
+		panel1.style.display = "block";
+		document.addEventListener("keypress", function handler(event) {
+			switch(event.key) {
+				case " ":
+					gameState = "outer";
+					document.removeEventListener("keypress", handler);
+					panel1.style.display = "none";
+					w.initialize();
+					setInterval(animate, 1000/FPS);
+					break;
+				default:
+					return;
+			}
+		});
+	}
 }
 
 function animate(){
@@ -181,14 +225,14 @@ function animate(){
 	if(gameState!="station"){
 	  ctx.clearRect(0,0,window.innerWidth, window.innerHeight);
 	  //run this level's world
-		if(gameState=="outer"){
+		if(gameState=="transition"){
+
+		} else if(gameState=="outer" && play){
 			worlds[currentLevel].run();
 		} else if(gameState=="inner"){
 			//inner world
 			game.update();
 			game.render();
-		} else if(gameState=="transition"){
-
 		}
 	}
 }
