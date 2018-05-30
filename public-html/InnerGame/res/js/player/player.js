@@ -232,7 +232,7 @@ class Player extends Updateable {
           switch (powerup.type.name){
             case 'money':
             resources.money+=powerup.type.amount;
-            resources.updateMoney();
+            //resources.updateMoney();
             break;
             case 'hp':
             this.hp+=powerup.type.amount;
