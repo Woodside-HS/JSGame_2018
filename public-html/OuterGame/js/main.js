@@ -61,14 +61,11 @@ function init(){
 				if(this.inventory[i].name==name){
 					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
-					available = true;
 					SpaceStation.infoDiv.render(item,false);
+					let button = document.getElementById("invInfo").children[3];
+					button.disabled = true;
+					//disable button to show cant sell anymore
 				}
-			}
-			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
-				//disable button to show cant sell anymore
-				let button = document.getElementById("invInfo").children[3];
-				button.disabled = true;
 			}
 			this.updateMoney();
 		},

@@ -30,7 +30,7 @@ const loot_types = {
       //create htmlElement
       let div = document.createElement("div");
       div.id=animal.name;
-      div.classList.add('tile');
+      div.classList.add('invTile');
       let img = document.createElement("img");
       img.src=Images[animal.image].src;
       img.classList.add('imgTile');
@@ -38,7 +38,12 @@ const loot_types = {
       span.style = "display:none;"
       span.id= animal.value;
       div.appendChild(img);
+      let gap = document.createElement("p"); //so span will be found, for name
+      gap.innerHTML = animal.name;
+      div.appendChild(gap);
       div.appendChild(span);
+      let info = document.createElement("p"); //another gap, for info
+      div.appendChild(info);
       animal.htmlElement=div;
     }
   }

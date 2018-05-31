@@ -179,6 +179,25 @@
   float: left;
 }
 
+.invTile{
+  width:200px;
+  height: 200px;
+  float: left;
+  margin-left: 20px;
+  margin-top: 25px;
+  padding-left: 3px;
+  background-color: lightblue;
+  border-radius: 0%;
+  cursor: pointer;
+  border: 1px solid black;
+  color: black;
+}
+
+.invTile:hover{
+  background-color: blue;
+  color: white;
+}
+
 #infoImg{
   /* width: 200px; */
   height: 160px;
