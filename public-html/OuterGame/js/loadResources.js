@@ -31,28 +31,37 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString: "res/sprites/Planet/Asteroid10.png",
 	},
 	Planet1: {
-		sourceString: "res/sprites/Planet/PlanetTestRender0001.png",
+		sourceString: "res/sprites/Planet/p0001.png",
 	},
 	Planet2: {
-		sourceString: "res/sprites/Planet/PlanetTestRender0002.png",
+		sourceString: "res/sprites/Planet/p0010.png",
 	},
 	Planet3: {
-		sourceString: "res/sprites/Planet/PlanetTestRender0003.png",
+		sourceString: "res/sprites/Planet/p0011.png",
 	},
 	Planet4: {
-		sourceString: "res/sprites/Planet/PlanetTestRender0004.png",
+		sourceString: "res/sprites/Planet/p0008.png",
 	},
 	Planet5: {
-		sourceString: "res/sprites/Planet/PlanetTestRender0005.png",
-	},
-	enemyShip: {
-		sourceString: "res/ships/enemyShip.png",
+		sourceString: "res/sprites/Planet/p0006.png",
 	},
 	playerShip: {
-		sourceString: "res/ships/playerShip.png",
+		sourceString: "res/sprites/Finalimgs/SpaceShip.png",
 	},
 	starfield: {
 		sourceString: "res/starfield.png"
+	},
+	Station: {
+		sourceString: "res/sprites/Finalimgs/AllySpaceStation4.png"
+	},
+	Drone1: {
+		sourceString: "res/sprites/Finalimgs/Drone2.png"
+	},
+	Drone2: {
+		sourceString: "res/sprites/Finalimgs/Drone3.png"
+	},
+	Drone3: {
+		sourceString: "res/sprites/Finalimgs/Drone4.png"
 	},
 	//inner game images
 	grass: {
@@ -88,7 +97,28 @@ let imageSources = {//Properties of imageSources match names of images
 	splash: {
 		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
 	},
+	creature1: {
+		sourceString:"../InnerGame/res/sprites/creatures/FatBat.png"
+	},
+	creature2: {
+		sourceString:"../InnerGame/res/sprites/creatures/green.png"
+	},
+	creature3: {
+		sourceString:"../InnerGame/res/sprites/creatures/chickenwithabelt.png"
+	},
+	creature4: {
+		sourceString:"../InnerGame/res/sprites/creatures/Ratwithahood.png"
+	},
+	creature5: {
+		sourceString:"../InnerGame/res/sprites/creatures/AlienMage.png"
+	},
 	// Panels
+	splashpanel: {
+		sourceString:"res/panels/TheSplash.png",
+	},
+	panel00: {
+		sourceString:"res/panels/IntroText2.png",
+	},
 	panel01: {
 		sourceString:"res/panels/bluedown.png",
 	},
@@ -182,136 +212,126 @@ function loadImages() {
 		loadSounds();
 	});
 }
-// let imageSources = {//Properties of imageSources match names of images
-// 	//outer game images
-// 	Asteroid1: {
-// 		sourceString:"res/sprites/Planet/Asteroid1.png",
+
+// let soundSources = {//Properties of soundSources match names of sounds
+// 	backgroundMusic: {
+// 		sourceString:"res/sounds/A/bgS.mp3",
 // 	},
-// 	Asteroid2: {
-// 		sourceString:"res/sprites/Planet/Asteroid2.png",
+// 	backgroundMusicAlt: {
+// 		sourceString:"res/sounds/B/bgS.mp3",
 // 	},
-// 	Asteroid3: {
-// 		sourceString:"res/sprites/Planet/Asteroid3.png",
+// 	badNoiseDontUse: {
+// 		sourceString:"res/sounds/B/GoodNoiseplsuse.wav",
 // 	},
-// 	Asteroid4: {
-// 		sourceString:"res/sprites/Planet/Asteroid4.png",
+// 	click: {
+// 		sourceString:"res/sounds/A/click.mp3",
 // 	},
-// 	Asteroid5: {
-// 		sourceString:"res/sprites/Planet/Asteroid5.png",
+// 	cllsn: {
+// 		sourceString:"res/sounds/A/cllsn.mp3",
 // 	},
-// 	Asteroid6: {
-// 		sourceString:"res/sprites/Planet/Asteroid6.png",
+// 	ding: {
+// 		sourceString:"res/sounds/A/ding.mp3",
 // 	},
-// 	Asteroid7: {
-// 		sourceString:"res/sprites/Planet/Asteroid7.png",
+// 	doom: {
+// 		sourceString:"res/sounds/A/doom.mp3",
 // 	},
-// 	Asteroid8: {
-// 		sourceString:"res/sprites/Planet/Asteroid8.png",
+// 	error: {
+// 		sourceString:"res/sounds/B/err.wav",
 // 	},
-// 	Asteroid9: {
-// 		sourceString:"res/sprites/Planet/Asteroid9.png",
+// 	keyStroke1: {
+// 		sourceString:"res/sounds/B/computernoise1.wav",
 // 	},
-// 	Asteroid10: {
-// 		sourceString:"res/sprites/Planet/Asteroid10.png",
+// 	keyStroke2: {
+// 		sourceString:"res/sounds/B/computernoise2.wav",
 // 	},
-// 	Planet1: {
-// 		sourceString:"res/sprites/Planet/PlanetTestRender0001.png",
+// 	keyStroke3: {
+// 		sourceString:"res/sounds/B/computernoise3.wav",
 // 	},
-// 	Planet2: {
-// 		sourceString:"res/sprites/Planet/PlanetTestRender0002.png",
+// 	mchn: {
+// 		sourceString:"res/sounds/A/mchn.mp3",
 // 	},
-// 	Planet3: {
-// 		sourceString:"res/sprites/Planet/PlanetTestRender0003.png",
+// 	money: {
+// 		sourceString:"res/sounds/A/money.mp3",
 // 	},
-// 	Planet4: {
-// 		sourceString:"res/sprites/Planet/PlanetTestRender0004.png",
+// 	point: {
+// 		sourceString:"res/sounds/B/points.wav",
 // 	},
-// 	Planet5: {
-// 		sourceString:"res/sprites/Planet/PlanetTestRender0005.png",
+// 	mS1: {
+// 		sourceString:"res/sounds/A/mS1.mp3",
 // 	},
-// 	enemyShip: {
-// 		sourceString:"res/ships/enemyShip.png",
+// 	shipCollide1: {
+// 		sourceString:"res/sounds/B/CollidingwithOtherShips1.wav",
 // 	},
-// 	playerShip: {
-// 		sourceString:"res/ships/playerShip.png",
+// 	shipCollide2: {
+// 		sourceString:"res/sounds/B/CollidingwithOtherShips3.wav",
 // 	},
-// 	//inner game images
-// 	grass: {
-// 		sourceString:"../InnerGame/res/sprites/grass.png",
+// 	shipForwards: {
+// 		sourceString:"res/sounds/B/ShipNoiseForward.wav",
 // 	},
-// 	fog: {
-// 		sourceString:"../InnerGame/res/sprites/fog.png",
+// 	shipLand: {
+// 		sourceString:"res/sounds/B/SpaceShipLanding1.wav",
 // 	},
-// 	rocks2c: {
-// 		sourceString:"../InnerGame/res/sprites/rocks2c.png",
+// 	smash: {
+// 		sourceString:"res/sounds/A/smash.mp3",
 // 	},
-// 	tractor: {
-// 		sourceString:"../InnerGame/res/sprites/tractor.png",
+// 	spaceSounds: {
+// 		sourceString:"res/sounds/B/spaceambience1.wav",
 // 	},
-// 	WATERTiles: {
-// 		sourceString:"../InnerGame/res/sprites/WATERTiles.png",
+// 	takeoff: {
+// 		sourceString:"res/sounds/B/Takeoff.wav",
 // 	},
-// 	hpPU: {
-// 		sourceString:"../InnerGame/res/sprites/hpPU.png",
+// 	tDest: {
+// 		sourceString:"res/sounds/A/tDest.mp3",
 // 	},
-// 	shieldPU: {
-// 		sourceString:"../InnerGame/res/sprites/shieldPU.png",
+// 	tNoise: {
+// 		sourceString:"res/sounds/A/tNoise.mp3",
 // 	},
-// 	moneyPU: {
-// 		sourceString:"../InnerGame/res/sprites/moneyPU.png",
+// 	tpLand: {
+// 		sourceString:"res/sounds/B/LandingonTradePost.wav",
 // 	},
-// 	techPU: {
-// 		sourceString:"../InnerGame/res/sprites/techPU.png",
+// 	tradeErr: {
+// 		sourceString:"res/sounds/B/unsuccessfultrade.wav",
 // 	},
-// 	arrowPU: {
-// 		sourceString:"../InnerGame/res/sprites/arrowPU.png",
+// 	uPup: {
+// 		sourceString:"res/sounds/A/uPup.mp3",
 // 	},
-// 	splash: {
-// 		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
+// 	water: {
+// 		sourceString:"res/sounds/A/water.mp3",
 // 	},
-// 	// Trading post images
-// 	shopBackground: {
-// 		sourceString:"shopIMGS/background.png",
+// 	weaponPulse: {
+// 		sourceString:"res/sounds/A/weapon.mp3",
 // 	},
-// 	brownie: {
-// 		sourceString:"shopIMGS/brownie.png",
+// 	xplsn1: {
+// 		sourceString:"res/sounds/B/explosion4.wav",
 // 	},
-// 	shopButton: {
-// 		sourceString:"shopIMGS/button.png",
+// 	xplsn2: {
+// 		sourceString:"res/sounds/B/explosion5.wav",
 // 	},
-// 	cake: {
-// 		sourceString:"shopIMGS/cake.png",
-// 	},
-// 	coffee: {
-// 		sourceString:"shopIMGS/coffee.png",
-// 	},
-// 	cookie: {
-// 		sourceString:"shopIMGS/cookie.png",
-// 	},
-// 	cupcake: {
-// 		sourceString:"shopIMGS/cupcake.png",
-// 	},
+// 	xplsn3: {
+// 		sourceString:"res/sounds/B/explosion3.wav",
+// 	}
 // }
 
-function loadSounds() {
-	// 	let promises = [];
-	// 	for(let index in soundSources){
-	// 		if(imageSources.hasOwnProperty(index)){
-	// 			promises.push(new Promise(function(resolve,reject){
-	// 				var sou = new Audio(index);
-	// 				img.addEventListener('load', function(){
-	// 					resolve(img);
-	// 				});
-	// 				img.addEventListener('error', function(){
-	// 					reject();
-	// 				});
-	// 				img.src = imageSources[index].sourceString;
-	// 			}).then(function(img){
-	// 				Sounds[index] = sou;
-	// 			}))
-	// 		}
+
+  function loadSounds(){
+	let promises = [];
+	// for(let index in soundSources){
+	// 	if(soundSources.hasOwnProperty(index)){
+	// 		promises.push(new Promise(function(resolve,reject){
+	// 			var sourceString = soundSources[index].sourceString;
+	// 			var sou = new Audio(sourceString);
+	// 			sou.addEventListener('load', function(){
+	// 				resolve(img);
+	// 			});
+	// 			sou.addEventListener('error', function(){
+	// 				reject();
+	// 			});
+	// 		}).then(function(img){
+	// 			Sounds[index] = sou;
+	// 		}))
 	// 	}
-	Promise.all([]).then(function () {
+	// }
+	Promise.all(promises).then(function(){
 		init();
 	});
 }
