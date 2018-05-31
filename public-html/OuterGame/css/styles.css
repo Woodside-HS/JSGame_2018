@@ -148,14 +148,15 @@ canvas {
   width: inherit;
 }
 
-<<<<<<< HEAD
+
 #deathpanel {
   display: none;
   width: 1024px;
   height: 676px;
   position:absolute;
   z-index: 10;
-=======
+}
+
 #spacebar1{
   color: white;
   font-size: 30px;
@@ -170,5 +171,5 @@ canvas {
   position: absolute;
   bottom: 30px;
   right: 50px;
->>>>>>> master
+
 }
