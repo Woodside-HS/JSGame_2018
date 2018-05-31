@@ -84,14 +84,14 @@ const player_config = {
 
   //flamethrower
   shot_cooldown: 1*config.frame_rate/30, //in sec
-  bullet_size: 2, //in px
+  bullet_size: 3, //in px
   spread_count: 50,
   bullet_spread: Math.PI/30, //in radians
   bullet_color: 'rgba(255,150,50,.5)',
   bullet_speed: 10, //in px/frame
   bullet_distance: 15*config.tile_size, //in px
   auto_fire: true,
-  bullet_damage: .02,
+  bullet_damage: .05,
   bullet_wander: Math.PI/9,
   accuracy_time: 15, //in frames
   bullet_acceleration: .985

@@ -73,16 +73,15 @@ class MapManager extends Updateable {
         for (let j = 0; j < config.map_y_size; j++)
           this.map[i][j].init();
 
-        // initialiaze start location
+      // initialiaze start location
       this.startTile = this.getValidStartTile();
-      while(this.startTile.cloc.x*this.startTile.cloc.y==0||this.startTile.cloc.x>=config.map_x_size-1||this.startTile.cloc.y>=config.map_y_size-1)
-        this.startTile = this.getValidStartTile();
       this.startTile.isStart = true;
+      //    startTile.seen = true;s
 
       this.towerManager.init();
       this.powerupManager.init();
 
-
+      
 
 
       for (let i = 0; i < loot_config.animal_count; i++) {
