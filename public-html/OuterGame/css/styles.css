@@ -138,7 +138,14 @@ canvas {
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
 }
-
+.head {
+  display: none;
+  width: 1024px;
+  position: relative;
+}
+.head img {
+  width: inherit;
+}
 .gamepanel {
   display: none;
   width: 1024px;

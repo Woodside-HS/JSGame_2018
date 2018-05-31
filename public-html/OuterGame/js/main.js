@@ -183,6 +183,9 @@ function makeWorld(){
 					gameState = "transition";
 					//document.removeEventListener("keypress", handler);
 					panela.style.display = "none";
+					let panelh = document.getElementById("titlehead");
+					panelh.appendChild(Images["logohead"]);
+					panelh.style.display = "block";
 					let panel1 = document.getElementById("gamepanel0");
 					panel1.appendChild(Images["panel00"]);
 					panel1.style.display = "block";
@@ -201,9 +204,9 @@ function makeWorld(){
 		}
 	});
 	if(gameState === "transition"){
-		let panel1 = document.getElementById("gamepanel0");
-		panel1.appendChild(Images["panel00"]);
-		panel1.style.display = "block";
+		// let panel1 = document.getElementById("gamepanel0");
+		// panel1.appendChild(Images["panel00"]);
+		// panel1.style.display = "block";
 		document.addEventListener("keypress", function handler(event) {
 			switch(event.key) {
 				case " ":
