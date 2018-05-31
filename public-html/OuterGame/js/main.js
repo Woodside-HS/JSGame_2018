@@ -222,10 +222,7 @@ function makeWorld(){
 
 function animate(){
 
-	if(gameState == "dead"){
-		var youDiedImage = Images['death'];
-		ctx.drawImage(youDiedImage, 0, 0, System().width, System().height);
-	}
+
 
 	frameCount++;
 
