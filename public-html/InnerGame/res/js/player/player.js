@@ -93,15 +93,9 @@ class Player extends Updateable {
           if(diff.m<player_config.bullet_size+enemy.size/2){
             if(!player_config.damage_dropoff)
             player_config.damage_dropoff=0;
-<<<<<<< HEAD
-            enemy.hp-=player_config.bullet_damage*
+            enemy.hp-=this.damageMultiplier*player_config.bullet_damage*
             Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
             if(!player_config.penetrating)
-=======
-          enemy.hp-=this.damageMultiplier*player_config.bullet_damage*
-              Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
-          if(!player_config.penetrating)
->>>>>>> master
             this.projectiles.splice(i, 1);
             i--;
             break;
@@ -191,76 +185,30 @@ class Player extends Updateable {
               angleC += angleToAdd;
             }
           }
-<<<<<<< HEAD
-          var map = this.game.mapManager.map;
-          for(let i = 0; i < config.map_x_size; i++){
-            for(let j = 0; j < config.map_y_size; j++){
-              if(map[i] && map[i][j]){
-                let tile = map[i][j];
-                let tileLoc = positionToGrid(tile.loc);
-                let actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
-                if(actualDistSq <= distSq){
-                  var tileDirection = tile.loc.duplicate();
-                  tileDirection.subtract(this.loc);
-                  tileDirection.upPols();
-                  if(tileDirection.th < 0){
-                    tileDirection.th += angleToAdd;
-                  }
-                  if(tileDirection.th <= angleC && tileDirection.th >= angleCC){
-                    tile.seen = true;
-                    //console.log(Math.floor(tileDirection.th*180/Math.PI));
-                  }
-                }
-              }
-            }
-=======
         }
-      }
-    }
-  }
-  dashTo(loc){
-    if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
-    this.energy-=player_config.dash_cost;
-    let diff = loc.duplicate();
-    diff.subtract(this.loc);
-    diff.multiply(player_config.dash_speed);
-    this.dashV=diff.duplicate();
-    this.dashTimer=player_config.dash_time;
-    this.storedV=this.v;
-  }
-  checkImportantLoc(){
-    //returns improtant loc, if it is one
-    for(let i=-1; i<=1; i++){
-      for(let j=-1; j<=1; j++){
-        this.cloc.add(new Vector2D(i,j));
-        if(this.cloc.x<0||this.cloc.y<0||
-           this.cloc.x>=config.map_x_size||this.cloc.y>=config.map_y_size)
-            continue;
-        if(game.mapManager.map[this.cloc.x][this.cloc.y].powerup){
-          let powerup=game.mapManager.map[this.cloc.x][this.cloc.y].powerup;
-          game.mapManager.map[this.cloc.x][this.cloc.y].powerup=null;
-          this.game.mapManager.powerupManager.delete(powerup);
-          switch (powerup.type.name){
-            case 'money':
-            resources.money+=powerup.type.amount;
-            //resources.updateMoney();
-            break;
-            case 'hp':
-            this.hp+=powerup.type.amount;
-            ui_elements.player_healthbar.max_value+=powerup.type.amount;
-            break;
-            case 'shield':
-            break;
-            case 'tech':
-            break;
-            case 'damage':
-            this.damageMultiplier+=powerup.type.amount;
-            player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
-            player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/5
-            break;
->>>>>>> master
-          }
-        }
+        // <<<<<<< HEAD
+        //           var map = this.game.mapManager.map;
+        //           for(let i = 0; i < config.map_x_size; i++){
+        //             for(let j = 0; j < config.map_y_size; j++){
+        //               if(map[i] && map[i][j]){
+        //                 let tile = map[i][j];
+        //                 let tileLoc = positionToGrid(tile.loc);
+        //                 let actualDistSq = ((cloc.x - tileLoc.x)*(cloc.x - tileLoc.x) + (cloc.y - tileLoc.y)*(cloc.y - tileLoc.y));
+        //                 if(actualDistSq <= distSq){
+        //                   var tileDirection = tile.loc.duplicate();
+        //                   tileDirection.subtract(this.loc);
+        //                   tileDirection.upPols();
+        //                   if(tileDirection.th < 0){
+        //                     tileDirection.th += angleToAdd;
+        //                   }
+        //                   if(tileDirection.th <= angleC && tileDirection.th >= angleCC){
+        //                     tile.seen = true;
+        //                     //console.log(Math.floor(tileDirection.th*180/Math.PI));
+        //                   }
+        //                 }
+        //               }
+        //             }
+        // =======
         dashTo(loc){
           if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
           this.energy-=player_config.dash_cost;
@@ -294,168 +242,213 @@ class Player extends Updateable {
                     break;
                     case 'shield':
                     break;
-                    case 'arrow':
-                    break;
                     case 'tech':
                     break;
                     case 'damage':
-                    player_config.damage*=powerup.type.amount;
+                    this.damageMultiplier+=powerup.type.amount;
+                    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
+                    player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/5
                     break;
                   }
                 }
-                if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
-                  let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
-                  //do something
-                  resources.inventory.push(loot);
-                  inventory.children[1].appendChild(loot.htmlElement);
-                  loot.htmlElement.addEventListener("click",function(event){
-                    SpaceStation.infoDiv.render(this,false);
-                  });
-                  game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
-                  return 'loot';
-                }
-                if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
-                  this.game.context.fillStyle="white";
-                  this.game.context.font = "20px Georgia";
-                  this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
-                  return 'start';
-                }
-                this.cloc.subtract(new Vector2D(i,j));
               }
             }
           }
-          docKeyDown(e) {
-            let key = String.fromCharCode(e.keyCode);
-            var Key = {
-              LEFT:   37,
-              UP:     38,
-              RIGHT:  39,
-              DOWN:   40
-            };
-            switch (key) {
-              case 'W':
-              if (game.player.a.y != -1)
-              game.player.a.y = -1;//go up
-              break;
-              case '&':
-              if (game.player.a.y != -1)
-              game.player.a.y = -1;//go up
-              break;
-              case 'A':
-              if (game.player.a.x != -1)
-              game.player.a.x = -1;//go left
-              break;
-              case '%':
-              if (game.player.a.x != -1)
-              game.player.a.x = -1;//go left
-              break;
-              case'S':
-              if (game.player.a.y != 1)
-              game.player.a.y = 1;//go down
-              break;
-              case'(':
-              if (game.player.a.y != 1)
-              game.player.a.y = 1;//go down
-              break;
-              case'D':
-              if (game.player.a.x != 1)
-              game.player.a.x = 1;//go right
-              break;
-              case'\'':
-              if (game.player.a.x != 1)
-              game.player.a.x = 1;//go right
-              break;
-              case' '://space
-              let loc=game.mouseLocationAbsolute;
-              let cloc=positionToGrid(loc);
-              game.player.dashTo(game.mouseLocationAbsolute);
-              break;
-              // issue 138 let the outer game keypress handler take care of exiting the inner game
-              // case'X':
-              //   if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
-              // break;
-              case ""://shift
-              if(resources.minions>0){
-                game.minionManager.spawnMinion();
-                resources.minions-=1;
-              }
-              break;
-            }
+          dashTo(loc){
+            if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
+            this.energy-=player_config.dash_cost;
+            let diff = loc.duplicate();
+            diff.subtract(this.loc);
+            diff.multiply(player_config.dash_speed);
+            this.dashV=diff.duplicate();
+            this.dashTimer=player_config.dash_time;
+            this.storedV=this.v;
           }
-          docKeyUp(e) {
-            let key = String.fromCharCode(e.keyCode);
-            console.log(key);
-            // var Key = {
-            //   LEFT:   37,
-            //   UP:     38,
-            //   RIGHT:  39,
-            //   DOWN:   40
-            // };
-            switch (key) {
-              case 'W':
-              game.player.a.y = 0;//stop going up
-              break;
-              case '&':
-              game.player.a.y = 0;//stop going up
-              break;
-              case 'A':
-              game.player.a.x = 0;//stop going left
-              break;
-              case '%':
-              game.player.a.x = 0;//stop going left
-              break;
-              case'S':
-              game.player.a.y = 0;//stop going down
-              break;
-              case'(':
-              game.player.a.y = 0;//stop going down
-              break;
-              case'D':
-              game.player.a.x = 0;//stop going right
-              break;
-              case'\'':
-              game.player.a.x = 0;//stop going right
-              break;
-            }
-          }
-          mousedown(){
-            game.player.mouseHeld=true;
-          }
-          mouseup(){
-            game.player.mouseHeld=false;
-          }
-          shoot(e){
-            if (game.player.shotCooldownTimer <= 0) {
-              game.player.shotCooldownTimer = player_config.shot_cooldown;
-              for(let i=0; i<player_config.spread_count; i++){
-                let diff = game.mouseLocationAbsolute.duplicate();
-                diff.subtract(game.player.loc);
-                diff.m = player_config.bullet_speed;
-                diff.th += (Math.random()-.5)*player_config.bullet_spread;
-                diff.upComps();
-                let projectile = {
-                  game: game,
-                  radius: player_config.bullet_size,
-                  loc: game.player.loc.duplicate(),
-                  v: diff,
-                  life: player_config.bullet_distance/diff.m,
-                  maxLife: player_config.bullet_distance/diff.m,
-                  render: function() {
-                    this.game.context.fillStyle = player_config.bullet_color;
-                    this.game.context.beginPath();
-                    this.game.context.arc(
-                      this.loc.x,
-                      this.loc.y,
-                      this.radius,
-                      0,
-                      2 * Math.PI);
-                      this.game.context.fill();
+          checkImportantLoc(){
+            //returns improtant loc, if it is one
+            for(let i=-1; i<=1; i++){
+              for(let j=-1; j<=1; j++){
+                this.cloc.add(new Vector2D(i,j));
+                if(this.cloc.x<0||this.cloc.y<0||
+                  this.cloc.x>=config.map_x_size||this.cloc.y>=config.map_y_size)
+                  continue;
+                  if(game.mapManager.map[this.cloc.x][this.cloc.y].powerup){
+                    let powerup=game.mapManager.map[this.cloc.x][this.cloc.y].powerup;
+                    game.mapManager.map[this.cloc.x][this.cloc.y].powerup=null;
+                    this.game.mapManager.powerupManager.delete(powerup);
+                    switch (powerup.type.name){
+                      case 'money':
+                      resources.money+=powerup.type.amount;
+                      //resources.updateMoney();
+                      break;
+                      case 'hp':
+                      this.hp+=powerup.type.amount;
+                      ui_elements.player_healthbar.max_value+=powerup.type.amount;
+                      break;
+                      case 'shield':
+                      break;
+                      case 'arrow':
+                      break;
+                      case 'tech':
+                      break;
+                      case 'damage':
+                      player_config.damage*=powerup.type.amount;
+                      break;
                     }
                   }
-                  if(player_config.render_bullet)
-                  projectile.render=player_config.render_bullet;
-                  game.player.projectiles.push(projectile);
+                  if(game.mapManager.map[this.cloc.x][this.cloc.y].loot){
+                    let loot=game.mapManager.map[this.cloc.x][this.cloc.y].loot;
+                    //do something
+                    resources.inventory.push(loot);
+                    inventory.children[1].appendChild(loot.htmlElement);
+                    loot.htmlElement.addEventListener("click",function(event){
+                      SpaceStation.infoDiv.render(this,false);
+                    });
+                    game.mapManager.map[this.cloc.x][this.cloc.y].loot=null;
+                    return 'loot';
+                  }
+                  if(game.mapManager.map[this.cloc.x][this.cloc.y].isStart){
+                    this.game.context.fillStyle="white";
+                    this.game.context.font = "20px Georgia";
+                    this.game.context.fillText("[X] to leave",this.loc.x-this.size,this.loc.y-this.size);
+                    return 'start';
+                  }
+                  this.cloc.subtract(new Vector2D(i,j));
                 }
               }
             }
-          }
+            docKeyDown(e) {
+              let key = String.fromCharCode(e.keyCode);
+              var Key = {
+                LEFT:   37,
+                UP:     38,
+                RIGHT:  39,
+                DOWN:   40
+              };
+              switch (key) {
+                case 'W':
+                if (game.player.a.y != -1)
+                game.player.a.y = -1;//go up
+                break;
+                case '&':
+                if (game.player.a.y != -1)
+                game.player.a.y = -1;//go up
+                break;
+                case 'A':
+                if (game.player.a.x != -1)
+                game.player.a.x = -1;//go left
+                break;
+                case '%':
+                if (game.player.a.x != -1)
+                game.player.a.x = -1;//go left
+                break;
+                case'S':
+                if (game.player.a.y != 1)
+                game.player.a.y = 1;//go down
+                break;
+                case'(':
+                if (game.player.a.y != 1)
+                game.player.a.y = 1;//go down
+                break;
+                case'D':
+                if (game.player.a.x != 1)
+                game.player.a.x = 1;//go right
+                break;
+                case'\'':
+                if (game.player.a.x != 1)
+                game.player.a.x = 1;//go right
+                break;
+                case' '://space
+                let loc=game.mouseLocationAbsolute;
+                let cloc=positionToGrid(loc);
+                game.player.dashTo(game.mouseLocationAbsolute);
+                break;
+                // issue 138 let the outer game keypress handler take care of exiting the inner game
+                // case'X':
+                //   if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
+                // break;
+                case ""://shift
+                if(resources.minions>0){
+                  game.minionManager.spawnMinion();
+                  resources.minions-=1;
+                }
+                break;
+              }
+            }
+            docKeyUp(e) {
+              let key = String.fromCharCode(e.keyCode);
+              console.log(key);
+              // var Key = {
+              //   LEFT:   37,
+              //   UP:     38,
+              //   RIGHT:  39,
+              //   DOWN:   40
+              // };
+              switch (key) {
+                case 'W':
+                game.player.a.y = 0;//stop going up
+                break;
+                case '&':
+                game.player.a.y = 0;//stop going up
+                break;
+                case 'A':
+                game.player.a.x = 0;//stop going left
+                break;
+                case '%':
+                game.player.a.x = 0;//stop going left
+                break;
+                case'S':
+                game.player.a.y = 0;//stop going down
+                break;
+                case'(':
+                game.player.a.y = 0;//stop going down
+                break;
+                case'D':
+                game.player.a.x = 0;//stop going right
+                break;
+                case'\'':
+                game.player.a.x = 0;//stop going right
+                break;
+              }
+            }
+            mousedown(){
+              game.player.mouseHeld=true;
+            }
+            mouseup(){
+              game.player.mouseHeld=false;
+            }
+            shoot(e){
+              if (game.player.shotCooldownTimer <= 0) {
+                game.player.shotCooldownTimer = player_config.shot_cooldown;
+                for(let i=0; i<player_config.spread_count; i++){
+                  let diff = game.mouseLocationAbsolute.duplicate();
+                  diff.subtract(game.player.loc);
+                  diff.m = player_config.bullet_speed;
+                  diff.th += (Math.random()-.5)*player_config.bullet_spread;
+                  diff.upComps();
+                  let projectile = {
+                    game: game,
+                    radius: player_config.bullet_size,
+                    loc: game.player.loc.duplicate(),
+                    v: diff,
+                    life: player_config.bullet_distance/diff.m,
+                    maxLife: player_config.bullet_distance/diff.m,
+                    render: function() {
+                      this.game.context.fillStyle = player_config.bullet_color;
+                      this.game.context.beginPath();
+                      this.game.context.arc(
+                        this.loc.x,
+                        this.loc.y,
+                        this.radius,
+                        0,
+                        2 * Math.PI);
+                        this.game.context.fill();
+                      }
+                    }
+                    if(player_config.render_bullet)
+                    projectile.render=player_config.render_bullet;
+                    game.player.projectiles.push(projectile);
+                  }
+                }
+              }
+            }
