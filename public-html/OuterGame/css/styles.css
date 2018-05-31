@@ -147,3 +147,19 @@ canvas {
 .gamepanel img {
   width: inherit;
 }
+
+#spacebar1{
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  bottom: 65px;
+  left: 43%;
+}
+
+#spacebar2{
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
+}
