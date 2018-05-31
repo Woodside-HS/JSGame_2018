@@ -21,6 +21,6 @@ const config = {
   mask_radius: 12, //measured in tiles
   tile_size: 25, //Measured in px
   canvas_width: 1024, //Measured in px
-  canvas_height: 576, //Measured in px
+  canvas_height: 676, //Measured in px
   background_color: "#202020" //Hex color
 };
