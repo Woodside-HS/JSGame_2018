@@ -275,21 +275,37 @@ class Player extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
-        if (game.player.a.y != -1)
-          game.player.a.y = -1;//go up
-        break;
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
+      case '&':
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
       case 'A':
-        if (game.player.a.x != -1)
-          game.player.a.x = -1;//go left
-        break;
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
+      case '%':
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
       case'S':
-        if (game.player.a.y != 1)
-          game.player.a.y = 1;//go down
-        break;
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
+      case'(':
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
       case'D':
-        if (game.player.a.x != 1)
-          game.player.a.x = 1;//go right
-        break;
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
+      case'\'':
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
       case' '://space
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
@@ -311,17 +327,29 @@ class Player extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
-        game.player.a.y = 0;//stop going up
-        break;
+      game.player.a.y = 0;//stop going up
+      break;
+      case '&':
+      game.player.a.y = 0;//stop going up
+      break;
       case 'A':
-        game.player.a.x = 0;//stop going left
-        break;
+      game.player.a.x = 0;//stop going left
+      break;
+      case '%':
+      game.player.a.x = 0;//stop going left
+      break;
       case'S':
-        game.player.a.y = 0;//stop going down
-        break;
+      game.player.a.y = 0;//stop going down
+      break;
+      case'(':
+      game.player.a.y = 0;//stop going down
+      break;
       case'D':
-        game.player.a.x = 0;//stop going right
-        break;
+      game.player.a.x = 0;//stop going right
+      break;
+      case'\'':
+      game.player.a.x = 0;//stop going right
+      break;
     }
   }
   mousedown(){

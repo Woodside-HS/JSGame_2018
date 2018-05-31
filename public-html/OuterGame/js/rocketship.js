@@ -4,8 +4,9 @@ class Rocketship extends Mover {
 		super(location);
 		this.loc = location;
 		this.radius = 15;
-
 		this.name = "Explorer";
+		
+		this.firingSound = new Audio("res/sounds/B/points.wav")
 
 		this.faction = 0; // FRIENDLY faction. Disables friendly fire.
 
@@ -135,6 +136,7 @@ class Rocketship extends Mover {
 
 
 	fireBullet() {
+		this.firingSound.play();
 		let angle = this.vel.theta();
 		angle += -this.fireSpread / 360 * Math.PI + Math.random() * this.fireSpread / 180 * Math.PI;
 		let velocity = new AngularVector2D(250, angle);
