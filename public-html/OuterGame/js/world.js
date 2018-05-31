@@ -2,6 +2,7 @@
 
 	constructor(level) {
 		this.level = level;
+		this.backgroundMusic = new Audio("res/sounds/A/bgS.mp3");
 		this.planets = [];
 		this.entities = []; // Array of entities
 		this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
@@ -19,7 +20,7 @@
 
 			this.cursorX = e.clientX - rect.left; // Adjust cursor coordinates to be relative to element
 			this.cursorY = e.clientY - rect.top;
-			if (gameState === "outer") {
+			if (gameState === "outer" && play) {
 				worlds[currentLevel].ship.mouseLoc = new Vector2D(this.cursorX, this.cursorY);
 			}
 		});
@@ -100,6 +101,7 @@
 		this.ship = new Rocketship(new Vector2D(0, 0));
 		playerShip = this.ship; // A dumb global variable we have for some reason
 		this.entities.push(this.ship);
+		resources.health = this.ship.stats;
 
 
 		this.cursorX = -50;
@@ -221,7 +223,7 @@
 			if (Vector2D.distance(this.stations[i].loc, this.ship.loc) <= 120) {
 				ctx.fillStyle = "white";
 				ctx.font = "20px Georgia";
-				ctx.fillText("[F] to land at station", canvas.width / 2 - 50, canvas.height / 2 - 50);
+				ctx.fillText("[F] to land at station", this.ship.loc.x - 100, this.ship.loc.y - 50);
 				this.stations[i].canLandOn = true;
 			} else {
 				this.stations[i].canLandOn = false;
@@ -578,7 +580,7 @@
 	}
 
 	update() {
-
+		this.backgroundMusic.play();
 		this.camera.update(); //Update the location of the camera
 
 		this.checkAsteroidCollision();
@@ -624,7 +626,7 @@
 		}
 
 
-		this.checkHitStation(); //issue 54
+
 	}
 
 	render() {
@@ -657,6 +659,7 @@
 		}
 
 		this.checkHitPlanet();
+		this.checkHitStation(); //issue 54
 
 		//translate to absolute
 		ctx.restore();
@@ -735,7 +738,7 @@
 
 		let pos = new Vector2D(canvas.width * 0.075, canvas.height * 0.125);
 
-		let segments = 36; // Number of segments in the health wheel
+		let segments = Math.floor(this.ship.stats.maxHp/100*36); // Number of segments in the health wheel
 		for (let i = 0; i < segments; i++) {
 
 			let color = '#008800'; // GREEN. Default health color

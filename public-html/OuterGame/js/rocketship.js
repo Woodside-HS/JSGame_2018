@@ -4,9 +4,14 @@ class Rocketship extends Mover {
 		super(location);
 		this.loc = location;
 		this.radius = 15;
+<<<<<<< HEAD
 		this.damagePower = 3;
 
+=======
+>>>>>>> master
 		this.name = "Explorer";
+		
+		this.firingSound = new Audio("res/sounds/B/points.wav")
 
 		this.faction = 0; // FRIENDLY faction. Disables friendly fire.
 
@@ -138,6 +143,7 @@ class Rocketship extends Mover {
 
 
 	fireBullet() {
+		this.firingSound.play();
 		let angle = this.vel.theta();
 		angle += -this.fireSpread / 360 * Math.PI + Math.random() * this.fireSpread / 180 * Math.PI;
 		let velocity = new AngularVector2D(250, angle);
@@ -171,6 +177,27 @@ class Rocketship extends Mover {
 	}
 
 	render() {
+
+		let v = Vector2D.subtract(worlds[currentLevel].stations[0].loc,this.loc)
+		let v2 = new Vector2D(5,0);
+		let v3 = new Vector2D(5,0);
+		v2.setDirection(Math.PI/2+v.theta());
+		v3.setDirection(-Math.PI/2+v.theta());
+		v.setMag(30);
+		v2 = Vector2D.add(v,v2);
+		v3 = Vector2D.add(v,v3);
+		v.setMag(40);
+		ctx.save();
+		ctx.translate(this.loc.x, this.loc.y);
+		ctx.fillStyle="#0066FF"
+		ctx.beginPath();
+		ctx.moveTo(v.x,v.y);
+		ctx.lineTo(v2.x,v2.y);
+		ctx.lineTo(v3.x,v3.y);
+		ctx.lineTo(v.x,v.y);
+		ctx.fill();
+		ctx.restore();
+
 
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
