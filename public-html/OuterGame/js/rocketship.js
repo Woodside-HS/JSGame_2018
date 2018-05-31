@@ -5,7 +5,7 @@ class Rocketship extends Mover {
 		this.loc = location;
 		this.radius = 15;
 		this.name = "Explorer";
-		
+
 		this.firingSound = new Audio("res/sounds/B/points.wav")
 
 		this.faction = 0; // FRIENDLY faction. Disables friendly fire.
@@ -172,22 +172,25 @@ class Rocketship extends Mover {
 	render() {
 
 		let v = Vector2D.subtract(worlds[currentLevel].stations[0].loc,this.loc)
-		let v2 = new Vector2D(5,0);
-		let v3 = new Vector2D(5,0);
+		let v2 = new Vector2D(3,0);
+		let v3 = new Vector2D(3,0);
 		v2.setDirection(Math.PI/2+v.theta());
 		v3.setDirection(-Math.PI/2+v.theta());
-		v.setMag(30);
+		v.setMag(40);
 		v2 = Vector2D.add(v,v2);
 		v3 = Vector2D.add(v,v3);
-		v.setMag(40);
+		v.setMag(50);
 		ctx.save();
 		ctx.translate(this.loc.x, this.loc.y);
-		ctx.fillStyle="#0066FF"
+		ctx.lineWidth = 1;
+		ctx.strokeStyle="rgba(200,200,200,.8)"
+		ctx.fillStyle="rgba(00,66,255,1)"
 		ctx.beginPath();
 		ctx.moveTo(v.x,v.y);
 		ctx.lineTo(v2.x,v2.y);
 		ctx.lineTo(v3.x,v3.y);
 		ctx.lineTo(v.x,v.y);
+		ctx.stroke();
 		ctx.fill();
 		ctx.restore();
 
