@@ -327,17 +327,29 @@ class Player extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
-        game.player.a.y = 0;//stop going up
-        break;
+      game.player.a.y = 0;//stop going up
+      break;
+      case '&':
+      game.player.a.y = 0;//stop going up
+      break;
       case 'A':
-        game.player.a.x = 0;//stop going left
-        break;
+      game.player.a.x = 0;//stop going left
+      break;
+      case '%':
+      game.player.a.x = 0;//stop going left
+      break;
       case'S':
-        game.player.a.y = 0;//stop going down
-        break;
+      game.player.a.y = 0;//stop going down
+      break;
+      case'(':
+      game.player.a.y = 0;//stop going down
+      break;
       case'D':
-        game.player.a.x = 0;//stop going right
-        break;
+      game.player.a.x = 0;//stop going right
+      break;
+      case'\'':
+      game.player.a.x = 0;//stop going right
+      break;
     }
   }
   mousedown(){
