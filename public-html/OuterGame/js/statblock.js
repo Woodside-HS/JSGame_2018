@@ -24,9 +24,9 @@ class StatBlock { // A block containing health, armor, resistance, etc.
 			if(this.entity instanceof Rocketship){
 				console.log("dead");
 
-				var youDiedImage = Images['death'];
+				//var youDiedImage = Images['death'];
 				this.deathDiv = document.getElementById("deathpanel");
-				this.deathDiv.appendChild(youDiedImage);
+				//this.deathDiv.appendChild(youDiedImage);
 
 
 		    gameState = "transition";

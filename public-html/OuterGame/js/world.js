@@ -29,12 +29,12 @@
 		this.cursorTargetRotation = Math.random() * Math.PI * 2; // Degrees of rotation for selection circle visual
 		this.targetWheelRotation = 0; // This is just used for the "Scanning..." visual effect
 
-		document.addEventListener("click", (e) => {
-			if (!this.atStation) {
-				let target = this.getCursorTarget(); // Finds the right target
-				this.target(target);
-			}
-		})
+		// document.addEventListener("click", (e) => {
+		// 	if (!this.atStation) {
+		// 		let target = this.getCursorTarget(); // Finds the right target
+		// 		this.target(target);
+		// 	}
+		// })
 
 		//add event listeners that toggle acceleration/deceleration/turning on
 		//  when key is down and off when key is up

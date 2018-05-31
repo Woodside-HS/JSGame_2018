@@ -151,10 +151,17 @@ canvas {
 
 #deathpanel {
   display: none;
+  background-image: url("../res/sprites/youdied.jpg");
   width: 1024px;
   height: 676px;
   position:absolute;
   z-index: 10;
+}
+
+#playAgain {
+  border: 2px solid blue;
+  background-color: blue;
+  font-size: 30px;
 }
 
 #spacebar1{

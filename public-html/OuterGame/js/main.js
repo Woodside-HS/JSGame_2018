@@ -184,6 +184,12 @@ function init(){
 	ctx = canvas.getContext('2d');
 	gameState = "outer";
 
+	document.getElementById('playAgain').addEventListener('click', function handler(){
+		document.getElementById('deathpanel').style.display = 'none';
+		init();
+	});
+
+
 	makeWorld();
 	var wrapper = document.getElementById('wrapper');
 	var loaderwrapper = document.getElementById('loader-wrapper');
@@ -192,6 +198,7 @@ function init(){
 	setTimeout(animate, 1000/FPS);
 	animate();
 }
+
 
 function makeWorld(){
   //increase current level number-- first one starts at 0
