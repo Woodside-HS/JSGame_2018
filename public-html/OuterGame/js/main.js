@@ -74,7 +74,7 @@ function init(){
 		},
 		buy : function(object){ //add object to inventory
 			this.money -= object.price;
-			//this.updateMoney();
+			this.updateMoney();
 			console.log(object.cat);
 			switch (object.cat){
 			case "Yokerling Bokum":
@@ -159,15 +159,15 @@ function init(){
 		},
 
 
-		// updateMoney : function(){
-		// 	var div = document.getElementById("moneyDiv");
-		// 	document.getElementById("amount").remove();
-		// 	var node = document.createTextNode("$"+this.money.toFixed(2));
-		// 	var text = document.createElement("p");
-		// 	text.appendChild(node);
-		// 	text.id = "amount";
-		// 	div.appendChild(text);
-		// }
+		updateMoney : function(){
+			var div = document.getElementById("moneyDiv");
+			document.getElementById("amount").remove();
+			var node = document.createTextNode("$"+this.money.toFixed(2));
+			var text = document.createElement("p");
+			text.appendChild(node);
+			text.id = "amount";
+			div.appendChild(text);
+		}
 	};
 
 
