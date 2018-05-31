@@ -27,8 +27,9 @@ class Player extends Updateable {
   init() {
     this.engineMultiplier=Math.log(resources.innerEngineLevel);
     this.stdmaxV*=1+this.engineMultiplier;
-    this.damageMultiplier=Math.log(resources.innerWeaponsLevel);
-    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/resources.innerWeaponsLevel,.5)+","+255*Math.pow(1/resources.innerWeaponsLevel,.5)+",.1)"
+    this.damageMultiplier=Math.log(resources.innerWeaponsLevel)+1;
+    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
+    player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/2
     this.hasMoved=false;
     //    this.image.src=player_config.image_src;
     // issue 118  don't reload this image for every player
@@ -92,9 +93,15 @@ class Player extends Updateable {
           if(diff.m<player_config.bullet_size+enemy.size/2){
             if(!player_config.damage_dropoff)
             player_config.damage_dropoff=0;
+<<<<<<< HEAD
             enemy.hp-=player_config.bullet_damage*
             Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
             if(!player_config.penetrating)
+=======
+          enemy.hp-=this.damageMultiplier*player_config.bullet_damage*
+              Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
+          if(!player_config.penetrating)
+>>>>>>> master
             this.projectiles.splice(i, 1);
             i--;
             break;
@@ -184,6 +191,7 @@ class Player extends Updateable {
               angleC += angleToAdd;
             }
           }
+<<<<<<< HEAD
           var map = this.game.mapManager.map;
           for(let i = 0; i < config.map_x_size; i++){
             for(let j = 0; j < config.map_y_size; j++){
@@ -205,6 +213,52 @@ class Player extends Updateable {
                 }
               }
             }
+=======
+        }
+      }
+    }
+  }
+  dashTo(loc){
+    if(this.dashCooldownTimer>0 || this.energy<player_config.dash_cost) return;
+    this.energy-=player_config.dash_cost;
+    let diff = loc.duplicate();
+    diff.subtract(this.loc);
+    diff.multiply(player_config.dash_speed);
+    this.dashV=diff.duplicate();
+    this.dashTimer=player_config.dash_time;
+    this.storedV=this.v;
+  }
+  checkImportantLoc(){
+    //returns improtant loc, if it is one
+    for(let i=-1; i<=1; i++){
+      for(let j=-1; j<=1; j++){
+        this.cloc.add(new Vector2D(i,j));
+        if(this.cloc.x<0||this.cloc.y<0||
+           this.cloc.x>=config.map_x_size||this.cloc.y>=config.map_y_size)
+            continue;
+        if(game.mapManager.map[this.cloc.x][this.cloc.y].powerup){
+          let powerup=game.mapManager.map[this.cloc.x][this.cloc.y].powerup;
+          game.mapManager.map[this.cloc.x][this.cloc.y].powerup=null;
+          this.game.mapManager.powerupManager.delete(powerup);
+          switch (powerup.type.name){
+            case 'money':
+            resources.money+=powerup.type.amount;
+            //resources.updateMoney();
+            break;
+            case 'hp':
+            this.hp+=powerup.type.amount;
+            ui_elements.player_healthbar.max_value+=powerup.type.amount;
+            break;
+            case 'shield':
+            break;
+            case 'tech':
+            break;
+            case 'damage':
+            this.damageMultiplier+=powerup.type.amount;
+            player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
+            player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/5
+            break;
+>>>>>>> master
           }
         }
         dashTo(loc){
