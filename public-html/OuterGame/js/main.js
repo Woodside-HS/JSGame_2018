@@ -70,7 +70,7 @@ function init(){
 				let button = document.getElementById("invInfo").children[3];
 				button.disabled = true;
 			}
-			//this.updateMoney();
+			this.updateMoney();
 		},
 		buy : function(object){ //add object to inventory
 			this.money -= object.price;
