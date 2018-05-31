@@ -24,7 +24,7 @@ function positionToGrid(vector) {
           Math.floor(vector.y / config.tile_size)
           );
 }
-function gridToPositon(vector) {
+function gridToPosition(vector) {
   return  new InnerVector2D(
           vector.x * config.tile_size,
           vector.y * config.tile_size
