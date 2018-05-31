@@ -217,7 +217,7 @@ SpaceStation.html = '\
           fruitcake. The same is true for most other alien species.</p>\
         </div>\
         <div id="Yokerling Bokum" class="tile">\
-          <img class="imgTile" src="shopIMGS/old/shield.png">\
+          <img class="imgTile" src="shopIMGS/costco1.png">\
           <p>Yokerling Bokum</p>\
           <span style="display:none;" id="4.30"></span>\
           <p style="display:none;">This nearly-impenetrable wall was first developed by a \
