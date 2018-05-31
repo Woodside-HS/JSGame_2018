@@ -3,6 +3,7 @@ class Mover {
   constructor(loc, vel, acc, radius, color, numOscillators){
     this.radius = radius;
     this.color = color;
+	this.collideSound = new Audio("res/sounds/B/CollidingwithOtherShips1.wav");
     //let volume = area and density = 1, so mass = area
     this.loc = loc;
     this.vel = vel || new Vector2D(0,0);
@@ -145,6 +146,9 @@ class Mover {
 			} else if(dist < (this.radius + ent.radius)) {
 				collisions.push({source: this, other: ent});
 			}
+		}
+		if (this === Rocketship){
+			this.collideSound.play();
 		}
 		return collisions;
 	}

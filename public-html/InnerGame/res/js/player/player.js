@@ -27,8 +27,9 @@ class Player extends Updateable {
   init() {
     this.engineMultiplier=Math.log(resources.innerEngineLevel);
     this.stdmaxV*=1+this.engineMultiplier;
-    this.damageMultiplier=Math.log(resources.innerWeaponsLevel);
-    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/resources.innerWeaponsLevel,.5)+","+255*Math.pow(1/resources.innerWeaponsLevel,.5)+",.1)"
+    this.damageMultiplier=Math.log(resources.innerWeaponsLevel)+1;
+    player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
+    player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/2
     this.hasMoved=false;
 //    this.image.src=player_config.image_src;
     // issue 118  don't reload this image for every player
@@ -92,7 +93,7 @@ class Player extends Updateable {
         if(diff.m<player_config.bullet_size+enemy.size/2){
           if(!player_config.damage_dropoff)
             player_config.damage_dropoff=0;
-          enemy.hp-=player_config.bullet_damage*
+          enemy.hp-=this.damageMultiplier*player_config.bullet_damage*
               Math.pow((this.projectiles[i].life/this.projectiles[i].maxLife),player_config.damage_dropoff);
           if(!player_config.penetrating)
             this.projectiles.splice(i, 1);
@@ -240,12 +241,12 @@ class Player extends Updateable {
             break;
             case 'shield':
             break;
-            case 'arrow':
-            break;
             case 'tech':
             break;
             case 'damage':
-            player_config.damage*=powerup.type.amount;
+            this.damageMultiplier+=powerup.type.amount;
+            player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
+            player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/5
             break;
           }
         }
@@ -274,21 +275,37 @@ class Player extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
-        if (game.player.a.y != -1)
-          game.player.a.y = -1;//go up
-        break;
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
+      case '&':
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
       case 'A':
-        if (game.player.a.x != -1)
-          game.player.a.x = -1;//go left
-        break;
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
+      case '%':
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
       case'S':
-        if (game.player.a.y != 1)
-          game.player.a.y = 1;//go down
-        break;
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
+      case'(':
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
       case'D':
-        if (game.player.a.x != 1)
-          game.player.a.x = 1;//go right
-        break;
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
+      case'\'':
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
       case' '://space
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
@@ -310,17 +327,29 @@ class Player extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
-        game.player.a.y = 0;//stop going up
-        break;
+      game.player.a.y = 0;//stop going up
+      break;
+      case '&':
+      game.player.a.y = 0;//stop going up
+      break;
       case 'A':
-        game.player.a.x = 0;//stop going left
-        break;
+      game.player.a.x = 0;//stop going left
+      break;
+      case '%':
+      game.player.a.x = 0;//stop going left
+      break;
       case'S':
-        game.player.a.y = 0;//stop going down
-        break;
+      game.player.a.y = 0;//stop going down
+      break;
+      case'(':
+      game.player.a.y = 0;//stop going down
+      break;
       case'D':
-        game.player.a.x = 0;//stop going right
-        break;
+      game.player.a.x = 0;//stop going right
+      break;
+      case'\'':
+      game.player.a.x = 0;//stop going right
+      break;
     }
   }
   mousedown(){
