@@ -146,6 +146,16 @@ canvas {
 .head img {
   width: inherit;
 }
+
+#help {
+  position: absolute;
+  width: 50px;
+  left: 924px;
+}
+#help img {
+  width: inherit;
+}
+
 .gamepanel {
   display: none;
   width: 1024px;

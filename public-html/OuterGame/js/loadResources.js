@@ -116,8 +116,17 @@ let imageSources = {//Properties of imageSources match names of images
 	logohead: {
 		sourceString:"res/panels/header.png",
 	},
+	question: {
+		sourceString:"res/panels/questionMark.png",
+	},
 	splashpanel: {
 		sourceString:"res/panels/TheSplash.png",
+	},
+	helpinner: {
+		sourceString:"res/panels/IntroText2.png",
+	},
+	helpouter: {
+		sourceString:"res/panels/IntroText.png",
 	},
 	panel00: {
 		sourceString:"res/panels/IntroText2.png",

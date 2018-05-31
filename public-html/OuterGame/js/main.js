@@ -163,6 +163,16 @@ function init(){
 	loaderwrapper.style.display = 'none';
 	wrapper.style.display = 'block';
 	setTimeout(animate, 1000/FPS);
+
+	let panelo = document.getElementById("outerhelp");
+	panelo.appendChild(Images["helpouter"]);
+	panelo.style.display = "none";
+
+	let paneli = document.getElementById("innerhelp");
+	paneli.appendChild(Images["helpinner"]);
+	paneli.style.display = "none";
+
+	document.getElementById("help").addEventListener("click", handleHelpPanel);
 	animate();
 }
 
@@ -186,6 +196,11 @@ function makeWorld(){
 					let panelh = document.getElementById("titlehead");
 					panelh.appendChild(Images["logohead"]);
 					panelh.style.display = "block";
+
+					let panelq = document.getElementById("help");
+					panelq.appendChild(Images["question"]);
+					panelq.style.display = "block";
+
 					let panel1 = document.getElementById("gamepanel0");
 					panel1.appendChild(Images["panel00"]);
 					panel1.style.display = "block";
@@ -221,6 +236,34 @@ function makeWorld(){
 			}
 		});
 	}
+}
+
+function handleHelpPanel(){
+		if(gameState == "outer"){
+			var tempState = "outer";
+			var panel = document.getElementById("outerhelp");
+			panel.style.display = "block";
+			var go = false;
+			break;
+		} else if(gameState == "inner"){
+			var tempState = "outer";
+			var panel = document.getElementById("innerhelp");
+			panel.style.display = "block";
+			var go = false;
+			break;
+		}
+		gameState = "transition";
+		document.addEventListener("keypress", function handler(event) {
+			switch(event.key) {
+				case all:
+					panel.style.display = "none";
+					go = true;
+					break;
+			}
+		});
+		if(go){
+			gameState = tempState;
+		}
 }
 
 function animate(){
