@@ -22,7 +22,7 @@ class PowerUpManager extends Updateable {
         type = 'money'
         break;
         case 3:
-        type = 'arrow'
+        type = 'damage'
         break;
         case 4:
         type = 'tech'

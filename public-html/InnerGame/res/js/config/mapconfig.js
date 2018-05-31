@@ -11,6 +11,6 @@ const map_config = {
   grass_image_src: 'res/sprites/grass.png',
   grass_image: new Image(),
   grass_image_size:400,
-  powerup_count: 10,
+  powerup_count: 20,
   mask_border_size: 1
 };

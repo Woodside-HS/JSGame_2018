@@ -7,8 +7,8 @@ var powerup_types = {
   },
   'damage':{
     name:'damage',
-    amount: 2,
-    image_src: '../InnerGame/res/sprites/hpPU.png',
+    amount: .5,
+    image_src: '../InnerGame/res/sprites/arrowPU.png',
     image: new Image()
   },
   'shield':{
@@ -21,11 +21,6 @@ var powerup_types = {
     name:'money',
     amount: 10,
     image_src: '../InnerGame/res/sprites/moneyPU.png',
-    image: new Image()
-  },
-  'arrow':{
-    name:'arrow',
-    image_src: '../InnerGame/res/sprites/arrowPU.png',
     image: new Image()
   },
   'tech':{

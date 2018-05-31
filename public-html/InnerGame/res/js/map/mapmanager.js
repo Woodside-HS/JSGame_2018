@@ -77,6 +77,8 @@ class MapManager extends Updateable {
 
       // initialiaze start location
       let startTile = this.getValidStartTile();
+      while(startTile.cloc.x*startTile.cloc.y==0||startTile.cloc.x>=config.map_x_size-1||startTile.cloc.y>=config.map_y_size-1)
+        startTile = this.getValidStartTile();
       startTile.isStart = true;
       //    startTile.seen = true;
 
