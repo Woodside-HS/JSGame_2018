@@ -16,6 +16,7 @@ class MapManager extends Updateable {
     // issue 118 use image loaded only once
     this.grassImage = Images.grass;
     this.powerupManager = new PowerUpManager(this.game);
+    this.startTile = null;
   }
   init() {
     //set world-specific config
@@ -72,20 +73,22 @@ class MapManager extends Updateable {
         for (let j = 0; j < config.map_y_size; j++)
           this.map[i][j].init();
 
+      // initialiaze start location
+      this.startTile = this.getValidStartTile();
+      this.startTile.isStart = true;
+      //    startTile.seen = true;s
+
       this.towerManager.init();
       this.powerupManager.init();
 
-      // initialiaze start location
-      let startTile = this.getValidStartTile();
-      startTile.isStart = true;
-      //    startTile.seen = true;
+      
 
 
       for (let i = 0; i < loot_config.animal_count; i++) {
         let animalTile = this.getValidStartTile();
         animalTile.loot = loot_types.animals[this.game.planet.planetImageNum-1];
       }
-      this.game.player.loc = startTile.loc.duplicate();
+      this.game.player.loc = this.startTile.loc.duplicate();
       let cloc = positionToGrid(this.game.player.loc);
       for (let i = cloc.x - 2; i <= cloc.x + 2; i++)
       for (let j = cloc.y - 2; j <= cloc.y + 2; j++)

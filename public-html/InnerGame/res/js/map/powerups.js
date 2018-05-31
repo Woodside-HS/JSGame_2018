@@ -59,7 +59,7 @@ class PowerUp extends Updateable {
     super();
     this.index=index;
     this.cloc=cloc;
-    this.loc=gridToPositon(cloc);
+    this.loc=gridToPosition(cloc);
     this.type=powerup_types[type]
     this.game = game;
     this.image = this.type.image;

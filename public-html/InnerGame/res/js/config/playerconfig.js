@@ -8,7 +8,7 @@ const player_config = {
   dash_speed:.1, //fraction of dash distance per frame
   dash_time:8, //dash time, in frames
   dash_cost: 10,//cost in energy units of dashing
-  max_hp: 100,
+  max_hp: 250,
   max_energy: 50,
   dash_cooldown: 20, //in frames
   energy_recovery_rate: 0.05,

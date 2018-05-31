@@ -12,5 +12,6 @@ const map_config = {
   grass_image: new Image(),
   grass_image_size:400,
   powerup_count: 10,
-  mask_border_size: 1
+  mask_border_size: 1,
+  safety_radius: 7
 };
