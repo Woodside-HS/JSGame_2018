@@ -2,6 +2,7 @@
 
 	constructor(level) {
 		this.level = level;
+		this.backgroundMusic = new Audio("res/sounds/A/bgS.mp3");
 		this.planets = [];
 		this.entities = []; // Array of entities
 		this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
@@ -19,7 +20,7 @@
 
 			this.cursorX = e.clientX - rect.left; // Adjust cursor coordinates to be relative to element
 			this.cursorY = e.clientY - rect.top;
-			if (gameState === "outer") {
+			if (gameState === "outer" && play) {
 				worlds[currentLevel].ship.mouseLoc = new Vector2D(this.cursorX, this.cursorY);
 			}
 		});
@@ -580,7 +581,7 @@
 	}
 
 	update() {
-
+		this.backgroundMusic.play();
 		this.camera.update(); //Update the location of the camera
 
 		this.checkAsteroidCollision();
