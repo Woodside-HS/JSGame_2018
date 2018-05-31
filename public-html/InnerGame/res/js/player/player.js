@@ -275,21 +275,37 @@ class Player extends Updateable {
     let key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
-        if (game.player.a.y != -1)
-          game.player.a.y = -1;//go up
-        break;
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
+      case '&':
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
       case 'A':
-        if (game.player.a.x != -1)
-          game.player.a.x = -1;//go left
-        break;
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
+      case '%':
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
       case'S':
-        if (game.player.a.y != 1)
-          game.player.a.y = 1;//go down
-        break;
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
+      case'(':
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
       case'D':
-        if (game.player.a.x != 1)
-          game.player.a.x = 1;//go right
-        break;
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
+      case'\'':
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
       case' '://space
         let loc=game.mouseLocationAbsolute;
         let cloc=positionToGrid(loc);
