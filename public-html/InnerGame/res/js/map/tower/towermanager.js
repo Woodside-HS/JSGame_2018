@@ -27,10 +27,10 @@ class TowerManager extends Updateable {
           this.randoms[i][j] < tower_config.tower_rate &&
           !this.game.mapManager.map[i][j].isOccupied
         ) {
-          let distanceToSpawn = gridToPosition(i, j);
+          let distanceToSpawn = gridToPosition(new InnerVector2D(i, j));
+          distanceToSpawn.subtract(this.game.mapManager.startTile.loc);
           console.log(distanceToSpawn);
-          distanceToSpawn.subtract(this.game.player.loc);
-          if (distanceToSpawn.m <= map_config.safety_radius) {
+          if (distanceToSpawn.m >= map_config.safety_radius*config.tile_size) {
             this.loadTower(new FastVector(i, j));
           }
         } else {
