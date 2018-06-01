@@ -239,31 +239,30 @@ function makeWorld(){
 }
 
 function handleHelpPanel(){
-		if(gameState == "outer"){
-			var tempState = "outer";
-			var panel = document.getElementById("outerhelp");
+	let panel;
+	var go = false;
+	var tempState = gameState;
+		if(gameState === "outer"){
+			panel = document.getElementById("outerhelp");
 			panel.style.display = "block";
-			var go = false;
-			break;
-		} else if(gameState == "inner"){
-			var tempState = "outer";
-			var panel = document.getElementById("innerhelp");
+		} else if(gameState === "inner"){
+			panel = document.getElementById("innerhelp");
 			panel.style.display = "block";
-			var go = false;
-			break;
+		} else {
+			go = true;
 		}
 		gameState = "transition";
 		document.addEventListener("keypress", function handler(event) {
 			switch(event.key) {
-				case all:
+				case " ":
+				if(!go){
 					panel.style.display = "none";
 					go = true;
+					gameState = tempState;
 					break;
+				}
 			}
 		});
-		if(go){
-			gameState = tempState;
-		}
 }
 
 function animate(){
