@@ -149,8 +149,9 @@ canvas {
 
 #help {
   position: absolute;
+  top: 50px;
   width: 50px;
-  left: 924px;
+  left: 974px;
 }
 #help img {
   width: inherit;
