@@ -123,10 +123,10 @@ let imageSources = {//Properties of imageSources match names of images
 		sourceString:"res/panels/TheSplash.png",
 	},
 	helpinner: {
-		sourceString:"res/panels/IntroText2.png",
+		sourceString:"res/panels/panel_IG.png",
 	},
 	helpouter: {
-		sourceString:"res/panels/IntroText.png",
+		sourceString:"res/panels/panel_OG.png",
 	},
 	panel00: {
 		sourceString:"res/panels/IntroText2.png",
