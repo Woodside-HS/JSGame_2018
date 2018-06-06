@@ -22,7 +22,7 @@ class PowerUpManager extends Updateable {
         type = 'money'
         break;
         case 3:
-        type = 'arrow'
+        type = 'damage'
         break;
         case 4:
         type = 'tech'
@@ -59,7 +59,7 @@ class PowerUp extends Updateable {
     super();
     this.index=index;
     this.cloc=cloc;
-    this.loc=gridToPositon(cloc);
+    this.loc=gridToPosition(cloc);
     this.type=powerup_types[type]
     this.game = game;
     this.image = this.type.image;
