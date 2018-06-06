@@ -187,6 +187,16 @@ function init(){
 	loaderwrapper.style.display = 'none';
 	wrapper.style.display = 'block';
 	setTimeout(animate, 1000/FPS);
+
+	let panelo = document.getElementById("outerhelp");
+	panelo.appendChild(Images["helpouter"]);
+	panelo.style.display = "none";
+
+	let paneli = document.getElementById("innerhelp");
+	paneli.appendChild(Images["helpinner"]);
+	paneli.style.display = "none";
+
+	document.getElementById("help").addEventListener("click", handleHelpPanel);
 	animate();
 }
 
@@ -207,6 +217,14 @@ function makeWorld(){
 					gameState = "transition";
 					//document.removeEventListener("keypress", handler);
 					panela.style.display = "none";
+					let panelh = document.getElementById("titlehead");
+					panelh.appendChild(Images["logohead"]);
+					panelh.style.display = "block";
+
+					let panelq = document.getElementById("help");
+					panelq.appendChild(Images["question"]);
+					panelq.style.display = "block";
+
 					let panel1 = document.getElementById("gamepanel0");
 					panel1.appendChild(Images["panel00"]);
 					panel1.style.display = "block";
@@ -225,9 +243,9 @@ function makeWorld(){
 		}
 	});
 	if(gameState === "transition"){
-		let panel1 = document.getElementById("gamepanel0");
-		panel1.appendChild(Images["panel00"]);
-		panel1.style.display = "block";
+		// let panel1 = document.getElementById("gamepanel0");
+		// panel1.appendChild(Images["panel00"]);
+		// panel1.style.display = "block";
 		document.addEventListener("keypress", function handler(event) {
 			switch(event.key) {
 				case " ":
@@ -242,6 +260,33 @@ function makeWorld(){
 			}
 		});
 	}
+}
+
+function handleHelpPanel(){
+	let panel;
+	var go = false;
+	var tempState = gameState;
+		if(gameState === "outer"){
+			panel = document.getElementById("outerhelp");
+			panel.style.display = "block";
+		} else if(gameState === "inner"){
+			panel = document.getElementById("innerhelp");
+			panel.style.display = "block";
+		} else {
+			go = true;
+		}
+		gameState = "transition";
+		document.addEventListener("keypress", function handler(event) {
+			switch(event.key) {
+				case " ":
+				if(!go){
+					panel.style.display = "none";
+					go = true;
+					gameState = tempState;
+					break;
+				}
+			}
+		});
 }
 
 function animate(){
