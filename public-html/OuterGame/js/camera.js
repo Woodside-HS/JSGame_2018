@@ -33,5 +33,14 @@ class Camera {
 		}
 		this.vel.add(this.acc)
 		this.loc.add(this.vel);
+		if(!this.acc.x||!this.acc.y){
+			this.acc = new Vector2D(0,0);
+		}
+		if(!this.vel.x||!this.vel.y){
+			this.vel = new Vector2D(0,0);
+		}
+		if(!this.loc.x||!this.loc.y){
+			this.loc = System().ship.loc.clone();
+		}
 	}
 }

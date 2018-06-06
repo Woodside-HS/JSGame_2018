@@ -2,7 +2,9 @@ const tower_types = {
   nulltype: {
     name: 0,
     hp: 10,
-    frequency: 50
+    frequency: 50,
+	imageid: "hut",
+	imageCount: 1
   },
   //spawner
   boss: 'boss',
