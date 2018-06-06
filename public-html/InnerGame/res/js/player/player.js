@@ -161,6 +161,11 @@ class Player extends Updateable {
     }
   }
   render() {
+    if(this.isIdiot){
+      game.context.fillStyle="white";
+      game.context.font = "20px Georgia";
+      game.context.fillText("Stop Using Caps You Hecking Despacidiot",game.player.loc.x-this.size,game.player.loc.y-game.player.size);
+    }
     this.game.context.save();
     this.game.context.translate(this.loc.x,this.loc.y);
     this.game.context.rotate(this.v.th+Math.PI/2);
@@ -272,7 +277,59 @@ class Player extends Updateable {
     }
   }
   docKeyDown(e) {
-    let key = String.fromCharCode(e.keyCode);
+    let key = e.key
+    switch (key) {
+      case 'w':
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
+      case '&':
+      if (game.player.a.y != -1)
+      game.player.a.y = -1;//go up
+      break;
+      case 'a':
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
+      case '%':
+      if (game.player.a.x != -1)
+      game.player.a.x = -1;//go left
+      break;
+      case's':
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
+      case'(':
+      if (game.player.a.y != 1)
+      game.player.a.y = 1;//go down
+      break;
+      case'd':
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
+      case'\'':
+      if (game.player.a.x != 1)
+      game.player.a.x = 1;//go right
+      break;
+      case' '://space
+        let loc=game.mouseLocationAbsolute;
+        let cloc=positionToGrid(loc);
+        game.player.dashTo(game.mouseLocationAbsolute);
+      break;
+      case'X':
+      game.player.isIdiot=true;
+      break;
+      case'x':
+      game.player.isIdiot=false;
+      break;
+      case ""://shift
+        if(resources.minions>0){
+          game.minionManager.spawnMinion();
+          resources.minions-=1;
+        }
+      break;
+    }
+    key = String.fromCharCode(e.keyCode);
     switch (key) {
       case 'W':
       if (game.player.a.y != -1)
@@ -311,10 +368,6 @@ class Player extends Updateable {
         let cloc=positionToGrid(loc);
         game.player.dashTo(game.mouseLocationAbsolute);
       break;
-      // issue 138 let the outer game keypress handler take care of exiting the inner game
-      // case'X':
-      //   if(gameState=='inner' && game.player.hasMoved && game.player.checkImportantLoc()=='start') gameState='outer'; //leave
-      // break;
       case ""://shift
         if(resources.minions>0){
           game.minionManager.spawnMinion();
