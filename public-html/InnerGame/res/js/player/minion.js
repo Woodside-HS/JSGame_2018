@@ -26,7 +26,7 @@ class Minion extends Updateable {
     this.damage = minion_config.damage;
     this.attackFrame = false; //whether to attack that frame
     this.type = Math.floor(randIn(0, minion_config.minion_type_count));
-    this.image = Images["minion" + (this.type+1)];
+    this.image = Images["minion"];
   }
   update() {
     this.cloc = positionToGrid(this.loc);
