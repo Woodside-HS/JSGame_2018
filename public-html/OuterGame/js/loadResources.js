@@ -164,27 +164,9 @@ let imageSources = {//Properties of imageSources match names of images
 			sourceString:"shopIMGS/exit.png",
 		}
 	},
-	minion1: {
-		sourceString: "../InnerGame/res/sprites/minions/1.png",
+	minion: {
+		sourceString: "../InnerGame/res/sprites/minions/minion.png",
 	},
-	minion2: {
-		sourceString: "../InnerGame/res/sprites/minions/2.png",
-	},
-	minion3: {
-		sourceString: "../InnerGame/res/sprites/minions/3.png",
-	},
-	minion4: {
-		sourceString: "../InnerGame/res/sprites/minions/4.png",
-	},
-	minion5: {
-		sourceString: "../InnerGame/res/sprites/minions/5.png",
-	},
-	minion6: {
-		sourceString: "../InnerGame/res/sprites/minions/6.png",
-	},
-	minion7: {
-		sourceString: "../InnerGame/res/sprites/minions/7.png"
-	}
 }
 
 
