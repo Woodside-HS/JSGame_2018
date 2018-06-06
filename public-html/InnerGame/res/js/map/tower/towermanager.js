@@ -29,7 +29,6 @@ class TowerManager extends Updateable {
         ) {
           let distanceToSpawn = gridToPosition(new InnerVector2D(i, j));
           distanceToSpawn.subtract(this.game.mapManager.startTile.loc);
-          console.log(distanceToSpawn);
           if (distanceToSpawn.m >= map_config.safety_radius*config.tile_size) {
             this.loadTower(new FastVector(i, j));
           }

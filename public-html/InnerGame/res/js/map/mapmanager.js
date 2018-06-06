@@ -154,7 +154,6 @@ class MapManager extends Updateable {
             k++;
           }
           if(tile.normalVector.m == 3 && tile.quadNormal.m == 1)
-          console.log(k);
           if (tile.tileType == tile_types.rock || tile.tileType == tile_types.water)
           if((tile.normalVector.m == 3 && tile.quadNormal.m == 1 && k==4)
             ||(k<=3)){
