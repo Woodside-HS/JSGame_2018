@@ -61,30 +61,35 @@ function init(){
 				if(this.inventory[i].name==name){
 					this.money += this.inventory[i].value;
 					this.inventory.splice(i,1);
-					available = true;
 					SpaceStation.infoDiv.render(item,false);
+					let button = document.getElementById("invInfo").children[3];
+					button.disabled = true;
+					//disable button to show cant sell anymore
 				}
 			}
-			if(!available){ //if item is not available in inventory (player doesn't have it to sell anymore)
-				//disable button to show cant sell anymore
-				let button = document.getElementById("invInfo").children[3];
-				button.disabled = true;
-			}
-			//this.updateMoney();
+			this.updateMoney();
 		},
 		buy : function(object){ //add object to inventory
 			this.money -= object.price;
-			//this.updateMoney();
+			this.updateMoney();
 			console.log(object.cat);
 			switch (object.cat){
-			case "Shield Boost":
+			case "Yokerling Bokum":
 				this.shieldLevel += 1;
+				document.getElementById("Yokerling Bokum").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Fruit Cake":
 				this.shieldLevel += 1;
+				document.getElementById("Yokerling Bokum").className = "tile";
+				document.getElementById("Fruit Cake").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Gandalf":
 				this.shieldLevel += 1;
+				document.getElementById("Fruit Cake").className = "tile";
+				document.getElementById("Gandalf").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Cannon":
 				this.outerWeaponsLevel += 1;
@@ -92,22 +97,38 @@ function init(){
 			case "Missiles":
 				this.outerWeaponsLevel += 1;
 				break;
-			case "datrepoji2k_1":
+			case "Biffle Ball":
 				this.innerWeaponsLevel += 1;
+				document.getElementById("The Holy Grail").className = "tile";
+				document.getElementById("Biffle Ball").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
-			case "garminian_2":
+			case "The Holy Grail":
 				this.innerWeaponsLevel += 1;
+				document.getElementById("788’481’515’’6765-132154--16").className = "tile";
+				document.getElementById("The Holy Grail").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
-			case "gaze_3":
+			case "788’481’515’’6765-132154--16":
 				this.innerWeaponsLevel += 1;
+				document.getElementById("788’481’515’’6765-132154--16").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
-			case "Engine One":
+			case "1958 Ferrari GT-3432":
+			document.getElementById("[Gurgling Noises]").className = "tile";
+			document.getElementById("1958 Ferrari GT-3432").className = "oldTile";
+			document.getElementById("shopInfo").children[3].disabled = true;
 				break;
-			case "Engine Two":
-				this.outerEngineLevel += 1;
+			case "[Gurgling Noises]":
+				// this.outerEngineLevel += 1;
+				document.getElementById("Canadian Mooseherder").className = "tile";
+				document.getElementById("[Gurgling Noises]").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
-			case "Engine Three":
-				this.innerEngineLevel += 1;
+			case "Canadian Mooseherder":
+				// this.innerEngineLevel += 1;
+				document.getElementById("Canadian Mooseherder").className = "oldTile";
+				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Max HP Increase":
 				this.health.maxHp += 3;
@@ -124,7 +145,10 @@ function init(){
 			case "Minions":
 				this.minions+=1;
 				break;
-			case "Fog Remover":
+			case "Game Room":
+				//doesn't do anything?
+				break;
+			case "Vision Enhancer":
 				if(playerStats.revealLevel<=4)
 				playerStats.revealLevel+=1;
 				break;
@@ -132,15 +156,15 @@ function init(){
 		},
 
 
-		// updateMoney : function(){
-		// 	var div = document.getElementById("moneyDiv");
-		// 	document.getElementById("amount").remove();
-		// 	var node = document.createTextNode("$"+this.money.toFixed(2));
-		// 	var text = document.createElement("p");
-		// 	text.appendChild(node);
-		// 	text.id = "amount";
-		// 	div.appendChild(text);
-		// }
+		updateMoney : function(){
+			var div = document.getElementById("moneyDiv");
+			document.getElementById("amount").remove();
+			var node = document.createTextNode("$"+this.money.toFixed(2));
+			var text = document.createElement("p");
+			text.appendChild(node);
+			text.id = "amount";
+			div.appendChild(text);
+		}
 	};
 
 
@@ -163,6 +187,16 @@ function init(){
 	loaderwrapper.style.display = 'none';
 	wrapper.style.display = 'block';
 	setTimeout(animate, 1000/FPS);
+
+	let panelo = document.getElementById("outerhelp");
+	panelo.appendChild(Images["helpouter"]);
+	panelo.style.display = "none";
+
+	let paneli = document.getElementById("innerhelp");
+	paneli.appendChild(Images["helpinner"]);
+	paneli.style.display = "none";
+
+	document.getElementById("help").addEventListener("click", handleHelpPanel);
 	animate();
 }
 
@@ -183,6 +217,14 @@ function makeWorld(){
 					gameState = "transition";
 					//document.removeEventListener("keypress", handler);
 					panela.style.display = "none";
+					let panelh = document.getElementById("titlehead");
+					panelh.appendChild(Images["logohead"]);
+					panelh.style.display = "block";
+
+					let panelq = document.getElementById("help");
+					panelq.appendChild(Images["question"]);
+					panelq.style.display = "block";
+
 					let panel1 = document.getElementById("gamepanel0");
 					panel1.appendChild(Images["panel00"]);
 					panel1.style.display = "block";
@@ -201,9 +243,9 @@ function makeWorld(){
 		}
 	});
 	if(gameState === "transition"){
-		let panel1 = document.getElementById("gamepanel0");
-		panel1.appendChild(Images["panel00"]);
-		panel1.style.display = "block";
+		// let panel1 = document.getElementById("gamepanel0");
+		// panel1.appendChild(Images["panel00"]);
+		// panel1.style.display = "block";
 		document.addEventListener("keypress", function handler(event) {
 			switch(event.key) {
 				case " ":
@@ -218,6 +260,33 @@ function makeWorld(){
 			}
 		});
 	}
+}
+
+function handleHelpPanel(){
+	let panel;
+	var go = false;
+	var tempState = gameState;
+		if(gameState === "outer"){
+			panel = document.getElementById("outerhelp");
+			panel.style.display = "block";
+		} else if(gameState === "inner"){
+			panel = document.getElementById("innerhelp");
+			panel.style.display = "block";
+		} else {
+			go = true;
+		}
+		gameState = "transition";
+		document.addEventListener("keypress", function handler(event) {
+			switch(event.key) {
+				case " ":
+				if(!go){
+					panel.style.display = "none";
+					go = true;
+					gameState = tempState;
+					break;
+				}
+			}
+		});
 }
 
 function animate(){

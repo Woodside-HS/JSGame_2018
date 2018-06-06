@@ -138,6 +138,24 @@ canvas {
         transform: rotate(360deg);  /* Firefox 16+, IE 10+, Opera */
     }
 }
+.head {
+  display: none;
+  width: 1024px;
+  position: relative;
+}
+.head img {
+  width: inherit;
+}
+
+#help {
+  position: absolute;
+  top: 50px;
+  width: 50px;
+  left: 974px;
+}
+#help img {
+  width: inherit;
+}
 
 .gamepanel {
   display: none;
@@ -146,4 +164,20 @@ canvas {
 }
 .gamepanel img {
   width: inherit;
+}
+
+#spacebar1{
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  bottom: 65px;
+  left: 43%;
+}
+
+#spacebar2{
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  bottom: 30px;
+  right: 50px;
 }
