@@ -61,7 +61,19 @@ const ui_elements = {
       if (game.player.hp <= 0) {
         this.isVisible = true;
         game.isPaused = true;
-      }
+        document.addEventListener('keypress', function(){
+          if(game.isPaused){
+            game.isPaused=false;
+            ui_elements.death_screen.isVisible=false;
+            gameState='outer';
+            System().ship.loc=new Vector2D(0,0);
+            System().ship.vel=new Vector2D(0,0);
+            game.player.hp=100;
+          }
+        }
+      )
     }
+  }
+
   }
 };
