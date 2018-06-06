@@ -166,7 +166,7 @@ let imageSources = {//Properties of imageSources match names of images
 	},
 	minion: {
 		sourceString: "../InnerGame/res/sprites/minions/minion.png",
-	},
+	}
 }
 
 
