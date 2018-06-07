@@ -43,25 +43,24 @@ function init(){
 	loot_types.init();
 
 	resources = { //all the player's resources (ie money, aliens, equipment, etc)
-		health: null,
+		health: null, //holds the ship's health statblock, can't put in here bc doesn't exist yet
 		money : 100,
 		inventory : [], //each has a value
 		shieldLevel : 1,
-		innerWeaponsLevel : 1, //may have to split into different weapons/tools
+		innerWeaponsLevel : 1,
 		innerEngineLevel : 1,
-		outerWeaponsLevel : 1, //may have to split into different weapons/tools
+		outerWeaponsLevel : 1,
 		outerEngineLevel : 1,
 		minions: 5,
 		fogLevel: 1,
 
 		sellItem : function(item){
 			let name = item.id;
-			let available = false;
 			for(let i=0;i<this.inventory.length;i++){
 				if(this.inventory[i].name==name){
-					this.money += this.inventory[i].value;
-					this.inventory.splice(i,1);
-					SpaceStation.infoDiv.render(item,false);
+					//if there is an item in the inventory with the name of the item being sold, then can sell it
+					this.money += this.inventory[i].value; //add money
+					this.inventory.splice(i,1); //remove item
 					let button = document.getElementById("invInfo").children[3];
 					button.disabled = true;
 					//disable button to show cant sell anymore
@@ -76,12 +75,12 @@ function init(){
 			switch (object.cat){
 			case "Yokerling Bokum":
 				this.shieldLevel += 1;
-				document.getElementById("Yokerling Bokum").className = "oldTile";
-				document.getElementById("shopInfo").children[3].disabled = true;
+				document.getElementById("Yokerling Bokum").className = "oldTile";//old tiles turn gray and can't be bought again
+				document.getElementById("shopInfo").children[3].disabled = true;//button disabled so can't be bought again
 				break;
 			case "Fruit Cake":
 				this.shieldLevel += 1;
-				document.getElementById("Yokerling Bokum").className = "tile";
+				document.getElementById("Yokerling Bokum").className = "tile"; //next level item is enabled
 				document.getElementById("Fruit Cake").className = "oldTile";
 				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
@@ -120,13 +119,13 @@ function init(){
 			document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "[Gurgling Noises]":
-				// this.outerEngineLevel += 1;
+				this.outerEngineLevel += 1;
 				document.getElementById("Canadian Mooseherder").className = "tile";
 				document.getElementById("[Gurgling Noises]").className = "oldTile";
 				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
 			case "Canadian Mooseherder":
-				// this.innerEngineLevel += 1;
+				this.innerEngineLevel += 1;
 				document.getElementById("Canadian Mooseherder").className = "oldTile";
 				document.getElementById("shopInfo").children[3].disabled = true;
 				break;
@@ -134,6 +133,9 @@ function init(){
 				this.health.maxHp += 3;
 				player_config.max_hp+=10;
 				ui_elements.player_healthbar.max_value+=10;
+				break;
+			case "Instant Health Boost":
+				System().ship.stats.healDamage(10);
 				break;
 			case "Minions":
 				this.minions+=1;
@@ -150,8 +152,9 @@ function init(){
 
 
 		updateMoney : function(){
-			var div = document.getElementById("moneyDiv");
-			document.getElementById("amount").remove();
+			var div = document.getElementById("moneyDiv");  //div in upper left corner that shows money
+			document.getElementById("amount").remove();  //clear out the paragraph inside the div
+			//create a new paragraph and node to add to div with new amount of money
 			var node = document.createTextNode("$"+this.money.toFixed(2));
 			var text = document.createElement("p");
 			text.appendChild(node);
