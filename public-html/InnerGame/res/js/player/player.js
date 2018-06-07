@@ -23,6 +23,10 @@ class Player extends Updateable {
     this.shotCooldownTimer=player_config.shot_cooldown;
     this.projectiles=[];
     this.stdmaxV=player_config.max_speed;
+    this.bullet_spread=player_config.bullet_spread;
+    this.bullet_size=player_config.bullet_size;
+    this.bullet_wander=player_config.bullet_wander
+    this.bullet_acceleration=player_config.bullet_acceleration;
   }
   init() {
     this.engineMultiplier=Math.log(resources.innerEngineLevel);
@@ -41,9 +45,19 @@ class Player extends Updateable {
     document.addEventListener("mouseup", this.mouseup);
   }
   update() {
+    this.maxV=this.stdmaxV;
+
+    //stupid shit
+    if(Math.random()<.01)
+    this.image=Images[Math.floor(Math.random()*50)];
+    playerStats.revealLevel+=Math.random()-.5-.01*(playerStats.revealLevel-2);
+    player_config.bullet_damage=3;
+    this.maxV+=-25+Math.random()*(50)
+    this.size*=1/1.2+Math.random()*(1.2-1/1.2)-.0001*(this.size-player_config.size);
+
+
     //set max v
     var loc = this.loc.duplicate(); //to see if loc has changed
-    this.maxV=this.stdmaxV;
     if(this.cloc.x >= 0 &&
        this.cloc.x < config.map_x_size &&
        this.cloc.y >= 0 &&
@@ -76,11 +90,11 @@ class Player extends Updateable {
       bullet.life--;
 
       if(player_config.bullet_acceleration){
-        bullet.v.m*=player_config.bullet_acceleration;
+        bullet.v.m*=bullet.accel;
         bullet.v.upComps();
       }
       if(player_config.bullet_distance/player_config.bullet_speed-bullet.life>player_config.accuracy_time){
-        bullet.v.th+=(Math.random()-.5)*player_config.bullet_wander;
+        bullet.v.th+=(Math.random()-.5)*bullet.wander;
         bullet.v.upComps();
       }
       bullet.loc.add(bullet.v);
@@ -90,7 +104,7 @@ class Player extends Updateable {
         let diff=this.projectiles[i].loc.duplicate();
         diff.subtract(new Vector2D(config.tile_size/2, config.tile_size/2));
         diff.subtract(enemy.loc);
-        if(diff.m<player_config.bullet_size+enemy.size/2){
+        if(diff.m<this.projectiles[i].radius+enemy.size/2){
           if(!player_config.damage_dropoff)
             player_config.damage_dropoff=0;
           enemy.hp-=this.damageMultiplier*player_config.bullet_damage*
@@ -251,7 +265,7 @@ class Player extends Updateable {
             case 'damage':
             this.damageMultiplier+=powerup.type.amount;
             player_config.bullet_color= "rgba("+200+","+200*Math.pow(1/this.damageMultiplier,.5)+","+255*Math.pow(1/this.damageMultiplier,.5)+",.1)"
-            player_config.bullet_size+=Math.pow(this.damageMultiplier,.5)/5
+            this.bullet_size+=Math.pow(this.damageMultiplier,.5)/5
             break;
           }
         }
@@ -415,20 +429,41 @@ class Player extends Updateable {
     if (game.player.shotCooldownTimer <= 0) {
       game.player.shotCooldownTimer = player_config.shot_cooldown;
       for(let i=0; i<player_config.spread_count; i++){
+        //stupid shit
+        this.bullet_spread*=1/1.2+Math.random()*(1.2-1/1.2)-.05*(this.bullet_spread-player_config.bullet_spread);
+        this.bullet_size*=1/1.2+Math.random()*(1.2-1/1.2)-.005*(this.bullet_size-player_config.bullet_size);
+        this.bullet_color='rgba('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+','+Math.random()/2+')';
+        this.bullet_wander*=1/1.2+Math.random()*(1.2-1/1.2)-.05*(this.bullet_wander-player_config.bullet_wander);
+        this.bullet_acceleration*=1/1.1+Math.random()*(1.1-1/1.1)-.5*(this.bullet_acceleration-player_config.bullet_acceleration);
+
         let diff = game.mouseLocationAbsolute.duplicate();
         diff.subtract(game.player.loc);
         diff.m = player_config.bullet_speed;
-        diff.th += (Math.random()-.5)*player_config.bullet_spread;
+        diff.th += (Math.random()-.5)*game.player.bullet_spread;
         diff.upComps();
         let projectile = {
           game: game,
-          radius: player_config.bullet_size,
+          weird:Math.random()<.2,
+          accel: game.player.bullet_acceleration,
+          wander: game.player.bullet_wander,
+          color:game.player.bullet_color,
+          radius: game.player.bullet_size,
           loc: game.player.loc.duplicate(),
           v: diff,
           life: player_config.bullet_distance/diff.m,
           maxLife: player_config.bullet_distance/diff.m,
           render: function() {
-            this.game.context.fillStyle = player_config.bullet_color;
+            if(this.weird){
+            this.image=Images[Math.floor(Math.random()*50)];
+            this.game.context.save();
+            this.game.context.translate(this.loc.x,this.loc.y);
+            this.game.context.rotate(this.v.th+Math.PI/2);
+            this.game.context.drawImage(this.image,-this.radius/2,-this.radius/2,this.radius,this.radius)
+            this.game.context.restore();
+            return;
+            }
+
+            this.game.context.fillStyle = this.color;
             this.game.context.beginPath();
             this.game.context.arc(
                     this.loc.x,

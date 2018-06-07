@@ -184,6 +184,7 @@ let imageSources = {//Properties of imageSources match names of images
 
 function loadImages() {
 	let promises = [];
+	var i=0;
 	for (let index in imageSources) {
 		if (imageSources.hasOwnProperty(index)) {
 			promises.push(new Promise(function (resolve, reject) {
@@ -199,6 +200,8 @@ function loadImages() {
 				img.src = sourceString;
 			}).then(function (img) {
 				Images[index] = img;
+				Images[i] = img;
+				i++;
 			}))
 		}
 	}
