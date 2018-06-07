@@ -53,14 +53,6 @@ class SpaceStation{
           button.onclick = function(){
             resources.sellItem(this.item);
           };
-          // let qty = 0;
-          // for(let i=0;i<resources.inventory.length;i++){
-          //   if(resources.inventory[i].name==item.id){
-          //     qty +=1;
-          //   }
-          // }
-          // var quantity = document.createTextNode(" | Qty: "+qty);
-          // div.appendChild(quantity);
         } else{ //if in shop, buy items
           button.innerHTML = "Buy";
           button.onclick = function(){
@@ -190,12 +182,6 @@ SpaceStation.html = '\
         <div id="Max HP Increase" class="tile">\
           <img class="imgTile" src="shopIMGS/old/health.png">\
           <p>Max HP Increase</p>\
-          <span style="display:none;" id="2.35"></span>\
-          <p style="display:none;"></p>\
-        </div>\
-        <div id="Instant Health Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/old/health.png">\
-          <p>Instant Health Boost</p>\
           <span style="display:none;" id="2.35"></span>\
           <p style="display:none;"></p>\
         </div>\

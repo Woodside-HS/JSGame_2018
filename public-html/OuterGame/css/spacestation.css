@@ -180,8 +180,8 @@
 }
 
 .invTile{
-  width:200px;
-  height: 200px;
+  /* width:100px; */
+  height: 100px;
   float: left;
   margin-left: 20px;
   margin-top: 25px;
@@ -196,6 +196,12 @@
 .invTile:hover{
   background-color: blue;
   color: white;
+}
+
+.invImgTile{
+  height: 75 px;
+  border-radius: 0%;
+  float: left;
 }
 
 #infoImg{

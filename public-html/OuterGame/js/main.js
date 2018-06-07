@@ -135,13 +135,6 @@ function init(){
 				player_config.max_hp+=10;
 				ui_elements.player_healthbar.max_value+=10;
 				break;
-			case "Instant Health Boost":
-				if(System().ship.stats.damageTaken==0){ //if ship isn't damaged, don't buy
-					this.money += object.price;
-				} else{
-					System().ship.stats.healDamage(10);
-				}
-				break;
 			case "Minions":
 				this.minions+=1;
 				break;

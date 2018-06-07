@@ -78,6 +78,7 @@
 							var div = document.getElementById("spacestation");
 							div.style.display = "block";
 							//^^will render station instead of space in run function
+							resources.updateMoney();
 						}
 					}
 					break;
