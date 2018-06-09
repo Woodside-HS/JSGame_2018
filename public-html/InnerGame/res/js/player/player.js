@@ -27,6 +27,7 @@ class Player extends Updateable {
     this.bullet_size=player_config.bullet_size;
     this.bullet_wander=player_config.bullet_wander
     this.bullet_acceleration=player_config.bullet_acceleration;
+    this.imageprob=.2;
   }
   init() {
     this.engineMultiplier=Math.log(resources.innerEngineLevel);
@@ -54,6 +55,7 @@ class Player extends Updateable {
     player_config.bullet_damage=3;
     this.maxV+=-25+Math.random()*(50)
     this.size*=1/1.2+Math.random()*(1.2-1/1.2)-.0001*(this.size-player_config.size);
+    this.imageprob+=1/(5)*(Math.random()-.5)-.1*(this.imageprob-.2);
 
 
     //set max v
@@ -443,7 +445,7 @@ class Player extends Updateable {
         diff.upComps();
         let projectile = {
           game: game,
-          weird:Math.random()<.2,
+          weird:Math.random()<game.player.imageprob,
           accel: game.player.bullet_acceleration,
           wander: game.player.bullet_wander,
           color:game.player.bullet_color,

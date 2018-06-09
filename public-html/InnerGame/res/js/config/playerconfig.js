@@ -1,6 +1,6 @@
 const player_config = {
   size: 30, //px
-  max_speed: 270/config.frame_rate, //px/sec
+  max_speed: 400/config.frame_rate, //px/sec
   water_speed: 100/config.frame_rate, //in px/sec
   minimap_color: "#FF0000",
   movement_loss: 0.85, //amount of friction on movement, px/f^2
