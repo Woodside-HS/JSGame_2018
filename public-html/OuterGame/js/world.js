@@ -2,7 +2,7 @@
 
 	constructor(level) {
 		this.level = level;
-		this.backgroundMusic = new Audio("res/sounds/A/bgS.mp3");
+		this.backgroundMusic = new Audio("public-html/OuterGame/res/sounds/A/bgS.mp3");
 		this.planets = [];
 		this.entities = []; // Array of entities
 		this.visuals = []; // Array of visual movers that, to save time, don't interact with other objects (they're purely visual)
@@ -89,7 +89,7 @@
 
 	initialize() {
 		// Debug mode determines whether certain measurements appear for testing purposes
-		this.debugMode = true;
+		this.debugMode = false;
 
 		this.makePlanets(30);
 		this.makeAsteroids(40, true); //issue 12, will spawn in canvas
@@ -370,7 +370,7 @@
 				var dist = Vector2D.distance(b1.loc, b2.loc);
 
 				if (dist <= r1 + r2) {
-					console.log('collision detected');
+					// console.log('collision detected');
 
 
 

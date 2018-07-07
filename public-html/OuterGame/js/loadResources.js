@@ -1,183 +1,183 @@
 let imageSources = {//Properties of imageSources match names of images
 	//outer game images
 	Asteroid1: {
-		sourceString: "res/sprites/Planet/Asteroid1.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid1.png",
 	},
 	Asteroid2: {
-		sourceString: "res/sprites/Planet/Asteroid2.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid2.png",
 	},
 	Asteroid3: {
-		sourceString: "res/sprites/Planet/Asteroid3.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid3.png",
 	},
 	Asteroid4: {
-		sourceString: "res/sprites/Planet/Asteroid4.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid4.png",
 	},
 	Asteroid5: {
-		sourceString: "res/sprites/Planet/Asteroid5.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid5.png",
 	},
 	Asteroid6: {
-		sourceString: "res/sprites/Planet/Asteroid6.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid6.png",
 	},
 	Asteroid7: {
-		sourceString: "res/sprites/Planet/Asteroid7.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid7.png",
 	},
 	Asteroid8: {
-		sourceString: "res/sprites/Planet/Asteroid8.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid8.png",
 	},
 	Asteroid9: {
-		sourceString: "res/sprites/Planet/Asteroid9.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid9.png",
 	},
 	Asteroid10: {
-		sourceString: "res/sprites/Planet/Asteroid10.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/Asteroid10.png",
 	},
 	Planet1: {
-		sourceString: "res/sprites/Planet/p0001.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/p0001.png",
 	},
 	Planet2: {
-		sourceString: "res/sprites/Planet/p0010.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/p0010.png",
 	},
 	Planet3: {
-		sourceString: "res/sprites/Planet/p0011.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/p0011.png",
 	},
 	Planet4: {
-		sourceString: "res/sprites/Planet/p0008.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/p0008.png",
 	},
 	Planet5: {
-		sourceString: "res/sprites/Planet/p0006.png",
+		sourceString: "public-html/OuterGame/res/sprites/Planet/p0006.png",
 	},
 	playerShip: {
-		sourceString: "res/sprites/Finalimgs/SpaceShip.png",
+		sourceString: "public-html/OuterGame/res/sprites/Finalimgs/SpaceShip.png",
 	},
 	starfield: {
-		sourceString: "res/starfield.png"
+		sourceString: "public-html/OuterGame/res/starfield.png"
 	},
 	Station: {
-		sourceString: "res/sprites/Finalimgs/AllySpaceStation4.png"
+		sourceString: "public-html/OuterGame/res/sprites/Finalimgs/AllySpaceStation4.png"
 	},
 	Drone1: {
-		sourceString: "res/sprites/Finalimgs/Drone2.png"
+		sourceString: "public-html/OuterGame/res/sprites/Finalimgs/Drone2.png"
 	},
 	Drone2: {
-		sourceString: "res/sprites/Finalimgs/Drone3.png"
+		sourceString: "public-html/OuterGame/res/sprites/Finalimgs/Drone3.png"
 	},
 	Drone3: {
-		sourceString: "res/sprites/Finalimgs/Drone4.png"
+		sourceString: "public-html/OuterGame/res/sprites/Finalimgs/Drone4.png"
 	},
 	//inner game images
 	grass: {
-		sourceString: "../InnerGame/res/sprites/grass.png",
+		sourceString: "public-html/InnerGame/res/sprites/grass.png",
 	},
 	fog: {
-		sourceString: "../InnerGame/res/sprites/fog.png",
+		sourceString: "public-html/InnerGame/res/sprites/fog.png",
 	},
 	rocks2c: {
-		sourceString: "../InnerGame/res/sprites/rocks2c.png",
+		sourceString: "public-html/InnerGame/res/sprites/rocks2c.png",
 	},
 	tractor: {
-		sourceString: "../InnerGame/res/sprites/tractor.png",
+		sourceString: "public-html/InnerGame/res/sprites/tractor.png",
 	},
 	WATERTiles: {
-		sourceString: "../InnerGame/res/sprites/WATERTiles.png",
+		sourceString: "public-html/InnerGame/res/sprites/WATERTiles.png",
 	},
 	hpPU: {
-		sourceString: "../InnerGame/res/sprites/hpPU.png",
+		sourceString: "public-html/InnerGame/res/sprites/hpPU.png",
 	},
 	shieldPU: {
-		sourceString: "../InnerGame/res/sprites/shieldPU.png",
+		sourceString: "public-html/InnerGame/res/sprites/shieldPU.png",
 	},
 	moneyPU: {
-		sourceString: "../InnerGame/res/sprites/moneyPU.png",
+		sourceString: "public-html/InnerGame/res/sprites/moneyPU.png",
 	},
 	techPU: {
-		sourceString: "../InnerGame/res/sprites/techPU.png",
+		sourceString: "public-html/InnerGame/res/sprites/techPU.png",
 	},
 	arrowPU: {
-		sourceString: "../InnerGame/res/sprites/arrowPU.png",
+		sourceString: "public-html/InnerGame/res/sprites/arrowPU.png",
 	},
 	splash: {
-		sourceString:"../InnerGame/res/sprites/splash/youdied.jpg",
+		sourceString:"public-html/InnerGame/res/sprites/splash/youdied.jpg",
 	},
 	creature1: {
-		sourceString:"../InnerGame/res/sprites/creatures/FatBat.png"
+		sourceString:"public-html/InnerGame/res/sprites/creatures/FatBat.png"
 	},
 	creature2: {
-		sourceString:"../InnerGame/res/sprites/creatures/green.png"
+		sourceString:"public-html/InnerGame/res/sprites/creatures/green.png"
 	},
 	creature3: {
-		sourceString:"../InnerGame/res/sprites/creatures/chickenwithabelt.png"
+		sourceString:"public-html/InnerGame/res/sprites/creatures/chickenwithabelt.png"
 	},
 	creature4: {
-		sourceString:"../InnerGame/res/sprites/creatures/Ratwithahood.png"
+		sourceString:"public-html/InnerGame/res/sprites/creatures/Ratwithahood.png"
 	},
 	creature5: {
-		sourceString:"../InnerGame/res/sprites/creatures/AlienMage.png"
+		sourceString:"public-html/InnerGame/res/sprites/creatures/AlienMage.png"
 	},
 	// Panels
 	logohead: {
-		sourceString:"res/panels/header.png",
+		sourceString:"public-html/OuterGame/res/panels/header.png",
 	},
 	question: {
-		sourceString:"res/panels/questionMark.png",
+		sourceString:"public-html/OuterGame/res/panels/questionMark.png",
 	},
 	splashpanel: {
-		sourceString:"res/panels/TheSplash.png",
+		sourceString:"public-html/OuterGame/res/panels/TheSplash.png",
 	},
 	helpinner: {
-		sourceString:"res/panels/panel_IG.png",
+		sourceString:"public-html/OuterGame/res/panels/panel_IG.png",
 	},
 	helpouter: {
-		sourceString:"res/panels/panel_OG.png",
+		sourceString:"public-html/OuterGame/res/panels/panel_OG.png",
 	},
 	panel00: {
-		sourceString:"res/panels/IntroText2.png",
+		sourceString:"public-html/OuterGame/res/panels/IntroText2.png",
 	},
 	panel01: {
-		sourceString:"res/panels/bluedown.png",
+		sourceString:"public-html/OuterGame/res/panels/bluedown.png",
 	},
 	panel02: {
-		sourceString:"res/panels/greendown.png",
+		sourceString:"public-html/OuterGame/res/panels/greendown.png",
 	},
 	panel03: {
-		sourceString:"res/panels/greydown.png",
+		sourceString:"public-html/OuterGame/res/panels/greydown.png",
 	},
 	panel04: {
-		sourceString:"res/panels/purpledown.png",
+		sourceString:"public-html/OuterGame/res/panels/purpledown.png",
 	},
 	panel05: {
-		sourceString:"res/panels/reddown.png",
+		sourceString:"public-html/OuterGame/res/panels/reddown.png",
 	},
 	// Trading post images
 	stationBackground: {
-		sourceString:"shopIMGS/background.png",
+		sourceString:"public-html/OuterGame/shopIMGS/background.png",
 
 
 		roverEngine: {
-			sourceString:"shopIMGS/engine2.png",
+			sourceString:"public-html/OuterGame/shopIMGS/engine2.png",
 		},
 		fogRemover: {
-			sourceString:"shopIMGS/fog.png",
+			sourceString:"public-html/OuterGame/shopIMGS/fog.png",
 		},
 		health: {
-			sourceString:"shopIMGS/health.png",
+			sourceString:"public-html/OuterGame/shopIMGS/health.png",
 		},
 		lasergun: {
-			sourceString:"shopIMGS/lasergun.png",
+			sourceString:"public-html/OuterGame/shopIMGS/lasergun.png",
 		},
 		turret: {
-			sourceString:"shopIMGS/turret.png",
+			sourceString:"public-html/OuterGame/shopIMGS/turret.png",
 		},
 		shield: {
-			sourceString:"shopIMGS/shield.png",
+			sourceString:"public-html/OuterGame/shopIMGS/shield.png",
 		},
 		minion: {
-			sourceString:"shopIMGS/minion.png",
+			sourceString:"public-html/OuterGame/shopIMGS/minion.png",
 		},
 		exitButton: {
-			sourceString:"shopIMGS/exit.png",
+			sourceString:"public-html/OuterGame/shopIMGS/exit.png",
 		}
 	},
 	minion: {
-		sourceString: "../InnerGame/res/sprites/minions/minion.png",
+		sourceString: "public-html/InnerGame/res/sprites/minions/minion.png",
 	}
 }
 

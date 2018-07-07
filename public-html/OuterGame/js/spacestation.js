@@ -163,7 +163,7 @@ class SpaceStation{
 SpaceStation.html = '\
   <div id="moneyDiv"><p id="amount">$100</p></div>\
   <h1 style="font-size:40px;">Space Station</h1>\
-  <img id="exitButton" src="shopIMGS/exit.png">\
+  <img id="exitButton" src="public-html/OuterGame/shopIMGS/exit.png">\
   <div id="menu">\
     <div id="shopButton" class="menuButton">Go To Shop</div>\
     <div id="inventoryButton" class="menuButton">Go To Inventory</div>\
@@ -180,13 +180,13 @@ SpaceStation.html = '\
     <div class="items" id="shopItems">\
       <div id="healthDiv" class="catDiv">\
         <div id="Max HP Increase" class="tile">\
-          <img class="imgTile" src="shopIMGS/old/health.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/old/health.png">\
           <p>Max HP Increase</p>\
           <span style="display:none;" id="40"></span>\
           <p style="display:none;"></p>\
         </div>\
         <div id="Instant Health Boost" class="tile">\
-          <img class="imgTile" src="shopIMGS/old/health.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/old/health.png">\
           <p>Instant Health Boost</p>\
           <span style="display:none;" id="15"></span>\
           <p style="display:none;"></p>\
@@ -194,7 +194,7 @@ SpaceStation.html = '\
       </div>\
       <div id="shieldsDiv" class="catDiv">\
         <div id="Gandalf" class="tile">\
-          <img class="imgTile" src="shopIMGS/gandalf.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/gandalf.png">\
           <p>Gandalf</p>\
           <span style="display:none;" id="30"></span>\
           <p style="display:none;">“YOU SHALL NOT PASS!!!!” When this wizard was stolen\
@@ -202,14 +202,14 @@ SpaceStation.html = '\
            They are nowhere to be found.</p>\
         </div>\
         <div id="Fruit Cake" class="tile">\
-          <img class="imgTile" src="shopIMGS/fruit_cake.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/fruit_cake.png">\
           <p>Fruit Cake</p>\
           <span style="display:none;" id="50"></span>\
           <p style="display:none;">For eons, humans used to run away from eating \
           fruitcake. The same is true for most other alien species.</p>\
         </div>\
         <div id="Yokerling Bokum" class="tile">\
-          <img class="imgTile" src="shopIMGS/costco1.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/costco1.png">\
           <p>Yokerling Bokum</p>\
           <span style="display:none;" id="75"></span>\
           <p style="display:none;">This nearly-impenetrable wall was first developed by a \
@@ -218,19 +218,19 @@ SpaceStation.html = '\
       </div>\
       <div id="weaponsDiv" class="catDiv">\
         <div id="Cannon" class="tile">\
-          <img class="imgTile" src="shopIMGS/cannon.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/cannon.png">\
           <p>Cannon</p>\
           <span style="display:none;" id="110"></span>\
           <p style="display:none;"></p>\
         </div>\
         <div id="Missiles" class="tile">\
-          <img class="imgTile" src="shopIMGS/missiles.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/missiles.png">\
           <p>Missiles</p>\
           <span style="display:none;" id="110"></span>\
           <p style="display:none;"></p>\
         </div>\
         <div id="Biffle Ball" class="tile">\
-          <img class="imgTile" src="shopIMGS/datrepoji2k_1.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/datrepoji2k_1.png">\
           <p>Biffle Ball</p>\
           <span style="display:none;" id="40"></span>\
           <p style="display:none;">On the asteroid chain of Biffle-22, \
@@ -238,14 +238,14 @@ SpaceStation.html = '\
           as hard as titanium, which is now used vto manufacture bullets across the galaxy.</p>\
         </div>\
         <div id="The Holy Grail" class="tile">\
-          <img class="imgTile" src="shopIMGS/garminian_2.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/garminian_2.png">\
           <p>The Holy Grail</p>\
           <span style="display:none;" id="70"></span>\
           <p style="display:none;">Once the Holy Grail was found in Petra, Jordan, people decided \
           to use its heavenly qualities to manufacture excellent bullets.</p>\
         </div>\
         <div id="788’481’515’’6765-132154--16" class="tile">\
-          <img class="imgTile" src="shopIMGS/gaze_3.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/gaze_3.png">\
           <p>788’481’515’’6765-132154--16</p>\
           <span style="display:none;" id="100"></span>\
           <p style="display:none;">82210028’4 02534[033]/68/ 98-4=064 96842`064~1 60634051/*0541 \
@@ -254,21 +254,21 @@ SpaceStation.html = '\
       </div>\
       <div id="enginesDiv" class="catDiv">\
         <div id="1958 Ferrari GT-3432" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine1.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/engine1.png">\
           <p>1958 Ferrari GT-3432</p>\
           <span style="display:none;" id="30"></span>\
           <p style="display:none;">The fastest automobile ever created lends itself well to \
           spaceflight, but the uncontrollable nature of the clutch makes it a very unreliable. </p>\
         </div>\
         <div id="[Gurgling Noises]" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine2.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/engine2.png">\
           <p>[Gurgling Noises]</p>\
           <span style="display:none;" id="60"></span>\
           <p style="display:none;">AAAEREHRPSEEEEE MYARFFFF GHEO”PORIE. YYWOPQWEBBEOPE, LLLLAORPORSUFEEQ \
           BYISPAAIDSE. (Tip: Just take the engine and run)</p>\
         </div>\
         <div id="Canadian Mooseherder" class="tile">\
-          <img class="imgTile" src="shopIMGS/engine3.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/engine3.png">\
           <p>Canadian Mooseherder</p>\
           <span style="display:none;" id="100"></span>\
           <p style="display:none;">After the Great Frozzen, the Canadians were most prepared for the \
@@ -278,19 +278,19 @@ SpaceStation.html = '\
       </div>\
       <div id="miscDiv" class="catDiv">\
         <div id="Minions" class="tile">\
-          <img class="imgTile" src="shopIMGS/minion.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/minion.png">\
           <p>Minions</p>\
           <span style="display:none;" id="5"></span>\
           <p style="display:none;"></p>\
         </div>\
         <div id="Game Room" class="tile">\
-          <img class="imgTile" src="shopIMGS/green_room.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/green_room.png">\
           <p>Game Room</p>\
           <span style="display:none;" id="130"></span>\
           <p style="display:none;">You can’t see it, but there’ll be a pool table and flat-screen TV on the ship.</p>\
         </div>\
         <div id="Vision Enhancer" class="tile">\
-          <img class="imgTile" src="shopIMGS/scannerpsd.png">\
+          <img class="imgTile" src="public-html/OuterGame/shopIMGS/scannerpsd.png">\
           <p>Vision Enhancer</p>\
           <span style="display:none;" id="150"></span>\
           <p style="display:none;">Extend the range of your vision on all foggy planets.</p>\

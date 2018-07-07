@@ -29,7 +29,7 @@ class Tower extends Updateable {
                         this.type.images = [];
                         for (let i = 0; i < this.type.imageCount; i++) {
                                 let currentImage = new Image();
-                                currentImage.src = "../InnerGame/res/sprites/tower/" + this.type.imageid + "/" + i + ".png";
+                                currentImage.src = "public-html/InnerGame/res/sprites/tower/" + this.type.imageid + "/" + i + ".png";
                                 this.type.images.push(currentImage);
                         }
                 }
