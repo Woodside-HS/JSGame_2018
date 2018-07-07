@@ -5,8 +5,8 @@ class Rocketship extends Mover {
 		this.loc = location;
 		this.radius = 15;
 		this.name = "Explorer";
-		
-		this.firingSound = new Audio("res/sounds/B/points.wav")
+
+		this.firingSound = new Audio("public-html/OuterGame/res/sounds/B/points.wav")
 
 		this.faction = 0; // FRIENDLY faction. Disables friendly fire.
 

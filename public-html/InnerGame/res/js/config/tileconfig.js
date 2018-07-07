@@ -18,35 +18,35 @@ const tile_types = {
     minimap_color: new Color("#5ca33c"), //Color object
     is_occupied: false,
     is_water: false,
-    // image_src: '../InnerGame/res/sprites/grass.png',
+    // image_src: 'public-html/InnerGame/res/sprites/grass.png',
     // image: new Image()
   },
   rock: {
     minimap_color: new Color("#696e75"), //Color object
     is_occupied: true,
     is_water: false,
-    // image_src: '../InnerGame/res/sprites/rocks2c.png',
+    // image_src: 'public-html/InnerGame/res/sprites/rocks2c.png',
     // image: new Image()
   },
   water: {
     minimap_color: new Color("#5ae1fc"), //Color object
     is_occupied: true,
     is_water: true,
-    // image_src: '../InnerGame/res/sprites/WATERTiles.png',
+    // image_src: 'public-html/InnerGame/res/sprites/WATERTiles.png',
     // image: new Image()
   },
   mask: {
     minimap_color: new Color("#202020"), //Color object
     is_occupied: false,
     is_water: false,
-    // image_src: '../InnerGame/res/sprites/fog.png',
+    // image_src: 'public-html/InnerGame/res/sprites/fog.png',
     // image: new Image(),
     size: 40
   }
 };
 const tile_config = {
   // animal_image: new Image(),
-  // animal_image_src: '../InnerGame/res/sprites/rocks2c.png',
+  // animal_image_src: 'public-html/InnerGame/res/sprites/rocks2c.png',
   gridline_stroke: 1,
   gridline_color: "#000000",
   tile_overlap: 1
